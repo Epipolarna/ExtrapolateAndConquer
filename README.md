@@ -1,4 +1,4 @@
-Extrapolate---Conquer
+Extrapolate & Conquer
 =====================
 
 Next-level visual shit
