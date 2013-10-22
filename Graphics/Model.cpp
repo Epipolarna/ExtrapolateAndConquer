@@ -1,12 +1,16 @@
-#include "model.h"
+#include "Model.hpp"
 
-Model::Model() {
+namespace graphics {
+
+Model::Model()
+{
 }
 
 Model::Model(QString objectFile) {
     load(objectFile);
     mMatrix.setToIdentity();
 }
+
 void Model::load(QString filename) {
     model = glmReadOBJ(filename.toLatin1().data());
     if(model->numtexcoords < 1) {
@@ -57,64 +61,6 @@ void Model::load(QString filename) {
     qDebug() << "loading file";
 }
 
-void Model::setProgram(){
-    program.addShaderFromSourceFile(QGLShader::Vertex, ":/Shaders/shader.vert");
-    qWarning() << "Verted";
-    program.addShaderFromSourceFile(QGLShader::Fragment, ":/Shaders/shader.frag");
-    qWarning() << "Fraged";
-    program.link();
-    qWarning() << "Linked";
-}
-
-bool Model::setFragmentShaderFile(QString filename) {
-    program.addShaderFromSourceFile(QGLShader::Fragment, ":/Shaders/shader.frag");
-    /*
-    if(!program.addShaderFromSourceFile(QGLShader::Fragment, filename)) {
-        qDebug() << "Could not load shader file " + filename + ": " << program.log();
-        return false;
-    } else {
-        qDebug() << "Loaded " + filename + " successfully";
-        return true;
-    }
-    */
-}
-bool Model::setVertexShaderFile(QString filename) {
-    program.addShaderFromSourceFile(QGLShader::Vertex, ":/Shaders/shader.vert");
-    /*
-    if(!program.addShaderFromSourceFile(QGLShader::Vertex, filename)) {
-        qDebug() << "Could not load shader file " + filename + ": " << program.log();
-        return false;
-    } else {
-        qDebug() << "Loaded " + filename + " successfully";
-        return true;
-    }
-    */
-}
-bool Model::linkShaderProgram() {
-    program.link();
-    /*
-    if(program.link()) {
-        qDebug() << "Program linked";
-        return true;
-    } else {
-        qDebug() << "Failed to link program:" << program.log();
-        return false;
-    }
-    */
-}
-
-void Model::initShaderProgram(QGLShaderProgram& program) {
-    vertexAttr = program.attributeLocation("vertex");
-    normalAttr = program.attributeLocation("normal");
-    texCoordAttr = program.attributeLocation("texCoord");
-    mvpMatUniform = program.uniformLocation("mvpMatrix");
-    mMatUniform = program.uniformLocation("mMatrix");
-    vMatUniform = program.uniformLocation("vMatrix");
-    pMatUniform = program.uniformLocation("pMatrix");
-    textureUniform = program.uniformLocation("tex");
-}
-
-
 void Model::draw(QGLShaderProgram& program, QMatrix4x4 vMatrix, QMatrix4x4 pMatrix, GLuint tex) {
     //program.bind();
 
@@ -147,6 +93,6 @@ void Model::draw(QGLShaderProgram& program, QMatrix4x4 vMatrix, QMatrix4x4 pMatr
     program.release();
     //program.bind();
 }
-void Model::setTexture(GLuint texture) {
-    this->texture = texture;
+
 }
+

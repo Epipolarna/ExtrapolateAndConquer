@@ -16,6 +16,7 @@ IF(WIN32)
     # Windows specific
     IF(MINGW)
         SET (CMAKE_CXX_FLAGS "-std=c++11 -Wall")
+        cmake_policy(SET CMP0020 NEW)
     ENDIF()
 ENDIF()
 
@@ -27,18 +28,18 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #move the configurationfile to the build dir
 # Shaders
-CONFIGURE_FILE(Shaders/phong.vert Shaders/phong.vert COPYONLY)
-CONFIGURE_FILE(Shaders/phong.frag Shaders/phong.frag COPYONLY)
-CONFIGURE_FILE(Shaders/FBO/threshold.vert Shaders/FBO/threshold.vert COPYONLY)
-CONFIGURE_FILE(Shaders/FBO/threshold.vert Shaders/FBO/threshold.frag COPYONLY)
-CONFIGURE_FILE(Shaders/plaintextureshader.vert Shaders/plaintextureshader.vert COPYONLY)
-CONFIGURE_FILE(Shaders/plaintextureshader.frag Shaders/plaintextureshader.frag COPYONLY)
+CONFIGURE_FILE(Graphics/Shaders/phong.vert Graphics/Shaders/phong.vert COPYONLY)
+CONFIGURE_FILE(Graphics/Shaders/phong.frag Graphics/Shaders/phong.frag COPYONLY)
+CONFIGURE_FILE(Graphics/Shaders/FBO/threshold.vert Graphics/Shaders/FBO/threshold.vert COPYONLY)
+CONFIGURE_FILE(Graphics/Shaders/FBO/threshold.vert Graphics/Shaders/FBO/threshold.frag COPYONLY)
+CONFIGURE_FILE(Graphics/Shaders/plaintextureshader.vert Graphics/Shaders/plaintextureshader.vert COPYONLY)
+CONFIGURE_FILE(Graphics/Shaders/plaintextureshader.frag Graphics/Shaders/plaintextureshader.frag COPYONLY)
 # Models
-CONFIGURE_FILE(Models/monkey.obj Models/monkey.obj COPYONLY)
-CONFIGURE_FILE(Models/monkey.mtl Models/monkey.mtl COPYONLY)
-CONFIGURE_FILE(Models/fbosquare.obj Models/fbosquare.obj COPYONLY)
-CONFIGURE_FILE(Shaders/phong.vert Shaders/phong.vert COPYONLY)
-CONFIGURE_FILE(Shaders/phong.vert Shaders/phong.vert COPYONLY)
+CONFIGURE_FILE(Graphics/Models/monkey.obj Graphics/Models/monkey.obj COPYONLY)
+CONFIGURE_FILE(Graphics/Models/monkey.mtl Graphics/Models/monkey.mtl COPYONLY)
+CONFIGURE_FILE(Graphics/Models/fbosquare.obj Graphics/Models/fbosquare.obj COPYONLY)
+CONFIGURE_FILE(Graphics/Shaders/phong.vert Graphics/Shaders/phong.vert COPYONLY)
+CONFIGURE_FILE(Graphics/Shaders/phong.vert Graphics/Shaders/phong.vert COPYONLY)
 
 
 # Load external libraries
@@ -56,16 +57,20 @@ ${OPENGL_INCLUDE_DIRS}
 )
 
 # Load project libs
-ADD_SUBDIRECTORY(
-Modules
-)
+ADD_SUBDIRECTORY(AI)
+ADD_SUBDIRECTORY(EntitySystem)
+ADD_SUBDIRECTORY(Graphics)
+ADD_SUBDIRECTORY(Physics)
 
 # Binaries
 ADD_EXECUTABLE(ExNCo main.cpp)
 
 # Link to libraries
 TARGET_LINK_LIBRARIES (ExNCo
-    Modules
+    AI
+    EntitySystem
+    Graphics
+    Physics
     ${OPENCV_LIBRARIES}
     ${OPENGL_LIBRARIES}
 )

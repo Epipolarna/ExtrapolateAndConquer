@@ -11,6 +11,11 @@ out vec4 outColor;
 in vec3 exNormal; // Phong
 in vec3 exSurface; // Phong (specular)
 
+uniform float ambientCoeff;
+uniform float diffuseCoeff;
+uniform float specularCoeff;
+uniform float specularExponent;
+
 void main(void)
 {
     vec3 lightColor = vec3(1, 1, 1);
@@ -37,4 +42,5 @@ void main(void)
 
     shade = ambientCoeff + diffuseCoeff*diffuse + specularCoeff*specular;
     outColor = vec4(shade * lightColor, 1);
+    //outColor = vec4(1, 1, 1, 1);
 }

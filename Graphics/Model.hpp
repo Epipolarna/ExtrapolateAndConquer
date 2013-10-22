@@ -1,13 +1,13 @@
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef MODEL_HPP
+#define MODEL_HPP
 
-#include <QObject>
-//#include <QtOpenGL>
-//#include <QGLShaderProgram>
-#include <QPainter>
-#include <QPaintEngine>
+#include <QVector>
+#include <QVector3D>
+#include <QGLShaderProgram>
 
 #include "glm.h"
+
+namespace graphics {
 
 class ModelTriangle
 {
@@ -15,20 +15,12 @@ public:
     QVector<QVector3D> vertices;
     QVector<QVector3D> normals;
     QVector<QVector3D> texcoords;
-signals:
-
-public slots:
-
 };
 
 class ModelGroup
 {
 public:
     QVector<ModelTriangle> triangles;
-signals:
-
-public slots:
-
 };
 
 class Model
@@ -37,15 +29,14 @@ public:
     Model();
     Model(QString filename);
 
-    // functions
+private:
     void load(QString filename);
+
+public:
+
+    // functions
+
     void draw(QGLShaderProgram& program, QMatrix4x4 vMatrix, QMatrix4x4 pMatrix, GLuint tex);
-    void setTexture(GLuint texture);
-    bool setVertexShaderFile(QString filename);
-    bool setFragmentShaderFile(QString filename);
-    void setProgram();
-    bool linkShaderProgram();
-    void initShaderProgram(QGLShaderProgram& program);
 //private:
     // variables
     GLMmodel *model;
@@ -65,4 +56,6 @@ public:
     int textureUniform;
 };
 
-#endif // MODEL_H
+}
+
+#endif // MODEL_HPP

@@ -1,25 +1,33 @@
-#ifndef GLWIDGET_H
-#define GLWIDGET_H
+#ifndef GLWIDGET_HPP
+#define GLWIDGET_HPP
 
 #include <QGLWidget>
-#include <QOpenGLContext>
 #include <QOpenGLFunctions>
 #include <QGLShaderProgram>
 #include <QGLFramebufferObject>
-#include <QtGui>
-#include "model.h"
-#include "player.h"
-#include "object.h"
+
+#include "Model.hpp"
+#include "Object.hpp"
+#include "Camera.hpp"
+
+namespace Ui {
+class GLWidget;
+}
 
 class GLWidget : public QGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
 
 public:
-    GLWidget(QWidget *parent = 0);
+    explicit GLWidget(QWidget *parent = 0);
     ~GLWidget();
-    QSize sizeHint() const;
 
+    graphics::Model *monkeyModel;
+    graphics::Object *monkey;
+    graphics::Camera *player;
+    QGLShaderProgram *phongShader;
+
+    /*
     void loadModel();
     void loadTexture();
     Model *model, *squareModel;
@@ -40,6 +48,7 @@ public:
 
     void CHECK_FRAMEBUFFER_STATUS();
     void initFBO();
+    */
 
 protected:
     void initializeGL();
@@ -47,9 +56,12 @@ protected:
     void paintGL();
 
 private:
+    QMatrix4x4 pMatrix;
+
+    /*
     QOpenGLContext* glContext;
     QGLFramebufferObjectFormat fboFormat;
-
+*/
     QElapsedTimer fpsMeter;
     qint64 nanoSex;
     double fps;
@@ -58,4 +70,4 @@ private:
     void useFBO(QGLFramebufferObject* FBO);
 };
 
-#endif // GLWIDGET_H
+#endif // GLWIDGET_HPP
