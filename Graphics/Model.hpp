@@ -23,7 +23,14 @@ public:
 class ModelGroup
 {
 public:
+    // Old crap
     QVector<ModelTriangle> triangles;
+
+    // New shit
+    QVector<QVector3D> vertices;
+    QVector<QVector3D> normals;
+    QVector<QVector3D> texCoords;
+    QVector<GLuint> indices;
 };
 
 class Model

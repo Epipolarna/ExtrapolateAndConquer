@@ -42,12 +42,19 @@ void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
     program->setUniformValue(vMatUniform, vMatrix);
     program->setUniformValue(pMatUniform, pMatrix);
 
+    model->VAO.bind();
+
+    model->VBO.bind();
     program->enableAttributeArray(vertexAttr);
     program->setAttributeBuffer(vertexAttr, GL_FLOAT, 0, 3);
 
-    model->VAO.bind();
+    model->NBO.bind();
+    program->enableAttributeArray(normalAttr);
+    program->setAttributeBuffer(normalAttr, GL_FLOAT, 0, 3);
 
-    glDrawArrays(GL_TRIANGLES, 0, 9);
+    glDrawArrays(GL_TRIANGLES, 0, model->groups[0].vertices.size());
+    //glDrawArrays(GL_TRIANGLES, 0, model->groups[1].vertices.size());
+    //glDrawElements(GL_TRIANGLES, 1, GL_UNSIGNED_INT, 0);
 
 
     /*
@@ -56,7 +63,6 @@ void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
     program->setUniformValue(mMatUniform, mMatrix);
     program->setUniformValue(vMatUniform, vMatrix);
     program->setUniformValue(pMatUniform, pMatrix);
-
     program->enableAttributeArray(normalAttr);
     program->enableAttributeArray(vertexAttr);
     program->enableAttributeArray(texCoordAttr);

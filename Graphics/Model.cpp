@@ -17,46 +17,38 @@ void Model::load(QString filename) {
     if(model->numtexcoords < 1) {
         qWarning() << "Missing UV map.";
     }
-    //qWarning() << "Groups: " << model->numgroups;
-    //qWarning() << "Vertices: " << model->numvertices;
-    //qWarning() << "Triangles: " << model->numtriangles;
-    //qWarning() << "Normals: " << model->numnormals;
+    qWarning() << "Groups: " << model->numgroups;
+    qWarning() << "Vertices: " << model->numvertices;
+    qWarning() << "Triangles: " << model->numtriangles;
+    qWarning() << "Normals: " << model->numnormals;
 
     GLMgroup* group;
     group = model->groups;
     while (group) {
         ModelGroup grp;
         for(int i = 0; i < group->numtriangles; i++) {
-            ModelTriangle triangle;
-            QVector<QVector3D> verts;
             for(int j = 0; j < 3; j++) {
                 QVector3D vector(model->vertices[3 * model->triangles[group->triangles[i]].vindices[j] + 0],
                                  model->vertices[3 * model->triangles[group->triangles[i]].vindices[j] + 1],
                                  model->vertices[3 * model->triangles[group->triangles[i]].vindices[j] + 2]);
-                verts.append(vector);
+                grp.vertices.push_back(vector);
             }
-            QVector<QVector3D> norms;
             for(int j = 0; j < 3; j++) {
                 QVector3D vector(model->normals[3 * model->triangles[group->triangles[i]].nindices[j] + 0],
                                  model->normals[3 * model->triangles[group->triangles[i]].nindices[j] + 1],
                                  model->normals[3 * model->triangles[group->triangles[i]].nindices[j] + 2]);
-                norms.append(vector);
+                grp.normals.push_back(vector);
             }
             if(model->numtexcoords > 0) {
-                QVector<QVector3D> texs;
                 for(int j = 0; j < 3; j++) {
                     QVector3D vector(model->texcoords[2 * model->triangles[group->triangles[i]].tindices[j] + 0],
                                      model->texcoords[2 * model->triangles[group->triangles[i]].tindices[j] + 1],
                                      model->texcoords[2 * model->triangles[group->triangles[i]].tindices[j] + 2]);
-                    texs.append(vector);
+                    grp.texCoords.push_back(vector);
                 }
-                triangle.texcoords = texs;
             }
-            triangle.vertices = verts;
-            triangle.normals = norms;
-            grp.triangles.append(triangle);
         }
-        groups.append(grp);
+        groups.push_back(grp);
         group = group->next;
     }
     qDebug() << "loading file";
@@ -67,9 +59,16 @@ void Model::uploadToGPU()
     VAO.create();
     VAO.bind();
 
+    //for(int i = 0; i < groups.size(); i++){
+    for(int i = 0; i < 1; i++){
     VBO.create();
     VBO.bind();
-    VBO.allocate(groups[0].triangles[0].vertices.constData(), groups[0].triangles[0].vertices.size()*sizeof(QVector3D));
+    VBO.allocate(groups[i].vertices.constData(), groups[i].vertices.size()*3*sizeof(GLfloat));
+
+    NBO.create();
+    NBO.bind();
+    NBO.allocate(groups[i].normals.constData(), groups[i].normals.size()*3*sizeof(GLfloat));
+    }
 
             /*
     glGenBuffers(1, &VBO);
