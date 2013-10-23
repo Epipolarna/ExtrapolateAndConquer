@@ -6,7 +6,8 @@ Model::Model()
 {
 }
 
-Model::Model(QString objectFile) {
+Model::Model(QString objectFile, QOpenGLVertexArrayObject* VAO)
+    : VAO(VAO){
     load(objectFile);
     mMatrix.setToIdentity();
 }
@@ -61,37 +62,43 @@ void Model::load(QString filename) {
     qDebug() << "loading file";
 }
 
-void Model::draw(QGLShaderProgram& program, QMatrix4x4 vMatrix, QMatrix4x4 pMatrix, GLuint tex) {
-    //program.bind();
+void Model::uploadToGPU()
+{
+    VAO->create();
+    VAO->bind();
 
-    program.setUniformValue(mvpMatUniform, pMatrix*vMatrix*mMatrix);
-    program.setUniformValue(mMatUniform, mMatrix);
-    program.setUniformValue(vMatUniform, vMatrix);
-    program.setUniformValue(pMatUniform, pMatrix);
+    VBO.create();
+    VBO.bind();
+    VBO.allocate(groups[0].triangles[0].vertices.constData(), groups[0].triangles[0].vertices.size()*sizeof(QVector3D));
 
-    //glBindTexture(GL_TEXTURE_2D, texture);
-    foreach(ModelGroup grp, groups) {
-        foreach(ModelTriangle triangle, grp.triangles) {
-            program.setUniformValue(textureUniform, tex);    // use texture unit 0
+            /*
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &IBO);
+    glGenBuffers(1, &NBO);
+    glGenBuffers(1, &TBO);
 
-            program.enableAttributeArray(normalAttr);
-            program.enableAttributeArray(vertexAttr);
-            program.enableAttributeArray(texCoordAttr);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    //glBufferData(GL_ARRAY_BUFFER, vertexArray.size()*sizeof(cv::Vec3f), &vertexArray.front(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, groups[0].triangles[0].vertices.size()*sizeof(QVector3D),
+            groups[0].triangles[0].vertices.constData(), GL_STATIC_DRAW);
+/*
+    glBindBuffer(GL_ARRAY_BUFFER, NBO);
+    //glBufferData(GL_ARRAY_BUFFER, normalArray.size()*sizeof(cv::Vec3f), &normalArray.front(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, groups[0].triangles[0].normals.size()*sizeof(QVector3D),
+            groups[0].triangles[0].normals.constData(), GL_STATIC_DRAW);
 
-            program.setAttributeArray(vertexAttr, triangle.vertices.constData());
-            program.setAttributeArray(normalAttr, triangle.normals.constData());
-            program.setAttributeArray(texCoordAttr, triangle.texcoords.constData());
+    glBindBuffer(GL_ARRAY_BUFFER, TBO);
+    //glBufferData(GL_ARRAY_BUFFER, texCoordArray.size()*sizeof(cv::Vec2f), &texCoordArray.front(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, groups[0].triangles[0].vertices.size()*sizeof(QVector3D),
+            groups[0].triangles[0].vertices.constData(), GL_STATIC_DRAW);
 
-            glDrawArrays(GL_TRIANGLES, 0, triangle.vertices.size());
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+    //glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexArray.size()*sizeof(cv::Vec3i), &indexArray.front(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, groups[0].triangles[0].vertices.size()*sizeof(QVector3D),
+            groups[0].triangles[0].vertices.constData(), GL_STATIC_DRAW);
+            */
 
-            program.disableAttributeArray(normalAttr);
-            program.disableAttributeArray(vertexAttr);
-            program.disableAttributeArray(texCoordAttr);
-        }
-    }
-
-    program.release();
-    //program.bind();
+    VAO->release();
 }
 
 }

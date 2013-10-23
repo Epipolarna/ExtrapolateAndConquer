@@ -4,6 +4,9 @@
 #include <QVector>
 #include <QVector3D>
 #include <QGLShaderProgram>
+#include <QOpenGLFunctions>
+#include <QOpenGLVertexArrayObject>
+#include <QOpenGLBuffer>
 
 #include "glm.h"
 
@@ -27,10 +30,16 @@ class Model
 {
 public:
     Model();
-    Model(QString filename);
+    Model(QString filename, QOpenGLVertexArrayObject* VAO);
+
+    QOpenGLVertexArrayObject* VAO;
+    QOpenGLBuffer VBO, NBO, TBO, IBO, CBO, numberOfVertices, numberOfIndices;
 
 private:
     void load(QString filename);
+    void uploadToGPU();
+
+    QGLContext* context;
 
 public:
 

@@ -3,18 +3,20 @@
 
 #include "Model.hpp"
 #include "Camera.hpp"
+#include <QOpenGLFunctions>
 
 namespace graphics {
 
-class Object
+class Object : protected QOpenGLFunctions
 {
 public:
-    Object(Model* model, QGLShaderProgram* program);
+    Object(Model* model, QGLShaderProgram* program, QGLContext* context);
 
     void draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix);
 
     QGLShaderProgram* program;
 private:
+    QGLContext* context;
     Model* model;
     GLuint texture;
 

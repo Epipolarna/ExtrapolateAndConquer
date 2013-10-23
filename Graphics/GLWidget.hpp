@@ -27,6 +27,11 @@ public:
     graphics::Camera *currentCamera, *player;
     QGLShaderProgram *phongShader;
 
+    QGLBuffer vertexBuffer;
+
+    QOpenGLVertexArrayObject VAO;
+    QOpenGLBuffer VBO;
+
     /*
     void loadModel();
     void loadTexture();

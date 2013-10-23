@@ -11,13 +11,13 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
     ui->menubar->setVisible(false);
     ui->statusbar->setVisible(false);
 
-    //setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint);
 
     QGLFormat f;
-    //f.setVersion(3,0);
-    //f.setProfile(QGLFormat::CoreProfile);
+    f.setVersion(3,2);
+    f.setProfile(QGLFormat::CoreProfile);
     //f.setProfile(QGLFormat::CompatibilityProfile);
-    //f.setVersion(QGLFormat::NoProfile);
+    //f.setProfile(QGLFormat::NoProfile);
 
 
     glWidget = new GLWidget(f);

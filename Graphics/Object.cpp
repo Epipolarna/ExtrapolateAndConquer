@@ -1,9 +1,12 @@
 #include "Object.hpp"
+#include <QOpenGLFunctions>
 
 namespace graphics {
 
-Object::Object(Model *_model, QGLShaderProgram *_program)
+Object::Object(Model *_model, QGLShaderProgram *_program, QGLContext* _context)
 {
+    context = _context;
+
     model = _model;
     program = _program;
 
@@ -34,6 +37,27 @@ Object::Object(Model *_model, QGLShaderProgram *_program)
 
 void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
 {
+    //glUseProgram(program->programId());
+
+    //context->makeCurrent();
+    qDebug() << context->isValid();
+    program->bind();
+
+
+    program->setUniformValue(mvpMatUniform, pMatrix*vMatrix*mMatrix);
+    program->setUniformValue(mMatUniform, mMatrix);
+    program->setUniformValue(vMatUniform, vMatrix);
+    program->setUniformValue(pMatUniform, pMatrix);
+
+    program->enableAttributeArray(vertexAttr);
+    program->setAttributeBuffer(vertexAttr, GL_FLOAT, 0, 3);
+
+    //model->VAO->bind();
+
+    glDrawArrays(GL_TRIANGLES, 0, 9);
+
+
+    /*
     program->bind();
     program->setUniformValue(mvpMatUniform, pMatrix*vMatrix*mMatrix);
     program->setUniformValue(mMatUniform, mMatrix);
@@ -60,6 +84,7 @@ void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
     program->disableAttributeArray(normalAttr);
     program->disableAttributeArray(vertexAttr);
     program->disableAttributeArray(texCoordAttr);
+    */
 
     program->release();
 }

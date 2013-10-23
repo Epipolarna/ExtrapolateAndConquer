@@ -1,4 +1,4 @@
-#version 330
+#version 150
 
 in  vec3 vertex;
 in  vec3 normal;
@@ -12,9 +12,9 @@ uniform mat4 pMatrix;
 
 void main(void)
 {
-    exNormal = inverse(transpose(mat3(vMatrix * mMatrix))) * normal; // Phong, "fake" normal transformation
+    //exNormal = inverse(transpose(mat3(vMatrix * mMatrix))) * normal; // Phong, "fake" normal transformation
 
-    exSurface = vec3(vMatrix * mMatrix * vec4(vertex, 1.0)); // Don't include projection here - we only want to go to view coordinates
+    //exSurface = vec3(vMatrix * mMatrix * vec4(vertex, 1.0)); // Don't include projection here - we only want to go to view coordinates
 
     gl_Position = mvpMatrix * vec4(vertex, 1.0); // This should include projection
 }

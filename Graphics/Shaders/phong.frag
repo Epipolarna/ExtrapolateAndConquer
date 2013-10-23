@@ -1,4 +1,4 @@
-#version 330
+#version 150
 
 // Simplified Phong: No materials, only one, hard coded light source
 // (in view coordinates) and no ambient
@@ -18,6 +18,7 @@ uniform float specularExponent;
 
 void main(void)
 {
+    /*
     vec3 lightColor = vec3(1, 1, 1);
 
     float ambientCoeff  = 0.2;
@@ -42,5 +43,6 @@ void main(void)
 
     shade = ambientCoeff + diffuseCoeff*diffuse + specularCoeff*specular;
     outColor = vec4(shade * lightColor, 1);
-    //outColor = vec4(1, 1, 1, 1);
+    */
+    outColor = vec4(1, 1, 1, 1);
 }
