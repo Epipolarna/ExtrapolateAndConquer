@@ -62,14 +62,6 @@ public:
     GLuint texture;
     QMatrix4x4 mMatrix;
     QGLShaderProgram program;
-    int vertexAttr;
-    int normalAttr;
-    int mvpMatUniform;
-    int mMatUniform;
-    int vMatUniform;
-    int pMatUniform;
-    int texCoordAttr;
-    int textureUniform;
 };
 
 }

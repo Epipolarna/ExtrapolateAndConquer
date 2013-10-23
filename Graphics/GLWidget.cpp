@@ -137,6 +137,10 @@ void GLWidget::keyPressEvent(QKeyEvent *e)
     qDebug() << "GLWidget KeyPress: " << e->text();
     switch(e->key()){
 
+    case Qt::Key_Escape:
+        close();
+        break;
+
     case Qt::Key_W:
     case Qt::Key_A:
     case Qt::Key_S:
@@ -156,31 +160,7 @@ void GLWidget::keyPressEvent(QKeyEvent *e)
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void GLWidget::closeEvent(QCloseEvent *e)
+{
+    e->accept();
+}

@@ -26,19 +26,6 @@ private:
 
     QVector3D position;
     QMatrix4x4 mMatrix;
-
-    int vertexAttr;
-    int normalAttr;
-    int texCoordAttr;
-    int textureUniform;
-    int mvpMatUniform;
-    int mMatUniform;
-    int vMatUniform;
-    int pMatUniform;
-    int ambientCoeffUniform;
-    int diffuseCoeffUniform;
-    int specularCoeffUniform;
-    int specularExponentUniform;
 };
 
 }

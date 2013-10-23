@@ -61,41 +61,14 @@ void Model::uploadToGPU()
 
     //for(int i = 0; i < groups.size(); i++){
     for(int i = 0; i < 1; i++){
-    VBO.create();
-    VBO.bind();
-    VBO.allocate(groups[i].vertices.constData(), groups[i].vertices.size()*3*sizeof(GLfloat));
+        VBO.create();
+        VBO.bind();
+        VBO.allocate(groups[i].vertices.constData(), groups[i].vertices.size()*3*sizeof(GLfloat));
 
-    NBO.create();
-    NBO.bind();
-    NBO.allocate(groups[i].normals.constData(), groups[i].normals.size()*3*sizeof(GLfloat));
+        NBO.create();
+        NBO.bind();
+        NBO.allocate(groups[i].normals.constData(), groups[i].normals.size()*3*sizeof(GLfloat));
     }
-
-            /*
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &IBO);
-    glGenBuffers(1, &NBO);
-    glGenBuffers(1, &TBO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    //glBufferData(GL_ARRAY_BUFFER, vertexArray.size()*sizeof(cv::Vec3f), &vertexArray.front(), GL_STATIC_DRAW);
-    glBufferData(GL_ARRAY_BUFFER, groups[0].triangles[0].vertices.size()*sizeof(QVector3D),
-            groups[0].triangles[0].vertices.constData(), GL_STATIC_DRAW);
-/*
-    glBindBuffer(GL_ARRAY_BUFFER, NBO);
-    //glBufferData(GL_ARRAY_BUFFER, normalArray.size()*sizeof(cv::Vec3f), &normalArray.front(), GL_STATIC_DRAW);
-    glBufferData(GL_ARRAY_BUFFER, groups[0].triangles[0].normals.size()*sizeof(QVector3D),
-            groups[0].triangles[0].normals.constData(), GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ARRAY_BUFFER, TBO);
-    //glBufferData(GL_ARRAY_BUFFER, texCoordArray.size()*sizeof(cv::Vec2f), &texCoordArray.front(), GL_STATIC_DRAW);
-    glBufferData(GL_ARRAY_BUFFER, groups[0].triangles[0].vertices.size()*sizeof(QVector3D),
-            groups[0].triangles[0].vertices.constData(), GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-    //glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexArray.size()*sizeof(cv::Vec3i), &indexArray.front(), GL_STATIC_DRAW);
-    glBufferData(GL_ARRAY_BUFFER, groups[0].triangles[0].vertices.size()*sizeof(QVector3D),
-            groups[0].triangles[0].vertices.constData(), GL_STATIC_DRAW);
-            */
 
     VAO.release();
 }

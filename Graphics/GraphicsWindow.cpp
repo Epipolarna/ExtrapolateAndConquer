@@ -19,7 +19,6 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
     //f.setProfile(QGLFormat::CompatibilityProfile);
     //f.setProfile(QGLFormat::NoProfile);
 
-
     glWidget = new GLWidget(f);
     setCentralWidget(glWidget);
 

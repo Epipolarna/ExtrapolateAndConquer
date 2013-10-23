@@ -57,6 +57,7 @@ public:
     */
 
     void keyPressEvent(QKeyEvent *);
+    void closeEvent(QCloseEvent *);
 
 protected:
     void initializeGL();
