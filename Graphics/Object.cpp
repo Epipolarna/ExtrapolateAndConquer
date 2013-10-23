@@ -3,10 +3,8 @@
 
 namespace graphics {
 
-Object::Object(Model *_model, QGLShaderProgram *_program, QGLContext* _context)
+Object::Object(Model *_model, QGLShaderProgram *_program)
 {
-    context = _context;
-
     model = _model;
     program = _program;
 
@@ -37,12 +35,7 @@ Object::Object(Model *_model, QGLShaderProgram *_program, QGLContext* _context)
 
 void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
 {
-    //glUseProgram(program->programId());
-
-    //context->makeCurrent();
-    qDebug() << context->isValid();
     program->bind();
-
 
     program->setUniformValue(mvpMatUniform, pMatrix*vMatrix*mMatrix);
     program->setUniformValue(mMatUniform, mMatrix);
@@ -52,7 +45,7 @@ void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
     program->enableAttributeArray(vertexAttr);
     program->setAttributeBuffer(vertexAttr, GL_FLOAT, 0, 3);
 
-    //model->VAO->bind();
+    model->VAO.bind();
 
     glDrawArrays(GL_TRIANGLES, 0, 9);
 
