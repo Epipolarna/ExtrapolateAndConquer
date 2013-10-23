@@ -66,7 +66,7 @@ void GLWidget::initializeGL()
     */
 
     // ---------- MODELS -----------------------
-    monkeyModel = new graphics::Model("Graphics/Models/monkey.obj", new QOpenGLVertexArrayObject);
+    monkeyModel = new graphics::Model("Graphics/Models/monkey.obj");
 
     //squareModel = new Model("Models/fboSquare.obj");
 
@@ -77,7 +77,7 @@ void GLWidget::initializeGL()
 
     // ---------- OBJECTS -----------------------
 
-    monkey = new graphics::Object(monkeyModel, phongShader, context());
+    monkey = new graphics::Object(monkeyModel, phongShader);
 
 
     // ---------- CAMERAS -----------------------
@@ -91,18 +91,6 @@ void GLWidget::initializeGL()
 
     // ----------- TEXTURE LOADING ------------
     //tex = bindTexture(QPixmap(QString("Models/GtaRE.jpg")), GL_TEXTURE_2D);
-
-    // _____________----------------______________------------______________-
-
-    VAO.create();
-    VAO.bind();
-
-    VBO.create();
-    VBO.bind();
-    VBO.allocate(monkeyModel->groups[0].triangles[0].vertices.constData(),
-            monkeyModel->groups[0].triangles[0].vertices.size()*sizeof(QVector3D));
-
-    //phongShader->enableAttributeArray("");
 }
 
 void GLWidget::paintGL()

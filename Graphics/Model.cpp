@@ -6,9 +6,9 @@ Model::Model()
 {
 }
 
-Model::Model(QString objectFile, QOpenGLVertexArrayObject* VAO)
-    : VAO(VAO){
+Model::Model(QString objectFile){
     load(objectFile);
+    uploadToGPU();
     mMatrix.setToIdentity();
 }
 
@@ -64,8 +64,8 @@ void Model::load(QString filename) {
 
 void Model::uploadToGPU()
 {
-    VAO->create();
-    VAO->bind();
+    VAO.create();
+    VAO.bind();
 
     VBO.create();
     VBO.bind();
@@ -98,7 +98,7 @@ void Model::uploadToGPU()
             groups[0].triangles[0].vertices.constData(), GL_STATIC_DRAW);
             */
 
-    VAO->release();
+    VAO.release();
 }
 
 }

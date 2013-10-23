@@ -5,6 +5,7 @@
 #include <QOpenGLFunctions>
 #include <QGLShaderProgram>
 #include <QGLFramebufferObject>
+#include <QOpenGLBuffer>
 
 #include "Model.hpp"
 #include "Object.hpp"
@@ -29,7 +30,7 @@ public:
 
     QGLBuffer vertexBuffer;
 
-    QOpenGLVertexArrayObject VAO;
+    QOpenGLVertexArrayObject* VAO;
     QOpenGLBuffer VBO;
 
     /*

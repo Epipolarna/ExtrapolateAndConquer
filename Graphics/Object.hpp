@@ -10,13 +10,12 @@ namespace graphics {
 class Object : protected QOpenGLFunctions
 {
 public:
-    Object(Model* model, QGLShaderProgram* program, QGLContext* context);
+    Object(Model* model, QGLShaderProgram* program);
 
     void draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix);
 
     QGLShaderProgram* program;
 private:
-    QGLContext* context;
     Model* model;
     GLuint texture;
 

@@ -30,9 +30,9 @@ class Model
 {
 public:
     Model();
-    Model(QString filename, QOpenGLVertexArrayObject* VAO);
+    Model(QString filename);
 
-    QOpenGLVertexArrayObject* VAO;
+    QOpenGLVertexArrayObject VAO;
     QOpenGLBuffer VBO, NBO, TBO, IBO, CBO, numberOfVertices, numberOfIndices;
 
 private:
