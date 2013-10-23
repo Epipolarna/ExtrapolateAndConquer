@@ -20,6 +20,8 @@ private:
     Ui::GraphicsWindow *ui;
 
     GLWidget* glWidget;
+    void keyPressEvent(QKeyEvent *);
+    void closeEvent(QCloseEvent *);
 };
 
 #endif // GRAPHICSWINDOW_HPP

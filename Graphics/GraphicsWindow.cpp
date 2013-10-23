@@ -1,5 +1,6 @@
 #include "GraphicsWindow.hpp"
 #include "ui_GraphicsWindow.h"
+#include <QDebug>
 
 GraphicsWindow::GraphicsWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,7 +13,14 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
 
     //setWindowFlags(Qt::FramelessWindowHint);
 
-    glWidget = new GLWidget();
+    QGLFormat f;
+    //f.setVersion(3,0);
+    //f.setProfile(QGLFormat::CoreProfile);
+    //f.setProfile(QGLFormat::CompatibilityProfile);
+    //f.setVersion(QGLFormat::NoProfile);
+
+
+    glWidget = new GLWidget(f);
     setCentralWidget(glWidget);
 
     resize(1280, 800);
@@ -21,4 +29,22 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
 GraphicsWindow::~GraphicsWindow()
 {
     delete ui;
+}
+
+void GraphicsWindow::keyPressEvent(QKeyEvent *e)
+{
+    qDebug() << "GraphicsWindow KeyPress: " << e->text();
+    switch(e->key()){
+    case Qt::Key_Escape:
+        close();
+        break;
+    default:
+        glWidget->keyPressEvent(e);
+        break;
+    }
+}
+
+void GraphicsWindow::closeEvent(QCloseEvent *e)
+{
+    e->accept();
 }

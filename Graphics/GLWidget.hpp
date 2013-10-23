@@ -19,12 +19,12 @@ class GLWidget : public QGLWidget, protected QOpenGLFunctions
     Q_OBJECT
 
 public:
-    explicit GLWidget(QWidget *parent = 0);
+    explicit GLWidget(QGLFormat format, QWidget *parent = 0);
     ~GLWidget();
 
     graphics::Model *monkeyModel;
     graphics::Object *monkey;
-    graphics::Camera *player;
+    graphics::Camera *currentCamera, *player;
     QGLShaderProgram *phongShader;
 
     /*
@@ -49,6 +49,8 @@ public:
     void CHECK_FRAMEBUFFER_STATUS();
     void initFBO();
     */
+
+    void keyPressEvent(QKeyEvent *);
 
 protected:
     void initializeGL();

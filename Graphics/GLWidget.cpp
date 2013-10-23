@@ -1,8 +1,8 @@
 #include "GLWidget.hpp"
 //#include "ui_GLWidget.h"
 
-GLWidget::GLWidget(QWidget *parent) :
-    QGLWidget(QGLFormat(), parent)
+GLWidget::GLWidget(QGLFormat format, QWidget *parent) :
+    QGLWidget(format, parent)
 {
     phongShader = new QGLShaderProgram;
 }
@@ -20,6 +20,30 @@ void GLWidget::initializeGL()
     //glCullFace(GL_BACK);
     //glEnable(GL_TEXTURE_2D);
     glClearColor(0.3f, 0.8f, 0.6f, 0);
+
+    QGLContext* c = context();
+    qDebug() << "Valid context: " << c->isValid();
+
+    QGLFormat f = format();
+    qDebug() << "GL version: " << f.majorVersion() << f.minorVersion();
+
+
+    qDebug() << f.openGLVersionFlags();
+
+    switch(f.profile()){
+    case QGLFormat::OpenGLContextProfile::CoreProfile:
+        qDebug() << "CoreProfile: " << QGLFormat::OpenGLContextProfile::CoreProfile;
+        break;
+    case QGLFormat::OpenGLContextProfile::CompatibilityProfile:
+        qDebug() << "CompatibilityProfile: " << QGLFormat::OpenGLContextProfile::CompatibilityProfile;
+        break;
+    case QGLFormat::OpenGLContextProfile::NoProfile:
+        qDebug() << "NoProfile: " << QGLFormat::OpenGLContextProfile::NoProfile;
+        break;
+    default:
+        qDebug() << "Broken Switch";
+    }
+
 
     // ---------- SHADER INIT -----------------
     initShader(phongShader, "Graphics/Shaders/phong.vert", "Graphics/Shaders/phong.frag");
@@ -63,6 +87,7 @@ void GLWidget::initializeGL()
     player->setLookAt(QVector3D(0,0,0));
     player->setUp(QVector3D(0,1,0));
 
+    currentCamera = player;
 
     // ----------- TEXTURE LOADING ------------
     //tex = bindTexture(QPixmap(QString("Models/GtaRE.jpg")), GL_TEXTURE_2D);
@@ -74,11 +99,11 @@ void GLWidget::paintGL()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    monkey->draw(player->vMatrix, pMatrix);
+    monkey->draw(currentCamera->vMatrix, pMatrix);
 
     // Render text to screen
     nanoSex = fpsMeter.nsecsElapsed();
-    renderText(20, 20, "FPS: " + QString::number(1.0e9/nanoSex));
+    //renderText(20, 20, "FPS: " + QString::number(1.0e9/nanoSex));
 }
 
 void GLWidget::resizeGL(int width, int height)
@@ -106,3 +131,56 @@ void GLWidget::useFBO(QGLFramebufferObject* FBO){
     glActiveTexture(GL_TEXTURE0 + FBO->texture());
     glBindTexture(GL_TEXTURE_2D, FBO->texture());
 }
+
+void GLWidget::keyPressEvent(QKeyEvent *e)
+{
+    qDebug() << "GLWidget KeyPress: " << e->text();
+    switch(e->key()){
+
+    case Qt::Key_W:
+    case Qt::Key_A:
+    case Qt::Key_S:
+    case Qt::Key_D:
+
+    case Qt::Key_Up:
+    case Qt::Key_Left:
+    case Qt::Key_Down:
+    case Qt::Key_Right:
+        currentCamera->controlEvent(e);
+        updateGL();
+        break;
+    default:
+        e->text();
+        break;
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

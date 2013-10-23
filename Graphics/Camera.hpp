@@ -3,6 +3,7 @@
 
 #include <QVector3D>
 #include <QMatrix4x4>
+#include <QKeyEvent>
 
 namespace graphics {
 
@@ -17,6 +18,10 @@ public:
     void setPosition(QVector3D position);
     void setLookAt(QVector3D lookAt);
     void setUp(QVector3D up);
+
+    void controlEvent(QKeyEvent*);
+private:
+
 };
 
 }
