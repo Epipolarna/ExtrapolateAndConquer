@@ -21,6 +21,7 @@ private:
 
     GLWidget* glWidget;
     void keyPressEvent(QKeyEvent *);
+    void keyReleaseEvent(QKeyEvent *);
     void closeEvent(QCloseEvent *);
 };
 

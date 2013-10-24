@@ -4,6 +4,7 @@
 #include <QVector3D>
 #include <QMatrix4x4>
 #include <QKeyEvent>
+#include <QElapsedTimer>
 
 namespace graphics {
 
@@ -12,16 +13,22 @@ class Camera
 public:
     Camera();
 
-    QVector3D position, lookAt, up;
-    QMatrix4x4 vMatrix;
+    QVector3D position, lookAtPoint, lookAtDirection, up;
+    QMatrix4x4 vMatrix, rotationMatrix;
+    float translationSpeed, pitchSpeed, rollSpeed, yawSpeed;
 
     void setPosition(QVector3D position);
     void setLookAt(QVector3D lookAt);
     void setUp(QVector3D up);
 
-    void controlEvent(QKeyEvent*);
+    void keyPressEvent(QKeyEvent*);
+    void keyReleaseEvent(QKeyEvent*);
+    void updatePosition();
 private:
+    std::map<int, bool> keyMap;
 
+    QElapsedTimer timer;
+    qint64 elapsedTime;
 };
 
 }

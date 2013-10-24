@@ -57,7 +57,13 @@ public:
     */
 
     void keyPressEvent(QKeyEvent *);
+    void keyReleaseEvent(QKeyEvent *);
     void closeEvent(QCloseEvent *);
+
+public slots:
+    void timerUpdate();
+
+
 
 protected:
     void initializeGL();
@@ -65,17 +71,20 @@ protected:
     void paintGL();
 
 private:
+    QTimer* timer;
     QMatrix4x4 pMatrix;
 
     /*
     QOpenGLContext* glContext;
     QGLFramebufferObjectFormat fboFormat;
 */
+
+
     QElapsedTimer fpsMeter;
     qint64 nanoSex;
     double fps;
 
-    void initShader(QGLShaderProgram* shader, QString vertexPath, QString fragmentPath);
+    QGLShaderProgram* initShader(QString vertexPath, QString fragmentPath);
     void useFBO(QGLFramebufferObject* FBO);
 };
 

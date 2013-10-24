@@ -32,13 +32,23 @@ GraphicsWindow::~GraphicsWindow()
 
 void GraphicsWindow::keyPressEvent(QKeyEvent *e)
 {
-    qDebug() << "GraphicsWindow KeyPress: " << e->text();
+    //qDebug() << "GraphicsWindow KeyPress: " << e->text();
     switch(e->key()){
     case Qt::Key_Escape:
         close();
         break;
     default:
         glWidget->keyPressEvent(e);
+        break;
+    }
+}
+
+void GraphicsWindow::keyReleaseEvent(QKeyEvent *e)
+{
+    //qDebug() << "GraphicsWindow KeyRelease: " << e->text();
+    switch(e->key()){
+    default:
+        glWidget->keyReleaseEvent(e);
         break;
     }
 }

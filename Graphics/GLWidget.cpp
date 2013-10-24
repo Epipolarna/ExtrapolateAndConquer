@@ -4,7 +4,9 @@
 GLWidget::GLWidget(QGLFormat format, QWidget *parent) :
     QGLWidget(format, parent)
 {
-    phongShader = new QGLShaderProgram;
+    timer = new QTimer;
+    connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
+    timer->start(16);
 }
 
 GLWidget::~GLWidget()
@@ -16,8 +18,8 @@ void GLWidget::initializeGL()
     initializeOpenGLFunctions();
 
     glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_CULL_FACE);
-    //glCullFace(GL_BACK);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
     //glEnable(GL_TEXTURE_2D);
     glClearColor(0.3f, 0.8f, 0.6f, 0);
 
@@ -46,7 +48,8 @@ void GLWidget::initializeGL()
 
 
     // ---------- SHADER INIT -----------------
-    initShader(phongShader, "Graphics/Shaders/phong.vert", "Graphics/Shaders/phong.frag");
+    phongShader = initShader("Graphics/Shaders/phong.vert", "Graphics/Shaders/phong.frag");
+    //initShader(phongShader, "Graphics/Shaders/phong.vert", "Graphics/Shaders/phong.frag");
     //initShader(threshShader, "Shaders/FBO/threshold.vert", "Shaders/FBO/threshold.frag");
     //initShader(texShader, "Shaders/plaintextureshader.vert", "Shaders/plaintextureshader.frag");
 
@@ -118,10 +121,12 @@ void GLWidget::resizeGL(int width, int height)
     glViewport(0, 0, width, height);
 }
 
-void GLWidget::initShader(QGLShaderProgram* shader, QString vertexPath, QString fragmentPath){
+QGLShaderProgram* GLWidget::initShader(QString vertexPath, QString fragmentPath){
+    QGLShaderProgram* shader = new QGLShaderProgram;
     shader->addShaderFromSourceFile(QGLShader::Vertex,  vertexPath);
     shader->addShaderFromSourceFile(QGLShader::Fragment,fragmentPath);
     shader->link();
+    return shader;
 }
 
 void GLWidget::useFBO(QGLFramebufferObject* FBO){
@@ -150,17 +155,54 @@ void GLWidget::keyPressEvent(QKeyEvent *e)
     case Qt::Key_Left:
     case Qt::Key_Down:
     case Qt::Key_Right:
-        currentCamera->controlEvent(e);
-        updateGL();
+
+    case Qt::Key_Q:
+    case Qt::Key_E:
+
+    case Qt::Key_Space:
+    case Qt::Key_Control:
+        currentCamera->keyPressEvent(e);
         break;
     default:
-        e->text();
+        QWidget::keyPressEvent(e);
         break;
+    }
+}
 
+void GLWidget::keyReleaseEvent(QKeyEvent *e)
+{
+    qDebug() << "GLWidget KeyRelease: " << e->text();
+    switch(e->key()){
+    case Qt::Key_W:
+    case Qt::Key_A:
+    case Qt::Key_S:
+    case Qt::Key_D:
+
+    case Qt::Key_Up:
+    case Qt::Key_Left:
+    case Qt::Key_Down:
+    case Qt::Key_Right:
+
+    case Qt::Key_Q:
+    case Qt::Key_E:
+
+    case Qt::Key_Space:
+    case Qt::Key_Control:
+        currentCamera->keyReleaseEvent(e);
+        break;
+    default:
+        QWidget::keyReleaseEvent(e);
+        break;
     }
 }
 
 void GLWidget::closeEvent(QCloseEvent *e)
 {
     e->accept();
+}
+
+void GLWidget::timerUpdate()
+{
+    player->updatePosition();
+    updateGL();
 }
