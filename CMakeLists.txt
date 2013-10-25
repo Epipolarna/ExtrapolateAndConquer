@@ -10,6 +10,7 @@ MESSAGE( STATUS "MINGW: " ${MINGW} )
 IF(APPLE)
     # Apple specific
     SET (CMAKE_CXX_FLAGS "-stdlib=libc++ -std=c++11")
+    INCLUDE_DIRECTORIES( /System/Library/Frameworks )
 ENDIF()
 
 IF(WIN32)
@@ -52,9 +53,7 @@ INCLUDE_DIRECTORIES(
 ${Qt5Core_INCLUDE_DIRS}
 ${Qt5Gui_INCLUDE_DIRS}
 ${Qt5Widgets_INCLUDE_DIRS}
-${Qt5OpenGL_INCLUDE_DIRS}
-${OPENGL_INCLUDE_DIRS}
-)
+${Qt5OpenGL_INCLUDE_DIRS})
 
 # Load project libs
 ADD_SUBDIRECTORY(AI)
