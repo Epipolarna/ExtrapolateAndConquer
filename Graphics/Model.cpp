@@ -68,6 +68,10 @@ void Model::uploadToGPU()
         NBO.create();
         NBO.bind();
         NBO.allocate(groups[i].normals.constData(), groups[i].normals.size()*3*sizeof(GLfloat));
+
+        TBO.create();
+        TBO.bind();
+        TBO.allocate(groups[i].texCoords.constData(), groups[i].texCoords.size()*3*sizeof(GLfloat));
     }
 
     VAO.release();

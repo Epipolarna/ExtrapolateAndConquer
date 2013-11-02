@@ -2,46 +2,30 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8.8)
 # Dense kitchen project
 PROJECT(ExNCo)
 
-# is TRUE on Apple OS X
-MESSAGE( STATUS "APPLE: " ${APPLE} )
-# is TRUE when using the MinGW compiler in Windows
-MESSAGE( STATUS "MINGW: " ${MINGW} )
-
 IF(APPLE)
-    # Apple specific
+    MESSAGE( STATUS "Apple system" )
     SET (CMAKE_CXX_FLAGS "-stdlib=libc++ -std=c++11")
     INCLUDE_DIRECTORIES( /System/Library/Frameworks )
 ENDIF()
 
 IF(WIN32)
-    # Windows specific
+    MESSAGE( STATUS "Windows" )
     IF(MINGW)
-        SET (CMAKE_CXX_FLAGS "-std=c++11 -Wall")
-        cmake_policy(SET CMP0020 NEW)
+        SET (CMAKE_CXX_FLAGS "-std=c++11")
+    ELSEIF(MSVC)
+        add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     ENDIF()
+
+    cmake_policy(SET CMP0020 NEW)
 ENDIF()
+
+SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
 
 # Tell CMake to run moc when necessary:
 set(CMAKE_AUTOMOC ON)
 # As moc files are generated in the binary dir, tell CMake
 # to always look for includes there:
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-#move the configurationfile to the build dir
-# Shaders
-CONFIGURE_FILE(Graphics/Shaders/phong.vert Graphics/Shaders/phong.vert COPYONLY)
-CONFIGURE_FILE(Graphics/Shaders/phong.frag Graphics/Shaders/phong.frag COPYONLY)
-CONFIGURE_FILE(Graphics/Shaders/FBO/threshold.vert Graphics/Shaders/FBO/threshold.vert COPYONLY)
-CONFIGURE_FILE(Graphics/Shaders/FBO/threshold.vert Graphics/Shaders/FBO/threshold.frag COPYONLY)
-CONFIGURE_FILE(Graphics/Shaders/plaintextureshader.vert Graphics/Shaders/plaintextureshader.vert COPYONLY)
-CONFIGURE_FILE(Graphics/Shaders/plaintextureshader.frag Graphics/Shaders/plaintextureshader.frag COPYONLY)
-# Models
-CONFIGURE_FILE(Graphics/Models/monkey.obj Graphics/Models/monkey.obj COPYONLY)
-CONFIGURE_FILE(Graphics/Models/monkey.mtl Graphics/Models/monkey.mtl COPYONLY)
-CONFIGURE_FILE(Graphics/Models/fbosquare.obj Graphics/Models/fbosquare.obj COPYONLY)
-CONFIGURE_FILE(Graphics/Shaders/phong.vert Graphics/Shaders/phong.vert COPYONLY)
-CONFIGURE_FILE(Graphics/Shaders/phong.vert Graphics/Shaders/phong.vert COPYONLY)
-
 
 # Load external libraries
 find_package(Qt5 COMPONENTS Core Gui Widgets OpenGL REQUIRED)
@@ -53,7 +37,8 @@ INCLUDE_DIRECTORIES(
 ${Qt5Core_INCLUDE_DIRS}
 ${Qt5Gui_INCLUDE_DIRS}
 ${Qt5Widgets_INCLUDE_DIRS}
-${Qt5OpenGL_INCLUDE_DIRS})
+${Qt5OpenGL_INCLUDE_DIRS}
+)
 
 # Load project libs
 ADD_SUBDIRECTORY(AI)
@@ -77,3 +62,13 @@ TARGET_LINK_LIBRARIES (ExNCo
 # Activate Qt for project
 # Must be the last line in this file, else { FAIL }
 qt5_use_modules(ExNCo Core Gui Widgets OpenGL)
+
+# This command copies all models, shaders etc. but during development it doesn't
+# update the files when changed..
+#add_custom_command(
+#    TARGET ExNCo
+#    PRE_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/Graphics/Models ${CMAKE_BINARY_DIR}/Graphics/Models
+#    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Graphics/Textures ${CMAKE_BINARY_DIR}/Graphics/Textures
+#    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Graphics/Shaders ${CMAKE_BINARY_DIR}/Graphics/Shaders
+#)

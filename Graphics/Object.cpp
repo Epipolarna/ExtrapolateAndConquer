@@ -3,9 +3,10 @@
 
 namespace graphics {
 
-Object::Object(Model *_model, QGLShaderProgram *_program)
+Object::Object(Model *_model, QGLShaderProgram *_program, GLuint _texture)
 {
     model = _model;
+    texture = _texture;
     program = _program;
 
     mMatrix.setToIdentity();
@@ -24,6 +25,9 @@ void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
     program->setUniformValue("mMatrix", mMatrix);
     program->setUniformValue("vMatrix", vMatrix);
     program->setUniformValue("pMatrix", pMatrix);
+    program->setUniformValue("tex", 0);
+
+    //glBindTexture(GL_TEXTURE_2D, texture);
 
     model->VAO.bind();
 
@@ -34,6 +38,10 @@ void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
     model->NBO.bind();
     program->enableAttributeArray("normal");
     program->setAttributeBuffer("normal", GL_FLOAT, 0, 3);
+
+    model->TBO.bind();
+    program->enableAttributeArray("texCoord");
+    program->setAttributeBuffer("texCoord", GL_FLOAT, 0, 3);
 
     glDrawArrays(GL_TRIANGLES, 0, model->groups[0].vertices.size());
 

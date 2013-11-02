@@ -127,6 +127,14 @@ void Camera::updatePosition()
     vMatrix.setToIdentity();
     vMatrix.lookAt(position, lookAtPoint, up);
 }
+
+QMatrix4x4 Camera::skyboxMatrix()
+{
+    QMatrix4x4 skyMatrix = vMatrix;
+    skyMatrix.setColumn(3, QVector4D(0,0,0,1));
+    return skyMatrix;
+}
+
 /*
 void Camera::controlEvent(QKeyEvent *e)
 {

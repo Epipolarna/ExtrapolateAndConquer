@@ -23,6 +23,7 @@ private:
     void keyPressEvent(QKeyEvent *);
     void keyReleaseEvent(QKeyEvent *);
     void closeEvent(QCloseEvent *);
+    void initalize();
 };
 
 #endif // GRAPHICSWINDOW_HPP

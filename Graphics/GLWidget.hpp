@@ -23,10 +23,11 @@ public:
     explicit GLWidget(QGLFormat format, QWidget *parent = 0);
     ~GLWidget();
 
-    graphics::Model *monkeyModel;
-    graphics::Object *monkey;
+    graphics::Model *skyboxModel, *monkeyModel;
+    GLuint skyboxTex, tex0, tex1, tex2;
+    graphics::Object *skybox, *monkey;
     graphics::Camera *currentCamera, *player;
-    QGLShaderProgram *phongShader;
+    QGLShaderProgram *skyboxShader, *phongShader;
 
     QGLBuffer vertexBuffer;
 
@@ -72,7 +73,7 @@ protected:
 
 private:
     QTimer* timer;
-    QMatrix4x4 pMatrix;
+    QMatrix4x4 pMatrix, skyboxvMatrix;
 
     /*
     QOpenGLContext* glContext;
@@ -84,8 +85,10 @@ private:
     qint64 nanoSex;
     double fps;
 
+    void initShaders();
     QGLShaderProgram* initShader(QString vertexPath, QString fragmentPath);
     void useFBO(QGLFramebufferObject* FBO);
+    GLuint uploadTexture(QString imagePath);
 };
 
 #endif // GLWIDGET_HPP
