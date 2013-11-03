@@ -1,6 +1,6 @@
 # Blender3D v249 OBJ File: monkey.blend
 # www.blender3d.org
-mtllib monkey.mtl
+#mtllib monkey.mtl
 g Suzanne
 v -0.438988 0.160133 -0.757462
 v 0.438988 0.160133 -0.757461
@@ -5950,7 +5950,7 @@ vn -0.660570 -0.345081 -0.666759
 vn -0.661745 -0.344777 -0.665750
 vn -0.744972 -0.118497 -0.656487
 vn -0.748499 -0.115590 -0.652984
-usemtl Material.001
+#usemtl Material.001
 s off
 f 1339//1 391//1 2012//1
 f 391//2 1480//2 2012//2

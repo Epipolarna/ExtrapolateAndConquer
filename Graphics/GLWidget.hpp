@@ -23,39 +23,16 @@ public:
     explicit GLWidget(QGLFormat format, QWidget *parent = 0);
     ~GLWidget();
 
-    graphics::Model *skyboxModel, *monkeyModel;
-    GLuint skyboxTex, tex0, tex1, tex2;
-    graphics::Object *skybox, *monkey;
+    graphics::Model *skyboxModel, *monkeyModel, *oceanModel;
+    GLuint skyboxTex, oceanTex, tex0, tex1, tex2;
+    graphics::Object *skybox, *monkey, *ocean;
     graphics::Camera *currentCamera, *player;
-    QGLShaderProgram *skyboxShader, *phongShader;
+    QGLShaderProgram *skyboxShader, *phongShader, *phongTexShader;
 
     QGLBuffer vertexBuffer;
 
     QOpenGLVertexArrayObject* VAO;
     QOpenGLBuffer VBO;
-
-    /*
-    void loadModel();
-    void loadTexture();
-    Model *model, *squareModel;
-    Object *object, *square;
-    Player* player;
-
-    GLuint FB, RB;
-    GLuint tex;
-
-    QGLFramebufferObject *FBO1, *FBO2, *FBO3;
-
-    QMatrix4x4 pMatrix;
-    QGLShaderProgram shaderProgram, program1, program2, program3;
-    QGLShaderProgram *phongShader, *texShader, *threshShader;
-    QVector<QVector3D> vertices;
-
-    QImage im, imGL;
-
-    void CHECK_FRAMEBUFFER_STATUS();
-    void initFBO();
-    */
 
     void keyPressEvent(QKeyEvent *);
     void keyReleaseEvent(QKeyEvent *);
@@ -63,8 +40,6 @@ public:
 
 public slots:
     void timerUpdate();
-
-
 
 protected:
     void initializeGL();
@@ -75,20 +50,13 @@ private:
     QTimer* timer;
     QMatrix4x4 pMatrix, skyboxvMatrix;
 
-    /*
-    QOpenGLContext* glContext;
-    QGLFramebufferObjectFormat fboFormat;
-*/
-
-
     QElapsedTimer fpsMeter;
     qint64 nanoSex;
     double fps;
 
-    void initShaders();
     QGLShaderProgram* initShader(QString vertexPath, QString fragmentPath);
     void useFBO(QGLFramebufferObject* FBO);
-    GLuint uploadTexture(QString imagePath);
+    GLuint uploadTexture(QString imagePath, bool mipmap = false);
 };
 
 #endif // GLWIDGET_HPP

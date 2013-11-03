@@ -20,80 +20,33 @@ void GLWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
-    //glEnable(GL_TEXTURE_2D);
     glClearColor(0.3f, 0.8f, 0.6f, 0);
-
-    QGLContext* c = context();
-    qDebug() << "Valid context: " << c->isValid();
 
     QGLFormat f = format();
     qDebug() << "GL version: " << f.majorVersion() << f.minorVersion();
 
-
-    qDebug() << f.openGLVersionFlags();
-
-    switch(f.profile()){
-    case QGLFormat::OpenGLContextProfile::CoreProfile:
-        qDebug() << "CoreProfile: " << QGLFormat::OpenGLContextProfile::CoreProfile;
-        break;
-    case QGLFormat::OpenGLContextProfile::CompatibilityProfile:
-        qDebug() << "CompatibilityProfile: " << QGLFormat::OpenGLContextProfile::CompatibilityProfile;
-        break;
-    case QGLFormat::OpenGLContextProfile::NoProfile:
-        qDebug() << "NoProfile: " << QGLFormat::OpenGLContextProfile::NoProfile;
-        break;
-    default:
-        qDebug() << "Broken Switch";
-    }
-
-
     // ---------- SHADER INIT -----------------
-    //initShaders();
     skyboxShader = initShader("Graphics/Shaders/skyboxShader.vert", "Graphics/Shaders/skyboxShader.frag");
     phongShader = initShader("Graphics/Shaders/phong.vert", "Graphics/Shaders/phong.frag");
-
-    //initShader(phongShader, "Graphics/Shaders/phong.vert", "Graphics/Shaders/phong.frag");
-    //initShader(threshShader, "Shaders/FBO/threshold.vert", "Shaders/FBO/threshold.frag");
-    //initShader(texShader, "Shaders/plaintextureshader.vert", "Shaders/plaintextureshader.frag");
-
-    // ----------- FBO ------------------------
-    /*
-    if (!QGLFramebufferObject::hasOpenGLFramebufferObjects()) {
-            qWarning("This system has no framebuffer object support");
-    }
-    // QGLFramebufferObject::Depth enables the depth buffer for the FBO
-    fboFormat.setInternalTextureFormat(GL_RGBA16F);
-    fboFormat.setAttachment(QGLFramebufferObject::Depth);
-    fboFormat.setSamples(0);
-
-    FBO1 = new QGLFramebufferObject(width(), height(), fboFormat);
-    FBO2 = new QGLFramebufferObject(width(), height(), fboFormat);
-    FBO3 = new QGLFramebufferObject(width(), height(), fboFormat);
-    */
+    phongTexShader = initShader("Graphics/Shaders/phongTex.vert", "Graphics/Shaders/phongTex.frag");
 
     // ---------- MODELS -----------------------
     skyboxModel = new graphics::Model("Graphics/Models/skybox.obj");
+    oceanModel = new graphics::Model("Graphics/Models/unitSquare.obj");
     monkeyModel = new graphics::Model("Graphics/Models/monkey.obj");
 
-    //squareModel = new Model("Models/fboSquare.obj");
-
-    //object = new Object(model, phongShader);
-    //square = new Object(squareModel, texShader);
-
-    //player = new Player();
-
-    // ----------- TEXTURE LOADING ------------
-    skyboxTex = uploadTexture("Graphics/Textures/skybox0.png");
+    // ---------- TEXTURE LOADING --------------
+    skyboxTex = uploadTexture("Graphics/Textures/skybox0.png", false);
+    oceanTex = uploadTexture("Graphics/Textures/water.png", true);
 
     // ---------- OBJECTS -----------------------
     skybox = new graphics::Object(skyboxModel, skyboxShader, skyboxTex);
+    ocean = new graphics::Object(oceanModel, phongTexShader, oceanTex);
+    ocean->setScale(1000);
     monkey = new graphics::Object(monkeyModel, phongShader);
 
     // ---------- CAMERAS -----------------------
     player = new graphics::Camera();
-    player->setPosition(QVector3D(3,0,-3));
-    player->setLookAt(QVector3D(0,0,0));
-    player->setUp(QVector3D(0,1,0));
 
     currentCamera = player;
 }
@@ -107,9 +60,11 @@ void GLWidget::paintGL()
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
     skybox->draw(currentCamera->skyboxMatrix(), pMatrix);
+    glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
-    monkey->draw(currentCamera->vMatrix, pMatrix);
+    ocean->draw(currentCamera->vMatrix, pMatrix);
+    //monkey->draw(currentCamera->vMatrix, pMatrix);
 
     // Render text to screen
     nanoSex = fpsMeter.nsecsElapsed();
@@ -128,12 +83,6 @@ void GLWidget::resizeGL(int width, int height)
     glViewport(0, 0, width, height);
 }
 
-void GLWidget::initShaders(){
-    skyboxShader = initShader("Graphics/Shaders/skyboxShader.vert", "Graphics/Shaders/skyboxShader.frag");
-    phongShader = initShader("Graphics/Shaders/phong.vert", "Graphics/Shaders/phong.frag");
-    qDebug() << "Shaders initialized";
-}
-
 QGLShaderProgram* GLWidget::initShader(QString vertexPath, QString fragmentPath){
     QGLShaderProgram* shader = new QGLShaderProgram;
     shader->addShaderFromSourceFile(QGLShader::Vertex,  vertexPath);
@@ -142,7 +91,7 @@ QGLShaderProgram* GLWidget::initShader(QString vertexPath, QString fragmentPath)
     return shader;
 }
 
-GLuint GLWidget::uploadTexture(QString imagePath)
+GLuint GLWidget::uploadTexture(QString imagePath, bool mipmap)
 {
     GLuint textureID;
     glGenTextures(1, &textureID);
@@ -154,7 +103,15 @@ GLuint GLWidget::uploadTexture(QString imagePath)
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageGL.width(), imageGL.height(),
                  0, GL_RGBA, GL_UNSIGNED_BYTE, imageGL.bits());
 
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    if(mipmap){
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    } else {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    }
 
     return textureID;
 }

@@ -14,6 +14,8 @@ public:
 
     void draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix);
 
+    void setScale(float scale);
+
     QGLShaderProgram* program;
 private:
     Model* model;
@@ -26,6 +28,7 @@ private:
 
     QVector3D position;
     QMatrix4x4 mMatrix;
+    float scale;
 };
 
 }

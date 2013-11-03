@@ -10,6 +10,7 @@ Object::Object(Model *_model, QGLShaderProgram *_program, GLuint _texture)
     program = _program;
 
     mMatrix.setToIdentity();
+    scale = 1;
 
     ambientCoeff  = 0.2;
     diffuseCoeff  = 0.6;
@@ -26,8 +27,9 @@ void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
     program->setUniformValue("vMatrix", vMatrix);
     program->setUniformValue("pMatrix", pMatrix);
     program->setUniformValue("tex", 0);
+    program->setUniformValue("scale", scale);
 
-    //glBindTexture(GL_TEXTURE_2D, texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
 
     model->VAO.bind();
 
@@ -46,6 +48,12 @@ void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
     glDrawArrays(GL_TRIANGLES, 0, model->groups[0].vertices.size());
 
     program->release();
+}
+
+void Object::setScale(float _scale)
+{
+    scale = _scale;
+    mMatrix.scale(scale);
 }
 
 }
