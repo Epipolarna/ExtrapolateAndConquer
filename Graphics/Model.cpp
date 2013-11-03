@@ -4,6 +4,7 @@ namespace graphics {
 
 Model::Model()
 {
+    mMatrix.setToIdentity();
 }
 
 Model::Model(QString objectFile){
@@ -59,19 +60,27 @@ void Model::uploadToGPU()
     VAO.create();
     VAO.bind();
 
-    //for(int i = 0; i < groups.size(); i++){
-    for(int i = 0; i < 1; i++){
-        VBO.create();
-        VBO.bind();
-        VBO.allocate(groups[i].vertices.constData(), groups[i].vertices.size()*3*sizeof(GLfloat));
+    if (groups.size() > 0){
+        //for(int i = 0; i < groups.size(); i++){
+        for(int i = 0; i < 1; i++){
+            if(groups[i].vertices.size() > 0){
+                VBO.create();
+                VBO.bind();
+                VBO.allocate(groups[i].vertices.constData(), groups[i].vertices.size()*3*sizeof(GLfloat));
+            }
 
-        NBO.create();
-        NBO.bind();
-        NBO.allocate(groups[i].normals.constData(), groups[i].normals.size()*3*sizeof(GLfloat));
+            if(groups[i].normals.size() > 0){
+                NBO.create();
+                NBO.bind();
+                NBO.allocate(groups[i].normals.constData(), groups[i].normals.size()*3*sizeof(GLfloat));
+            }
 
-        TBO.create();
-        TBO.bind();
-        TBO.allocate(groups[i].texCoords.constData(), groups[i].texCoords.size()*3*sizeof(GLfloat));
+            if(groups[i].texCoords.size() > 0){
+                TBO.create();
+                TBO.bind();
+                TBO.allocate(groups[i].texCoords.constData(), groups[i].texCoords.size()*3*sizeof(GLfloat));
+            }
+        }
     }
 
     VAO.release();

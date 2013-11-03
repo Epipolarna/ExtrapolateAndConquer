@@ -14,21 +14,27 @@ public:
 
     void draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix);
 
-    void setScale(float scale);
-
     QGLShaderProgram* program;
+
+    void setPosition(float x, float y, float z);
+    void setScale(float x, float y, float z);
+    void setColor(float r, float g, float b, float a = 1);
+
 private:
     Model* model;
     GLuint texture;
+
+    QVector3D position;
+    QVector3D scale;
+
+    QMatrix4x4 mMatrix;
+
+    QVector4D color;
 
     float ambientCoeff;
     float diffuseCoeff;
     float specularCoeff;
     float specularExponent;
-
-    QVector3D position;
-    QMatrix4x4 mMatrix;
-    float scale;
 };
 
 }

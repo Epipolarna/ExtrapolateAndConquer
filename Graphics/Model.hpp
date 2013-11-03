@@ -38,14 +38,13 @@ class Model
 public:
     Model();
     Model(QString filename);
+    void load(QString filename);
+    void uploadToGPU();
 
     QOpenGLVertexArrayObject VAO;
     QOpenGLBuffer VBO, NBO, TBO, IBO, CBO, numberOfVertices, numberOfIndices;
 
 private:
-    void load(QString filename);
-    void uploadToGPU();
-
     QGLContext* context;
 
 public:

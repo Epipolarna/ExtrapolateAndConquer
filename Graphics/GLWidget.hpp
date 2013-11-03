@@ -23,11 +23,11 @@ public:
     explicit GLWidget(QGLFormat format, QWidget *parent = 0);
     ~GLWidget();
 
-    graphics::Model *skyboxModel, *monkeyModel, *oceanModel;
+    graphics::Model *skyboxModel, *monkeyModel, *oceanModel, *simplexModel;
     GLuint skyboxTex, oceanTex, tex0, tex1, tex2;
-    graphics::Object *skybox, *monkey, *ocean;
+    graphics::Object *skybox, *monkey, *ocean, *simplex;
     graphics::Camera *currentCamera, *player;
-    QGLShaderProgram *skyboxShader, *phongShader, *phongTexShader;
+    QGLShaderProgram *skyboxShader, *phongShader, *phongTexShader, *flatShader;
 
     QGLBuffer vertexBuffer;
 

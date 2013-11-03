@@ -1,5 +1,5 @@
 #include "GLWidget.hpp"
-//#include "ui_GLWidget.h"
+#include "TerrainGenerator.hpp"
 
 GLWidget::GLWidget(QGLFormat format, QWidget *parent) :
     QGLWidget(format, parent)
@@ -29,11 +29,14 @@ void GLWidget::initializeGL()
     skyboxShader = initShader("Graphics/Shaders/skyboxShader.vert", "Graphics/Shaders/skyboxShader.frag");
     phongShader = initShader("Graphics/Shaders/phong.vert", "Graphics/Shaders/phong.frag");
     phongTexShader = initShader("Graphics/Shaders/phongTex.vert", "Graphics/Shaders/phongTex.frag");
+    flatShader = initShader("Graphics/Shaders/flat.vert", "Graphics/Shaders/flat.frag");
 
     // ---------- MODELS -----------------------
     skyboxModel = new graphics::Model("Graphics/Models/skybox.obj");
     oceanModel = new graphics::Model("Graphics/Models/unitSquare.obj");
     monkeyModel = new graphics::Model("Graphics/Models/monkey.obj");
+
+    simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
     // ---------- TEXTURE LOADING --------------
     skyboxTex = uploadTexture("Graphics/Textures/skybox0.png", false);
@@ -42,8 +45,14 @@ void GLWidget::initializeGL()
     // ---------- OBJECTS -----------------------
     skybox = new graphics::Object(skyboxModel, skyboxShader, skyboxTex);
     ocean = new graphics::Object(oceanModel, phongTexShader, oceanTex);
-    ocean->setScale(1000);
+    //ocean->setColor(59,58,99,255);
+    ocean->setScale(1000,1,1000);
     monkey = new graphics::Object(monkeyModel, phongShader);
+
+    simplex = new graphics::Object(simplexModel, flatShader);
+    simplex->setColor(85,196,48,255);
+    simplex->setScale(10,1,10);
+    simplex->setPosition(-500,0,-500);
 
     // ---------- CAMERAS -----------------------
     player = new graphics::Camera();
@@ -57,13 +66,16 @@ void GLWidget::paintGL()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glDisable(GL_DEPTH_TEST);
+
     glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
     skybox->draw(currentCamera->skyboxMatrix(), pMatrix);
-    glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
     ocean->draw(currentCamera->vMatrix, pMatrix);
+    simplex->draw(currentCamera->vMatrix, pMatrix);
+    glEnable(GL_CULL_FACE);
+
     //monkey->draw(currentCamera->vMatrix, pMatrix);
 
     // Render text to screen
@@ -78,7 +90,7 @@ void GLWidget::resizeGL(int width, int height)
     }
 
     pMatrix.setToIdentity();
-    pMatrix.perspective(60.0, (float) width / (float) height, 0.001, 1000);
+    pMatrix.perspective(60.0, (float) width / (float) height, 0.1, 1000);
 
     glViewport(0, 0, width, height);
 }
