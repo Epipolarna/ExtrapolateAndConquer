@@ -25,22 +25,28 @@ void GLWidget::initializeGL()
     QGLFormat f = format();
     qDebug() << "GL version: " << f.majorVersion() << f.minorVersion();
 
+    QString resourcePath = "./resources/";
+    QString modelPath = resourcePath + "models/";
+    QString shaderPath = resourcePath + "shaders/";
+    QString texturePath = resourcePath + "textures/";
+
+
     // ---------- SHADER INIT -----------------
-    skyboxShader = initShader("Graphics/Shaders/skyboxShader.vert", "Graphics/Shaders/skyboxShader.frag");
-    phongShader = initShader("Graphics/Shaders/phong.vert", "Graphics/Shaders/phong.frag");
-    phongTexShader = initShader("Graphics/Shaders/phongTex.vert", "Graphics/Shaders/phongTex.frag");
-    flatShader = initShader("Graphics/Shaders/flat.vert", "Graphics/Shaders/flat.frag");
+    skyboxShader = initShader(shaderPath+"skyboxShader.vert", shaderPath+"skyboxShader.frag");
+    phongShader = initShader(shaderPath+"phong.vert", shaderPath+"phong.frag");
+    phongTexShader = initShader(shaderPath+"phongTex.vert", shaderPath+"phongTex.frag");
+    flatShader = initShader(shaderPath+"flat.vert", shaderPath+"flat.frag");
 
     // ---------- MODELS -----------------------
-    skyboxModel = new graphics::Model("Graphics/Models/skybox.obj");
-    oceanModel = new graphics::Model("Graphics/Models/unitSquare.obj");
-    monkeyModel = new graphics::Model("Graphics/Models/monkey.obj");
+    skyboxModel = new graphics::Model(modelPath+"skybox.obj");
+    oceanModel = new graphics::Model(modelPath+"unitSquare.obj");
+    monkeyModel = new graphics::Model(modelPath+"monkey.obj");
 
     simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
     // ---------- TEXTURE LOADING --------------
-    skyboxTex = uploadTexture("Graphics/Textures/skybox0.png", false);
-    oceanTex = uploadTexture("Graphics/Textures/water.png", true);
+    skyboxTex = uploadTexture(texturePath+"skybox0.png", false);
+    oceanTex = uploadTexture(texturePath+"water.png", true);
 
     // ---------- OBJECTS -----------------------
     skybox = new graphics::Object(skyboxModel, skyboxShader, skyboxTex);

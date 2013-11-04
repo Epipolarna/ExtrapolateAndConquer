@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8.8)
-# Dense kitchen project
+#extrapolate and conquer game
 PROJECT(ExNCo)
 
 IF(APPLE)
@@ -18,8 +18,6 @@ IF(WIN32)
 
     cmake_policy(SET CMP0020 NEW)
 ENDIF()
-
-SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
 
 # Tell CMake to run moc when necessary:
 set(CMAKE_AUTOMOC ON)
@@ -55,7 +53,6 @@ TARGET_LINK_LIBRARIES (ExNCo
     EntitySystem
     Graphics
     Physics
-    ${OPENCV_LIBRARIES}
     ${OPENGL_LIBRARIES}
 )
 
@@ -63,12 +60,10 @@ TARGET_LINK_LIBRARIES (ExNCo
 # Must be the last line in this file, else { FAIL }
 qt5_use_modules(ExNCo Core Gui Widgets OpenGL)
 
-# This command copies all models, shaders etc. but during development it doesn't
-# update the files when changed..
-#add_custom_command(
-#    TARGET ExNCo
-#    PRE_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/Graphics/Models ${CMAKE_BINARY_DIR}/Graphics/Models
-#    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Graphics/Textures ${CMAKE_BINARY_DIR}/Graphics/Textures
-#    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Graphics/Shaders ${CMAKE_BINARY_DIR}/Graphics/Shaders
-#)
+FILE(GLOB_RECURSE shaders resources/shaders/*)
+FILE(GLOB_RECURSE textures resources/textures/*)
+FILE(GLOB_RECURSE models resources/models/*)
+
+FILE(COPY ${shaders} DESTINATION resources/shaders/)
+FILE(COPY ${models} DESTINATION resources/models/)
+FILE(COPY ${textures} DESTINATION resources/textures/)
