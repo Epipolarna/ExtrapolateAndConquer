@@ -46,5 +46,5 @@ void main(void)
     specular = max(specular, 0.0);
 
     shade = ambientCoeff + diffuseCoeff*diffuse + specularCoeff*specular;
-	outColor = texture2D(tex, exTexCoord*scale.x);
+	outColor = texture(tex, exTexCoord*scale.x);
 }

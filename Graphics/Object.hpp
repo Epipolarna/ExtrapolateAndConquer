@@ -12,7 +12,7 @@ class Object : protected QOpenGLFunctions
 public:
     Object(Model* model, QGLShaderProgram* program, GLuint texture = 0);
 
-    void draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix);
+    void draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix);
 
     QGLShaderProgram* program;
 

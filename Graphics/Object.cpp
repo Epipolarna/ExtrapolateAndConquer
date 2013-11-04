@@ -21,7 +21,7 @@ Object::Object(Model *_model, QGLShaderProgram *_program, GLuint _texture)
     color = QVector4D(1,1,1,1);
 }
 
-void Object::draw(QMatrix4x4 &vMatrix, QMatrix4x4 &pMatrix)
+void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix)
 {
     program->bind();
 
