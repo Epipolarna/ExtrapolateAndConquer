@@ -44,6 +44,8 @@ void GLWidget::initializeGL()
 
     altSkybox = new ModelLoader();
     altSkybox->loadModel(modelPath+"skybox.obj");
+    altMonkey = new ModelLoader();
+    altMonkey->loadModel(modelPath+"teapot.obj");
 
     simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
@@ -56,7 +58,7 @@ void GLWidget::initializeGL()
     ocean = new graphics::Object(oceanModel, phongTexShader, oceanTex);
     //ocean->setColor(59,58,99,255);
     ocean->setScale(1000,1,1000);
-    monkey = new graphics::Object(monkeyModel, phongShader);
+    monkey = new graphics::Object(altMonkey, phongShader);
 
     simplex = new graphics::Object(simplexModel, flatShader);
     simplex->setColor(85,196,48,255);
@@ -96,6 +98,8 @@ void GLWidget::paintGL()
     ocean->draw(currentCamera->vMatrix, pMatrix);
     simplex->draw(currentCamera->vMatrix, pMatrix);
     glEnable(GL_CULL_FACE);
+
+    monkey->draw2(currentCamera->vMatrix,pMatrix);
 
     // Render text to screen
     nanoSex = fpsMeter.nsecsElapsed();

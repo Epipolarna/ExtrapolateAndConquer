@@ -28,6 +28,7 @@ public:
     graphics::Model *skyboxModel, *monkeyModel, *oceanModel, *simplexModel;
 
     ModelLoader *altSkybox;
+    ModelLoader *altMonkey;
 
     GLuint skyboxTex, oceanTex, tex0, tex1, tex2;
     graphics::Object *skybox, *monkey, *ocean, *simplex;

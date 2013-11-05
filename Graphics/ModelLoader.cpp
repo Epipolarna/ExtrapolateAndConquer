@@ -94,7 +94,6 @@ bool ModelLoader::readNormal(const QStringList data){
 int ModelLoader::vertexExists(const QVector3D v, const QVector3D n, const QVector2D t){
 
     for(int i=0; i < index.size() && i < vertex.size(); i++){
-        printf("now at:%d \n",i);
         if(vertex[i] == v && normal[i] == n && texture[i] == t){
             return i;
         }
@@ -171,6 +170,15 @@ void ModelLoader::parseLine(QString line){
 	}else if(bits.at(0).compare("#") == 0){
 		//comment int the obj
 		parseOk = true;
+    }else if(bits.at(0).compare("g") == 0){
+        //group information
+        parseOk = true;
+    }else if(bits.at(0).compare("#mtllib") == 0){
+        //material data?
+        parseOk = true;
+    }else if(bits.at(0).compare("#usemtl") == 0){
+        //material information for vertices?
+        parseOk = true;
 	}else{
 		printf("Unknown token! \n string was: %s",line.toStdString().c_str());
 		parseOk = true;
