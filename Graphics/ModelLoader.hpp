@@ -16,8 +16,18 @@
 class ModelLoader{
 public:
 	void loadModel(const QString filename);
+	
+	QOpenGLVertexArrayObject VAO;
+    QOpenGLBuffer VBO, NBO, TBO, IBO, CBO, numberOfVertices, numberOfIndices;
 
-//private:
+
+    //Model data on GPU
+	QVector<QVector3D> vertex;
+	QVector<QVector3D> normal;
+	QVector<QVector2D> texture;
+	QVector<unsigned int> index;
+
+private:
 	//file parsing bits
 	void parseLine(const char *line, const size_t len);
 
@@ -42,15 +52,6 @@ public:
 	QVector<QVector3D> vertices;
 	QVector<QVector3D> normals;
 	QVector<QVector2D> textures;
-
-	//data to upload to GPU
-	QVector<QVector3D> vertex;
-	QVector<QVector3D> normal;
-	QVector<QVector2D> texture;
-	QVector<unsigned int> index; //this needs to grow, so we must make it a vector...
-
-	QOpenGLVertexArrayObject VAO;
-    QOpenGLBuffer VBO, NBO, TBO, IBO, CBO, numberOfVertices, numberOfIndices;
 
 };
 

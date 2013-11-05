@@ -1,5 +1,6 @@
 #include "ModelLoader.hpp"
 
+
 void ModelLoader::parseVertex(const char* line, const size_t len){
 	if(line[1] == ' '){
 		addVertex(line,len);

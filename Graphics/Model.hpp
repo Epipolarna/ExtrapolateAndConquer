@@ -51,7 +51,8 @@ public:
 
     // functions
 
-    void draw(QGLShaderProgram& program, QMatrix4x4 vMatrix, QMatrix4x4 pMatrix, GLuint tex);
+    //NOT IMPLEMENTED, probably best to remove
+    //void draw(QGLShaderProgram& program, QMatrix4x4 vMatrix, QMatrix4x4 pMatrix, GLuint tex);
 //private:
     // variables
     GLMmodel *model;
