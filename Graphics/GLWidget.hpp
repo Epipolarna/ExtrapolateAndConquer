@@ -7,6 +7,8 @@
 #include <QGLFramebufferObject>
 #include <QOpenGLBuffer>
 
+#include "ModelLoader.hpp"
+
 #include "Model.hpp"
 #include "Object.hpp"
 #include "Camera.hpp"
@@ -24,6 +26,9 @@ public:
     ~GLWidget();
 
     graphics::Model *skyboxModel, *monkeyModel, *oceanModel, *simplexModel;
+
+    ModelLoader ml;
+
     GLuint skyboxTex, oceanTex, tex0, tex1, tex2;
     graphics::Object *skybox, *monkey, *ocean, *simplex;
     graphics::Camera *currentCamera, *player;

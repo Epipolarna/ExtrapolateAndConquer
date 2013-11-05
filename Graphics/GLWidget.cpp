@@ -42,6 +42,8 @@ void GLWidget::initializeGL()
     oceanModel = new graphics::Model(modelPath+"unitSquare.obj");
     monkeyModel = new graphics::Model(modelPath+"monkey.obj");
 
+    ml.loadModel(modelPath+"skybox.obj");
+
     simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
     // ---------- TEXTURE LOADING --------------
