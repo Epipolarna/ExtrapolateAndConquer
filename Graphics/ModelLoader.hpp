@@ -11,15 +11,19 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 #include <QString>
+#include <QStringList>
+#include <QFile>
 
 
 class ModelLoader{
 public:
+
+	ModelLoader(void);
+
 	void loadModel(const QString filename);
 	
 	QOpenGLVertexArrayObject VAO;
-    QOpenGLBuffer VBO, NBO, TBO, IBO, CBO, numberOfVertices, numberOfIndices;
-
+    QOpenGLBuffer VBO, NBO, TBO, IBO;
 
     //Model data on GPU
 	QVector<QVector3D> vertex;
@@ -29,21 +33,19 @@ public:
 
 private:
 	//file parsing bits
-	void parseLine(const char *line, const size_t len);
-
-	//state machine bits
-	void parseVertex(const char *line, const size_t len);
-	void parseFace(const char *line, const size_t len);
-	//add vertex data
-	void addTexture(const char* line, const size_t len);
-	void addNormal(const char* line, const size_t len);
-	void addVertex(const char* line, const size_t len);
+	void parseLine(const QString line);
+	
+	bool readVertex(const QStringList data);
+	bool readNormal(const QStringList data);
+	bool readTexture(const QStringList data);
+	bool readFace(const QStringList data);
+	
 
 	//make the GPU vertices
-	void makeVertex(const int v_index,const int t_index,const int n_index);
+    void makeVertex(const QStringList data);
 
 	//check if a vertex alread is in the list
-	bool vertexExists(const int v_index,const int t_index,const int n_index, const int i);
+    int vertexExists(const QVector3D v, const QVector3D n, const QVector2D t);
 
 	//upload model to GPU
 	void upload(void);
@@ -52,6 +54,9 @@ private:
 	QVector<QVector3D> vertices;
 	QVector<QVector3D> normals;
 	QVector<QVector2D> textures;
+
+
+	void dumpData(void);
 
 };
 

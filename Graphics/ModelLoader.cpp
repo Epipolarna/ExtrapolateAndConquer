@@ -1,146 +1,228 @@
 #include "ModelLoader.hpp"
 
+ModelLoader::ModelLoader(void){
+	VBO = QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
+	IBO = QOpenGLBuffer(QOpenGLBuffer::Type::IndexBuffer);
 
-void ModelLoader::parseVertex(const char* line, const size_t len){
-	if(line[1] == ' '){
-		addVertex(line,len);
-	}else if(line[1] == 'n'){
-		addNormal(line,len);
-	}else if(line[1] == 't'){
-		addTexture(line,len);
-	}else{
-		printf("ERROR, unknown vertex data!\n");
-		exit(0);
+	VBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
+	TBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
+	NBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
+	IBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
+}
+
+void ModelLoader::dumpData(void){
+	printf("vertices\n");
+	for(QVector3D v: vertex){
+		printf("%f,%f,%f \n",v.x(),v.y(),v.z());
+	}
+
+	printf("normals\n");
+	for(QVector3D v: normals){
+		printf("%f,%f,%f \n",v.x(),v.y(),v.z());
+	}
+
+	printf("textures\n");
+	for(QVector2D v: textures){
+		printf("%f,%f \n",v.x(),v.y());
 	}
 }
 
-void ModelLoader::addVertex(const char* line, const size_t len){
-	float v1,v2,v3;
-	//remove first bits of string
-	char space[128];
 
-	sscanf(line,"%c %f %f %f",space,&v1,&v2,&v3);
+bool ModelLoader::readVertex(const QStringList data){
+	GLfloat f[3];
+	int j = 0;
+	bool ok = false;
+	float ff = 0;
+	for(int i=0; i < data.size(); i++){
+		ff = data.at(i).toFloat(&ok);
+		if(ok){
+			f[j] = ff;
+			j = j + 1;
+		}
+	}
 
-	vertices.push_back(QVector3D(v1,v2,v3));
-}
-
-void ModelLoader::addNormal(const char* line, const size_t len){
-	float n1,n2,n3;
-	//remove first bits of string
-	char space[128];
-
-	sscanf(line,"%c %f %f %f",space,&n1,&n2,&n3);
-
-	normals.push_back(QVector3D(n1,n2,n3));
-}
-
-void ModelLoader::addTexture(const char* line, const size_t len){
-	float t1,t2;
-	char space[128];
-	sscanf(line,"%c %f %f",space,&t1,&t2);
-	textures.push_back(QVector2D(t1,t2));
-}
-
-void ModelLoader::parseFace(const char* line, const size_t len){
-	char space[128];
-	int f1,f2,f3,f4,f5,f6,f7,f8,f9;
-	/* can be one of %d, %d//%d, %d/%d, %d/%d/%d %d//%d */
-
-	sscanf(line,"%c %d/%d/%d %d/%d/%d %d/%d/%d",space,&f1,&f2,&f3,&f4,&f5,&f6,&f7,&f8,&f9);
-
-	makeVertex(f1-1,f2-1,f3-1);
-	makeVertex(f4-1,f5-1,f6-1);
-	makeVertex(f7-1,f8-1,f9-1);
-}
-
-bool ModelLoader::vertexExists(const int v_index, const int t_index, const int n_index, const int i){
-
-	if(v_index < vertex.size() && t_index < texture.size() && n_index < normal.size()){
-		return vertex[v_index] == vertices[i] && normal[n_index] == normals[i] && texture[t_index] == textures[i];
+    if(j == 3){
+		vertices.push_back(QVector3D(f[0],f[1],f[2]));
+		return true;
 	}else{
 		return false;
 	}
 }
 
-void ModelLoader::makeVertex(const int v_index, const int t_index, const int n_index){
-	//check all the current vertices if this one already exists
-	for(int i=0; i < index.size(); i++){
-		if(vertexExists(v_index,t_index,n_index,i)){
-			index.push_back(i);
-			return;
+bool ModelLoader::readTexture(const QStringList data){
+	GLfloat f[2];
+	int j = 0;
+	bool ok = false;
+	float ff = 0;
+	for(int i=0; i < data.size(); i++){
+		ff = data.at(i).toFloat(&ok);
+		if(ok){
+			f[j] = ff;
+			j = j + 1;
 		}
 	}
-	vertex.push_back(vertices[v_index]);
-	texture.push_back(textures[t_index]);
-	normal.push_back(normals[n_index]);
-	index.push_back(vertex.size() - 1);
+    if(j == 2){
+		textures.push_back(QVector2D(f[0],f[1]));
+		return true;
+	}else{
+		return false;
+	}
+	return false;
+}
 
-	if(!((vertex.size() == texture.size()) && (vertex.size() == normal.size()))){
-		printf("ERROR GPU LIST HAS INVALID SIZE\n");
-		printf("size is: v%d, t%d, n%d", vertex.size(), texture.size(), normal.size());
+bool ModelLoader::readNormal(const QStringList data){
+	GLfloat f[3];
+	int j = 0;
+	bool ok = false;
+	float ff = 0;
+	for(int i=0; i < data.size(); i++){
+		ff = data.at(i).toFloat(&ok);
+		if(ok){
+			f[j] = ff;
+			j = j + 1;
+		}
+	}
+    if(j == 3){
+		normals.push_back(QVector3D(f[0],f[1],f[2]));
+		return true;
+	}else{
+		return false;
+	}
+}
+
+
+int ModelLoader::vertexExists(const QVector3D v, const QVector3D n, const QVector2D t){
+
+    for(int i=0; i < index.size() && i < vertex.size(); i++){
+        printf("now at:%d \n",i);
+        if(vertex[i] == v && normal[i] == n && texture[i] == t){
+            return i;
+        }
+    }
+    return 0;
+}
+
+void ModelLoader::makeVertex(const QStringList data){
+    int dex[3];
+    int j=0;
+    for(int i=0; i < data.size(); i++){
+        bool success = false;
+        int number = data.at(i).toInt(&success);
+        if(success){
+            //start counting from 0 instead of 1
+            dex[j] = number - 1;
+            j++;
+        }
+    }
+
+    if(j == 2){
+        printf("CASE NOT IMPLEMENTED! \n");
+        exit(0);
+        //only normal and vertex
+        /*
+        QVector3D v = vertices[dex[0]];
+        QVector2D n = normals[dex[1]];
+        vertex.push_back(v);
+        normal.push_back(n);
+        */
+    }else if(j == 3){
+        QVector3D v = vertices[dex[0]];
+        QVector2D t = textures[dex[1]];
+        QVector3D n = normals[dex[2]];
+        //vertex,normal and texture
+        int pos = vertexExists(v,n,t);
+        if(pos){
+            index.push_back(pos);
+        }else{
+            vertex.push_back(v);
+            normal.push_back(n);
+            texture.push_back(t);
+            index.push_back(vertex.size()-1);
+        }
+    }else{
+        printf("Invalid index specification!\n");
+        exit(0);
+    }
+}
+
+bool ModelLoader::readFace(const QStringList data){
+
+    for(int i=0; i < data.size(); i++){
+        if(data.at(i).contains("/")){
+            makeVertex(data.at(i).split("/"));
+        }
+    }
+    return true;
+}
+
+void ModelLoader::parseLine(QString line){
+	QStringList bits = line.split(" ");
+	
+	bool parseOk = false;
+
+	if(bits.at(0).compare("v") == 0){
+		parseOk = readVertex(bits);
+	}else if(bits.at(0).compare("vt") == 0){
+		parseOk = readTexture(bits);
+	}else if(bits.at(0).compare("vn") == 0){
+		parseOk = readNormal(bits);
+	}else if(bits.at(0).compare("f") == 0){
+		parseOk = readFace(bits);
+	}else if(bits.at(0).compare("#") == 0){
+		//comment int the obj
+		parseOk = true;
+	}else{
+		printf("Unknown token! \n string was: %s",line.toStdString().c_str());
+		parseOk = true;
+	}
+
+	if(!parseOk){
+		printf("Failed to parse line:%s",line.toStdString().c_str());
+		for(int i=0; i < bits.size();i++){
+			printf("%s,",bits.at(i).toStdString().c_str());
+		}
 		exit(0);
 	}
 }
 
-void ModelLoader::parseLine(const char* line, const size_t len){
-	//lowecase entire string
-	char* lowerLine = new char[len];
-	for(int i=0; i < len; i++){
-		lowerLine[i] = tolower(line[i]);
-	}
-
-	if(lowerLine[0] == 'v'){
-		parseVertex(lowerLine, len);
-	}else if(lowerLine[0] == 'f'){
-		parseFace(lowerLine, len);
-	}else if(lowerLine[0] == '#'){
-
-	}else{
-		printf("unrecognized token, broken file? \n");
-		printf("line was: %s \n", line);
-	}
-}
-
 void ModelLoader::upload(void){
+	//dumpData();
 
     VAO.create();
     VAO.bind();
     
     VBO.create();
     VBO.bind();
-    VBO.allocate(vertex.constData(), vertex.size()*3*sizeof(GLfloat));
+    VBO.allocate(vertex.constData(), vertex.size()*sizeof(QVector3D));
         
     NBO.create();
     NBO.bind();
-    NBO.allocate(normal.constData(), normal.size()*3*sizeof(GLfloat));
+    NBO.allocate(normal.constData(), normal.size()*sizeof(QVector3D));
     
     TBO.create();
     TBO.bind();
-    TBO.allocate(texture.constData(), texture.size()*3*sizeof(GLfloat));
+    TBO.allocate(texture.constData(), texture.size()*sizeof(QVector2D));
     
+    IBO.create();
+    IBO.bind();
+    IBO.allocate(index.constData(),index.size()*3*sizeof(GLuint));
 
     VAO.release();
 }
 
 void ModelLoader::loadModel(const QString filename){
-	FILE *modelFile;
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
+	
+	QFile file(filename);
 
-	modelFile = fopen(filename.toStdString().c_str(),"r");
-	if(modelFile == NULL){
-		printf("ERROR: unable to open file: %s",filename.toStdString().c_str());
-		exit(-1);
+	if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+		printf("Failed to open file: %s \n",filename.toStdString().c_str());
 	}
 
-	while((read = getline(&line, &len, modelFile)) != -1){
-		parseLine(line,len);
-	}
+	while(!file.atEnd()){
+		QByteArray rawLine = file.readLine();
+		QString line = QString(rawLine).toLower();
 
-	//cleanup if we have to
-	if(line){
-		free(line);
+		parseLine(line);
 	}
 
 	upload();

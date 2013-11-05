@@ -20,7 +20,7 @@ void GLWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
-    glClearColor(0.3f, 0.8f, 0.6f, 0);
+    glClearColor(0.0f, 0.0f, 1.0f, 0);
 
     QGLFormat f = format();
     qDebug() << "GL version: " << f.majorVersion() << f.minorVersion();
@@ -42,16 +42,17 @@ void GLWidget::initializeGL()
     oceanModel = new graphics::Model(modelPath+"unitSquare.obj");
     monkeyModel = new graphics::Model(modelPath+"monkey.obj");
 
-    ml.loadModel(modelPath+"skybox.obj");
+    altSkybox = new ModelLoader();
+    altSkybox->loadModel(modelPath+"skybox.obj");
 
     simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
     // ---------- TEXTURE LOADING --------------
     skyboxTex = uploadTexture(texturePath+"skybox0.png", false);
-    oceanTex = uploadTexture(texturePath+"water.png", true);
+    oceanTex = uploadTexture(texturePath+"water.png", false);
 
     // ---------- OBJECTS -----------------------
-    skybox = new graphics::Object(skyboxModel, skyboxShader, skyboxTex);
+    skybox = new graphics::Object(altSkybox, skyboxShader, skyboxTex);
     ocean = new graphics::Object(oceanModel, phongTexShader, oceanTex);
     //ocean->setColor(59,58,99,255);
     ocean->setScale(1000,1,1000);
@@ -66,25 +67,35 @@ void GLWidget::initializeGL()
     player = new graphics::Camera();
 
     currentCamera = player;
+
+    int errorCode = glGetError();
+    if(errorCode != 0){
+        printf("error after initing gl is: %x \n",errorCode);
+    }
+
 }
 
 void GLWidget::paintGL()
 {
     fpsMeter.start();
 
+    int errorCode = glGetError();
+    if(errorCode != 0){
+        printf("glerror at redraw is: 0x%x",errorCode);
+        exit(0);
+    }
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    skybox->draw(currentCamera->skyboxMatrix(), pMatrix);
+
+    skybox->draw2(currentCamera->skyboxMatrix(), pMatrix);
+
     glEnable(GL_DEPTH_TEST);
 
     ocean->draw(currentCamera->vMatrix, pMatrix);
     simplex->draw(currentCamera->vMatrix, pMatrix);
     glEnable(GL_CULL_FACE);
-
-    //monkey->draw(currentCamera->vMatrix, pMatrix);
 
     // Render text to screen
     nanoSex = fpsMeter.nsecsElapsed();
@@ -103,34 +114,50 @@ void GLWidget::resizeGL(int width, int height)
     glViewport(0, 0, width, height);
 }
 
-QGLShaderProgram* GLWidget::initShader(QString vertexPath, QString fragmentPath){
-    QGLShaderProgram* shader = new QGLShaderProgram;
-    shader->addShaderFromSourceFile(QGLShader::Vertex,  vertexPath);
-    shader->addShaderFromSourceFile(QGLShader::Fragment,fragmentPath);
+QOpenGLShaderProgram* GLWidget::initShader(QString vertexPath, QString fragmentPath){
+    QOpenGLShaderProgram* shader = new QOpenGLShaderProgram;
+    shader->addShaderFromSourceFile(QOpenGLShader::Vertex,  vertexPath);
+    shader->addShaderFromSourceFile(QOpenGLShader::Fragment,fragmentPath);
     shader->link();
     return shader;
 }
 
 GLuint GLWidget::uploadTexture(QString imagePath, bool mipmap)
 {
+
+    int errorCode = glGetError();
+    if(errorCode != 0){
+        printf("glError on attempting to upload texture: 0x%x \n",errorCode);
+        printf("broken texture was: %s \n",imagePath.toStdString().c_str());
+        exit(0);
+    }
+
     GLuint textureID;
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
+
     QImage image(imagePath);
     QImage imageGL = convertToGLFormat(image);
 
+
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageGL.width(), imageGL.height(),
                  0, GL_RGBA, GL_UNSIGNED_BYTE, imageGL.bits());
-
+    
     if(mipmap){
         glGenerateMipmap(GL_TEXTURE_2D);
-
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     } else {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    }
+
+    errorCode = glGetError();
+    if(errorCode != 0){
+        printf("glError on texture upload was: 0x%x \n",errorCode);
+        printf("broken texture was: %s \n",imagePath.toStdString().c_str());
+        exit(0);
     }
 
     return textureID;
