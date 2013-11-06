@@ -18,7 +18,7 @@ public:
 
     Entity<Components...> & createEntity();
 
-    Entity<Components...> & getEntity(int id);
+    Entity<Components...> & getEntity(long id);
 
     template<typename Component> void hasComponent(Entity<Components...> & entity);
 
@@ -84,14 +84,14 @@ std::vector<Component> & EntityManager<Components...>::getComponents() {
 
 template<typename... Components>
 Entity<Components...> & EntityManager<Components...>::createEntity() {
-    int id = (int) new int;
+    long id = (long) new long;
     entities[id].id = id;
     entities[id].es = this;
     return entities[id];
 }
 
 template<typename... Components>
-Entity<Components...> & EntityManager<Components...>::getEntity(int id) {
+Entity<Components...> & EntityManager<Components...>::getEntity(long id) {
     return entities[id];
 }
 
