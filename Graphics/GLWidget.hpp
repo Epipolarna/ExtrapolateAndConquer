@@ -7,6 +7,8 @@
 #include <QGLFramebufferObject>
 #include <QOpenGLBuffer>
 
+#include "ModelLoader.hpp"
+
 #include "Model.hpp"
 #include "Object.hpp"
 #include "Camera.hpp"
@@ -24,10 +26,14 @@ public:
     ~GLWidget();
 
     graphics::Model *skyboxModel, *monkeyModel, *oceanModel, *simplexModel;
+
+    ModelLoader *altSkybox;
+    ModelLoader *altMonkey;
+
     GLuint skyboxTex, oceanTex, tex0, tex1, tex2;
     graphics::Object *skybox, *monkey, *ocean, *simplex;
     graphics::Camera *currentCamera, *player;
-    QGLShaderProgram *skyboxShader, *phongShader, *phongTexShader, *flatShader;
+    QOpenGLShaderProgram *skyboxShader, *phongShader, *phongTexShader, *flatShader;
 
     QGLBuffer vertexBuffer;
 
@@ -54,7 +60,7 @@ private:
     qint64 nanoSex;
     double fps;
 
-    QGLShaderProgram* initShader(QString vertexPath, QString fragmentPath);
+    QOpenGLShaderProgram* initShader(QString vertexPath, QString fragmentPath);
     void useFBO(QGLFramebufferObject* FBO);
     GLuint uploadTexture(QString imagePath, bool mipmap = false);
 };

@@ -3,18 +3,23 @@
 
 #include "Model.hpp"
 #include "Camera.hpp"
+#include "ModelLoader.hpp"
+
 #include <QOpenGLFunctions>
+#include <QOpenGLShaderProgram>
 
 namespace graphics {
 
 class Object : protected QOpenGLFunctions
 {
 public:
-    Object(Model* model, QGLShaderProgram* program, GLuint texture = 0);
+    Object(Model* model, QOpenGLShaderProgram* program, GLuint texture = 0);
+    Object(ModelLoader* model, QOpenGLShaderProgram* program, GLuint texture = 0);
 
     void draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix);
+    void draw2(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix);
 
-    QGLShaderProgram* program;
+    QOpenGLShaderProgram* program;
 
     void setPosition(float x, float y, float z);
     void setScale(float x, float y, float z);
@@ -22,6 +27,7 @@ public:
 
 private:
     Model* model;
+    ModelLoader* model2;
     GLuint texture;
 
     QVector3D position;
