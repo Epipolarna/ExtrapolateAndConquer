@@ -1,0 +1,53 @@
+
+// Standard methods/member variables
+	::execute(...)	// Function call
+	::apply<...>	// Template call
+	::type			// Meta constant
+	::value			// Constant
+
+// Tuple
+Tuple
+	Tuple(Tuple)
+	Tuple(...variadic)
+	.length (size)
+	.getType<N>
+	.getValue<N>
+	.containType<T>
+	.getTypeIndex<T>
+	.removeType<T>
+	.unique
+	.push_front<T>
+	.push_back<T>
+	.insert<N,T>
+	.append<Tuple>
+	.Union<Tuple>
+	.Intersect<Tuple>
+	....
+	
+	// Make a new tuple of all types fulfilling a Conditional Template.
+	/* template<template<typename> typename CT, typename First, typename... Rest>
+	 * struct IncludeIF {
+	 * 	   typedef typename IF<CT<First>, TupleAppend<First, IncludeIF<CT, Rest>::type>, IncludeIF<CT, Rest>::type> type;
+	 * }
+	 */
+	
+// Condition
+True		// bool?
+False		// bool?
+NOT<C>
+OR<C1,C2>
+AND<C1,C2>
+XOR<C1,C2>
+CONDITION<bool c> -> True | False
+
+// Conditional Branch (lazy evaluation)
+IF<C, Then, Else = NOPE>	// NOPE := dummy
+
+// Loop
+FOR_EACH<Tuple, Template, Parameters, Arguments> // Template<Tuple<N>, Parameters...>::execute(Argumetns...), for each N
+
+
+// Unpack Tuple and implement template
+MetaCall<Template, Tuple>	// Template<Tuple<0>, Tuple<1>, ...>
+
+
