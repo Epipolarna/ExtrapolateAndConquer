@@ -3,6 +3,7 @@
 ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[])
 {
     application = new QApplication(argc,argv);
+    graphicsWindow = new GraphicsWindow();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(loopBody()));
     timer->start(20);
@@ -11,7 +12,7 @@ ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[])
 
 int ExtrapolateAndConquer::run()
 {
-    w.show();
+    graphicsWindow->show();
     int returnCode = application->exec();
 
     return returnCode;

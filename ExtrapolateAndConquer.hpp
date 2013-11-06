@@ -30,8 +30,8 @@ public slots:
 public:
     EntityManager<Components> entityManager;
 
-    QApplication * application;
-    GraphicsWindow w;
+    QApplication* application;
+    GraphicsWindow* graphicsWindow;
 
     QTimer* timer;
 };
