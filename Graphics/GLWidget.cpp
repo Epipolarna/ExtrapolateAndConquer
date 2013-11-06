@@ -51,7 +51,7 @@ void GLWidget::initializeGL()
 
     // ---------- TEXTURE LOADING --------------
     skyboxTex = uploadTexture(texturePath+"skybox0.png", false);
-    oceanTex = uploadTexture(texturePath+"water.png", false);
+    oceanTex = uploadTexture(texturePath+"water.png", true);
 
     // ---------- OBJECTS -----------------------
     skybox = new graphics::Object(altSkybox, skyboxShader, skyboxTex);
@@ -150,8 +150,9 @@ GLuint GLWidget::uploadTexture(QString imagePath, bool mipmap)
     
     if(mipmap){
         glGenerateMipmap(GL_TEXTURE_2D);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     } else {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
