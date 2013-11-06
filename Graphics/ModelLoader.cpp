@@ -213,7 +213,7 @@ void ModelLoader::upload(void){
     
     IBO.create();
     IBO.bind();
-    IBO.allocate(index.constData(),index.size()*3*sizeof(GLuint));
+    IBO.allocate(index.constData(),index.size()*sizeof(GLuint));
 
     VAO.release();
 }

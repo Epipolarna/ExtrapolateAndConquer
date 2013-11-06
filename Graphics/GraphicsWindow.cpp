@@ -8,7 +8,7 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->menubar->setVisible(false);
+    ui->menubar->setVisible(true);
     ui->statusbar->setVisible(false);
 
     setWindowFlags(Qt::FramelessWindowHint);

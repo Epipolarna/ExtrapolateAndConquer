@@ -40,19 +40,23 @@ ${Qt5OpenGL_INCLUDE_DIRS}
 
 # Load project libs
 ADD_SUBDIRECTORY(AI)
-#ADD_SUBDIRECTORY(EntitySystem)
+ADD_SUBDIRECTORY(EntitySystem)
 ADD_SUBDIRECTORY(Graphics)
-#ADD_SUBDIRECTORY(Physics)
+ADD_SUBDIRECTORY(Physics)
+ADD_SUBDIRECTORY(Components)
+ADD_SUBDIRECTORY(Systems)
 
 # Binaries
-ADD_EXECUTABLE(ExNCo main.cpp)
+ADD_EXECUTABLE(ExNCo main.cpp ExtrapolateAndConquer.cpp)
 
 # Link to libraries
 TARGET_LINK_LIBRARIES (ExNCo
     AI
-    #EntitySystem
+    EntitySystem
     Graphics
-    #Physics
+    Physics
+    Components
+    Systems
     ${OPENGL_LIBRARIES}
 )
 

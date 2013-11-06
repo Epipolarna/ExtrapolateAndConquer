@@ -5,13 +5,13 @@
  * \brief   Provides meta functionality in a clear and neat way.
  */
 
-#include "MetaLibrary/VariadicUtilities.hpp"
-#include "MetaLibrary/VariadicIndexing.hpp"
-#include "MetaLibrary/VariadicTypedef.hpp"
-#include "MetaLibrary/MultiContainer.hpp"
+#include "VariadicUtilities.hpp"
+#include "VariadicIndexing.hpp"
+#include "VariadicTypedef.hpp"
+#include "MultiContainer.hpp"
 
-#include "MetaLibrary/Conditional.hpp"
-#include "MetaLibrary/TupleUtilities.hpp"
+#include "Conditional.hpp"
+#include "TupleUtilities.hpp"
 
 
 ////////////////////

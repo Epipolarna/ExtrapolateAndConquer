@@ -1,6 +1,8 @@
 #ifndef CONDITIONAL_HPP
 #define CONDITIONAL_HPP
 
+#include <iostream>
+
 /*
  *  IF<Condition, Then, Else> -> Then or Else
  *
