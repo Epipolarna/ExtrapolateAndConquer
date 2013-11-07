@@ -6,19 +6,32 @@ ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[])
     graphicsWindow = new GraphicsWindow();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(loopBody()));
-    timer->start(20);
 
+    objectList = graphicsWindow->getRenderer()->objectList;
+
+    cam = Camera();
+
+    timer->start(20);
 }
 
-int ExtrapolateAndConquer::run()
-{
+ExtrapolateAndConquer::~ExtrapolateAndConquer(){
+    //TODO destroy game
+}
+
+int ExtrapolateAndConquer::run(){
+
     graphicsWindow->show();
     int returnCode = application->exec();
+
+    rm.loadShader("phong");
+    rm.loadModel("teapot");
+
+    objectList->push_back(graphics::Object(rm.getModel("teapot"),rm.getShader("phong")));
 
     return returnCode;
 }
 
-void ExtrapolateAndConquer::loopBody()
-{
-
+void ExtrapolateAndConquer::loopBody(){
+    //printf("looping! \n");
+    //TODO rendering here does not appear to work...
 }

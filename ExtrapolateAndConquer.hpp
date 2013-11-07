@@ -2,6 +2,10 @@
 #define EXTRAPOLATEANDCONQUER_HPP
 
 #include <QApplication>
+#include <QTimer>
+#include <vector>
+
+#include "Graphics/Object.hpp"
 #include "Graphics/GraphicsWindow.hpp"
 #include "Graphics/ModelLoader.hpp"
 
@@ -9,7 +13,9 @@
 #include "Components/Components.hpp"
 #include "Systems/Systems.hpp"
 
-#include <QTimer>;
+#include "Graphics/Renderer.hpp"
+
+#include "../ResourceManager.hpp"
 
 class ExtrapolateAndConquer : QObject
 {
@@ -17,10 +23,7 @@ class ExtrapolateAndConquer : QObject
 
 public:
     ExtrapolateAndConquer(int argc, char *argv[]);
-
-    void initialize() {}
-    void update() {}
-    void render() {}
+    ~ExtrapolateAndConquer();
 
     int run();
 
@@ -28,7 +31,13 @@ public slots:
     void loopBody();
 
 public:
-    EntityManager<Components> entityManager;
+
+    ResourceManager rm;
+    grapics::Camera cam;
+    
+    //EntityManager<Components> entityManager;
+
+    std::vector<graphics::Object> *objectList;
 
     QApplication* application;
     GraphicsWindow* graphicsWindow;

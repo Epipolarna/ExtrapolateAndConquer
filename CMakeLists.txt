@@ -47,7 +47,7 @@ ADD_SUBDIRECTORY(Components)
 ADD_SUBDIRECTORY(Systems)
 
 # Binaries
-ADD_EXECUTABLE(ExNCo main.cpp ExtrapolateAndConquer.cpp)
+ADD_EXECUTABLE(ExNCo main.cpp ExtrapolateAndConquer.cpp ResourceManager.cpp)
 
 # Link to libraries
 TARGET_LINK_LIBRARIES (ExNCo

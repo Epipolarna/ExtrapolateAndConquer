@@ -2,7 +2,9 @@
 #define GRAPHICSWINDOW_HPP
 
 #include <QMainWindow>
-#include "GLWidget.hpp"
+#include <QKeyEvent>
+
+#include "GraphicsWidget.hpp"
 
 namespace Ui {
 class GraphicsWindow;
@@ -16,13 +18,15 @@ public:
     explicit GraphicsWindow(QWidget *parent = 0);
     ~GraphicsWindow();
 
+    Renderer* getRenderer(void);
 private:
     Ui::GraphicsWindow *ui;
 
-    GLWidget* glWidget;
-    void keyPressEvent(QKeyEvent *);
-    void keyReleaseEvent(QKeyEvent *);
-    void closeEvent(QCloseEvent *);
+    GraphicsWidget* glWidget;
+    
+    void keyPressEvent(QKeyEvent *e);
+    void keyReleaseEvent(QKeyEvent *e);
+    void closeEvent(QCloseEvent *e);
     void initalize();
 };
 

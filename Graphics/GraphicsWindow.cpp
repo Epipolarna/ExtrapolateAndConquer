@@ -19,10 +19,14 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
     //f.setProfile(QGLFormat::CompatibilityProfile);
     //f.setProfile(QGLFormat::NoProfile);
 
-    glWidget = new GLWidget(f);
+    glWidget = new GraphicsWidget(f);
     setCentralWidget(glWidget);
 
     resize(1280, 800);
+}
+
+Renderer* GraphicsWindow::getRenderer(void){
+    return glWidget->getRenderer();
 }
 
 GraphicsWindow::~GraphicsWindow()
@@ -39,13 +43,12 @@ void GraphicsWindow::initalize(){
     //f.setProfile(QGLFormat::CompatibilityProfile);
     //f.setProfile(QGLFormat::NoProfile);
 
-    glWidget = new GLWidget(f);
+    glWidget = new GraphicsWidget(f);
     setCentralWidget(glWidget);
 }
 
-void GraphicsWindow::keyPressEvent(QKeyEvent *e)
-{
-    //qDebug() << "GraphicsWindow KeyPress: " << e->text();
+void GraphicsWindow::keyPressEvent(QKeyEvent *e){
+
     switch(e->key()){
     case Qt::Key_F5:
         initalize();
@@ -54,7 +57,7 @@ void GraphicsWindow::keyPressEvent(QKeyEvent *e)
         close();
         break;
     default:
-        glWidget->keyPressEvent(e);
+        //glWidget->keyPressEvent(e);
         break;
     }
 }
@@ -64,7 +67,7 @@ void GraphicsWindow::keyReleaseEvent(QKeyEvent *e)
     //qDebug() << "GraphicsWindow KeyRelease: " << e->text();
     switch(e->key()){
     default:
-        glWidget->keyReleaseEvent(e);
+        //glWidget->keyReleaseEvent(e);
         break;
     }
 }

@@ -8,11 +8,5 @@ int main(int argc, char *argv[])
 {
     ExtrapolateAndConquer ExNCo(argc,argv);
 
-    /*
-    QApplication a(argc, argv);
-    GraphicsWindow w;
-    w.show();
-    */
-
     return ExNCo.run();
 }
