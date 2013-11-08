@@ -23,10 +23,10 @@ public:
 
     Renderer* getRenderer(void);
 
+    void paintGL();
 protected:
     void initializeGL();
     void resizeGL(int width, int height);
-    void paintGL();
     Renderer *r;
 };
 

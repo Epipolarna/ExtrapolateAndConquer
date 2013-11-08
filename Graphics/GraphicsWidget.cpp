@@ -33,5 +33,6 @@ void GraphicsWidget::resizeGL(int width, int height){
 }
 
 void GraphicsWidget::paintGL(){
+	printf("repainting window \n");
 	r->render();
 }

@@ -21,9 +21,8 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture)
     color = QVector4D(1,1,1,1);
 }
 
-Object::Object(ModelLoader *_model, QOpenGLShaderProgram *_program, GLuint _texture)
-{
-    printf("using alternate object constructor \n");
+Object::Object(ModelLoader *_model, QOpenGLShaderProgram *_program, GLuint _texture){
+    
     model2 = _model;
     texture = _texture;
     program = _program;

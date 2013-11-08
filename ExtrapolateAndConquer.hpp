@@ -33,7 +33,7 @@ public slots:
 public:
 
     ResourceManager rm;
-    grapics::Camera cam;
+    graphics::Camera cam;
     
     //EntityManager<Components> entityManager;
 

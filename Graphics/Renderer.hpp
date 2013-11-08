@@ -18,6 +18,10 @@ public:
 
     void render(void);
 
+    QMatrix4x4 pMatrix;
+    QMatrix4x4 cameraMatrix;
+    graphics::Camera *cam;
+    
     std::vector<graphics::Object> *objectList;
 private:
 };

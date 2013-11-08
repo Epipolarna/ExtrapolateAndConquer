@@ -21,8 +21,8 @@ public:
     void setLookAt(QVector3D lookAt);
     void setUp(QVector3D up);
 
-    void keyPressEvent(QKeyEvent*);
-    void keyReleaseEvent(QKeyEvent*);
+    void keyPressEvent(QKeyEvent* e);
+    void keyReleaseEvent(QKeyEvent* e);
     void updatePosition();
 
     QMatrix4x4 skyboxMatrix();

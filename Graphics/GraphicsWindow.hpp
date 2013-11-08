@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 
 #include "GraphicsWidget.hpp"
+#include "Camera.hpp"
 
 namespace Ui {
 class GraphicsWindow;
@@ -19,15 +20,19 @@ public:
     ~GraphicsWindow();
 
     Renderer* getRenderer(void);
+    void registerEventManager(graphics::Camera *c);
+    void paintGL(void);
+    
 private:
     Ui::GraphicsWindow *ui;
+
+    graphics::Camera *cam;
 
     GraphicsWidget* glWidget;
     
     void keyPressEvent(QKeyEvent *e);
     void keyReleaseEvent(QKeyEvent *e);
     void closeEvent(QCloseEvent *e);
-    void initalize();
 };
 
 #endif // GRAPHICSWINDOW_HPP

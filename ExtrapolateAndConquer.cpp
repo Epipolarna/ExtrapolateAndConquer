@@ -1,7 +1,7 @@
 #include "ExtrapolateAndConquer.hpp"
 
-ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[])
-{
+ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[]){
+    
     application = new QApplication(argc,argv);
     graphicsWindow = new GraphicsWindow();
     timer = new QTimer(this);
@@ -9,7 +9,7 @@ ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[])
 
     objectList = graphicsWindow->getRenderer()->objectList;
 
-    cam = Camera();
+    cam = graphics::Camera();
 
     timer->start(20);
 }
@@ -32,6 +32,5 @@ int ExtrapolateAndConquer::run(){
 }
 
 void ExtrapolateAndConquer::loopBody(){
-    //printf("looping! \n");
-    //TODO rendering here does not appear to work...
+    graphicsWindow->paintGL();
 }
