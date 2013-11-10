@@ -50,9 +50,11 @@ void GLWidget::initializeGL()
     altMonkey->loadModel(modelPath+"teapot.obj");
 
     //terrainModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
-    float octaves[] = {400, 200, 100, 50, 20,  10,  1};
-    float scales[] =  {10,  5,   2,   1,  0.5, 0.1, 0.01};
-    int nOctaves = sizeof(octaves)/sizeof(int);
+    float octaves[] = {400, 200, 100, 50, 20, 10,  1};
+    float scales[] =  {10,  5,   4,   3,  2,  1,   0.1};
+    //float octaves[] = {400};
+    //float scales[] =  {10};
+    int nOctaves = sizeof(octaves)/sizeof(float);
     terrainModel = TerrainGenerator::simplexTerrain2(1000,1000,1,octaves,scales,nOctaves);
     simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
@@ -67,6 +69,7 @@ void GLWidget::initializeGL()
     //ocean->setColor(59,58,99,255);
     ocean->setScale(1000,1,1000);
     monkey = new graphics::Object(altMonkey, phongShader);
+    monkey->setScale(0.1,0.1,0.1);
 
     terrain = new graphics::Object(terrainModel, terrainShader);
     terrain->setColor(85,196,48,255);
@@ -107,11 +110,12 @@ void GLWidget::paintGL()
     skybox->draw2(currentCamera->skyboxMatrix(), pMatrix);
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 
     ocean->draw(currentCamera->vMatrix, pMatrix);
     terrain->draw(currentCamera->vMatrix, pMatrix);
     //simplex->draw(currentCamera->vMatrix, pMatrix);
-    glEnable(GL_CULL_FACE);
+
 
     monkey->draw2(currentCamera->vMatrix,pMatrix);
 
@@ -129,7 +133,7 @@ void GLWidget::resizeGL(int width, int height)
     }
 
     pMatrix.setToIdentity();
-    pMatrix.perspective(60.0, (float) width / (float) height, 0.5, 500);
+    pMatrix.perspective(60.0, (float) width / (float) height, 0.1, 1000);
 
     glViewport(0, 0, width, height);
 }

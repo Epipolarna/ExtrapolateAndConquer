@@ -59,7 +59,7 @@ graphics::Model *TerrainGenerator::simplexTerrain2(float xRange, float zRange, f
     cv::Mat heightMapThresh(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
     int step = heightMap.cols;
 
-    qDebug() << nOctaves;
+    qDebug() << "Number of octaves: " << nOctaves;
 
     float y = 0;
 
@@ -88,24 +88,52 @@ graphics::Model *TerrainGenerator::simplexTerrain2(float xRange, float zRange, f
         }
     }
 
-    cv::imshow("heightMap", heightMap);
-    cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
-    cv::imshow("heightMapThresh", heightMapThresh);
+    //cv::imshow("heightMap", heightMap);
+    //cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
+    //cv::imshow("heightMapThresh", heightMapThresh);
 
+    qDebug() << "step: " << step;
 
-    // Tie vertices together. openGL indexing start at 1
+    // Tie vertices together. openGL indexing starts at 0 tydligen..
     for (int x = 1; x < xRange*vertexDensity; x++){
         for (int z = 1; z < zRange*vertexDensity; z++){
 
             // First triangle
-            group.indices.push_back( (x-1)*step + z-1 + 1);
-            group.indices.push_back( x*step     + z   + 1);
-            group.indices.push_back( x*step     + z-1 + 1);
+            group.indices.push_back( (x-1)*step + z-1);  // 0
+            group.indices.push_back( x*step     + z  );  // 3
+            group.indices.push_back( x*step     + z-1);  // 2
 
             // Second triangle
-            group.indices.push_back( (x-1)*step + z-1 + 1);
-            group.indices.push_back( (x-1)*step + z   + 1);
-            group.indices.push_back( x*step     + z   + 1);
+            group.indices.push_back( (x-1)*step + z-1);  // 0
+            group.indices.push_back( (x-1)*step + z  );  // 1
+            group.indices.push_back( x*step     + z  );  // 3
+        }
+    }
+
+    float y00, y01, y10;
+    QVector3D tangent1, tangent2;
+    QVector3D normal;
+
+    // Calculate normals
+    for (int z = 0; z < zRange*vertexDensity; z++){
+        group.normals.push_back(QVector3D(0,1,0));
+    }
+
+    for (int x = 1; x < xRange*vertexDensity; x++){
+        group.normals.push_back(QVector3D(0,1,0));
+        for (int z = 1; z < zRange*vertexDensity; z++){
+
+            y00 = heightMap.at<float>(x-1,z-1);
+            y01 = heightMap.at<float>(x-1,z);
+            y10 = heightMap.at<float>(x,z-1);
+
+            tangent1 = QVector3D(1, y10-y00, 0);
+            tangent2 = QVector3D(0, y01-y00, 1);
+
+            normal = normal.crossProduct(tangent2, tangent1);
+            normal.normalize();
+
+            group.normals.push_back(normal);
         }
     }
 

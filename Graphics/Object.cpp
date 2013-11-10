@@ -17,8 +17,8 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture0, 
 
     ambientCoeff  = 0.2;
     diffuseCoeff  = 0.6;
-    specularCoeff = 100;
-    specularExponent = 50;
+    specularCoeff = 0.5;
+    specularExponent = 10;
 
     color = QVector4D(1,1,1,1);
 }
@@ -37,7 +37,7 @@ Object::Object(ModelLoader *_model, QOpenGLShaderProgram *_program, GLuint _text
 
     ambientCoeff  = 0.2;
     diffuseCoeff  = 0.6;
-    specularCoeff = 100;
+    specularCoeff = 0.2;
     specularExponent = 50;
 
     color = QVector4D(1,1,1,1);
@@ -55,6 +55,10 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix)
     program->setUniformValue("tex1", 1);
     program->setUniformValue("scale", scale);
     program->setUniformValue("color", color);
+    program->setUniformValue("ambientCoeff", ambientCoeff);
+    program->setUniformValue("diffuseCoeff", diffuseCoeff);
+    program->setUniformValue("specularCoeff", specularCoeff);
+    program->setUniformValue("specularExponent", specularExponent);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture0);
@@ -85,7 +89,6 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix)
             }
 
             if(model->groups[0].indices.size() > 0){
-                qDebug() << model->groups[0].indices.size();
                 glDrawElements(GL_TRIANGLES, model->groups[0].indices.size(), GL_UNSIGNED_INT, 0);
             } else {
                 glDrawArrays(GL_TRIANGLES, 0, model->groups[0].vertices.size());
