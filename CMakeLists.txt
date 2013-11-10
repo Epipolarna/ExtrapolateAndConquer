@@ -59,6 +59,7 @@ TARGET_LINK_LIBRARIES (ExNCo
     Components
     Systems
     ${OPENGL_LIBRARIES}
+    ${OpenCV_LIBS}
 )
 
 # Activate Qt for project

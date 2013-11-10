@@ -9,6 +9,7 @@ public:
     TerrainGenerator();
 
     static graphics::Model* simplexTerrain(float xRange, float zRange, float xPeriod = 1, float zPeriod = 1, float yScale = 1);
+
 };
 
 #endif // TERRAINGENERATOR_HPP

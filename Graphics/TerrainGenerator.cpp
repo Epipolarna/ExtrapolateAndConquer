@@ -1,6 +1,8 @@
 #include "TerrainGenerator.hpp"
 
 #include "simplexnoise1234.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 TerrainGenerator::TerrainGenerator()
 {
@@ -10,6 +12,7 @@ graphics::Model *TerrainGenerator::simplexTerrain(float xRange, float zRange, fl
 {
     graphics::Model* model = new graphics::Model;
     graphics::ModelGroup group;
+    cv::Mat image(xRange, zRange, CV_32FC1);
 
     float y00, y01, y10, y11;
 
@@ -20,6 +23,8 @@ graphics::Model *TerrainGenerator::simplexTerrain(float xRange, float zRange, fl
             y01 =  SimplexNoise1234::noise((x-1)/xPeriod,  z   /zPeriod) * yScale;
             y10 =  SimplexNoise1234::noise( x   /xPeriod, (z-1)/zPeriod) * yScale;
             y11 =  SimplexNoise1234::noise( x   /xPeriod,  z   /zPeriod) * yScale;
+
+            image.at<float>(x,z) = y11;
 
             //qDebug() << y00 << " " << y01 << " " << y10 << " " << y11;
 
@@ -37,6 +42,8 @@ graphics::Model *TerrainGenerator::simplexTerrain(float xRange, float zRange, fl
 
     model->groups.push_back(group);
     model->uploadToGPU();
+
+    cv::imshow("Terrain", image);
 
     return model;
 }
