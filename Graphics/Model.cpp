@@ -4,6 +4,14 @@ namespace graphics {
 
 Model::Model()
 {
+    VBO = QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
+    IBO = QOpenGLBuffer(QOpenGLBuffer::Type::IndexBuffer);
+
+    VBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
+    TBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
+    NBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
+    IBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
+
     mMatrix.setToIdentity();
 }
 
@@ -67,6 +75,12 @@ void Model::uploadToGPU()
                 VBO.create();
                 VBO.bind();
                 VBO.allocate(groups[i].vertices.constData(), groups[i].vertices.size()*3*sizeof(GLfloat));
+            }
+
+            if(groups[i].indices.size() > 0){
+                IBO.create();
+                IBO.bind();
+                IBO.allocate(groups[i].indices.constData(), groups[i].indices.size()*sizeof(GLuint));
             }
 
             if(groups[i].normals.size() > 0){

@@ -49,7 +49,11 @@ void GLWidget::initializeGL()
     altMonkey = new ModelLoader();
     altMonkey->loadModel(modelPath+"teapot.obj");
 
-    terrainModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
+    //terrainModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
+    float octaves[] = {400, 200, 100, 50, 20,  10,  1};
+    float scales[] =  {10,  5,   2,   1,  0.5, 0.1, 0.01};
+    int nOctaves = sizeof(octaves)/sizeof(int);
+    terrainModel = TerrainGenerator::simplexTerrain2(1000,1000,1,octaves,scales,nOctaves);
     simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
     // ---------- TEXTURE LOADING --------------
@@ -66,7 +70,7 @@ void GLWidget::initializeGL()
 
     terrain = new graphics::Object(terrainModel, terrainShader);
     terrain->setColor(85,196,48,255);
-    terrain->setScale(10,1,10);
+    //terrain->setScale(10,1,10);
     terrain->setPosition(-500,0,-500);
 
     simplex = new graphics::Object(simplexModel, flatShader);
@@ -113,7 +117,9 @@ void GLWidget::paintGL()
 
     // Render text to screen
     nanoSex = fpsMeter.nsecsElapsed();
+    glDisable(GL_DEPTH_TEST);
     //renderText(20, 20, "FPS: " + QString::number(1.0e9/nanoSex));
+    glEnable(GL_DEPTH_TEST);
 }
 
 void GLWidget::resizeGL(int width, int height)
@@ -123,7 +129,7 @@ void GLWidget::resizeGL(int width, int height)
     }
 
     pMatrix.setToIdentity();
-    pMatrix.perspective(60.0, (float) width / (float) height, 0.1, 1000);
+    pMatrix.perspective(60.0, (float) width / (float) height, 0.5, 500);
 
     glViewport(0, 0, width, height);
 }

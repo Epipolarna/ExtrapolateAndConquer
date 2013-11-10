@@ -84,7 +84,12 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix)
                 program->setAttributeBuffer("texCoord", GL_FLOAT, 0, 3);
             }
 
-            glDrawArrays(GL_TRIANGLES, 0, model->groups[0].vertices.size());
+            if(model->groups[0].indices.size() > 0){
+                qDebug() << model->groups[0].indices.size();
+                glDrawElements(GL_TRIANGLES, model->groups[0].indices.size(), GL_UNSIGNED_INT, 0);
+            } else {
+                glDrawArrays(GL_TRIANGLES, 0, model->groups[0].vertices.size());
+            }
         }
     }
     model->VAO.release();
