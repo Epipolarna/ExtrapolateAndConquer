@@ -12,7 +12,7 @@ in vec3 exSurface; // Phong (specular)
 in vec2 exTexCoord;
 out vec4 outColor;
 
-uniform sampler2D tex;
+uniform sampler2D tex0;
 
 uniform float ambientCoeff;
 uniform float diffuseCoeff;
@@ -46,5 +46,5 @@ void main(void)
     specular = max(specular, 0.0);
 
     shade = ambientCoeff + diffuseCoeff*diffuse + specularCoeff*specular;
-	outColor = texture(tex, exTexCoord*scale.x);
+	outColor = texture(tex0, exTexCoord*scale.x);
 }

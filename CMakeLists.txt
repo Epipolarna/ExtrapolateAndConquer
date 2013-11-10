@@ -16,6 +16,7 @@ IF(WIN32)
         add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     ENDIF()
 
+    set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
     cmake_policy(SET CMP0020 NEW)
 ENDIF()
 

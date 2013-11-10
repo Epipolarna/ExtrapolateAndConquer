@@ -13,8 +13,8 @@ namespace graphics {
 class Object : protected QOpenGLFunctions
 {
 public:
-    Object(Model* model, QOpenGLShaderProgram* program, GLuint texture = 0);
-    Object(ModelLoader* model, QOpenGLShaderProgram* program, GLuint texture = 0);
+    Object(Model* model, QOpenGLShaderProgram* program, GLuint _texture0 = 0, GLuint _texture1 = 0);
+    Object(ModelLoader* model, QOpenGLShaderProgram* program, GLuint _texture0 = 0, GLuint _texture1 = 0);
 
     void draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix);
     void draw2(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix);
@@ -28,7 +28,7 @@ public:
 private:
     Model* model;
     ModelLoader* model2;
-    GLuint texture;
+    GLuint texture0, texture1;
 
     QVector3D position;
     QVector3D scale;

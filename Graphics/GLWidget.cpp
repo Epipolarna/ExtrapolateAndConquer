@@ -33,6 +33,8 @@ void GLWidget::initializeGL()
 
     // ---------- SHADER INIT -----------------
     skyboxShader = initShader(shaderPath+"skyboxShader.vert", shaderPath+"skyboxShader.frag");
+    oceanShader = initShader(shaderPath+"oceanShader.vert", shaderPath+"oceanShader.frag");
+    terrainShader = initShader(shaderPath+"terrainShader.vert", shaderPath+"terrainShader.frag");
     phongShader = initShader(shaderPath+"phong.vert", shaderPath+"phong.frag");
     phongTexShader = initShader(shaderPath+"phongTex.vert", shaderPath+"phongTex.frag");
     flatShader = initShader(shaderPath+"flat.vert", shaderPath+"flat.frag");
@@ -47,18 +49,25 @@ void GLWidget::initializeGL()
     altMonkey = new ModelLoader();
     altMonkey->loadModel(modelPath+"teapot.obj");
 
+    terrainModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
     simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
     // ---------- TEXTURE LOADING --------------
     skyboxTex = uploadTexture(texturePath+"skybox0.png", false);
     oceanTex = uploadTexture(texturePath+"water.png", true);
+    grassTex = uploadTexture(texturePath+"grass.png", true);
 
     // ---------- OBJECTS -----------------------
     skybox = new graphics::Object(altSkybox, skyboxShader, skyboxTex);
-    ocean = new graphics::Object(oceanModel, phongTexShader, oceanTex);
+    ocean = new graphics::Object(oceanModel, oceanShader, oceanTex, grassTex);
     //ocean->setColor(59,58,99,255);
     ocean->setScale(1000,1,1000);
     monkey = new graphics::Object(altMonkey, phongShader);
+
+    terrain = new graphics::Object(terrainModel, terrainShader);
+    terrain->setColor(85,196,48,255);
+    terrain->setScale(10,1,10);
+    terrain->setPosition(-500,0,-500);
 
     simplex = new graphics::Object(simplexModel, flatShader);
     simplex->setColor(85,196,48,255);
@@ -96,7 +105,8 @@ void GLWidget::paintGL()
     glEnable(GL_DEPTH_TEST);
 
     ocean->draw(currentCamera->vMatrix, pMatrix);
-    simplex->draw(currentCamera->vMatrix, pMatrix);
+    terrain->draw(currentCamera->vMatrix, pMatrix);
+    //simplex->draw(currentCamera->vMatrix, pMatrix);
     glEnable(GL_CULL_FACE);
 
     monkey->draw2(currentCamera->vMatrix,pMatrix);
