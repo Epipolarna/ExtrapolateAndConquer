@@ -16,7 +16,7 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
     QGLFormat f;
     f.setVersion(3,2);
     f.setProfile(QGLFormat::CoreProfile);
-    f.setDepthBufferSize(32);
+    //f.setDepthBufferSize(32);
     //f.setProfile(QGLFormat::CompatibilityProfile);
     //f.setProfile(QGLFormat::NoProfile);
 

@@ -15,10 +15,10 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture0, 
     position = QVector3D(0,0,0);
     scale = QVector3D(1,1,1);
 
-    ambientCoeff  = 0.2;
-    diffuseCoeff  = 0.6;
+    ambientCoeff  = 0.4;
+    diffuseCoeff  = 0.4;
     specularCoeff = 0.5;
-    specularExponent = 10;
+    specularExponent = 50;
 
     color = QVector4D(1,1,1,1);
 }

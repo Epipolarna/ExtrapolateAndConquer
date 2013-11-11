@@ -50,12 +50,35 @@ void GLWidget::initializeGL()
     altMonkey->loadModel(modelPath+"teapot.obj");
 
     //terrainModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
-    float octaves[] = {400, 200, 100, 50, 20, 10,  1};
-    float scales[] =  {10,  5,   4,   3,  2,  1,   0.1};
-    //float octaves[] = {400};
-    //float scales[] =  {10};
+    //float octaves[] = {400, 200, 100, 50, 20, 10};
+    //float scales[] =  {20,  5,   4,   3,  1.5,  1};
+
+    float octaves[16];
+    float scales[16];
+
+    // 1.8715 or 2.1042
+    float lacunarity = 1/1.87;
+    float gain = 0.65;
+
+    //for each pixel, get the value
+    float period = 400;
+    float amplitude = 20;
+    for (int i = 0; i < 16; i++)
+    {
+        qDebug() << "Period: " << period;
+        qDebug() << "Amplit: " << amplitude;
+
+        octaves[i] = period;
+        scales[i] = amplitude;
+
+        period *= lacunarity;
+        amplitude *= gain;
+    }
+
+
+
     int nOctaves = sizeof(octaves)/sizeof(float);
-    terrainModel = TerrainGenerator::simplexTerrain2(1000,1000,1,octaves,scales,nOctaves);
+    terrainModel = TerrainGenerator::simplexTerrain2(1000,1000,0.5f,octaves,scales,nOctaves);
     simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
     // ---------- TEXTURE LOADING --------------

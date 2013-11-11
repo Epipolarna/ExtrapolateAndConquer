@@ -73,7 +73,7 @@ graphics::Model *TerrainGenerator::simplexTerrain2(float xRange, float zRange, f
 
     qDebug() << "MaxScale: " << maxScale;
 
-    // Generate height map
+    // Generate height map and texture coordinates
     for (int x = 0; x < xRange*vertexDensity; x++){
         for (int z = 0; z < zRange*vertexDensity; z++){
 
@@ -82,14 +82,14 @@ graphics::Model *TerrainGenerator::simplexTerrain2(float xRange, float zRange, f
                 y += SimplexNoise1234::noise(x/octaves[i], z/octaves[i]) * yScales[i];
             }
 
-            group.vertices.push_back(QVector3D(x,y,z));
+            group.vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
 
             heightMap.at<float>(x,z) = (y + maxScale) / (2*maxScale);
         }
     }
 
     //cv::imshow("heightMap", heightMap);
-    //cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
+    cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
     //cv::imshow("heightMapThresh", heightMapThresh);
 
     qDebug() << "step: " << step;
