@@ -6,8 +6,7 @@
 class WorldGen{
 public:
 	WorldGen();
-
-	Model* generateWorld();
+	Model* generateWorld(float xRange, float zRange, float xPeriod = 1, float zPeriod = 1, float yScale = 1);
 };
 
 #endif
