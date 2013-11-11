@@ -35,7 +35,7 @@ public:
     std::vector<graphics::Object> objectList;
 
 
-    //EntityManager<Components> entityManager;
+    EntityManager<Components> entityManager;
 
     QApplication* application;
     GraphicsWindow* graphicsWindow;

@@ -1,13 +1,13 @@
 #ifndef SYSTEM_HPP
 #define SYSTEM_HPP
 
-#include "EntityManager.hpp"
+#include "EntitySystem.hpp"
 
 template<typename PrimaryComponent, typename... Components>
 class System
 {
 public:
-    System(EntityManager<Components...> & EntityManager) : es(EntityManager) {}
+    System(EntityManager<Components...> & entitySystem) : es(entitySystem) {}
 
     // External methods
     virtual void processStep(PrimaryComponent & c) = 0;

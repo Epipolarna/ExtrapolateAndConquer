@@ -3,8 +3,7 @@
 
 #include <algorithm>
 #include <type_traits>
-
-#include "VariadicUtilities.hpp"
+#include "TupleUtilities.hpp"
 
 /*!
  * \Brief   Creates a class with a Container of each type of Types, accessible by that type.
@@ -22,7 +21,7 @@ public:
     template<typename T>
     Container<T> & getContainer()
     {
-        return std::get<get_index<T,Types...>::INDEX>(containers);
+        return std::get<meta::Tuple_findType<std::tuple<Types...>, T>::value>(containers);
     }
 
     /*!
@@ -31,7 +30,7 @@ public:
     template<typename T>
     constexpr const int getIndex()
     {
-        return get_index<T, Types...>::INDEX;
+        return meta::Tuple_findType<std::tuple<Types...>, T>::value;
     }
 
     /*!
@@ -39,7 +38,7 @@ public:
      */
     constexpr int size()
     {
-        return get_size<Types...>::SIZE;
+        return meta::Tuple_length<std::tuple<Types...>>::value;
     }
 
 };

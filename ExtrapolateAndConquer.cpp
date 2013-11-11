@@ -32,12 +32,22 @@ int ExtrapolateAndConquer::run(){
 
     r->renderList.push_back(o1);
 
+
+    // Initialize?
+    Entity<Components> & e = entityManager.createEntity();
+    e.add<SimplePhysics>();
+    e.get<SimplePhysics>().position = QVector3D(0, 0, 0);
+    e.get<SimplePhysics>().velocity = QVector3D(0, -0.00001, 0);
+
     int returnCode = application->exec();
     return returnCode;
 }
 
 void ExtrapolateAndConquer::loopBody(){
     cam->updatePosition();
+
+    // Run the systems...
+
 
     //make sure to update the gl widget...
     graphicsWindow->centralWidget()->update();
