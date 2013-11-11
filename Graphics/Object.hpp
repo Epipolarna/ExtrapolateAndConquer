@@ -2,7 +2,7 @@
 #define OBJECT_HPP
 
 #include "Camera.hpp"
-#include "ModelLoader.hpp"
+#include "Model.hpp"
 
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
@@ -12,7 +12,7 @@ namespace graphics {
 class Object : protected QOpenGLFunctions
 {
 public:
-    Object(ModelLoader* model, QOpenGLShaderProgram* program, GLuint texture = 0);
+    Object(Model* model, QOpenGLShaderProgram* program, GLuint texture = 0);
 
     void draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix);
 
@@ -23,7 +23,7 @@ public:
     void setColor(float r, float g, float b, float a = 1);
 
 private:
-    ModelLoader* model;
+    Model* model;
     GLuint texture;
 
     QVector3D position;

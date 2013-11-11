@@ -1,6 +1,6 @@
-#include "ModelLoader.hpp"
+#include "Model.hpp"
 
-ModelLoader::ModelLoader(void){
+Model::Model(void){
 	VBO = QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
 	IBO = QOpenGLBuffer(QOpenGLBuffer::Type::IndexBuffer);
 
@@ -10,7 +10,7 @@ ModelLoader::ModelLoader(void){
 	IBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
 }
 
-void ModelLoader::dumpData(void){
+void Model::dumpData(void){
 	printf("vertices\n");
 	for(QVector3D v: vertex){
 		printf("%f,%f,%f \n",v.x(),v.y(),v.z());
@@ -28,7 +28,7 @@ void ModelLoader::dumpData(void){
 }
 
 
-bool ModelLoader::readVertex(const QStringList data){
+bool Model::readVertex(const QStringList data){
 	GLfloat f[3];
 	int j = 0;
 	bool ok = false;
@@ -49,7 +49,7 @@ bool ModelLoader::readVertex(const QStringList data){
 	}
 }
 
-bool ModelLoader::readTexture(const QStringList data){
+bool Model::readTexture(const QStringList data){
 	GLfloat f[2];
 	int j = 0;
 	bool ok = false;
@@ -70,7 +70,7 @@ bool ModelLoader::readTexture(const QStringList data){
 	return false;
 }
 
-bool ModelLoader::readNormal(const QStringList data){
+bool Model::readNormal(const QStringList data){
 	GLfloat f[3];
 	int j = 0;
 	bool ok = false;
@@ -91,7 +91,7 @@ bool ModelLoader::readNormal(const QStringList data){
 }
 
 
-int ModelLoader::vertexExists(const QVector3D v, const QVector3D n, const QVector2D t){
+int Model::vertexExists(const QVector3D v, const QVector3D n, const QVector2D t){
 
     for(int i=0; i < index.size() && i < vertex.size(); i++){
         if(vertex[i] == v && normal[i] == n && texture[i] == t){
@@ -101,7 +101,7 @@ int ModelLoader::vertexExists(const QVector3D v, const QVector3D n, const QVecto
     return 0;
 }
 
-void ModelLoader::makeVertex(const QStringList data){
+void Model::makeVertex(const QStringList data){
     int dex[3];
     int j=0;
     for(int i=0; i < data.size(); i++){
@@ -144,7 +144,7 @@ void ModelLoader::makeVertex(const QStringList data){
     }
 }
 
-bool ModelLoader::readFace(const QStringList data){
+bool Model::readFace(const QStringList data){
 
     for(int i=0; i < data.size(); i++){
         if(data.at(i).contains("/")){
@@ -154,7 +154,7 @@ bool ModelLoader::readFace(const QStringList data){
     return true;
 }
 
-void ModelLoader::parseLine(QString line){
+void Model::parseLine(QString line){
 	QStringList bits = line.split(" ");
 	
 	bool parseOk = false;
@@ -193,7 +193,7 @@ void ModelLoader::parseLine(QString line){
 	}
 }
 
-void ModelLoader::upload(void){
+void Model::upload(void){
 	//dumpData();
 
     VAO.create();
@@ -218,7 +218,7 @@ void ModelLoader::upload(void){
     VAO.release();
 }
 
-void ModelLoader::loadModel(const QString filename){
+void Model::loadModel(const QString filename){
 	
 	QFile file(filename);
 

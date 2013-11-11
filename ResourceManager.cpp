@@ -13,7 +13,7 @@ ResourceManager::~ResourceManager(){
     //destroy all resources etc
 }
 
-ModelLoader* ResourceManager::getModel(QString name){
+Model* ResourceManager::getModel(QString name){
 	return models[name];
 }
 
@@ -26,7 +26,7 @@ QOpenGLShaderProgram* ResourceManager::getShader(QString name){
 }
 
 bool ResourceManager::loadModel(QString modelName){
-	ModelLoader *ml = new ModelLoader();
+	Model *ml = new Model();
 	ml->loadModel(modelPath+modelName+".obj");
 
     models[modelName] = ml;

@@ -7,7 +7,7 @@
 #include <QOpenGLBuffer>
 #include <vector>
 
-#include "ModelLoader.hpp"
+#include "Model.hpp"
 #include "Object.hpp"
 #include "Camera.hpp"
 

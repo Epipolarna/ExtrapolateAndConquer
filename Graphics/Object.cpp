@@ -2,7 +2,7 @@
 
 namespace graphics {
 
-Object::Object(ModelLoader *_model, QOpenGLShaderProgram *_program, GLuint _texture){
+Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     
     model = _model;
     texture = _texture;

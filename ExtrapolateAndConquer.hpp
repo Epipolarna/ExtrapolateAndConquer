@@ -7,7 +7,7 @@
 
 #include "Graphics/Object.hpp"
 #include "Graphics/GraphicsWindow.hpp"
-#include "Graphics/ModelLoader.hpp"
+#include "Graphics/Model.hpp"
 
 #include "EntitySystem/EntitySystem.hpp"
 #include "Components/Components.hpp"

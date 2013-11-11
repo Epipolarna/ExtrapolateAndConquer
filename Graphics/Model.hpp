@@ -15,10 +15,10 @@
 #include <QFile>
 
 
-class ModelLoader{
+class Model{
 public:
 
-	ModelLoader(void);
+	Model(void);
 
 	void loadModel(const QString filename);
 	
