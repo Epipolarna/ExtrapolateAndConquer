@@ -7,10 +7,9 @@ ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[]){
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(loopBody()));
 
-    cam = new graphics::Camera();
+    cam = graphicsWindow->getRenderer()->cam;
 
     graphicsWindow->registerEventManager(cam);
-
     timer->start(20);
 }
 
@@ -27,7 +26,6 @@ int ExtrapolateAndConquer::run(){
     
     graphicsWindow->show();
     loadResources();
-
     Renderer* r = graphicsWindow->getRenderer();
 
     graphics::Object o1 = graphics::Object(rm.getModel("teapot"),rm.getShader("phong"));
@@ -40,5 +38,7 @@ int ExtrapolateAndConquer::run(){
 
 void ExtrapolateAndConquer::loopBody(){
     cam->updatePosition();
-    graphicsWindow->repaint();
+
+    //make sure to update the gl widget...
+    graphicsWindow->centralWidget()->update();
 }

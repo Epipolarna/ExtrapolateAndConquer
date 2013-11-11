@@ -16,7 +16,6 @@ class Renderer
 public:
     Renderer();
 
-    void render(std::vector<graphics::Object> renderObjects);
     void repaint(void);
 
     std::vector<graphics::Object> renderList;
@@ -24,7 +23,6 @@ public:
     QMatrix4x4 pMatrix;
 
     graphics::Camera *cam;
-    
 private:
 };
 

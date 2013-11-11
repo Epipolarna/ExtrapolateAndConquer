@@ -26,6 +26,7 @@ public:
     void updatePosition();
 
     QMatrix4x4 skyboxMatrix();
+
 private:
     std::map<int, bool> keyMap;
 

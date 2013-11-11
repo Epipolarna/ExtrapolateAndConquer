@@ -22,7 +22,6 @@ public:
     ~GraphicsWidget();
 
     Renderer* getRenderer(void);
-    void repaint(void);
 
 protected:
 	void paintGL();

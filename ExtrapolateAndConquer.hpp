@@ -32,7 +32,6 @@ public slots:
 public:
 
     ResourceManager rm;
-    graphics::Camera* cam;
     std::vector<graphics::Object> objectList;
 
 
@@ -40,6 +39,7 @@ public:
 
     QApplication* application;
     GraphicsWindow* graphicsWindow;
+    graphics::Camera* cam;
 
     QTimer* timer;
 

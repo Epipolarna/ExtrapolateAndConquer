@@ -28,10 +28,6 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
     resize(1280, 800);
 }
 
-void GraphicsWindow::repaint(void){
-    glWidget->repaint();
-}
-
 Renderer* GraphicsWindow::getRenderer(void){
     return glWidget->getRenderer();
 }

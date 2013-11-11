@@ -21,7 +21,6 @@ public:
 
     Renderer* getRenderer(void);
     void registerEventManager(graphics::Camera *c);
-    void repaint(void);
     
 private:
     Ui::GraphicsWindow *ui;
