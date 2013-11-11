@@ -23,7 +23,7 @@ void ExtrapolateAndConquer::loadResources(void){
 }
 
 int ExtrapolateAndConquer::run(){
-    
+
     graphicsWindow->show();
     loadResources();
     Renderer* r = graphicsWindow->getRenderer();

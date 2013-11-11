@@ -15,7 +15,7 @@
 
 #include "Graphics/Renderer.hpp"
 
-#include "../ResourceManager.hpp"
+#include "ResourceManager.hpp"
 
 class ExtrapolateAndConquer : QObject
 {
