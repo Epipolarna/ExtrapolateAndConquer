@@ -1,13 +1,12 @@
 #include "Renderer.hpp"
 
 Renderer::Renderer(){
-
-	objectList = new std::vector<graphics::Object>();
     cam = new graphics::Camera();
     cam->setPosition(QVector3D(0.0, 0.0, 0.0));
+    pMatrix.setToIdentity();
 }
 
-void Renderer::render(void){
+void Renderer::repaint(){
 
     cam->updatePosition();
 
@@ -15,12 +14,10 @@ void Renderer::render(void){
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
 
-    //skybox->draw2(currentCamera->skyboxMatrix(), pMatrix);
-
     glEnable(GL_DEPTH_TEST);
 
-    for(graphics::Object o : *objectList){
-    	o.draw2(cam->vMatrix,pMatrix);
+    for(graphics::Object o : renderList){
+        o.draw(cam->vMatrix,pMatrix);
     }
 
     glEnable(GL_CULL_FACE);

@@ -1,7 +1,6 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 
-#include "Model.hpp"
 #include "Camera.hpp"
 #include "ModelLoader.hpp"
 
@@ -13,11 +12,9 @@ namespace graphics {
 class Object : protected QOpenGLFunctions
 {
 public:
-    Object(Model* model, QOpenGLShaderProgram* program, GLuint texture = 0);
     Object(ModelLoader* model, QOpenGLShaderProgram* program, GLuint texture = 0);
 
     void draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix);
-    void draw2(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix);
 
     QOpenGLShaderProgram* program;
 
@@ -26,8 +23,7 @@ public:
     void setColor(float r, float g, float b, float a = 1);
 
 private:
-    Model* model;
-    ModelLoader* model2;
+    ModelLoader* model;
     GLuint texture;
 
     QVector3D position;

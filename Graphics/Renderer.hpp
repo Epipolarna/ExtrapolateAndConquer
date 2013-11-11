@@ -16,13 +16,15 @@ class Renderer
 public:
     Renderer();
 
-    void render(void);
+    void render(std::vector<graphics::Object> renderObjects);
+    void repaint(void);
+
+    std::vector<graphics::Object> renderList;
 
     QMatrix4x4 pMatrix;
-    QMatrix4x4 cameraMatrix;
+
     graphics::Camera *cam;
     
-    std::vector<graphics::Object> *objectList;
 private:
 };
 

@@ -3,7 +3,7 @@
  GraphicsWidget::GraphicsWidget(QGLFormat format, QWidget *parent) : 
  	QGLWidget(format, parent)
  { 
- 	r = new Renderer();
+    r = new Renderer();
  }
 
 GraphicsWidget::~GraphicsWidget(){
@@ -29,10 +29,16 @@ void GraphicsWidget::initializeGL(){
 }
 
 void GraphicsWidget::resizeGL(int width, int height){
+	r->pMatrix.setToIdentity();
+    r->pMatrix.perspective(60.0, (float) width / (float) height, 0.1, 1000);
 
+    glViewport(0, 0, width, height);
+}
+
+void GraphicsWidget::repaint(void){
+	this->paintGL();
 }
 
 void GraphicsWidget::paintGL(){
-	printf("repainting window \n");
-	r->render();
+    r->repaint();
 }

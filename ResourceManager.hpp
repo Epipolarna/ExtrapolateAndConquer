@@ -21,6 +21,7 @@ class ResourceManager
 {
 public:
     ResourceManager();
+    ~ResourceManager();
     
     ModelLoader* getModel(QString name);
     GLuint getTexture(QString name);

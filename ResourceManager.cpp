@@ -9,6 +9,9 @@ const QString ResourceManager::texturePath = resourcePath + "textures/";
 ResourceManager::ResourceManager(){
 
 }
+ResourceManager::~ResourceManager(){
+    //destroy all resources etc
+}
 
 ModelLoader* ResourceManager::getModel(QString name){
 	return models[name];
@@ -25,6 +28,8 @@ QOpenGLShaderProgram* ResourceManager::getShader(QString name){
 bool ResourceManager::loadModel(QString modelName){
 	ModelLoader *ml = new ModelLoader();
 	ml->loadModel(modelPath+modelName+".obj");
+
+    models[modelName] = ml;
 	//TODO unhappy case
 	return true;
 }
@@ -39,7 +44,8 @@ bool ResourceManager::loadShader(QString shaderName){
     shader->link();
 
     shaders[shaderName] = shader;
-    if(glGetError == 0){
+    
+    if(glGetError == 0 && shader->isLinked() == true){
     	return true;
     }else{
     	return false;

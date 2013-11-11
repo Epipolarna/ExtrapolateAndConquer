@@ -26,23 +26,24 @@ public:
     ~ExtrapolateAndConquer();
 
     int run();
-
 public slots:
     void loopBody();
 
 public:
 
     ResourceManager rm;
-    graphics::Camera cam;
-    
-    //EntityManager<Components> entityManager;
+    graphics::Camera* cam;
+    std::vector<graphics::Object> objectList;
 
-    std::vector<graphics::Object> *objectList;
+
+    //EntityManager<Components> entityManager;
 
     QApplication* application;
     GraphicsWindow* graphicsWindow;
 
     QTimer* timer;
+
+    void loadResources(void);
 };
 
 #endif // EXTRAPOLATEANDCONQUER_HPP

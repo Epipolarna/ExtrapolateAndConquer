@@ -22,9 +22,10 @@ public:
     ~GraphicsWidget();
 
     Renderer* getRenderer(void);
+    void repaint(void);
 
-    void paintGL();
 protected:
+	void paintGL();
     void initializeGL();
     void resizeGL(int width, int height);
     Renderer *r;

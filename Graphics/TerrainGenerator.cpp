@@ -5,7 +5,7 @@
 TerrainGenerator::TerrainGenerator()
 {
 }
-
+/*
 graphics::Model *TerrainGenerator::simplexTerrain(float xRange, float zRange, float xPeriod, float zPeriod, float yScale)
 {
     graphics::Model* model = new graphics::Model;
@@ -40,3 +40,4 @@ graphics::Model *TerrainGenerator::simplexTerrain(float xRange, float zRange, fl
 
     return model;
 }
+*/

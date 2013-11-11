@@ -28,8 +28,8 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
     resize(1280, 800);
 }
 
-void GraphicsWindow::paintGL(void){
-    glWidget->paintGL();
+void GraphicsWindow::repaint(void){
+    glWidget->repaint();
 }
 
 Renderer* GraphicsWindow::getRenderer(void){
@@ -52,25 +52,8 @@ void GraphicsWindow::keyReleaseEvent(QKeyEvent *e){
 
     qDebug() << "GLWidget KeyRelease: " << e->text();
     switch(e->key()){
-    case Qt::Key_W:
-    case Qt::Key_A:
-    case Qt::Key_S:
-    case Qt::Key_D:
-
-    case Qt::Key_Up:
-    case Qt::Key_Left:
-    case Qt::Key_Down:
-    case Qt::Key_Right:
-
-    case Qt::Key_Q:
-    case Qt::Key_E:
-
-    case Qt::Key_Space:
-    case Qt::Key_Control:
-        cam->keyReleaseEvent(e);
-        break;
     default:
-        QWidget::keyReleaseEvent(e);
+        cam->keyReleaseEvent(e);
         break;
     }
 }
@@ -88,26 +71,8 @@ void GraphicsWindow::keyPressEvent(QKeyEvent *e)
     case Qt::Key_Escape:
         close();
         break;
-
-    case Qt::Key_W:
-    case Qt::Key_A:
-    case Qt::Key_S:
-    case Qt::Key_D:
-
-    case Qt::Key_Up:
-    case Qt::Key_Left:
-    case Qt::Key_Down:
-    case Qt::Key_Right:
-
-    case Qt::Key_Q:
-    case Qt::Key_E:
-
-    case Qt::Key_Space:
-    case Qt::Key_Control:
-        cam->keyPressEvent(e);
-        break;
     default:
-        QWidget::keyPressEvent(e);
+        cam->keyPressEvent(e);
         break;
     }
 }

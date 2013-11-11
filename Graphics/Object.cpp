@@ -1,10 +1,9 @@
 #include "Object.hpp"
-#include <QOpenGLFunctions>
 
 namespace graphics {
 
-Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture)
-{
+Object::Object(ModelLoader *_model, QOpenGLShaderProgram *_program, GLuint _texture){
+    
     model = _model;
     texture = _texture;
     program = _program;
@@ -21,28 +20,9 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture)
     color = QVector4D(1,1,1,1);
 }
 
-Object::Object(ModelLoader *_model, QOpenGLShaderProgram *_program, GLuint _texture){
-    
-    model2 = _model;
-    texture = _texture;
-    program = _program;
+void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
 
-    mMatrix.setToIdentity();
-    position = QVector3D(0,0,0);
-    scale = QVector3D(1,1,1);
-
-    ambientCoeff  = 0.2;
-    diffuseCoeff  = 0.6;
-    specularCoeff = 100;
-    specularExponent = 50;
-
-    color = QVector4D(1,1,1,1);
-}
-
-void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix)
-{
     program->bind();
-
     program->setUniformValue("mvpMatrix", pMatrix*vMatrix*mMatrix);
     program->setUniformValue("mMatrix", mMatrix);
     program->setUniformValue("vMatrix", vMatrix);
@@ -52,56 +32,15 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix)
     program->setUniformValue("color", color);
 
     glBindTexture(GL_TEXTURE_2D, texture);
-
     if(model->VAO.isCreated()){
         model->VAO.bind();
-
-        if(model->VBO.isCreated()){
-            model->VBO.bind();
-            program->enableAttributeArray("vertex");
-            program->setAttributeBuffer("vertex", GL_FLOAT, 0, 3);
-
-            if(model->NBO.isCreated()){
-                model->NBO.bind();
-                program->enableAttributeArray("normal");
-                program->setAttributeBuffer("normal", GL_FLOAT, 0, 3);
-            }
-
-            if(model->TBO.isCreated()){
-                model->TBO.bind();
-                program->enableAttributeArray("texCoord");
-                program->setAttributeBuffer("texCoord", GL_FLOAT, 0, 3);
-            }
-
-            glDrawArrays(GL_TRIANGLES, 0, model->groups[0].vertices.size());
-        }
-    }
-    model->VAO.release();
-    program->release();
-}
-
-//TODO move to main draw method
-void Object::draw2(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
-
-    program->bind();
-    program->setUniformValue("mvpMatrix", pMatrix*vMatrix*mMatrix);
-    program->setUniformValue("mMatrix", mMatrix);
-    program->setUniformValue("vMatrix", vMatrix);
-    program->setUniformValue("pMatrix", pMatrix);
-    program->setUniformValue("tex", 0);
-    program->setUniformValue("scale", scale);
-    program->setUniformValue("color", color);
-
-    glBindTexture(GL_TEXTURE_2D, texture);
-    if(model2->VAO.isCreated()){
-        model2->VAO.bind();
     }else{
         printf("VAO is not created!! \n");
         exit(0);
     }
 
-    if(model2->VBO.isCreated()){
-        model2->VBO.bind();
+    if(model->VBO.isCreated()){
+        model->VBO.bind();
         program->enableAttributeArray("vertex");
         program->setAttributeBuffer("vertex",GL_FLOAT,0,3);
     }else{
@@ -109,8 +48,8 @@ void Object::draw2(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
         exit(0);
     }
 
-    if(model2->NBO.isCreated()){
-        model2->NBO.bind();
+    if(model->NBO.isCreated()){
+        model->NBO.bind();
         program->enableAttributeArray("normal");
         program->setAttributeBuffer("normal",GL_FLOAT,0,3);
     }else{
@@ -118,8 +57,8 @@ void Object::draw2(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
         exit(0);
     }
 
-    if(model2->TBO.isCreated()){
-        model2->TBO.bind();
+    if(model->TBO.isCreated()){
+        model->TBO.bind();
         program->enableAttributeArray("texCoord");
         program->setAttributeBuffer("texCoord",GL_FLOAT,0,2);
     }else{
@@ -127,9 +66,9 @@ void Object::draw2(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
         exit(0);
     }
     
-    glDrawElements(GL_TRIANGLES,model2->index.size(),GL_UNSIGNED_INT,0L);
+    glDrawElements(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L);
 
-    model2->VAO.release();
+    model->VAO.release();
     program->release();
 }
 
