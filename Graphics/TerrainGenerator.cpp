@@ -84,6 +84,8 @@ graphics::Model *TerrainGenerator::simplexTerrain2(float xRange, float zRange, f
 
             group.vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
 
+            group.texCoords.push_back(QVector3D((float)x/(xRange*vertexDensity),(float)z/(zRange*vertexDensity), 0));
+
             heightMap.at<float>(x,z) = (y + maxScale) / (2*maxScale);
         }
     }

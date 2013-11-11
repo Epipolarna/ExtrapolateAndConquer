@@ -21,6 +21,7 @@ void GLWidget::initializeGL()
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glClearColor(0.0f, 0.0f, 1.0f, 0);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     QGLFormat f = format();
     qDebug() << "GL version: " << f.majorVersion() << f.minorVersion();
@@ -42,6 +43,10 @@ void GLWidget::initializeGL()
     // ---------- MODELS -----------------------
     skyboxModel = new graphics::Model(modelPath+"skybox.obj");
     oceanModel = new graphics::Model(modelPath+"unitSquare.obj");
+    humanModel = new graphics::Model(modelPath+"gordon.obj");
+    tree0Model = new graphics::Model(modelPath+"tree0.obj");
+    //tree1Model = new graphics::Model(modelPath+"tree1.obj");
+    roverModel = new graphics::Model(modelPath+"rover.obj");
     monkeyModel = new graphics::Model(modelPath+"monkey.obj");
 
     altSkybox = new ModelLoader();
@@ -58,16 +63,13 @@ void GLWidget::initializeGL()
 
     // 1.8715 or 2.1042
     float lacunarity = 1/1.87;
-    float gain = 0.65;
+    float gain = 0.60;
 
     //for each pixel, get the value
     float period = 400;
     float amplitude = 20;
     for (int i = 0; i < 16; i++)
     {
-        qDebug() << "Period: " << period;
-        qDebug() << "Amplit: " << amplitude;
-
         octaves[i] = period;
         scales[i] = amplitude;
 
@@ -75,37 +77,50 @@ void GLWidget::initializeGL()
         amplitude *= gain;
     }
 
-
-
     int nOctaves = sizeof(octaves)/sizeof(float);
     terrainModel = TerrainGenerator::simplexTerrain2(1000,1000,0.5f,octaves,scales,nOctaves);
-    simplexModel = TerrainGenerator::simplexTerrain(100,100, 10,10, 5);
 
     // ---------- TEXTURE LOADING --------------
     skyboxTex = uploadTexture(texturePath+"skybox0.png", false);
     oceanTex = uploadTexture(texturePath+"water.png", true);
-    grassTex = uploadTexture(texturePath+"grass.png", true);
+    oceanNormalMap = uploadTexture(texturePath+"waterNormalMap2.png", true);
+    grassTex = uploadTexture(texturePath+"grass1.png", true);
+    //grassNormalMap = uploadTexture(texturePath+"grassNormalMap0.png", true);
+    rockTex = uploadTexture(texturePath+"rock0.png", true);
 
     // ---------- OBJECTS -----------------------
     skybox = new graphics::Object(altSkybox, skyboxShader, skyboxTex);
-    ocean = new graphics::Object(oceanModel, oceanShader, oceanTex, grassTex);
-    //ocean->setColor(59,58,99,255);
+
+    ocean = new graphics::Object(oceanModel, oceanShader, oceanTex, grassTex, oceanNormalMap);
+    ocean->setShadingParameters(0.1, 0.6, 3.0, 50);
+    ocean->setColor(59,58,99,200);
     ocean->setScale(1000,1,1000);
+    ocean->setTexScaling(100);
+
+    terrain = new graphics::Object(terrainModel, terrainShader, grassTex, 0, 0);
+    terrain->setShadingParameters(0.3, 0.7, 0.3, 50);
+    terrain->setColor(85,196,48,255);
+    terrain->setPosition(-500,0,-500);
+    terrain->setTexScaling(1000);
+
+    human = new graphics::Object(humanModel, phongShader);
+    human->setPosition(-200, 0, -200);
+    human->setColor(204,69,38,255);
+
+    tree0 = new graphics::Object(tree0Model, phongShader);
+    tree0->setPosition(-195, 0, -200);
+    tree0->setColor(131,165,255,255);
+
+    rover = new graphics::Object(roverModel, phongShader);
+    rover->setPosition(-195, 0, -195);
+    rover->setColor(182,255,73,255);
+
     monkey = new graphics::Object(altMonkey, phongShader);
     monkey->setScale(0.1,0.1,0.1);
 
-    terrain = new graphics::Object(terrainModel, terrainShader);
-    terrain->setColor(85,196,48,255);
-    //terrain->setScale(10,1,10);
-    terrain->setPosition(-500,0,-500);
-
-    simplex = new graphics::Object(simplexModel, flatShader);
-    simplex->setColor(85,196,48,255);
-    simplex->setScale(10,1,10);
-    simplex->setPosition(-500,0,-500);
-
     // ---------- CAMERAS -----------------------
     player = new graphics::Camera();
+    player->setPosition(QVector3D(-210,2,-210));
 
     currentCamera = player;
 
@@ -113,7 +128,6 @@ void GLWidget::initializeGL()
     if(errorCode != 0){
         printf("error after initing gl is: %x \n",errorCode);
     }
-
 }
 
 void GLWidget::paintGL()
@@ -135,18 +149,18 @@ void GLWidget::paintGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 
-    ocean->draw(currentCamera->vMatrix, pMatrix);
     terrain->draw(currentCamera->vMatrix, pMatrix);
-    //simplex->draw(currentCamera->vMatrix, pMatrix);
 
+    human->draw(currentCamera->vMatrix, pMatrix);
+    tree0->draw(currentCamera->vMatrix, pMatrix);
+    rover->draw(currentCamera->vMatrix, pMatrix);
 
-    monkey->draw2(currentCamera->vMatrix,pMatrix);
-
-    // Render text to screen
-    nanoSex = fpsMeter.nsecsElapsed();
-    glDisable(GL_DEPTH_TEST);
-    //renderText(20, 20, "FPS: " + QString::number(1.0e9/nanoSex));
-    glEnable(GL_DEPTH_TEST);
+    // Should be drawn last to favor transparency
+    glDisable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
+    ocean->draw(currentCamera->vMatrix, pMatrix);
+    glDisable(GL_BLEND);
+    glEnable(GL_CULL_FACE);
 }
 
 void GLWidget::resizeGL(int width, int height)

@@ -2,42 +2,41 @@
 
 namespace graphics {
 
-Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture0, GLuint _texture1)
+Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture0, GLuint _texture1, GLuint _texture2)
 {
-    initializeOpenGLFunctions();
-
     model = _model;
     texture0 = _texture0;
     texture1 = _texture1;
+    texture2 = _texture2;
     program = _program;
 
-    mMatrix.setToIdentity();
-    position = QVector3D(0,0,0);
-    scale = QVector3D(1,1,1);
-
-    ambientCoeff  = 0.4;
-    diffuseCoeff  = 0.4;
-    specularCoeff = 0.5;
-    specularExponent = 50;
-
-    color = QVector4D(1,1,1,1);
+    setDefaultValues();
 }
 
-Object::Object(ModelLoader *_model, QOpenGLShaderProgram *_program, GLuint _texture0, GLuint _texture1)
+Object::Object(ModelLoader *_model, QOpenGLShaderProgram *_program, GLuint _texture0, GLuint _texture1, GLuint _texture2)
 {
     printf("using alternate object constructor \n");
     model2 = _model;
     texture0 = _texture0;
     texture1 = _texture1;
+    texture2 = _texture2;
     program = _program;
+
+    setDefaultValues();
+}
+
+void Object::setDefaultValues()
+{
+    initializeOpenGLFunctions();
 
     mMatrix.setToIdentity();
     position = QVector3D(0,0,0);
     scale = QVector3D(1,1,1);
+    texScaling = 1;
 
-    ambientCoeff  = 0.2;
+    ambientCoeff  = 0.1;
     diffuseCoeff  = 0.6;
-    specularCoeff = 0.2;
+    specularCoeff = 0.1;
     specularExponent = 50;
 
     color = QVector4D(1,1,1,1);
@@ -53,6 +52,8 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix)
     program->setUniformValue("pMatrix", pMatrix);
     program->setUniformValue("tex0", 0);
     program->setUniformValue("tex1", 1);
+    program->setUniformValue("tex2", 2);
+    program->setUniformValue("texScaling", texScaling);
     program->setUniformValue("scale", scale);
     program->setUniformValue("color", color);
     program->setUniformValue("ambientCoeff", ambientCoeff);
@@ -65,6 +66,9 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix)
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture1);
+
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, texture2);
 
     glActiveTexture(GL_TEXTURE0);
 
@@ -109,6 +113,7 @@ void Object::draw2(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
     program->setUniformValue("pMatrix", pMatrix);
     program->setUniformValue("tex0", 0);
     program->setUniformValue("tex1", 1);
+    program->setUniformValue("tex2", 2);
     program->setUniformValue("scale", scale);
     program->setUniformValue("color", color);
 
@@ -173,6 +178,19 @@ void Object::setScale(float x, float y, float z)
 void Object::setColor(float r, float g, float b, float a)
 {
     color = QVector4D(r/255,g/255,b/255,a/255);
+}
+
+void Object::setTexScaling(float scale)
+{
+    texScaling = scale;
+}
+
+void Object::setShadingParameters(float _ambientCoeff, float _diffuseCoeff, float _specualrCoeff, float _specularExponent)
+{
+    ambientCoeff = _ambientCoeff;
+    diffuseCoeff = _diffuseCoeff;
+    specularCoeff = _specualrCoeff;
+    specularExponent = _specularExponent;
 }
 
 }

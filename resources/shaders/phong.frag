@@ -7,7 +7,6 @@
 // coordinates, which means that it will follow the camera.
 // You usually give light sources in world coordinates.
 
-out vec4 outColor;
 in vec3 exNormal; // Phong
 in vec3 exSurface; // Phong (specular)
 
@@ -16,17 +15,14 @@ uniform float diffuseCoeff;
 uniform float specularCoeff;
 uniform float specularExponent;
 
+uniform vec4 color;
+
+out vec4 outColor;
+
 void main(void)
 {
-    vec3 lightColor = vec3(1, 1, 1);
-
-    float ambientCoeff  = 0.2;
-    float diffuseCoeff  = 0.6;
-    float specularCoeff = 100;
-    float specularExponent = 50;
-
     const vec3 light = normalize(vec3(1, 1, 1)); // Given in VIEW coordinates! You usually specify light sources in world coordinates.
-    float diffuse, specular, shade;
+    float diffuse, specular, shading;
 
     // Diffuse
     diffuse = dot(normalize(exNormal), light);
@@ -40,7 +36,7 @@ void main(void)
             specular = 1.0 * pow(specular, specularExponent);
     specular = max(specular, 0.0);
 
-    shade = ambientCoeff + diffuseCoeff*diffuse + specularCoeff*specular;
-    outColor = vec4(shade * lightColor, 1);
+    shading = ambientCoeff + diffuseCoeff*diffuse + specularCoeff*specular;
+    outColor = vec4(color.rgb*shading, color.a);
     //outColor = vec4(1, 1, 1, 1);
 }

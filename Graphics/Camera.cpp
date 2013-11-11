@@ -4,8 +4,8 @@ namespace graphics {
 
 Camera::Camera()
 {
-    position = QVector3D(10,5,11);
-    lookAtPoint = QVector3D(10,5,10);
+    position = QVector3D(100,20,101);
+    lookAtPoint = QVector3D(100,20,100);
     lookAtDirection = QVector3D(0,0,-1);
     up = QVector3D(0,1,0);
 

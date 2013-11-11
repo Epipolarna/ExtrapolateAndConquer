@@ -6,6 +6,8 @@ in vec2 exTexCoord;
 
 uniform sampler2D tex0;
 uniform sampler2D tex1;
+uniform sampler2D tex2;
+uniform float texScaling;	
 
 uniform float ambientCoeff;
 uniform float diffuseCoeff;
@@ -19,6 +21,9 @@ uniform vec4 color;
 out vec4 outColor;
 
 void main(void){
+
+	vec2 scaledTexCoord = exTexCoord*texScaling;
+	vec4 texel0 = texture(tex0, scaledTexCoord);
 
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
 
@@ -35,5 +40,6 @@ void main(void){
 	
 	float shading = ambientCoeff + diffuseCoeff*diffuseComponent + specularCoeff*specularComponent;
 	
-	outColor = shading*color;
+	outColor = shading*texel0;
+	//outColor = texel2;
 }

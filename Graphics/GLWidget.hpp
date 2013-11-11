@@ -25,13 +25,14 @@ public:
     explicit GLWidget(QGLFormat format, QWidget *parent = 0);
     ~GLWidget();
 
-    graphics::Model *skyboxModel, *monkeyModel, *oceanModel, *terrainModel, *simplexModel;
+    graphics::Model *skyboxModel, *oceanModel, *terrainModel, *tree0Model, *tree1Model, *humanModel, *roverModel, *monkeyModel;
 
     ModelLoader *altSkybox;
     ModelLoader *altMonkey;
 
-    GLuint skyboxTex, oceanTex, grassTex;
-    graphics::Object *skybox, *monkey, *ocean, *terrain, *simplex;
+    GLuint skyboxTex, oceanTex, grassTex, rockTex;
+    GLuint oceanNormalMap, grassNormalMap;
+    graphics::Object *skybox, *ocean, *terrain, *tree0, *tree1, *human, *rover, *monkey;
     graphics::Camera *currentCamera, *player;
     QOpenGLShaderProgram *skyboxShader, *oceanShader, *terrainShader, *phongShader, *phongTexShader, *flatShader;
 

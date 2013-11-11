@@ -6,6 +6,8 @@ in vec2 exTexCoord;
 
 uniform sampler2D tex0;
 uniform sampler2D tex1;
+uniform sampler2D tex2;
+uniform float texScaling;
 
 uniform float ambientCoeff;
 uniform float diffuseCoeff;
@@ -14,22 +16,26 @@ uniform float specularExponent;
 
 uniform mat4 vMatrix;
 
+uniform vec4 color;
 uniform vec3 scale;
 
 out vec4 outColor;
 
 void main(void){
 
-	vec2 scaledTexCoord = vec2(exTexCoord.x*scale.x, exTexCoord.y*scale.z);
+	vec2 scaledTexCoord = exTexCoord*texScaling;
 	
-	vec4 texel0 =  texture(tex0, scaledTexCoord);
+	vec4 texel0 = texture(tex0, scaledTexCoord);
 	vec4 texel1 = texture(tex1, scaledTexCoord);
+	vec4 texel2 = texture(tex2, scaledTexCoord); // Normalmap
+	
+	vec3 normal = normalize(texel2.rbg *2-1);
 	
 	// Phong
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
 
 	vec3 lightPosition = vec3(-1000,500,-100);
-	vec3 normal = normalize(exNormal);
+	//vec3 normal = normalize(exNormal);
 	
 	vec3 lightDirection = normalize(lightPosition - exPosition);
 	
@@ -41,6 +47,5 @@ void main(void){
 	
 	float shading = ambientCoeff + diffuseCoeff*diffuseComponent + specularCoeff*specularComponent;
 	
-	//outColor = texture(tex0, exTexCoord);
-	outColor = shading*(0.6*texel0 + 0.4*texel1);
+	outColor = vec4(color.rgb*shading, color.a);
 }

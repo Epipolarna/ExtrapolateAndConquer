@@ -26,10 +26,10 @@ void Model::load(QString filename) {
     if(model->numtexcoords < 1) {
         qWarning() << "Missing UV map.";
     }
-    qWarning() << "Groups: " << model->numgroups;
-    qWarning() << "Vertices: " << model->numvertices;
-    qWarning() << "Triangles: " << model->numtriangles;
-    qWarning() << "Normals: " << model->numnormals;
+    //qWarning() << "Groups: " << model->numgroups;
+    //qWarning() << "Vertices: " << model->numvertices;
+    //qWarning() << "Triangles: " << model->numtriangles;
+    //qWarning() << "Normals: " << model->numnormals;
 
     GLMgroup* group;
     group = model->groups;
@@ -60,7 +60,7 @@ void Model::load(QString filename) {
         groups.push_back(grp);
         group = group->next;
     }
-    qDebug() << "loading file";
+    qDebug() << filename << " loaded";
 }
 
 void Model::uploadToGPU()

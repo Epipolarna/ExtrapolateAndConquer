@@ -9,7 +9,7 @@
 #include "Components/Components.hpp"
 #include "Systems/Systems.hpp"
 
-#include <QTimer>;
+#include <QTimer>
 
 class ExtrapolateAndConquer : QObject
 {
