@@ -7,7 +7,7 @@
 #include <QOpenGLBuffer>
 #include <vector>
 
-#include "ModelLoader.hpp"
+#include "Model.hpp"
 #include "Object.hpp"
 #include "Camera.hpp"
 
@@ -22,8 +22,8 @@ public:
 
     QMatrix4x4 pMatrix;
 
-    graphics::Camera *cam;
     graphics::Object* skybox;
+    graphics::Camera* cam;
 private:
 };
 

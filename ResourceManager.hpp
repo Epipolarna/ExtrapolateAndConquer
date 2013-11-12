@@ -14,7 +14,7 @@
 #include <QGLWidget>
 
 #include "Graphics/Object.hpp"
-#include "Graphics/ModelLoader.hpp"
+#include "Graphics/Model.hpp"
 
 
 class ResourceManager : public QOpenGLFunctions
@@ -23,7 +23,7 @@ public:
     ResourceManager();
     ~ResourceManager();
     
-    ModelLoader* getModel(QString name);
+    Model* getModel(QString name);
     GLuint getTexture(QString name);
     QOpenGLShaderProgram* getShader(QString name);
 
@@ -39,7 +39,7 @@ private:
     const static QString texturePath;
 
 
-    std::map<QString,ModelLoader*> models;
+    std::map<QString,Model*> models;
     std::map<QString,GLuint> textures;
     std::map<QString,QOpenGLShaderProgram*> shaders;
 };

@@ -37,6 +37,5 @@ void GraphicsWidget::resizeGL(int width, int height){
 }
 
 void GraphicsWidget::paintGL(){
-    qDebug() << "doing the repaint! ";
     r->repaint();
 }

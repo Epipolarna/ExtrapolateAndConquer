@@ -1,6 +1,5 @@
 #include <QApplication>
 #include "Graphics/GraphicsWindow.hpp"
-#include "Graphics/ModelLoader.hpp"
 
 #include "ExtrapolateAndConquer.hpp"
 

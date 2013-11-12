@@ -13,7 +13,7 @@ ResourceManager::~ResourceManager(){
     //destroy all resources etc
 }
 
-ModelLoader* ResourceManager::getModel(QString name){
+Model* ResourceManager::getModel(QString name){
 	return models[name];
 }
 
@@ -26,7 +26,7 @@ QOpenGLShaderProgram* ResourceManager::getShader(QString name){
 }
 
 bool ResourceManager::loadModel(QString modelName){
-	ModelLoader *ml = new ModelLoader();
+	Model *ml = new Model();
 	ml->loadModel(modelPath+modelName+".obj");
 
     models[modelName] = ml;
@@ -45,9 +45,13 @@ bool ResourceManager::loadShader(QString shaderName){
 
     shaders[shaderName] = shader;
     
-    if(glGetError == 0 && shader->isLinked() == true){
+    int glError = glGetError();
+    if(glError == 0 && shader->isLinked() == true){
     	return true;
     }else{
+        printf("error loading shader %s ", shaderName.toStdString().c_str());
+        printf("error code was: %x",glError);
+        exit(0);
     	return false;
     }
 }

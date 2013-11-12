@@ -15,10 +15,10 @@
 #include <QFile>
 
 
-class ModelLoader{
+class Model{
 public:
 
-	ModelLoader(void);
+	Model(void);
 
 	void loadModel(const QString filename);
 	
@@ -46,6 +46,9 @@ private:
 
 	//check if a vertex alread is in the list
     int vertexExists(const QVector3D v, const QVector3D n, const QVector2D t);
+
+    //create normals if they are missing
+    void makeNormals(void);
 
 	//upload model to GPU
 	void upload(void);
