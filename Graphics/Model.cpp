@@ -218,6 +218,10 @@ void Model::upload(void){
     VAO.release();
 }
 
+void Model::createNormals(void){
+
+}
+
 void Model::loadModel(const QString filename){
 	
 	QFile file(filename);
