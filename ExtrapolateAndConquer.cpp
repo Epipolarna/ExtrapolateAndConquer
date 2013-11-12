@@ -17,22 +17,30 @@ ExtrapolateAndConquer::~ExtrapolateAndConquer(){
     //TODO destroy game
 }
 
+Entity<Components> * e;
 void ExtrapolateAndConquer::initialize(void){
 
     loadResources();
     Renderer* r = graphicsWindow->getRenderer();
 
-    graphics::Object o1 = graphics::Object(rm.getModel("teapot"),rm.getShader("phong"));
+    graphics::Object * o1 = new graphics::Object(rm.getModel("teapot"),rm.getShader("phong"));
 
-    r->renderList.push_back(o1);
+    //r->renderList.push_back(o1);
     graphics::Object* skybox = new graphics::Object(rm.getModel("skybox"),rm.getShader("skyboxShader"),rm.getTexture("skybox0"));
     r->skybox = skybox;
+
+    // Initialize systems
+    simplePhysicsSystem.initialize(entityManager);
+    graphicsUpdateSystem.initialize(entityManager);
 	
 	// Initialize entity
-    Entity<Components> & e = entityManager.createEntity();
-    e.add<SimplePhysics>();
-    e.get<SimplePhysics>().position = QVector3D(0, 0, 0);
-    e.get<SimplePhysics>().velocity = QVector3D(0, -0.00001, 0);
+    e = &entityManager.createEntity();
+    e->add<SimplePhysics>();
+    e->get<SimplePhysics>().position = QVector3D(0,0,0);
+    e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
+    e->add<Graphics>();
+    e->get<Graphics>().object = new graphics::Object(rm.getModel("teapot"), rm.getShader("phong"));
+    r->renderList.push_back(e->get<Graphics>().object);
 }
 
 void ExtrapolateAndConquer::loadResources(void){
@@ -55,11 +63,13 @@ int ExtrapolateAndConquer::run(){
     return returnCode;
 }
 
+bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     cam->updatePosition();
 
     // Run the systems...
-
+    simplePhysicsSystem.batch();
+    graphicsUpdateSystem.batch();
 
     //make sure to update the gl widget...
     graphicsWindow->centralWidget()->update();

@@ -33,9 +33,10 @@ struct SimplePhysics : public Component<> {
     QVector3D velocity;
 };
 
-struct Graphics : public Component<SimplePhysics>, public graphics::Object {
+struct Graphics : public Component<SimplePhysics>{
     const std::string getName() override { return "Graphics"; }
 
+    graphics::Object * object = 0;
 };
 
 #endif

@@ -58,6 +58,7 @@ private:
 	QVector<QVector3D> normals;
 	QVector<QVector2D> textures;
 
+    void createNormals(void);
 
 	void dumpData(void);
 

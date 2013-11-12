@@ -23,7 +23,7 @@ public:
     const long getID()       { return id; }
     template<typename Component> bool has();
     template<typename Component> void add();
-    template<typename Component> Component get();
+    template<typename Component> Component & get();
     template<typename Component> void remove();
 
 private:
@@ -62,8 +62,9 @@ void Entity<Components...>::add() {
  */
 template<typename... Components>
 template<typename Component>
-Component Entity<Components...>::get() {
+Component & Entity<Components...>::get() {
     Component * index = std::get<meta::Tuple_findType<std::tuple<Components...>, Component>::value>(componentIndexes);
+    std::cerr << std::to_string((long)(long*)this)+": Component with index "+std::to_string(((long)index)-1);
     return es->template getComponents<Component>()[((long)index)-1];
 }
 

@@ -28,7 +28,6 @@ public:
     void initialize(void);
 
     int run();
-    void initialize(void);
 public slots:
     void loopBody();
 
@@ -39,6 +38,9 @@ public:
 
 
     EntityManager<Components> entityManager;
+
+    SimplePhysicsSystem simplePhysicsSystem;
+    GraphicsUpdateSystem graphicsUpdateSystem;
 
     QApplication* application;
     GraphicsWindow* graphicsWindow;
