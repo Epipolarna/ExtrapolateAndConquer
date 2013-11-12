@@ -17,8 +17,8 @@ void Renderer::repaint(){
     glEnable(GL_DEPTH_TEST);
 
 
-    for(graphics::Object o : renderList){
-        o.draw(cam->vMatrix,pMatrix);
+    for(graphics::Object * o : renderList){
+        o->draw(cam->vMatrix,pMatrix);
     }
 
     glEnable(GL_CULL_FACE);

@@ -16,7 +16,7 @@ IF(WIN32)
         add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     ENDIF()
 
-    cmake_policy(SET CMP0020 NEW)
+    #cmake_policy(SET CMP0020 NEW)
 ENDIF()
 
 # Tell CMake to run moc when necessary:

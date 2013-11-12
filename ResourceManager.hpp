@@ -17,7 +17,7 @@
 #include "Graphics/Model.hpp"
 
 
-class ResourceManager
+class ResourceManager : public QOpenGLFunctions
 {
 public:
     ResourceManager();

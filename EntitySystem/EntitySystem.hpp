@@ -1,6 +1,7 @@
-#ifndef ENTITY_SYSTEM_HPP
-#define ENTITY_SYSTEM_HPP
+#ifndef EntitySystem_HPP
+#define EntitySystem_HPP
 
 #include "EntityManager.hpp"
+#include "System.hpp"
 
-#endif
+#endif // EntitySystem_HPP

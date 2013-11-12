@@ -3,7 +3,6 @@
 namespace graphics {
 
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
-    
     model = _model;
     texture = _texture;
     program = _program;

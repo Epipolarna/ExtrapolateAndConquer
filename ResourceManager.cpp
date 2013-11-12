@@ -67,7 +67,7 @@ bool ResourceManager::loadTexture(QString textureName, bool mipmap){
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageGL.width(), imageGL.height(),
                  0, GL_RGBA, GL_UNSIGNED_BYTE, imageGL.bits());
-    
+
     if(mipmap){
         glGenerateMipmap(GL_TEXTURE_2D);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
