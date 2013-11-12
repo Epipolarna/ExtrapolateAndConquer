@@ -26,6 +26,7 @@ public:
     ~ExtrapolateAndConquer();
 
     int run();
+    void initialize(void);
 public slots:
     void loopBody();
 

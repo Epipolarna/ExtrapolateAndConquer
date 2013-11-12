@@ -23,6 +23,7 @@ public:
     QMatrix4x4 pMatrix;
 
     graphics::Camera *cam;
+    graphics::Object* skybox;
 private:
 };
 

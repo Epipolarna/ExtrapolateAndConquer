@@ -10,6 +10,10 @@ void Renderer::repaint(){
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
 
+    if(skybox != NULL){
+            skybox->draw(cam->skyboxMatrix(),pMatrix);
+    }
+
     glEnable(GL_DEPTH_TEST);
 
 
