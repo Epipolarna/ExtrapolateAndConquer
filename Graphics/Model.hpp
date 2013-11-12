@@ -49,18 +49,20 @@ private:
 
     //create normals if they are missing
     void makeNormals(void);
+    void perVertexNormals(void);
 
 	//upload model to GPU
 	void upload(void);
+
+	void dumpData(void);
 
 	//data read from file
 	QVector<QVector3D> vertices;
 	QVector<QVector3D> normals;
 	QVector<QVector2D> textures;
 
-
-	void dumpData(void);
-
+	//use to create face normals
+	QVector<QVector3D> faceNormals;
 };
 
 #endif
