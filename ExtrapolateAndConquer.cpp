@@ -10,28 +10,41 @@ ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[]){
     cam = graphicsWindow->getRenderer()->cam;
 
     graphicsWindow->registerEventManager(cam);
-    timer->start(20);
+    graphicsWindow->show();
 }
 
 ExtrapolateAndConquer::~ExtrapolateAndConquer(){
     //TODO destroy game
 }
 
-void ExtrapolateAndConquer::loadResources(void){
-    rm.loadShader("phong");
-    rm.loadModel("teapot");
-}
+void ExtrapolateAndConquer::initialize(void){
 
-int ExtrapolateAndConquer::run(){
-    
-    graphicsWindow->show();
     loadResources();
     Renderer* r = graphicsWindow->getRenderer();
 
     graphics::Object o1 = graphics::Object(rm.getModel("teapot"),rm.getShader("phong"));
 
     r->renderList.push_back(o1);
+    graphics::Object* skybox = new graphics::Object(rm.getModel("skybox"),rm.getShader("skyboxShader"),rm.getTexture("skybox0"));
+    r->skybox = skybox;
+}
 
+void ExtrapolateAndConquer::loadResources(void){
+    
+    //test data
+    rm.loadShader("phong");
+    rm.loadModel("teapot");
+
+    //skybox data
+    rm.loadModel("skybox");
+    rm.loadTexture("skybox0");
+    rm.loadShader("skyboxShader");
+}
+
+int ExtrapolateAndConquer::run(){
+    
+    initialize();
+    timer->start(20);
     int returnCode = application->exec();
     return returnCode;
 }

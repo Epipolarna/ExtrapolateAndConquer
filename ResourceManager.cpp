@@ -45,9 +45,13 @@ bool ResourceManager::loadShader(QString shaderName){
 
     shaders[shaderName] = shader;
     
-    if(glGetError == 0 && shader->isLinked() == true){
+    int glError = glGetError();
+    if(glError == 0 && shader->isLinked() == true){
     	return true;
     }else{
+        printf("error loading shader %s ", shaderName.toStdString().c_str());
+        printf("error code was: %x",glError);
+        exit(0);
     	return false;
     }
 }

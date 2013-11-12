@@ -25,6 +25,8 @@ public:
     ExtrapolateAndConquer(int argc, char *argv[]);
     ~ExtrapolateAndConquer();
 
+    void initialize(void);
+
     int run();
 public slots:
     void loopBody();
