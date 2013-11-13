@@ -76,13 +76,13 @@ void ExtrapolateAndConquer::initialize(void){
     int nOctaves = sizeof(octaves)/sizeof(float);
     world = wg.generateWorld(1000,1000,0.5f,octaves,scales,nOctaves);
 
-    worldObject = new Object(world, rm.getShader("phong"), rm.getTexture("water"));
-    worldObject->setShadingParameters(0.3, 0.7, 0.3, 50);
+    worldObject = new Object(world, rm.getShader("terrainShader"), rm.getTexture("grass"));
+    worldObject->setShaderParameters(0.3, 0.7, 0.3, 50);
     worldObject->setColor(85,196,48,255);
     worldObject->setPosition(-500,0,-500);
-    worldObject->setTexScaling(1000);
+    //worldObject->setTexScaling(1000);
 
-    r->worl = worldObject;
+    r->world = worldObject;
 }
 
 void ExtrapolateAndConquer::loadResources(void){

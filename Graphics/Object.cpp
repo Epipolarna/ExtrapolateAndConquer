@@ -3,7 +3,7 @@
 
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     model = _model;
-    texture = _texture;
+    textures.push_back(_texture);
     program = _program;
 
     mMatrix.setToIdentity();
@@ -18,6 +18,30 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     color = QVector4D(1,1,1,1);
 }
 
+Object::Object(Model *_model, QOpenGLShaderProgram *_program, QVector<GLuint> textures){
+    model = _model;
+    this->textures = QVector<GLuint>(textures);
+    program = _program;
+
+    mMatrix.setToIdentity();
+    position = QVector3D(0,0,0);
+    scale = QVector3D(1,1,1);
+
+    ambientCoeff  = 0.2;
+    diffuseCoeff  = 0.6;
+    specularCoeff = 100;
+    specularExponent = 50;
+
+    color = QVector4D(1,1,1,1);
+}
+
+void Object::setShaderParameters(float ambientCoeff,float diffuseCoeff,float specularCoeff,float specularExponent){
+    this->ambientCoeff  = ambientCoeff;
+    this->diffuseCoeff  = diffuseCoeff;
+    this->specularCoeff = specularCoeff;
+    this->specularExponent = specularExponent;  
+}
+
 void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
 
     program->bind();
@@ -29,7 +53,7 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
     program->setUniformValue("scale", scale);
     program->setUniformValue("color", color);
 
-    glBindTexture(GL_TEXTURE_2D, texture);
+    glBindTexture(GL_TEXTURE_2D, textures[0]);
     if(model->VAO.isCreated()){
         model->VAO.bind();
     }else{

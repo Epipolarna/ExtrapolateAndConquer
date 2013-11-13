@@ -22,7 +22,12 @@ GLuint ResourceManager::getTexture(QString name){
 }
 
 QOpenGLShaderProgram* ResourceManager::getShader(QString name){
-	return shaders[name];
+    if(shaders.find(name) != shaders.end()){
+        return shaders[name];
+    }else{
+        printf("shader %s not found!",name.toStdString().c_str());
+        exit(0);
+    }
 }
 
 bool ResourceManager::loadModel(QString modelName){
