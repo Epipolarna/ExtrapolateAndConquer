@@ -44,7 +44,8 @@ std::vector<Component> & EntityManager<Components...>::getComponents() {
 */
 template<typename... Components>
 Entity<Components...> & EntityManager<Components...>::createEntity() {
-    entities[id].id = getUniqueID();
+    long id = getUniqueID();
+    entities[id].id = id;
     entities[id].es = this;
     return entities[id];
 }
