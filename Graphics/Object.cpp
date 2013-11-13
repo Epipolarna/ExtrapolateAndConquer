@@ -17,6 +17,7 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     specularExponent = 50;
 
     color = QVector4D(1,1,1,1);
+    initializeOpenGLFunctions();
 }
 
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, QVector<GLuint> textures){
@@ -34,6 +35,7 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, QVector<GLuint> te
     specularExponent = 50;
 
     color = QVector4D(1,1,1,1);
+    initializeOpenGLFunctions();
 }
 
 void Object::setShaderParameters(float ambientCoeff,float diffuseCoeff,float specularCoeff,float specularExponent){
@@ -58,6 +60,7 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
         glActiveTexture(textureSlots[i]);
         glBindTexture(GL_TEXTURE_2D,textures[i]);
     }
+
     glActiveTexture(GL_TEXTURE0);
 
 
