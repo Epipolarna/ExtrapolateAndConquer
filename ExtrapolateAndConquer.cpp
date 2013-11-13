@@ -32,6 +32,10 @@ void ExtrapolateAndConquer::initialize(void){
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
+    spherePhysicsSystem.initialize(entityManager);
+    spherePhysicsSystem.gravitationalConstant = 9.82;
+    spherePhysicsSystem.setTimeInterval(timer->interval()/1000.0);  // Set dt. QTimer::interval() is in milliseconds
+    sphereCollisionSystem.initialize(entityManager);
 	
 	// Initialize entity
     e = &entityManager.createEntity();
@@ -40,6 +44,14 @@ void ExtrapolateAndConquer::initialize(void){
     e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
     e->add<Graphics>();
     e->get<Graphics>().object = new Object(rm.getModel("teapot"), rm.getShader("phong"));
+
+    e->add<SpherePhysics>();
+    SpherePhysics & sp = e->get<SpherePhysics>();
+    sp.mass = 1.0;
+    sp.elasticity = 0.1;
+    sp.friction = 0.1;
+    sp.radius = 1.0;
+    sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
     r->renderList.push_back(e->get<Graphics>().object);
 }
@@ -68,8 +80,12 @@ bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     cam->updatePosition();
 
+    // Run collision detection
+    sphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
+
     // Run the systems...
     simplePhysicsSystem.batch();
+    spherePhysicsSystem.batch();
     graphicsUpdateSystem.batch();
 
     //make sure to update the gl widget...
