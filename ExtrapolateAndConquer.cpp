@@ -31,7 +31,6 @@ void ExtrapolateAndConquer::initialize(void){
     
     r->renderList.push_back(o1);
 
-    /*
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
@@ -57,9 +56,6 @@ void ExtrapolateAndConquer::initialize(void){
     sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
     r->renderList.push_back(e->get<Graphics>().object);
-    */
-    
-
 
     // Generate world
     // ---------------------------
@@ -133,10 +129,13 @@ void ExtrapolateAndConquer::loopBody(){
     // Run collision detection
     sphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
 
-    // Run the systems...
+    // Run physics simulators
     simplePhysicsSystem.batch();
     spherePhysicsSystem.batch();
+
+    // Run physics to graphics transfer of position/rotation
     graphicsUpdateSystem.batch();
+    //
 
     //make sure to update the gl widget...
     graphicsWindow->centralWidget()->update();

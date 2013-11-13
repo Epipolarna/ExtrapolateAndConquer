@@ -14,7 +14,7 @@ template<typename... Components>
 class EntityManager
 {
 public:
-    EntityManager() {}
+    EntityManager() { nextID = 1; }
     template<typename Component> std::vector<Component> & getComponents();
     Entity<Components...> & createEntity();
     Entity<Components...> & getEntity(long id);
@@ -25,6 +25,9 @@ private:
     Vectors<Components...> components;
     Lists<Components*...> freeLists;
     std::map<long, Entity<Components...>> entities;
+    long nextID;
+
+    long getUniqueID() { return nextID++; }
 };
 
 /*!
@@ -41,8 +44,7 @@ std::vector<Component> & EntityManager<Components...>::getComponents() {
 */
 template<typename... Components>
 Entity<Components...> & EntityManager<Components...>::createEntity() {
-    long id = (long) new long;
-    entities[id].id = id;
+    entities[id].id = getUniqueID();
     entities[id].es = this;
     return entities[id];
 }
