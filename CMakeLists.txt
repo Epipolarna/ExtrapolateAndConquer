@@ -4,7 +4,7 @@ PROJECT(ExNCo)
 
 IF(APPLE)
     MESSAGE( STATUS "Apple system" )
-    SET (CMAKE_CXX_FLAGS "-stdlib=libc++ -std=c++11")
+    SET (CMAKE_CXX_FLAGS "-stdlib=libc++ -std=c++11 -pedantic")
     INCLUDE_DIRECTORIES( /System/Library/Frameworks )
 ENDIF()
 
@@ -16,7 +16,7 @@ IF(WIN32)
         add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     ENDIF()
 
-    cmake_policy(SET CMP0020 NEW)
+    #cmake_policy(SET CMP0020 NEW)
 ENDIF()
 
 # Tell CMake to run moc when necessary:

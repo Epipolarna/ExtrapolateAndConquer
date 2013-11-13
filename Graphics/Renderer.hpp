@@ -18,11 +18,10 @@ public:
 
     void repaint(void);
 
-    std::vector<graphics::Object> renderList;
+    std::vector<graphics::Object*> renderList;
 
     QMatrix4x4 pMatrix;
 
-    
     graphics::Object* skybox;
     graphics::Camera* cam;
 private:

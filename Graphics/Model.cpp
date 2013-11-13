@@ -218,20 +218,6 @@ void Model::upload(void){
     VAO.release();
 }
 
-void Model::makeNormals(void){
-	for(int i=0; i < index.size(); i = i + 3){
-		QVector3D u = vertex[i+1] - vertex[i];
-		QVector3D v = vertex[i+2] - vertex[i];
-		QVector3D n = QVector3D::crossProduct(u,v);
-		n.normalize();
-		faceNormals.push_back(n);
-	}
-	perVertexNormals();
-}
-
-void Model::perVertexNormals(void){
-	
-}
 
 void Model::loadModel(const QString filename){
 	

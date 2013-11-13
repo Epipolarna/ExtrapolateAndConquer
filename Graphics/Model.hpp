@@ -47,10 +47,6 @@ private:
 	//check if a vertex alread is in the list
     int vertexExists(const QVector3D v, const QVector3D n, const QVector2D t);
 
-    //create normals if they are missing
-    void makeNormals(void);
-    void perVertexNormals(void);
-
 	//upload model to GPU
 	void upload(void);
 
@@ -60,9 +56,6 @@ private:
 	QVector<QVector3D> vertices;
 	QVector<QVector3D> normals;
 	QVector<QVector2D> textures;
-
-	//use to create face normals
-	QVector<QVector3D> faceNormals;
 };
 
 #endif

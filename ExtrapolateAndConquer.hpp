@@ -15,7 +15,7 @@
 
 #include "Graphics/Renderer.hpp"
 
-#include "../ResourceManager.hpp"
+#include "ResourceManager.hpp"
 
 class ExtrapolateAndConquer : QObject
 {
@@ -34,10 +34,11 @@ public slots:
 public:
 
     ResourceManager rm;
-    std::vector<graphics::Object> objectList;
 
+    EntityManager<Components> entityManager;
 
-    //EntityManager<Components> entityManager;
+    SimplePhysicsSystem simplePhysicsSystem;
+    GraphicsUpdateSystem graphicsUpdateSystem;
 
     QApplication* application;
     GraphicsWindow* graphicsWindow;
