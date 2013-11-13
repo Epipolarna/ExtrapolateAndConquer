@@ -18,7 +18,7 @@ class Entity
 {
     friend class EntityManager<Components...>;
 public:
-    Entity()                 { id = -1; es = 0; }
+    Entity()                 { id = -1; es = 0; std::fill_n(componentIndexes, meta::Tuple_length<std::tuple<Components...>>::value, -1); }
     Entity(long id) : id(id) {}
     const long getID()       { return id; }
     template<typename Component> bool has();
@@ -29,11 +29,10 @@ public:
 private:
     long id;
     EntityManager<Components...> * es;
-    std::tuple<Components*...> componentIndexes;
+    long componentIndexes[meta::Tuple_length<std::tuple<Components...>>::value];
 
     template<typename Component> void assign(long index);
     template<typename Component> long getIndex();
-    constexpr bool hasComponent(long index) {  return index > 0; }
 };
 
 
@@ -43,8 +42,9 @@ private:
 template<typename... Components>
 template<typename Component>
 bool Entity<Components...>::has() {
-    Component * index = std::get<meta::Tuple_findType<std::tuple<Components...>, Component>::value>(componentIndexes);
-    return hasComponent((long)index);
+    static_assert(meta::Tuple_findType<std::tuple<Components...>, Component>::value != -1, "Type not part of Components...");
+
+    return componentIndexes[meta::Tuple_findType<std::tuple<Components...>, Component>::value] >= 0;
 }
 
 /*!
@@ -53,6 +53,8 @@ bool Entity<Components...>::has() {
 template<typename... Components>
 template<typename Component>
 void Entity<Components...>::add() {
+    static_assert(meta::Tuple_findType<std::tuple<Components...>, Component>::value != -1, "Type not part of Components...");
+
     if(!has<Component>())
         es-> template addComponent<Component>(*this);
 }
@@ -63,9 +65,10 @@ void Entity<Components...>::add() {
 template<typename... Components>
 template<typename Component>
 Component & Entity<Components...>::get() {
-    Component * index = std::get<meta::Tuple_findType<std::tuple<Components...>, Component>::value>(componentIndexes);
-    std::cerr << std::to_string((long)(long*)this)+": Component with index "+std::to_string(((long)index)-1);
-    return es->template getComponents<Component>()[((long)index)-1];
+    static_assert(meta::Tuple_findType<std::tuple<Components...>, Component>::value != -1, "Type not part of Components...");
+
+    long index = componentIndexes[meta::Tuple_findType<std::tuple<Components...>, Component>::value];
+    return es->template getComponents<Component>()[index];
 }
 
 /*!
@@ -74,6 +77,8 @@ Component & Entity<Components...>::get() {
 template<typename... Components>
 template<typename Component>
 void Entity<Components...>::remove() {
+    static_assert(meta::Tuple_findType<std::tuple<Components...>, Component>::value != -1, "Type not part of Components...");
+
     if(has<Component>())
         es->template removeComponent<Component>(*this);
 }
@@ -84,13 +89,17 @@ void Entity<Components...>::remove() {
 template<typename... Components>
 template<typename Component>
 void Entity<Components...>::assign(long index) {
-     std::get<meta::Tuple_findType<std::tuple<Components...>, Component>::value>(componentIndexes) = (Component*)(index+1);
+    std::cerr << std::to_string(index)+": Component with index "+std::to_string(index)+" assigned"; // Debug
+    componentIndexes[meta::Tuple_findType<std::tuple<Components...>, Component>::value] = index;
 }
 
+/*!
+*   \brief  PRIVATE
+*/
 template<typename... Components>
 template<typename Component>
 long Entity<Components...>::getIndex() {
-    return meta::Tuple_findType<std::tuple<Components...>, Component>::value;
+    return componentIndexes[meta::Tuple_findType<std::tuple<Components...>, Component>::value];
 }
 
 #endif // ENTITY_HPP

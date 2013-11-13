@@ -112,6 +112,8 @@ template<typename... Components>
 template<typename Component>
 void EntityManager<Components...>::addComponent(Entity<Components...> & entity) {
 
+    std::cerr << std::to_string((long)&entity)+": Trying to add in es->addComponent()"; // Debug
+
     // Add Component to entity
     if(!freeLists.template getContainer<Component*>().empty()) {
         long index = (long)freeLists.template getContainer<Component*>().back();
