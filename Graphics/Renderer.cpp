@@ -17,6 +17,9 @@ void Renderer::repaint(){
 
     glEnable(GL_DEPTH_TEST);
 
+    if(world != NULL){
+        world->draw(cam->vMatrix,pMatrix);
+    }
 
     for(Object * o : renderList){
         o->draw(cam->vMatrix,pMatrix);

@@ -21,7 +21,7 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, QVector<GLuint> textures){
     model = _model;
     this->textures = QVector<GLuint>(textures);
-    program = _program;
+    this->program = _program;
 
     mMatrix.setToIdentity();
     position = QVector3D(0,0,0);
@@ -53,7 +53,9 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
     program->setUniformValue("scale", scale);
     program->setUniformValue("color", color);
 
+    
     glBindTexture(GL_TEXTURE_2D, textures[0]);
+
     if(model->VAO.isCreated()){
         model->VAO.bind();
     }else{
@@ -87,7 +89,7 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
         printf("TBO is not created!! \n");
         exit(0);
     }
-    
+
     glDrawElements(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L);
 
     model->VAO.release();

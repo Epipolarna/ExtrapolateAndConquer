@@ -28,9 +28,10 @@ void ExtrapolateAndConquer::initialize(void){
     //the skybox needs to be specially added to the renderer
     Object* skybox = new Object(rm.getModel("skybox"),rm.getShader("skyboxShader"),rm.getTexture("skybox0"));
     r->skybox = skybox;
+    
+    r->renderList.push_back(o1);
 
-
-
+    /*
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
@@ -42,9 +43,8 @@ void ExtrapolateAndConquer::initialize(void){
     e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
     e->add<Graphics>();
     e->get<Graphics>().object = new Object(rm.getModel("teapot"), rm.getShader("phong"));
-
-    r->renderList.push_back(e->get<Graphics>().object);
-
+    */
+    
 
 
     // Generate world
@@ -96,7 +96,8 @@ void ExtrapolateAndConquer::loadResources(void){
     rm.loadTexture("skybox0");
     rm.loadShader("skyboxShader");
 
-    rm.loadTexture("water");
+    rm.loadTexture("grass");
+    rm.loadShader("terrainShader");
 }
 
 int ExtrapolateAndConquer::run(){
