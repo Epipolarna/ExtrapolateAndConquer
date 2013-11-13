@@ -1,5 +1,6 @@
 #include "Object.hpp"
 
+const int Object::textureSlots[] = {GL_TEXTURE0, GL_TEXTURE1, GL_TEXTURE2};
 
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     model = _model;
@@ -53,8 +54,14 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
     program->setUniformValue("scale", scale);
     program->setUniformValue("color", color);
 
-    
-    glBindTexture(GL_TEXTURE_2D, textures[0]);
+    for(int i=0; i < textures.size(); ++i){
+        glActiveTexture(textureSlots[i]);
+        glBindTexture(GL_TEXTURE_2D,textures[i]);
+    }
+    glActiveTexture(GL_TEXTURE0);
+
+
+    //glBindTexture(GL_TEXTURE_2D, textures[0]);
 
     if(model->VAO.isCreated()){
         model->VAO.bind();

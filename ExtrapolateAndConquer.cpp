@@ -76,7 +76,12 @@ void ExtrapolateAndConquer::initialize(void){
     int nOctaves = sizeof(octaves)/sizeof(float);
     world = wg.generateWorld(1000,1000,0.5f,octaves,scales,nOctaves);
 
-    worldObject = new Object(world, rm.getShader("terrainShader"), rm.getTexture("grass"));
+    QVector<GLuint> gt = QVector<GLuint>();
+    gt.push_back(rm.getTexture("grass"));
+    gt.push_back(rm.getTexture("grass"));
+    gt.push_back(rm.getTexture("grass"));
+
+    worldObject = new Object(world, rm.getShader("terrainShader"), gt);
     worldObject->setShaderParameters(0.3, 0.7, 0.3, 50);
     worldObject->setColor(85,196,48,255);
     worldObject->setPosition(-500,0,-500);

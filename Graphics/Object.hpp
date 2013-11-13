@@ -38,6 +38,9 @@ private:
     float diffuseCoeff;
     float specularCoeff;
     float specularExponent;
+
+    //acual data in .cpp file.
+    static const int textureSlots[];
 };
 
 
