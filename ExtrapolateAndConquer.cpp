@@ -118,8 +118,8 @@ void ExtrapolateAndConquer::loopBody(){
     cam->updatePosition();
 
     // Run the systems...
-    //simplePhysicsSystem.batch();
-    //graphicsUpdateSystem.batch();
+    simplePhysicsSystem.batch();
+    graphicsUpdateSystem.batch();
 
     //make sure to update the gl widget...
     graphicsWindow->centralWidget()->update();
