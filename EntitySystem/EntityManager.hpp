@@ -142,7 +142,15 @@ template<typename Component>
 void EntityManager<Components...>::removeComponent(Entity<Components...> & entity) {
 
     // Remove Component from entity
-    freeLists.template getContainer<Component*>().push_back((Component*)entity.template getIndex<Component>());
+    /*
+     * TODO: add components to free-list and only swap out components if not "reallocated" soon enough.
+     */
+    if(getComponents<Component>().size() > 1) {
+        long index = entity.template getIndex<Component>();
+        long lastIndex = getComponents<Component>().size()-1;
+        std::swap(getComponents<Component>()[index], getComponents<Component>()[lastIndex]);
+    }
+    getComponents<Component>().pop_back();
     entity.template assign<Component>(-1);
 
     // If any other Component require this component, remove it aswell.
