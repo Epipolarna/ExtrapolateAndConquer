@@ -11,7 +11,9 @@ class Object : protected QOpenGLFunctions
 {
 public:
     Object(Model* model, QOpenGLShaderProgram* program, GLuint texture = 0);
+    Object(Model* model, QOpenGLShaderProgram* program, QVector<GLuint> textures);
 
+    void setShaderParameters(float ambientCoeff,float diffuseCoeff,float specularCoeff,float specularExponent);
     void draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix);
 
     QOpenGLShaderProgram* program;
@@ -21,8 +23,11 @@ public:
     void setColor(float r, float g, float b, float a = 1);
 
 private:
+
+    void initVariables(void);
+
     Model* model;
-    GLuint texture;
+    QVector<GLuint> textures;
 
     QVector3D position;
     QVector3D scale;
@@ -31,10 +36,17 @@ private:
 
     QVector4D color;
 
+    //shader data
     float ambientCoeff;
     float diffuseCoeff;
     float specularCoeff;
     float specularExponent;
+
+    float texScaling;
+
+
+    //acual data in .cpp file.
+    static const int textureSlots[];
 };
 
 

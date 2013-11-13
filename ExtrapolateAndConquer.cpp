@@ -28,7 +28,10 @@ void ExtrapolateAndConquer::initialize(void){
     //the skybox needs to be specially added to the renderer
     Object* skybox = new Object(rm.getModel("skybox"),rm.getShader("skyboxShader"),rm.getTexture("skybox0"));
     r->skybox = skybox;
+    
+    r->renderList.push_back(o1);
 
+    /*
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
@@ -54,6 +57,50 @@ void ExtrapolateAndConquer::initialize(void){
     sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
     r->renderList.push_back(e->get<Graphics>().object);
+    */
+    
+
+
+    // Generate world
+    // ---------------------------
+    float octaves[16];
+    float scales[16];
+
+    // 1.8715 or 2.1042
+    float lacunarity = 1/1.87;
+    float gain = 0.60;
+
+    //for each pixel, get the value
+    float period = 400;
+    float amplitude = 20;
+    for (int i = 0; i < 16; i++)
+    {
+        octaves[i] = period;
+        scales[i] = amplitude;
+
+        period *= lacunarity;
+        amplitude *= gain;
+    }
+
+    Model* world;
+    WorldGen wg = WorldGen();
+    Object* worldObject;
+
+    int nOctaves = sizeof(octaves)/sizeof(float);
+    world = wg.generateWorld(1000,1000,0.5f,octaves,scales,nOctaves);
+
+    QVector<GLuint> gt = QVector<GLuint>();
+    gt.push_back(rm.getTexture("grass"));
+    gt.push_back(rm.getTexture("grass"));
+    gt.push_back(rm.getTexture("grass"));
+
+    worldObject = new Object(world, rm.getShader("terrainShader"), gt);
+    worldObject->setShaderParameters(0.3, 0.7, 0.3, 50);
+    worldObject->setColor(85,196,48,255);
+    worldObject->setPosition(-500,0,-500);
+    //worldObject->setTexScaling(1000);
+
+    r->world = worldObject;
 }
 
 void ExtrapolateAndConquer::loadResources(void){
@@ -66,6 +113,9 @@ void ExtrapolateAndConquer::loadResources(void){
     rm.loadModel("skybox");
     rm.loadTexture("skybox0");
     rm.loadShader("skyboxShader");
+
+    rm.loadTexture("grass");
+    rm.loadShader("terrainShader");
 }
 
 int ExtrapolateAndConquer::run(){

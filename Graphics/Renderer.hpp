@@ -7,7 +7,6 @@
 #include <QOpenGLBuffer>
 #include <vector>
 
-#include "WorldGen.hpp"
 #include "Model.hpp"
 #include "Object.hpp"
 #include "Camera.hpp"
@@ -26,7 +25,7 @@ public:
     Object* skybox;
     Camera* cam;
 
-    Model* world;
+    Object* world;
 private:
 };
 

@@ -1,11 +1,24 @@
 #include "Object.hpp"
 
+const int Object::textureSlots[] = {GL_TEXTURE0, GL_TEXTURE1, GL_TEXTURE2};
 
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     model = _model;
-    texture = _texture;
+    textures.push_back(_texture);
     program = _program;
 
+    initVariables();
+}
+
+Object::Object(Model *_model, QOpenGLShaderProgram *_program, QVector<GLuint> textures){
+    model = _model;
+    this->textures = QVector<GLuint>(textures);
+    this->program = _program;
+
+    initVariables();
+}
+
+void Object::initVariables(void){
     mMatrix.setToIdentity();
     position = QVector3D(0,0,0);
     scale = QVector3D(1,1,1);
@@ -15,7 +28,17 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     specularCoeff = 100;
     specularExponent = 50;
 
+    texScaling = 1.0;
+
     color = QVector4D(1,1,1,1);
+    initializeOpenGLFunctions();
+}
+
+void Object::setShaderParameters(float ambientCoeff,float diffuseCoeff,float specularCoeff,float specularExponent){
+    this->ambientCoeff  = ambientCoeff;
+    this->diffuseCoeff  = diffuseCoeff;
+    this->specularCoeff = specularCoeff;
+    this->specularExponent = specularExponent;  
 }
 
 void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
@@ -25,11 +48,27 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
     program->setUniformValue("mMatrix", mMatrix);
     program->setUniformValue("vMatrix", vMatrix);
     program->setUniformValue("pMatrix", pMatrix);
-    program->setUniformValue("tex", 0);
+    program->setUniformValue("tex0", 0);
+    program->setUniformValue("tex1", 1);
+    program->setUniformValue("tex2", 2);
+    program->setUniformValue("texScaling", texScaling);
     program->setUniformValue("scale", scale);
     program->setUniformValue("color", color);
+    program->setUniformValue("ambientCoeff", ambientCoeff);
+    program->setUniformValue("diffuseCoeff", diffuseCoeff);
+    program->setUniformValue("specularCoeff", specularCoeff);
+    program->setUniformValue("specularExponent", specularExponent);
 
-    glBindTexture(GL_TEXTURE_2D, texture);
+    for(int i=0; i < textures.size(); ++i){
+        glActiveTexture(textureSlots[i]);
+        glBindTexture(GL_TEXTURE_2D,textures[i]);
+    }
+
+    glActiveTexture(GL_TEXTURE0);
+
+
+    //glBindTexture(GL_TEXTURE_2D, textures[0]);
+
     if(model->VAO.isCreated()){
         model->VAO.bind();
     }else{
@@ -63,7 +102,7 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
         printf("TBO is not created!! \n");
         exit(0);
     }
-    
+
     glDrawElements(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L);
 
     model->VAO.release();
