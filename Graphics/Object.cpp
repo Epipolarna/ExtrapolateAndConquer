@@ -7,17 +7,7 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     textures.push_back(_texture);
     program = _program;
 
-    mMatrix.setToIdentity();
-    position = QVector3D(0,0,0);
-    scale = QVector3D(1,1,1);
-
-    ambientCoeff  = 0.2;
-    diffuseCoeff  = 0.6;
-    specularCoeff = 100;
-    specularExponent = 50;
-
-    color = QVector4D(1,1,1,1);
-    initializeOpenGLFunctions();
+    initVariables();
 }
 
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, QVector<GLuint> textures){
@@ -25,6 +15,10 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, QVector<GLuint> te
     this->textures = QVector<GLuint>(textures);
     this->program = _program;
 
+    initVariables();
+}
+
+void Object::initVariables(void){
     mMatrix.setToIdentity();
     position = QVector3D(0,0,0);
     scale = QVector3D(1,1,1);
@@ -33,6 +27,8 @@ Object::Object(Model *_model, QOpenGLShaderProgram *_program, QVector<GLuint> te
     diffuseCoeff  = 0.6;
     specularCoeff = 100;
     specularExponent = 50;
+
+    texScaling = 1.0;
 
     color = QVector4D(1,1,1,1);
     initializeOpenGLFunctions();
@@ -52,9 +48,16 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
     program->setUniformValue("mMatrix", mMatrix);
     program->setUniformValue("vMatrix", vMatrix);
     program->setUniformValue("pMatrix", pMatrix);
-    program->setUniformValue("tex", 0);
+    program->setUniformValue("tex0", 0);
+    program->setUniformValue("tex1", 1);
+    program->setUniformValue("tex2", 2);
+    program->setUniformValue("texScaling", texScaling);
     program->setUniformValue("scale", scale);
     program->setUniformValue("color", color);
+    program->setUniformValue("ambientCoeff", ambientCoeff);
+    program->setUniformValue("diffuseCoeff", diffuseCoeff);
+    program->setUniformValue("specularCoeff", specularCoeff);
+    program->setUniformValue("specularExponent", specularExponent);
 
     for(int i=0; i < textures.size(); ++i){
         glActiveTexture(textureSlots[i]);
