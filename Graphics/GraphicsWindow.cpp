@@ -3,7 +3,7 @@
 #include <QDebug>
 
 
-void GraphicsWindow::registerEventManager(graphics::Camera *c){
+void GraphicsWindow::registerEventManager(Camera *c){
     cam = c;
 }
 

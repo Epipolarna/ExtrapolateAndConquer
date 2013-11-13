@@ -7,6 +7,7 @@
 #include <QOpenGLBuffer>
 #include <vector>
 
+#include "WorldGen.hpp"
 #include "Model.hpp"
 #include "Object.hpp"
 #include "Camera.hpp"
@@ -18,12 +19,14 @@ public:
 
     void repaint(void);
 
-    std::vector<graphics::Object*> renderList;
+    std::vector<Object*> renderList;
 
     QMatrix4x4 pMatrix;
 
-    graphics::Object* skybox;
-    graphics::Camera* cam;
+    Object* skybox;
+    Camera* cam;
+
+    Model* world;
 private:
 };
 

@@ -42,7 +42,7 @@ public:
 
     QApplication* application;
     GraphicsWindow* graphicsWindow;
-    graphics::Camera* cam;
+    Camera* cam;
 
     QTimer* timer;
 

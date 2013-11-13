@@ -1,7 +1,5 @@
 #include "Camera.hpp"
 
-namespace graphics {
-
 Camera::Camera()
 {
     position = QVector3D(0,10,1);
@@ -135,5 +133,4 @@ QMatrix4x4 Camera::skyboxMatrix()
     return skyMatrix;
 }
 
-}
 

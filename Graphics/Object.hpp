@@ -7,8 +7,6 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 
-namespace graphics {
-
 class Object : protected QOpenGLFunctions
 {
 public:
@@ -39,6 +37,5 @@ private:
     float specularExponent;
 };
 
-}
 
 #endif // OBJECT_HPP

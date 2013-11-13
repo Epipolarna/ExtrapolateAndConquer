@@ -5,37 +5,54 @@ WorldGen::WorldGen(){
 }
 
 Model* WorldGen::generateWorld(float xRange, float zRange, float vertexDensity, float octaves[], float yScales[], int nOctaves){
-	int xSize = (int)ceil(xRange*vertexDensity);
-	int ySize = (int)ceil(zRange*vertexDensity);
 
-	float heightmap[xSize][ySize];
+    cv::Mat heightMap(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
+    cv::Mat heightMapThresh(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
+    int step = heightMap.cols;
+
+    QVector<QVector3D> vertices;
+    QVector<QVector3D> normals;
+    QVector<QVector2D> textures;
+    QVector<unsigned int> indices;
+
+    qDebug() << "Number of octaves: " << nOctaves;
+
     float y = 0;
 
-	//get the max scale
-	float maxScale = 0;
-    for(int i = 0; i < nOctaves; i++){
+    // find max scale to scale correctly when saved to cv::Mat
+    float maxScale = 0;
+    for (int i = 0; i < nOctaves; i++){
         if (yScales[i] > maxScale){
             maxScale = yScales[i];
         }
     }
 
-    std::vector<QVector3D> vertices;
+    qDebug() << "MaxScale: " << maxScale;
 
-	for (int x = 0; x < xRange*vertexDensity; x++){
-    	for (int z = 0; z < zRange*vertexDensity; z++){
+    // Generate height map and texture coordinates
+    for (int x = 0; x < xRange*vertexDensity; x++){
+        for (int z = 0; z < zRange*vertexDensity; z++){
+
             y = 0;
             for(int i = 0; i < nOctaves; i++){
                 y += SimplexNoise1234::noise(x/octaves[i], z/octaves[i]) * yScales[i];
             }
-            vertices.push_back(QVector3D(x,y,z));
-            heightmap[x][z] = (y + maxScale) / (2*maxScale);
+
+            vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
+
+            textures.push_back(QVector2D((float)x/(xRange*vertexDensity),(float)z/(zRange*vertexDensity)));
+
+            heightMap.at<float>(x,z) = (y + maxScale) / (2*maxScale);
         }
     }
 
+    //cv::imshow("heightMap", heightMap);
+    cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
+    //cv::imshow("heightMapThresh", heightMapThresh);
 
-    //TODO wtf?
-    int step = xSize;
-    std::vector<int> indices;
+    qDebug() << "step: " << step;
+
+    // Tie vertices together. openGL indexing starts at 0 tydligen..
     for (int x = 1; x < xRange*vertexDensity; x++){
         for (int z = 1; z < zRange*vertexDensity; z++){
 
@@ -54,7 +71,6 @@ Model* WorldGen::generateWorld(float xRange, float zRange, float vertexDensity, 
     float y00, y01, y10;
     QVector3D tangent1, tangent2;
     QVector3D normal;
-    std::vector<QVector3D> normals;
 
     // Calculate normals
     for (int z = 0; z < zRange*vertexDensity; z++){
@@ -65,9 +81,9 @@ Model* WorldGen::generateWorld(float xRange, float zRange, float vertexDensity, 
         normals.push_back(QVector3D(0,1,0));
         for (int z = 1; z < zRange*vertexDensity; z++){
 
-            y00 = heightmap[x-1][z-1];
-            y01 = heightmap[x-1][z];
-            y10 = heightmap[x][z-1];
+            y00 = heightMap.at<float>(x-1,z-1);
+            y01 = heightMap.at<float>(x-1,z);
+            y10 = heightMap.at<float>(x,z-1);
 
             tangent1 = QVector3D(1, y10-y00, 0);
             tangent2 = QVector3D(0, y01-y00, 1);
@@ -79,8 +95,9 @@ Model* WorldGen::generateWorld(float xRange, float zRange, float vertexDensity, 
         }
     }
 
-    //TODO add to model object and upload to GPU
     Model* worldModel = new Model();
+
+    worldModel->modelFromData(vertices,normals,textures,indices);
 
     return worldModel;
 }

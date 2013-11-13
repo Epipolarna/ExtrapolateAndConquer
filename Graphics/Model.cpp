@@ -10,6 +10,16 @@ Model::Model(void){
 	IBO.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
 }
 
+
+void Model::modelFromData(const QVector<QVector3D> vertices, const QVector<QVector3D> normals, const QVector<QVector2D> textures, const QVector<unsigned int> indices){
+    vertex = QVector<QVector3D>(vertices);
+    normal = QVector<QVector3D>(normals);
+    texture = QVector<QVector2D>(textures);
+    index = QVector<unsigned int>(indices);
+
+    upload();
+}
+
 void Model::dumpData(void){
 	printf("vertices\n");
 	for(QVector3D v: vertex){

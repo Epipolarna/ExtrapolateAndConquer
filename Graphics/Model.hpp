@@ -14,13 +14,13 @@
 #include <QStringList>
 #include <QFile>
 
-
 class Model{
 public:
 
 	Model(void);
 
 	void loadModel(const QString filename);
+    void modelFromData(const QVector<QVector3D> vertices, const QVector<QVector3D> normals, const QVector<QVector2D> textures, const QVector<unsigned int> indices);
 	
 	QOpenGLVertexArrayObject VAO;
     QOpenGLBuffer VBO, NBO, TBO, IBO;

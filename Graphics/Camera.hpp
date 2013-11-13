@@ -6,8 +6,6 @@
 #include <QKeyEvent>
 #include <QElapsedTimer>
 
-namespace graphics {
-
 class Camera
 {
 public:
@@ -34,6 +32,5 @@ private:
     qint64 elapsedTime;
 };
 
-}
 
 #endif // CAMERA_HPP

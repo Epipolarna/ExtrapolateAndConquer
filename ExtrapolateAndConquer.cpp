@@ -23,10 +23,10 @@ void ExtrapolateAndConquer::initialize(void){
     loadResources();
     Renderer* r = graphicsWindow->getRenderer();
 
-    graphics::Object* o1 = new graphics::Object(rm.getModel("teapot"),rm.getShader("phong"));
+    Object* o1 = new Object(rm.getModel("teapot"),rm.getShader("phong"));
 
     //the skybox needs to be specially added to the renderer
-    graphics::Object* skybox = new graphics::Object(rm.getModel("skybox"),rm.getShader("skyboxShader"),rm.getTexture("skybox0"));
+    Object* skybox = new Object(rm.getModel("skybox"),rm.getShader("skyboxShader"),rm.getTexture("skybox0"));
     r->skybox = skybox;
 
     // Initialize systems
@@ -39,7 +39,7 @@ void ExtrapolateAndConquer::initialize(void){
     e->get<SimplePhysics>().position = QVector3D(0,0,0);
     e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
     e->add<Graphics>();
-    e->get<Graphics>().object = new graphics::Object(rm.getModel("teapot"), rm.getShader("phong"));
+    e->get<Graphics>().object = new Object(rm.getModel("teapot"), rm.getShader("phong"));
 
     r->renderList.push_back(e->get<Graphics>().object);
 }

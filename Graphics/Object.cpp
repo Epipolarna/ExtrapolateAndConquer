@@ -1,6 +1,5 @@
 #include "Object.hpp"
 
-namespace graphics {
 
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     model = _model;
@@ -93,5 +92,4 @@ void Object::setColor(float r, float g, float b, float a)
     color = QVector4D(r/255,g/255,b/255,a/255);
 }
 
-}
 

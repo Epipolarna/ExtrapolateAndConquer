@@ -20,12 +20,12 @@ public:
     ~GraphicsWindow();
 
     Renderer* getRenderer(void);
-    void registerEventManager(graphics::Camera *c);
+    void registerEventManager(Camera *c);
     
 private:
     Ui::GraphicsWindow *ui;
 
-    graphics::Camera *cam;
+    Camera *cam;
 
     GraphicsWidget* glWidget;
     
