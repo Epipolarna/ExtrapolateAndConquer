@@ -89,7 +89,7 @@ struct REMOVE_IF_REQUIRES : public
         meta::IF< meta::Condition<meta::Tuple_containType<typename Element::REQUIRED_COMPONENTS, Component>::value>,
                   REMOVE_COMPONENT<Element, Components...>,
                   REMOVE_COMPONENT_FALSE<Element, Components...>
-                >{};
+                > {};
 
 /* Add a component (since it is required)
  ******************************/
