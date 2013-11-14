@@ -39,7 +39,6 @@ void ExtrapolateAndConquer::initialize(void){
     resourceManager = new ResourceManager;
     loadResources();
 
-    //Renderer* renderer = graphicsWindow->getRenderer();
     Renderer* renderer = openGLWindow->getRenderer();
 
     Object* o1 = new Object(resourceManager->getModel("teapot"),resourceManager->getShader("phong"));
