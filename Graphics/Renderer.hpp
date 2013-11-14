@@ -25,6 +25,7 @@ public:
     Object* skybox;
     Camera* cam;
 
+    Object* water;
     Object* world;
 private:
 };

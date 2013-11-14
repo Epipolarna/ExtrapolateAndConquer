@@ -21,6 +21,10 @@ void Renderer::repaint(){
         world->draw(cam->vMatrix,pMatrix);
     }
 
+    if(water != NULL){
+        water->draw(cam->vMatrix,pMatrix);
+    }
+
     for(Object * o : renderList){
         o->draw(cam->vMatrix,pMatrix);
     }

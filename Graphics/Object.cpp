@@ -41,6 +41,10 @@ void Object::setShaderParameters(float ambientCoeff,float diffuseCoeff,float spe
     this->specularExponent = specularExponent;  
 }
 
+void Object::setTexScaling(float s){
+    this->texScaling = s;
+}
+
 void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
 
     program->bind();

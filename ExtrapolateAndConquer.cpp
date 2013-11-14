@@ -32,6 +32,7 @@ void ExtrapolateAndConquer::initialize(void){
     r->renderList.push_back(o1);
 
 
+    /*
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
@@ -43,7 +44,7 @@ void ExtrapolateAndConquer::initialize(void){
     e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
     e->add<Graphics>();
     e->get<Graphics>().object = new Object(rm.getModel("teapot"), rm.getShader("phong"));
-
+    */
     
 
 
@@ -89,32 +90,46 @@ void ExtrapolateAndConquer::initialize(void){
 
     r->world = worldObject;
 
-
     QVector<GLuint> ot = QVector<GLuint>();
-    ot.push_back(rm.getTexture("ocean"));
-    ot.push_back(rm.getTexture("oceanNormal"));
-    ot.push_back(rm.getTexture(""));
-    Object ocean = new Object(rm.getModel("oceanModel"), rm.getShader("oceanShader"));
+    ot.push_back(rm.getTexture("water"));
+    ot.push_back(rm.getTexture("waterNormalMap0"));
+    ot.push_back(rm.getTexture("waterNormalMap1"));
+
+    Object* ocean = new Object(rm.getModel("unitSquare"), rm.getShader("oceanShader"),ot);
     
-    ocean->setShadingParameters(0.1, 0.6, 3.0, 50);
+    ocean->setShaderParameters(0.1, 0.6, 3.0, 50);
     ocean->setColor(59,58,99,200);
     ocean->setScale(1000,1,1000);
     ocean->setTexScaling(100);
+
+    r->water = ocean;
 }
 
 void ExtrapolateAndConquer::loadResources(void){
     
     //test data
+    printf("loading teapot data \n");
     rm.loadShader("phong");
     rm.loadModel("teapot");
 
     //skybox data
+    printf("loading skybox data \n");
     rm.loadModel("skybox");
     rm.loadTexture("skybox0");
     rm.loadShader("skyboxShader");
 
+    //ground data
+    printf("loading ground data \n");
     rm.loadTexture("grass");
     rm.loadShader("terrainShader");
+
+    //water data
+    printf("loading water data \n");
+    rm.loadTexture("water");
+    rm.loadTexture("waterNormalMap0");
+    rm.loadTexture("waterNormalMap1");
+    rm.loadModel("unitSquare");
+    rm.loadShader("oceanShader");
 }
 
 int ExtrapolateAndConquer::run(){
@@ -130,7 +145,7 @@ void ExtrapolateAndConquer::loopBody(){
     cam->updatePosition();
 
     // Run the systems...
-    simplePhysicsSystem.batch();
+    //simplePhysicsSystem.batch();
     //graphicsUpdateSystem.batch();
 
     //make sure to update the gl widget...

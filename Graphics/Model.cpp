@@ -191,9 +191,10 @@ void Model::parseLine(QString line){
         parseOk = true;
 	}else{
 		printf("Unknown token! \n string was: %s",line.toStdString().c_str());
+		printf("line number: %d \n",lineCounter);
 		parseOk = true;
 	}
-
+	lineCounter = lineCounter + 1;
 	if(!parseOk){
 		printf("Failed to parse line:%s",line.toStdString().c_str());
 		for(int i=0; i < bits.size();i++){
@@ -232,7 +233,7 @@ void Model::upload(void){
 void Model::loadModel(const QString filename){
 	
 	QFile file(filename);
-
+	lineCounter = 0;
 	if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
 		printf("Failed to open file: %s \n",filename.toStdString().c_str());
 	}
