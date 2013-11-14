@@ -7,8 +7,9 @@ const QString ResourceManager::shaderPath = resourcePath + "shaders/";
 const QString ResourceManager::texturePath = resourcePath + "textures/";
 
 ResourceManager::ResourceManager(){
-
+    initializeOpenGLFunctions();
 }
+
 ResourceManager::~ResourceManager(){
     //destroy all resources etc
 }

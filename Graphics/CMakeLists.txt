@@ -1,6 +1,8 @@
-add_library(Graphics GraphicsWindow.cpp GraphicsWindow.ui
-            Object.cpp Camera.cpp TerrainGenerator.cpp
-            simplexnoise1234.cpp Model.cpp GraphicsWidget.cpp 
-            Renderer.cpp WorldGen.cpp)
-
-qt5_wrap_ui(ui_GraphicsWindow.h GraphicsWindow.ui)
+add_library(Graphics
+            OpenGLWindow.cpp
+            Renderer.cpp
+            Camera.cpp
+            Object.cpp
+            Model.cpp
+            simplexnoise1234.cpp
+            WorldGenerator.cpp )

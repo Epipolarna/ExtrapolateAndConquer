@@ -4,19 +4,19 @@
 #include <QApplication>
 #include <QTimer>
 #include <vector>
+#include <QOpenGLContext>
 
+#include "ResourceManager.hpp"
+
+#include "Graphics/OpenGLWindow.hpp"
+#include "Graphics/Renderer.hpp"
 #include "Graphics/Object.hpp"
-#include "Graphics/GraphicsWindow.hpp"
 #include "Graphics/Model.hpp"
+#include "Graphics/WorldGenerator.hpp"
 
 #include "EntitySystem/EntitySystem.hpp"
 #include "Components/Components.hpp"
 #include "Systems/Systems.hpp"
-
-#include "Graphics/Renderer.hpp"
-
-#include "ResourceManager.hpp"
-#include "Graphics/WorldGen.hpp"
 
 class ExtrapolateAndConquer : QObject
 {
@@ -34,7 +34,7 @@ public slots:
 
 public:
 
-    ResourceManager rm;
+    ResourceManager* resourceManager;
 
     EntityManager<Components> entityManager;
 
@@ -45,8 +45,9 @@ public:
     SphereTerrainCollisionSystem sphereTerrainCollisionSystem;
 
     QApplication* application;
-    GraphicsWindow* graphicsWindow;
-    Camera* cam;
+    QOpenGLContext* context;
+    OpenGLWindow* openGLWindow;
+    Camera* camera;
 
     QTimer* timer;
 
