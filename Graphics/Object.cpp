@@ -2,6 +2,7 @@
 
 const int Object::textureSlots[] = {GL_TEXTURE0, GL_TEXTURE1, GL_TEXTURE2};
 
+#include <iostream>
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
     model = _model;
     textures.push_back(_texture);
@@ -22,8 +23,7 @@ void Object::initVariables(void){
     mMatrix.setToIdentity();
     position = QVector3D(0,0,0);
     scale = QVector3D(1,1,1);
-    rotationAxis = QVector3D(1,0,0);
-    rotationAngle = 0;
+    rotation = QQuaternion(1,0,0,0);
 
     ambientCoeff  = 0.2;
     diffuseCoeff  = 0.6;
@@ -115,25 +115,19 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
     program->release();
 }
 
+void Object::setPosition(float x, float y, float z)
+{
+    position = QVector3D(x,y,z);
+    uppdateTransform();
+}
+
 void Object::setPosition(QVector3D & position) {
     this->position = position;
     uppdateTransform();
 }
 
-void Object::setRotation(QVector3D & axis, float angle) {
-    rotationAxis = axis;
-    rotationAngle = angle;
-    uppdateTransform();
-}
-
-void Object::setScale(QVector3D & scale) {
-    this->scale = scale;
-    uppdateTransform();
-}
-
-void Object::setPosition(float x, float y, float z)
-{
-    position = QVector3D(x,y,z);
+void Object::setScale(float s) {
+    scale = QVector3D(s,s,s);
     uppdateTransform();
 }
 
@@ -143,11 +137,25 @@ void Object::setScale(float x, float y, float z)
     uppdateTransform();
 }
 
+void Object::setScale(QVector3D & scale) {
+    this->scale = scale;
+    uppdateTransform();
+}
+
+void Object::setRotation(QVector3D & axis, float angle) {
+    this->rotation = QQuaternion::fromAxisAndAngle(axis, angle);
+    uppdateTransform();
+}
+
+void Object::setRotation(QQuaternion & rotation) {
+    this->rotation = rotation;
+}
+
 void Object::uppdateTransform() {
     mMatrix.setToIdentity();
-    mMatrix.scale(scale);
-    mMatrix.rotate(rotationAxis, rotationAngle);
     mMatrix.translate(position);
+    mMatrix.rotate(rotation);
+    mMatrix.scale(scale);
 
 }
 

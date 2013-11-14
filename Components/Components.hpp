@@ -34,7 +34,7 @@ struct SimplePhysics : public Component<> {
     QVector3D velocity;
 };
 
-struct Graphics : public Component<SimplePhysics> {
+struct Graphics : public Component<SpherePhysics> {
     const std::string getName() override { return "Graphics"; }
 
     Object* object = NULL;
@@ -52,6 +52,8 @@ struct SpherePhysics : public Component<> {
     QVector3D position; 			// x = Integral( v, dt );
     QVector3D velocity; 			// v = P / m;
     QVector3D angularVelocity;      // w = L * I^-1
+    QQuaternion angularVelocity2;   // w = L * I^-1
+
     QVector3D rotation;             // r = Integral( w, dt );
     QQuaternion rotation2;          // r = Integral( w, dt );
 

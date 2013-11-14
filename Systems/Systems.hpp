@@ -14,15 +14,22 @@ public:
     }
 };
 
-// Graphics require SimplePhysics
+// Graphics require SpherePhysics
 class GraphicsUpdateSystem : public System<Graphics, Components>
 {
 public:
     void processStep(Graphics & graphic) override {
         Entity<Components> & e = getEntity(graphic);
-        graphic.object->setPosition(e.get<SimplePhysics>().position.x(),
-                                    e.get<SimplePhysics>().position.y(),
-                                    e.get<SimplePhysics>().position.z());
+
+        //SimplePhysics & physics = e.get<SimplePhysics>();
+        //graphic.object->setPosition(physics.position);
+
+        SpherePhysics & physics = e.get<SpherePhysics>();
+        graphic.object->setPosition(physics.position);
+        graphic.object->setRotation(physics.rotation2);
+
+        //qDebug() << "Position:" << physics.position;
+        //qDebug() << "Rotation:" << physics.rotation2;
     }
 };
 
@@ -30,21 +37,26 @@ class SpherePhysicsSystem : public System<SpherePhysics, Components>
 {
 public:
     void processStep(SpherePhysics & physics) override {
-        // Update rotation
-        QVector3D rotationAxis = QVector3D(0, 1, 0);	// Currently not so generalized
-        QVector3D actualVelocity = physics.velocity - QVector3D::crossProduct(physics.angularVelocity, rotationAxis);
-        QVector3D frictionForce = -physics.friction * physics.mass * physics.gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
-        physics.torque = QVector3D::crossProduct(frictionForce, rotationAxis);
-
         // Update velocities
         physics.angularVelocity = physics.angularMomentum * (1.0/physics.momentOfInertia);
         physics.velocity = physics.linearMomentum / physics.mass;
+
+        //... Quaternion hax (angular velocity & rotation)
+        QVector3D w = physics.angularMomentum * (1.0/physics.momentOfInertia);
+        QVector3D w_dt = w * dt;
+        physics.angularVelocity2 = QQuaternion(std::cos(w_dt.length()/2), w_dt.length() > 0.0001 ? w_dt * std::sin(w_dt.length()/2)/w_dt.length() : w_dt);
+        physics.angularVelocity2.normalize();
+        physics.rotation2 = physics.rotation2*physics.angularVelocity2;
+        physics.rotation2.normalize();
 
         // Integrate variables
         physics.position += physics.velocity * dt;
         physics.rotation += physics.angularVelocity * dt;
         physics.linearMomentum += physics.force * dt;
         physics.angularMomentum += physics.torque * dt;
+
+        qDebug() << "torque:" << physics.force;
+        qDebug() << "angularMomentum:" << physics.angularMomentum;
 
         //Reset force and torque
         physics.force = QVector3D(0,0,0);
@@ -57,7 +69,7 @@ private:
     float dt;
 };
 
-class SphereCollisionSystem : public System<SpherePhysics, Components>
+class SphereSphereCollisionSystem : public System<SpherePhysics, Components>
 {
 public:
     void processStep(SpherePhysics & physics) override {
@@ -90,6 +102,20 @@ public:
 private:
     static inline QVector3D projectOn(QVector3D & vector, QVector3D & basis) {
         return basis * QVector3D::dotProduct(vector, basis);
+    }
+};
+
+
+// TODO: work with the terrain (check if collision; calculate friction, update rotation, bounce)
+class SphereTerrainCollisionSystem : public System<SpherePhysics, Components>
+{
+public:
+    void processStep(SpherePhysics & physics) override {
+        // Update rotation
+        QVector3D rotationAxis = QVector3D(0, physics.radius, 0);	// Currently not so generalized
+        QVector3D actualVelocity = physics.velocity - QVector3D::crossProduct(physics.angularVelocity, rotationAxis);
+        QVector3D frictionForce = -physics.friction * physics.mass * physics.gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
+        physics.torque += QVector3D::crossProduct(frictionForce, rotationAxis);
     }
 };
 

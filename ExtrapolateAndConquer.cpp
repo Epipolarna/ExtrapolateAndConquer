@@ -29,36 +29,40 @@ void ExtrapolateAndConquer::initialize(void){
     Object* skybox = new Object(rm.getModel("skybox"),rm.getShader("skyboxShader"),rm.getTexture("skybox0"));
     r->skybox = skybox;
 
-    r->renderList.push_back(o1);
+    //r->renderList.push_back(o1);
 
 
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
     spherePhysicsSystem.initialize(entityManager);
-    spherePhysicsSystem.gravitationalConstant = 9.82;
-    spherePhysicsSystem.setTimeInterval(timer->interval()/1000.0);  // Set dt. QTimer::interval() is in milliseconds
-    sphereCollisionSystem.initialize(entityManager);
+    spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
+    sphereSphereCollisionSystem.initialize(entityManager);
+    sphereTerrainCollisionSystem.initialize(entityManager);
 
     // Initialize entity
     e = &entityManager.createEntity();
+
     e->add<SimplePhysics>();
     e->get<SimplePhysics>().position = QVector3D(0,0,0);
-    e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
-    e->add<Graphics>();
-    e->get<Graphics>().object = new Object(rm.getModel("teapot"), rm.getShader("phong"));
+    e->get<SimplePhysics>().velocity = QVector3D(0,-0.0,0);
 
     e->add<SpherePhysics>();
     SpherePhysics & sp = e->get<SpherePhysics>();
+    sp.position = QVector3D(0,2,0);
+    sp.rotation2 = QQuaternion(1,0,0,0);
     sp.mass = 1.0;
-    sp.elasticity = 0.1;
-    sp.friction = 0.1;
-    sp.radius = 1.0;
+    sp.elasticity = 1.0;
+    sp.friction = 1.0;
+    sp.radius = 2.0;
     sp.gravitationalConstant = 9.82;
     sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
+    e->add<Graphics>();
+    e->get<Graphics>().object = new Object(rm.getModel("sphere"), rm.getShader("phongTex"), rm.getTexture("sphere"));
+    e->get<Graphics>().object->setScale(sp.radius);
+
     r->drawObject(e->get<Graphics>().object);
-    printf("Pointer to object is: %x \n",e->get<Graphics>().object);
 
 
     // Generate world
@@ -123,6 +127,10 @@ void ExtrapolateAndConquer::loadResources(void){
     printf("loading teapot data \n");
     rm.loadShader("phong");
     rm.loadModel("teapot");
+    printf("loading sphere data \n");
+    rm.loadShader("phongTex");
+    rm.loadModel("sphere");
+    rm.loadTexture("sphere");
 
     //skybox data
     printf("loading skybox data \n");
@@ -156,17 +164,20 @@ bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     cam->updatePosition();
 
+    SpherePhysics & sp = e->get<SpherePhysics>();
+    sp.force = QVector3D(0.1,0,0);
+
     // Run collision detection
-    sphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
+    sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
+    sphereTerrainCollisionSystem.batch();
 
     // Run physics simulators
-    simplePhysicsSystem.batch();
     spherePhysicsSystem.batch();
+    simplePhysicsSystem.batch();
 
     // Run physics to graphics transfer of position/rotation
     graphicsUpdateSystem.batch();
     //
-
 
     //make sure to update the gl widget...
     graphicsWindow->centralWidget()->update();

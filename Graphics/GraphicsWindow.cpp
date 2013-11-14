@@ -47,7 +47,7 @@ void GraphicsWindow::keyReleaseEvent(QKeyEvent *e){
         return ;
     }
 
-    qDebug() << "GLWidget KeyRelease: " << e->text();
+    //qDebug() << "GLWidget KeyRelease: " << e->text();
     switch(e->key()){
     default:
         cam->keyReleaseEvent(e);
@@ -62,7 +62,7 @@ void GraphicsWindow::keyPressEvent(QKeyEvent *e)
         return ;
     }
 
-    qDebug() << "GLWidget KeyPress: " << e->text();
+    //qDebug() << "GLWidget KeyPress: " << e->text();
     switch(e->key()){
 
     case Qt::Key_Escape:

@@ -36,6 +36,8 @@ private:
 template<typename... Components>
 template<typename Component>
 std::vector<Component> & EntityManager<Components...>::getComponents() {
+    static_assert(meta::Tuple_findType<std::tuple<Components...>, Component>::value != -1, "Type not part of Components...");
+
     return components.template getContainer<Component>();
 }
 
@@ -64,6 +66,8 @@ Entity<Components...> & EntityManager<Components...>::getEntity(long id) {
 template<typename... Components>
 template<typename Component>
 void EntityManager<Components...>::hasComponent(Entity<Components...> & entity) {
+    static_assert(meta::Tuple_findType<std::tuple<Components...>, Component>::value != -1, "Type not part of Components...");
+
     return entity.template has<Component>();
 }
 
@@ -114,8 +118,7 @@ struct ADD_COMPONENT {
 template<typename... Components>
 template<typename Component>
 void EntityManager<Components...>::addComponent(Entity<Components...> & entity) {
-
-    std::cerr << std::to_string((long)&entity)+": Trying to add in es->addComponent()"; // Debug
+    static_assert(meta::Tuple_findType<std::tuple<Components...>, Component>::value != -1, "Type not part of Components...");
 
     // Add Component to entity
     if(!freeLists.template getContainer<Component*>().empty()) {
@@ -143,6 +146,7 @@ void EntityManager<Components...>::addComponent(Entity<Components...> & entity) 
 template<typename... Components>
 template<typename Component>
 void EntityManager<Components...>::removeComponent(Entity<Components...> & entity) {
+    static_assert(meta::Tuple_findType<std::tuple<Components...>, Component>::value != -1, "Type not part of Components...");
 
     // Remove Component from entity
     /*

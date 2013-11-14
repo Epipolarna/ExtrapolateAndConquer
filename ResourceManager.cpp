@@ -35,7 +35,7 @@ bool ResourceManager::loadModel(QString modelName){
 	ml->loadModel(modelPath+modelName+".obj");
 
     models[modelName] = ml;
-	//TODO unhappy case
+    //TODO unhappy cases
 	return true;
 }
 
