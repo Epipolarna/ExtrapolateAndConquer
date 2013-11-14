@@ -82,7 +82,7 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         return ;
     }
 
-    qDebug() << "KeyPress: " << e->text();
+    //qDebug() << "KeyPress: " << e->text();
     switch(e->key()){
 
     case Qt::Key_Escape:
@@ -96,7 +96,7 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
 
 void OpenGLWindow::keyReleaseEvent(QKeyEvent *e)
 {
-    qDebug() << "KeyRelease: " << e->text();
+    //qDebug() << "KeyRelease: " << e->text();
     switch(e->key()){
     default:
         camera->keyReleaseEvent(e);
