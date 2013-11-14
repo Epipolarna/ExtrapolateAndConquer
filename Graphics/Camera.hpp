@@ -13,7 +13,7 @@ public:
 
     QVector3D position, lookAtPoint, lookAtDirection, up;
     QMatrix4x4 vMatrix, rotationMatrix;
-    float translationSpeed, pitchSpeed, rollSpeed, yawSpeed;
+    float translationSpeed, pitchSpeed, rollSpeed, yawSpeed, mouseSensitivity;
 
     void setPosition(QVector3D position);
     void setLookAt(QVector3D lookAt);
@@ -21,6 +21,7 @@ public:
 
     void keyPressEvent(QKeyEvent* e);
     void keyReleaseEvent(QKeyEvent* e);
+    void mouseMoveEvent(int dX, int dY);
     void updatePosition();
 
     QMatrix4x4 skyboxMatrix();

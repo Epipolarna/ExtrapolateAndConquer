@@ -1,6 +1,9 @@
 #include "OpenGLWindow.hpp"
 #include <QDebug>
 #include <QStyle>
+#include <QToolTip>
+#include <QKeyEvent>
+#include <QCursor>
 
 OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
     :QWindow(screen), context(context)
@@ -13,10 +16,10 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 
     resize(1280,800);
 
-
-
     renderer = new Renderer();
     camera = renderer->camera;
+
+    trackMouse = false;
 
     connect(this, SIGNAL(widthChanged(int)), this, SLOT(resizeGl()));
     connect(this, SIGNAL(heightChanged(int)), this, SLOT(resizeGl()));
@@ -65,14 +68,19 @@ void OpenGLWindow::paintGl()
     context->swapBuffers(this);
 }
 
-Renderer *OpenGLWindow::getRenderer() const
+void OpenGLWindow::setRenderer(Renderer *value)
+{
+    renderer = value;
+}
+
+Renderer* OpenGLWindow::getRenderer()
 {
     return renderer;
 }
 
-void OpenGLWindow::setRenderer(Renderer *value)
+void OpenGLWindow::setHostApplication(QApplication* _application)
 {
-    renderer = value;
+    application = _application;
 }
 
 void OpenGLWindow::keyPressEvent(QKeyEvent *e)
@@ -82,11 +90,22 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         return ;
     }
 
-    //qDebug() << "KeyPress: " << e->text();
     switch(e->key()){
 
     case Qt::Key_Escape:
         close();
+        break;
+    case Qt::Key_T:
+    case Qt::Key_R:
+        trackMouse = !trackMouse;
+        if(trackMouse){
+            application->setOverrideCursor(QCursor(Qt::BlankCursor));
+            QPoint mousePosition = QPoint(width()/2, height()/2);
+            QCursor::setPos(mapToGlobal(mousePosition));
+        } else {
+            application->setOverrideCursor(QCursor(Qt::ArrowCursor));
+        }
+
         break;
     default:
         camera->keyPressEvent(e);
@@ -96,10 +115,25 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
 
 void OpenGLWindow::keyReleaseEvent(QKeyEvent *e)
 {
-    //qDebug() << "KeyRelease: " << e->text();
     switch(e->key()){
     default:
         camera->keyReleaseEvent(e);
         break;
+    }
+}
+
+void OpenGLWindow::mouseMoveEvent(QMouseEvent *e)
+{
+    if(trackMouse){
+        QPoint mousePosition = mapFromGlobal(QCursor::pos());
+        int dX = width()/2 - mousePosition.x();
+        int dY = height()/2 - mousePosition.y();
+        camera->mouseMoveEvent(dX, dY);
+        mousePosition = QPoint(width()/2, height()/2);
+        QCursor::setPos(mapToGlobal(mousePosition));
+    } else {
+        QToolTip::showText(e->globalPos(),
+                               QString::number( e->pos().x() ) + ", " +
+                               QString::number( e->pos().y() ) );
     }
 }

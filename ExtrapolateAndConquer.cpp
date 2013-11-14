@@ -16,6 +16,7 @@ ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[]){
     context->create();
 
     openGLWindow = new OpenGLWindow(context);
+    openGLWindow->setHostApplication(application);
     openGLWindow->setGeometry(QStyle::alignedRect(Qt::LeftToRight,
                                                   Qt::AlignCenter,
                                                   openGLWindow->size(),

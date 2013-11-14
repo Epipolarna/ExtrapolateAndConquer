@@ -11,6 +11,8 @@ Camera::Camera()
     pitchSpeed = 120;       // degrees/s
     rollSpeed = 90;         // degrees/s
     yawSpeed = 160;         // degrees/s
+
+    mouseSensitivity = (float) 10 /10000;
 }
 
 void Camera::setPosition(QVector3D _position)
@@ -46,12 +48,27 @@ void Camera::keyReleaseEvent(QKeyEvent *e)
     keyMap[e->key()] = false;
 }
 
+void Camera::mouseMoveEvent(int dX, int dY)
+{
+    QVector3D rightVector = lookAtDirection.crossProduct(lookAtDirection, up);
+    rightVector.normalize();
+
+    rotationMatrix.setToIdentity();
+    rotationMatrix.rotate(pitchSpeed*dY*mouseSensitivity, rightVector);
+    rotationMatrix.rotate(yawSpeed*dX*mouseSensitivity, up);
+    lookAtDirection = rotationMatrix*lookAtDirection;
+    up = rotationMatrix*up;
+    lookAtPoint = position + lookAtDirection;
+
+    vMatrix.setToIdentity();
+    vMatrix.lookAt(position, lookAtPoint, up);
+}
+
 void Camera::updatePosition()
 {
     elapsedTime = timer.elapsed();
     timer.restart();
     elapsedSeconds = (float)elapsedTime/1000;
-    qDebug() << elapsedSeconds;
 
     QVector3D rightVector = lookAtDirection.crossProduct(lookAtDirection, up);
     rightVector.normalize();
@@ -119,7 +136,6 @@ void Camera::updatePosition()
     }
 
     velocityVector.normalize();
-    // TODO: Multiply with velocity constant
     qDebug() << velocityVector*translationSpeed*elapsedSeconds;
     position += velocityVector*translationSpeed*elapsedSeconds;
     lookAtPoint += velocityVector*translationSpeed*elapsedSeconds;

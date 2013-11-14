@@ -162,7 +162,7 @@ private:
         }
         else
         {
-            std::cerr << "SphereTerrainCollisionSystem::isColliding() Object outside of heightmap!";
+            //std::cerr << "SphereTerrainCollisionSystem::isColliding() Object outside of heightmap!";
         }
         return false;
     }

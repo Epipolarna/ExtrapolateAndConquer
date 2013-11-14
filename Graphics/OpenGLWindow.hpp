@@ -1,6 +1,7 @@
 #ifndef OPENGLWINDOW_HPP
 #define OPENGLWINDOW_HPP
 
+#include <QApplication>
 #include <QWindow>
 #include <QOpenGLContext>
 #include <QOpenGLFunctions>
@@ -18,22 +19,24 @@ public:
     void registerEventManager(Camera* _camera);
     void update();
 
-
-    Renderer *getRenderer() const;
+    void setHostApplication(QApplication *_application);
     void setRenderer(Renderer *value);
-
+    Renderer* getRenderer();
 
 protected slots:
     void resizeGl();
     void paintGl();
 
 private:
+    QApplication* application;
     QOpenGLContext* context;
     Renderer* renderer;
     Camera* camera;
 
+    bool trackMouse;
     void keyPressEvent(QKeyEvent *e);
     void keyReleaseEvent(QKeyEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
 };
 
 #endif // OPENGLWINDOW_HPP
