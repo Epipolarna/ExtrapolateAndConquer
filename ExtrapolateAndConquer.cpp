@@ -32,7 +32,6 @@ ExtrapolateAndConquer::~ExtrapolateAndConquer(){
     //TODO destroy game
 }
 
-Entity<Components> * entity;
 void ExtrapolateAndConquer::initialize(void){
 
     openGLWindow->initialize();
@@ -55,7 +54,6 @@ void ExtrapolateAndConquer::initialize(void){
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
     spherePhysicsSystem.initialize(entityManager);
-    spherePhysicsSystem.gravitationalConstant = 9.82;
     spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
     sphereSphereCollisionSystem.initialize(entityManager);
     sphereTerrainCollisionSystem.initialize(entityManager);
@@ -76,13 +74,13 @@ void ExtrapolateAndConquer::initialize(void){
     sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
     // Deprecated
-    entity->add<SimplePhysics>();
-    entity->get<SimplePhysics>().position = QVector3D(0,0,0);
-    entity->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
+    e->add<SimplePhysics>();
+    e->get<SimplePhysics>().position = QVector3D(0,0,0);
+    e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
 
     // Add Graphics
     e->add<Graphics>();
-    e->get<Graphics>().object = new Object(rm.getModel("sphere"), rm.getShader("phongTex"), rm.getTexture("sphere"));
+    e->get<Graphics>().object = new Object(resourceManager->getModel("sphere"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
     e->get<Graphics>().object->setScale(sp.radius);
 
     renderer->drawObject(e->get<Graphics>().object);
@@ -148,13 +146,13 @@ void ExtrapolateAndConquer::loadResources(void){
 
     //test data
     printf("loading teapot data \n");
-    resourceManager.loadShader("phong");
-    resourceManager.loadModel("teapot");
+    resourceManager->loadShader("phong");
+    resourceManager->loadModel("teapot");
 
     printf("loading sphere data \n");
-    resourceManager.loadShader("phongTex");
-    resourceManager.loadModel("sphere");
-    resourceManager.loadTexture("sphere");
+    resourceManager->loadShader("phongTex");
+    resourceManager->loadModel("sphere");
+    resourceManager->loadTexture("sphere");
 
     //skybox data
     printf("loading skybox data \n");

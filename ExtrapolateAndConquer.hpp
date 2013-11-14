@@ -51,6 +51,8 @@ public:
 
     QTimer* timer;
 
+    Entity<Components> * e;
+
     void loadResources(void);
 };
 

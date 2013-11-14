@@ -30,12 +30,7 @@ void Renderer::repaint(){
     }
 
     for(Object * o : renderList){
-<<<<<<< HEAD
-        o->draw(cam->vMatrix,pMatrix);
-=======
-        //printf("Pointer to object is: %x \n",o);
         o->draw(camera->vMatrix,pMatrix);
->>>>>>> origin/rearchitecture
     }
 
     glEnable(GL_CULL_FACE);
