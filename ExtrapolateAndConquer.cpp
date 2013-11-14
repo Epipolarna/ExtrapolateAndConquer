@@ -50,7 +50,6 @@ void ExtrapolateAndConquer::initialize(void){
 
 
     // Initialize systems
-    simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
     spherePhysicsSystem.initialize(entityManager);
     spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
@@ -63,7 +62,7 @@ void ExtrapolateAndConquer::initialize(void){
     // Add Sphere physics
     e->add<SpherePhysics>();
     SpherePhysics & sp = e->get<SpherePhysics>();
-    sp.position = QVector3D(0,2,0);
+    sp.position = QVector3D(0,13,0);
     sp.rotation2 = QQuaternion(1,0,0,0);
     sp.mass = 1.0;
     sp.elasticity = 1.0;
@@ -71,11 +70,6 @@ void ExtrapolateAndConquer::initialize(void){
     sp.radius = 2.0;
     sp.gravitationalConstant = 9.82;
     sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
-
-    // Deprecated
-    e->add<SimplePhysics>();
-    e->get<SimplePhysics>().position = QVector3D(0,0,0);
-    e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
 
     // Add Graphics
     e->add<Graphics>();
@@ -112,6 +106,9 @@ void ExtrapolateAndConquer::initialize(void){
 
     int nOctaves = sizeof(octaves)/sizeof(float);
     world = wg.generateWorld(1000,1000,0.5f,octaves,scales,nOctaves);
+    hightMapOfChunk = wg.heightMap;
+
+    sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*wg.scaleFactor-wg.scaleFactor));
 
     QVector<GLuint> gt = QVector<GLuint>();
     gt.push_back(resourceManager->getTexture("grass"));
@@ -194,11 +191,9 @@ void ExtrapolateAndConquer::loopBody(){
 
     // Run physics simulators
     spherePhysicsSystem.batch();
-    simplePhysicsSystem.batch();
 
     // Run physics to graphics transfer of position/rotation
     graphicsUpdateSystem.batch();
-    //
 
     //make sure to update the gl widget...
     //graphicsWindow->centralWidget()->update();

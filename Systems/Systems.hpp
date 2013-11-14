@@ -108,11 +108,41 @@ class SphereTerrainCollisionSystem : public System<SpherePhysics, Components>
 {
 public:
     void processStep(SpherePhysics & physics) override {
-        // Update rotation
-        QVector3D rotationAxis = QVector3D(0, physics.radius, 0);	// Currently not so generalized
-        QVector3D actualVelocity = physics.velocity - QVector3D::crossProduct(physics.angularVelocity, rotationAxis);
-        QVector3D frictionForce = -physics.friction * physics.mass * physics.gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
-        physics.torque += QVector3D::crossProduct(frictionForce, rotationAxis);
+
+        if(isColliding(physics.position, physics.radius))
+        {
+            // Impulse collision with a terrain that have a mass == infinity
+
+
+            // Update rotation
+            QVector3D actualVelocity = physics.velocity - QVector3D::crossProduct(physics.angularVelocity, normal);
+            QVector3D frictionForce = -physics.friction * physics.mass * physics.gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
+            physics.torque += QVector3D::crossProduct(frictionForce, normal);
+        }
+    }
+    void setHeightMap(cv::Mat heightMap) { this->heightMap = heightMap; }
+private:
+    cv::Mat heightMap;
+    QVector3D normal;
+
+    bool isColliding(QVector3D & position, float radius) {
+        int roundX = std::round(position.x());
+        int roundZ = std::round(position.z());
+        if(roundX >= 0 && roundX <= heightMap.size().width && roundZ >= 0 && roundZ <= heightMap.size().height)
+        {
+            float y_diff = position.y()-radius - heightMap.at<float>(roundX,roundZ);
+            if(y_diff <= 0) {
+                normal = radius * QVector3D(0, 1, 0);
+                LOG("Collision, (y_diff, positionY-r, heightmapY) = " << y_diff << ", " << position.y()-radius << ", " << heightMap.at<float>(roundX,roundZ));
+                return true;
+            }
+            LOG("Not Collision, (y_diff, positionY-r, heightmapY) = " << y_diff << ", " << position.y()-radius << ", " << heightMap.at<float>(roundX,roundZ));
+        }
+        else
+        {
+            std::cerr << "SphereTerrainCollisionSystem::isColliding() Object outside of heightmap!";
+        }
+        return false;
     }
 };
 

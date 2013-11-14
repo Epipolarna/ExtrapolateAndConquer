@@ -11,13 +11,17 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include "Model.hpp"
+#include "Object.hpp"
 #include "simplexnoise1234.h"
 
 class WorldGenerator{
 	public:
         WorldGenerator();
-		Model* generateWorld(float xRange, float zRange, float vertexDensity, float octaves[], float yScales[], int nOctaves);
+        Model* generateWorld(float xRange, float zRange, float vertexDensity, float octaves[], float yScales[], int nOctaves);
+
+        cv::Mat heightMap;
+        cv::Mat heightMapThresh;
+        float scaleFactor;
 };
 
 #endif

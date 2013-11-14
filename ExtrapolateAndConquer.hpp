@@ -52,6 +52,7 @@ public:
     QTimer* timer;
 
     Entity<Components> * e;
+    cv::Mat hightMapOfChunk;
 
     void loadResources(void);
 };

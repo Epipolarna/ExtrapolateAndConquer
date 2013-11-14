@@ -4,10 +4,11 @@ WorldGenerator::WorldGenerator(){
 
 }
 
-Model* WorldGenerator::generateWorld(float xRange, float zRange, float vertexDensity, float octaves[], float yScales[], int nOctaves){
+Model * WorldGenerator::generateWorld(float xRange, float zRange, float vertexDensity, float octaves[], float yScales[], int nOctaves){
 
-    cv::Mat heightMap(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
-    cv::Mat heightMapThresh(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
+    heightMap = cv::Mat(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
+    heightMapThresh = cv::Mat(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
+
     int step = heightMap.cols;
 
     QVector<QVector3D> vertices;
@@ -26,6 +27,8 @@ Model* WorldGenerator::generateWorld(float xRange, float zRange, float vertexDen
             maxScale = yScales[i];
         }
     }
+
+    scaleFactor = maxScale;
 
     //qDebug() << "MaxScale: " << maxScale;
 
