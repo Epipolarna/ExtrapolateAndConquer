@@ -30,6 +30,7 @@ private:
 
     QElapsedTimer timer;
     qint64 elapsedTime;
+    float elapsedSeconds;
 };
 
 
