@@ -30,7 +30,6 @@ void Renderer::repaint(){
     }
 
     for(Object * o : renderList){
-        printf("Pointer to object is: %x \n",o);
         o->draw(cam->vMatrix,pMatrix);
     }
 

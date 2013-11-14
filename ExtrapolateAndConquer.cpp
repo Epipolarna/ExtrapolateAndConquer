@@ -155,20 +155,15 @@ bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     cam->updatePosition();
 
-
-    // Run the systems...
-    simplePhysicsSystem.batch();
-    graphicsUpdateSystem.batch();
-
     // Run collision detection
-    //sphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
+    sphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
 
     // Run physics simulators
-    //simplePhysicsSystem.batch();
-    //spherePhysicsSystem.batch();
+    simplePhysicsSystem.batch();
+    spherePhysicsSystem.batch();
 
     // Run physics to graphics transfer of position/rotation
-    //graphicsUpdateSystem.batch();
+    graphicsUpdateSystem.batch();
     //
 
 
