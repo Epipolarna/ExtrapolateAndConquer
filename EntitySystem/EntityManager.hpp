@@ -14,7 +14,7 @@ template<typename... Components>
 class EntityManager
 {
 public:
-    EntityManager() {}
+    EntityManager() { nextID = 1; }
     template<typename Component> std::vector<Component> & getComponents();
     Entity<Components...> & createEntity();
     Entity<Components...> & getEntity(long id);
@@ -25,6 +25,9 @@ private:
     Vectors<Components...> components;
     Lists<Components*...> freeLists;
     std::map<long, Entity<Components...>> entities;
+    long nextID;
+
+    long getUniqueID() { return nextID++; }
 };
 
 /*!
@@ -41,7 +44,7 @@ std::vector<Component> & EntityManager<Components...>::getComponents() {
 */
 template<typename... Components>
 Entity<Components...> & EntityManager<Components...>::createEntity() {
-    long id = (long) new long;
+    long id = getUniqueID();
     entities[id].id = id;
     entities[id].es = this;
     return entities[id];
@@ -142,7 +145,15 @@ template<typename Component>
 void EntityManager<Components...>::removeComponent(Entity<Components...> & entity) {
 
     // Remove Component from entity
-    freeLists.template getContainer<Component*>().push_back((Component*)entity.template getIndex<Component>());
+    /*
+     * TODO: add components to free-list and only swap out components if not "reallocated" soon enough.
+     */
+    if(getComponents<Component>().size() > 1) {
+        long index = entity.template getIndex<Component>();
+        long lastIndex = getComponents<Component>().size()-1;
+        std::swap(getComponents<Component>()[index], getComponents<Component>()[lastIndex]);
+    }
+    getComponents<Component>().pop_back();
     entity.template assign<Component>(-1);
 
     // If any other Component require this component, remove it aswell.

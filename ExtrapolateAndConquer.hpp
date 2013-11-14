@@ -40,6 +40,8 @@ public:
 
     SimplePhysicsSystem simplePhysicsSystem;
     GraphicsUpdateSystem graphicsUpdateSystem;
+    SpherePhysicsSystem spherePhysicsSystem;
+    SphereCollisionSystem sphereCollisionSystem;
 
     QApplication* application;
     GraphicsWindow* graphicsWindow;

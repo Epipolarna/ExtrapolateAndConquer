@@ -89,7 +89,6 @@ void Entity<Components...>::remove() {
 template<typename... Components>
 template<typename Component>
 void Entity<Components...>::assign(long index) {
-    std::cerr << std::to_string(index)+": Component with index "+std::to_string(index)+" assigned"; // Debug
     componentIndexes[meta::Tuple_findType<std::tuple<Components...>, Component>::value] = index;
 }
 

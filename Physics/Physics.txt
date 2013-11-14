@@ -1,0 +1,58 @@
+﻿Object physics:
+	float mass;				// m 			(Positive) 
+	float elasticity;		// epsilon 		(Between 0 and 1)
+	float friction;			// C_friction	(Between 0 and 1)
+	float momentOfInertia;	// Should be a matrix in the general case. Sphere: 6/12*m*radius^2
+	
+	vec3 position; 			// x = Integral( v, dt );
+	vec3 velocity; 			// v = P / m;
+	vec3 angularVelocity;	// w = L * I^-1
+	vec3 rotation;			// r = Integral( w, dt );
+	
+	
+	vec3 linearMomentum;	// P = Integral( F, dt );
+	vec3 force;				// F = ... external events ....
+	
+	vec3 angularMomentum;	// L = Integral( torque, dt );
+	vec3 torque;			// T = ( -C_friction * m * g * (v - w.cross(rotationAxis)) ).cross(rotationAxis)
+	
+	float radius;	// Size of sphere - the object currently must be a sphere.
+	
+
+On Collision of objects: A,B (impulse collision)
+		float distance = (A.position - B.position).norm();
+		
+		// velocity of A and B should have been updated before this
+		
+		vec3 radialVelocity = (A.velocity - B.velocity).projectOn(A.position - B.position);
+		float meanElasticity = (A.elasticity+B.elasticity)/2;
+		vec3 linearMomentum_dt = radialVelocity*(meanElasticity + 1)/(1/A.mass + 1/B.mass);
+		
+		A.position += A.position distanceV * (2*A.radius - distance);
+		B.position += B.position distanceV * (2*B.radius - distance);
+		A.linearMomentum += linearMomentum_dt;
+		B.linearMomentum -= linearMomentum_dt;
+
+Update physics:
+		
+	
+		
+	On collision with ground (rotation)
+		vec3 rotationAxis = QVector(0, 1, 0);	// Currently not so generalized
+		vec3 actualVelocity = velocity - angularVelocity.cross(rotationAxis);
+		vec3 frictionForce = -friction * mass * gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
+		torque = frictionForce.cross(rotationAxis);
+		
+	Update physics		
+		angularVelocity = angularMomentum * (1/momentOfInertia);
+		velocity = linearMomentum / mass;
+		
+		// Integrate properties
+		position += velocity * dt;
+		rotation +=  angularVelocity * dt;
+		linearMomentum += force * dt;
+		angularMomentum += torque * dt;
+		
+		//Reset Force/Torque
+		force = 0;
+		torque = 0;
