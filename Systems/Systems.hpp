@@ -33,7 +33,7 @@ public:
         // Update rotation
         QVector3D rotationAxis = QVector3D(0, 1, 0);	// Currently not so generalized
         QVector3D actualVelocity = physics.velocity - QVector3D::crossProduct(physics.angularVelocity, rotationAxis);
-        QVector3D frictionForce = -physics.friction * physics.mass * gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
+        QVector3D frictionForce = -physics.friction * physics.mass * physics.gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
         physics.torque = QVector3D::crossProduct(frictionForce, rotationAxis);
 
         // Update velocities
@@ -53,7 +53,6 @@ public:
     void setTimeInterval(float dt) {
         this->dt = dt;
     }
-    float gravitationalConstant;    // Should be location-variant.
 private:
     float dt;
 };

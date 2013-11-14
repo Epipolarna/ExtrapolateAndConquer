@@ -1,7 +1,7 @@
 #include "ExtrapolateAndConquer.hpp"
 
 ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[]){
-    
+
     application = new QApplication(argc,argv);
     graphicsWindow = new GraphicsWindow();
     timer = new QTimer(this);
@@ -28,7 +28,7 @@ void ExtrapolateAndConquer::initialize(void){
     //the skybox needs to be specially added to the renderer
     Object* skybox = new Object(rm.getModel("skybox"),rm.getShader("skyboxShader"),rm.getTexture("skybox0"));
     r->skybox = skybox;
-    
+
     r->renderList.push_back(o1);
 
     // Initialize systems
@@ -38,8 +38,8 @@ void ExtrapolateAndConquer::initialize(void){
     spherePhysicsSystem.gravitationalConstant = 9.82;
     spherePhysicsSystem.setTimeInterval(timer->interval()/1000.0);  // Set dt. QTimer::interval() is in milliseconds
     sphereCollisionSystem.initialize(entityManager);
-	
-	// Initialize entity
+
+    // Initialize entity
     e = &entityManager.createEntity();
     e->add<SimplePhysics>();
     e->get<SimplePhysics>().position = QVector3D(0,0,0);
@@ -53,6 +53,7 @@ void ExtrapolateAndConquer::initialize(void){
     sp.elasticity = 0.1;
     sp.friction = 0.1;
     sp.radius = 1.0;
+    sp.gravitationalConstant = 9.82;
     sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
     r->renderList.push_back(e->get<Graphics>().object);
@@ -100,7 +101,7 @@ void ExtrapolateAndConquer::initialize(void){
 }
 
 void ExtrapolateAndConquer::loadResources(void){
-    
+
     //test data
     rm.loadShader("phong");
     rm.loadModel("teapot");
@@ -115,7 +116,7 @@ void ExtrapolateAndConquer::loadResources(void){
 }
 
 int ExtrapolateAndConquer::run(){
-    
+
     initialize();
     timer->start(20);
     int returnCode = application->exec();

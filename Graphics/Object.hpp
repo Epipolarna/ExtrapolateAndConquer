@@ -20,7 +20,12 @@ public:
 
     void setPosition(float x, float y, float z);
     void setScale(float x, float y, float z);
+    void setRotation(float x, float y, float z);
     void setColor(float r, float g, float b, float a = 1);
+
+    void setPosition(QVector3D & position);
+    void setScale(QVector3D & scale);
+    void setRotation(QVector3D& axis, float angle);
 
 private:
 
@@ -31,6 +36,8 @@ private:
 
     QVector3D position;
     QVector3D scale;
+    QVector3D rotationAxis;
+    float rotationAngle;
 
     QMatrix4x4 mMatrix;
 

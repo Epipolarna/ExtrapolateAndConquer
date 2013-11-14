@@ -45,20 +45,22 @@ struct SpherePhysics : public Component<> {
 
     float mass;                     // m 			(Positive)
     float elasticity;               // epsilon 		(Between 0 and 1)
-    float friction;                 // C_friction	(Between 0 and 1)
-    float momentOfInertia;          // Should be a matrix in the general case. Sphere: 6/12*m*radius^2
+    float friction;                 // friction     (Between 0 and 1)
+    float momentOfInertia;          // Should be a matrix in the general case. For a sphere: 6/12*m*radius^2
+    float gravitationalConstant;    // g            (Positive. in Sweden at sea level: 9.82)
 
     QVector3D position; 			// x = Integral( v, dt );
     QVector3D velocity; 			// v = P / m;
     QVector3D angularVelocity;      // w = L * I^-1
     QVector3D rotation;             // r = Integral( w, dt );
+    QQuaternion rotation2;          // r = Integral( w, dt );
 
 
     QVector3D linearMomentum;       // P = Integral( F, dt );
     QVector3D force;				// F = ... external events ....
 
     QVector3D angularMomentum;      // L = Integral( torque, dt );
-    QVector3D torque;               // T = ( -C_friction * m * g * (v - w.cross(rotationAxis)) ).cross(rotationAxis)
+    QVector3D torque;               // T = ( -friction * m * g * (v - w.cross(rotationAxis)) ).cross(rotationAxis)
 
     float radius;	// Size of sphere - the object currently must be a sphere.
 
