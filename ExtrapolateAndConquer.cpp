@@ -88,6 +88,18 @@ void ExtrapolateAndConquer::initialize(void){
     //worldObject->setTexScaling(1000);
 
     r->world = worldObject;
+
+
+    QVector<GLuint> ot = QVector<GLuint>();
+    ot.push_back(rm.getTexture("ocean"));
+    ot.push_back(rm.getTexture("oceanNormal"));
+    ot.push_back(rm.getTexture(""));
+    Object ocean = new Object(rm.getModel("oceanModel"), rm.getShader("oceanShader"));
+    
+    ocean->setShadingParameters(0.1, 0.6, 3.0, 50);
+    ocean->setColor(59,58,99,200);
+    ocean->setScale(1000,1,1000);
+    ocean->setTexScaling(100);
 }
 
 void ExtrapolateAndConquer::loadResources(void){
