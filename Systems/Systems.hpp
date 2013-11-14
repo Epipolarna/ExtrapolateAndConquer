@@ -42,7 +42,7 @@ public:
 
         // Integrate variables
         physics.position += physics.velocity * dt;
-        physics.rotation +=  physics.angularVelocity * dt;
+        physics.rotation += physics.angularVelocity * dt;
         physics.linearMomentum += physics.force * dt;
         physics.angularMomentum += physics.torque * dt;
 
