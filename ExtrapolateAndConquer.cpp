@@ -119,7 +119,7 @@ void ExtrapolateAndConquer::loopBody(){
 
     // Run the systems...
     simplePhysicsSystem.batch();
-    graphicsUpdateSystem.batch();
+    //graphicsUpdateSystem.batch();
 
     //make sure to update the gl widget...
     graphicsWindow->centralWidget()->update();
