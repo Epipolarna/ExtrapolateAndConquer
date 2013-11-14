@@ -55,9 +55,6 @@ public:
         physics.linearMomentum += physics.force * dt;
         physics.angularMomentum += physics.torque * dt;
 
-        qDebug() << "torque:" << physics.force;
-        qDebug() << "angularMomentum:" << physics.angularMomentum;
-
         //Reset force and torque
         physics.force = QVector3D(0,0,0);
         physics.torque = QVector3D(0,0,0);
