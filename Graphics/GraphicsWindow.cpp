@@ -21,6 +21,7 @@ GraphicsWindow::GraphicsWindow(QWidget *parent) :
     QGLFormat f;
     f.setVersion(3,2);
     f.setProfile(QGLFormat::CoreProfile);
+    f.setDepthBufferSize(32);
 
     glWidget = new GraphicsWidget(f);
     setCentralWidget(glWidget);

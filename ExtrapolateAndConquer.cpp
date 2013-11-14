@@ -31,7 +31,7 @@ void ExtrapolateAndConquer::initialize(void){
     
     r->renderList.push_back(o1);
 
-    /*
+
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
@@ -43,7 +43,7 @@ void ExtrapolateAndConquer::initialize(void){
     e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
     e->add<Graphics>();
     e->get<Graphics>().object = new Object(rm.getModel("teapot"), rm.getShader("phong"));
-    */
+
     
 
 
