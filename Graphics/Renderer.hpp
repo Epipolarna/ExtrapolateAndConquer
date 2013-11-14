@@ -17,6 +17,7 @@ public:
     Renderer();
 
     void repaint(void);
+    void drawObject(Object* o);
 
     std::vector<Object*> renderList;
 
@@ -25,6 +26,7 @@ public:
     Object* skybox;
     Camera* cam;
 
+    Object* water;
     Object* world;
 private:
 };

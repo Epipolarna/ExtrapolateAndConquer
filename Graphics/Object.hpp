@@ -21,6 +21,7 @@ public:
     void setPosition(float x, float y, float z);
     void setScale(float x, float y, float z);
     void setColor(float r, float g, float b, float a = 1);
+    void setTexScaling(float s);
 
 private:
 
