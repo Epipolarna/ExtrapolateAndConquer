@@ -55,9 +55,12 @@ public:
         physics.linearMomentum += physics.force * dt;
         physics.angularMomentum += physics.torque * dt;
 
-        //Reset force and torque
+        // Reset force and torque
         physics.force = QVector3D(0,0,0);
         physics.torque = QVector3D(0,0,0);
+
+        // apply gravity
+        physics.force = QVector3D(0,-1,0) * physics.mass * physics.gravitationalConstant;
     }
     void setTimeInterval(float dt) {
         this->dt = dt;
@@ -92,7 +95,6 @@ public:
                     A.linearMomentum += linearMomentum_dt;
                     B.linearMomentum -= linearMomentum_dt;
                 }
-
             }
         }
     }
@@ -112,7 +114,25 @@ public:
         if(isColliding(physics.position, physics.radius))
         {
             // Impulse collision with a terrain that have a mass == infinity
+            QVector3D radialVector = physics.position - terrainImpactPoint;
+            float distance = radialVector.length();
+            QVector3D radialVelocity = projectOn(physics.velocity, radialVector.normalized());
+            QVector3D linearMomentum_dt = radialVelocity*(physics.elasticity*0.5 + 1)*physics.mass;    //dt = 0.01
 
+            QVector3D posIncr = -radialVelocity * std::abs(physics.radius - distance);
+            physics.position += posIncr;
+            physics.linearMomentum += -linearMomentum_dt;
+            //physics.position += QVector3D(0,1,0)*0;
+            //physics.linearMomentum += QVector3D(0,1,0)*0;
+            LOG("-------------------------------------");
+            //LOG("radialVector: " << radialVector.x() << "," << radialVector.y() << "," << radialVector.z());
+            LOG("distance to terrain: " << distance);
+            //LOG("radialVelocity: " << radialVelocity.x() << "," << radialVelocity.y() << "," << radialVelocity.z());
+            //LOG("positionIncr: " << posIncr.x() << "," << posIncr.y() << "," << posIncr.z());
+            //LOG("linMomentIncr: " << linearMomentum_dt.x() << "," << linearMomentum_dt.y() << "," << linearMomentum_dt.z());
+
+           // LOG("positionIncr: " << -(radialVelocity * (physics.radius - distance)).y());
+            //LOG("linearMomentumIncr: " << linearMomentum_dt.y());
 
             // Update rotation
             QVector3D actualVelocity = physics.velocity - QVector3D::crossProduct(physics.angularVelocity, normal);
@@ -124,25 +144,30 @@ public:
 private:
     cv::Mat heightMap;
     QVector3D normal;
+    QVector3D terrainImpactPoint;
 
     bool isColliding(QVector3D & position, float radius) {
-        int roundX = std::round(position.x());
-        int roundZ = std::round(position.z());
+        int roundX = std::round(position.x()+heightMap.size().width/2.0);
+        int roundZ = std::round(position.z()+heightMap.size().height/2.0);
         if(roundX >= 0 && roundX <= heightMap.size().width && roundZ >= 0 && roundZ <= heightMap.size().height)
         {
             float y_diff = position.y()-radius - heightMap.at<float>(roundX,roundZ);
             if(y_diff <= 0) {
-                normal = radius * QVector3D(0, 1, 0);
-                LOG("Collision, (y_diff, positionY-r, heightmapY) = " << y_diff << ", " << position.y()-radius << ", " << heightMap.at<float>(roundX,roundZ));
+                normal = (y_diff+radius) * QVector3D(0, 1, 0);
+                terrainImpactPoint = QVector3D(position.x(), heightMap.at<float>(roundX,roundZ), position.z());
+                //LOG("Collision, (y_diff, positionY-r, heightmapY) = " << y_diff << ", " << position.y()-radius << ", " << heightMap.at<float>(roundX,roundZ));
                 return true;
             }
-            LOG("Not Collision, (y_diff, positionY-r, heightmapY) = " << y_diff << ", " << position.y()-radius << ", " << heightMap.at<float>(roundX,roundZ));
+            //LOG("Not Collision, (y_diff, positionY-r, heightmapY) = " << y_diff << ", " << position.y()-radius << ", " << heightMap.at<float>(roundX,roundZ));
         }
         else
         {
             std::cerr << "SphereTerrainCollisionSystem::isColliding() Object outside of heightmap!";
         }
         return false;
+    }
+    static inline QVector3D projectOn(QVector3D vector, QVector3D basis) {
+        return basis * QVector3D::dotProduct(vector, basis);
     }
 };
 

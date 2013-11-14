@@ -62,7 +62,7 @@ void ExtrapolateAndConquer::initialize(void){
     // Add Sphere physics
     e->add<SpherePhysics>();
     SpherePhysics & sp = e->get<SpherePhysics>();
-    sp.position = QVector3D(0,13,0);
+    sp.position = QVector3D(0,15,0);
     sp.rotation2 = QQuaternion(1,0,0,0);
     sp.mass = 1.0;
     sp.elasticity = 1.0;
@@ -183,7 +183,7 @@ void ExtrapolateAndConquer::loopBody(){
     camera->updatePosition();
 
     SpherePhysics & sp = e->get<SpherePhysics>();
-    sp.force = QVector3D(0.1,0,0);
+    sp.force += QVector3D(0.1,0,0);
 
     // Run collision detection
     sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
