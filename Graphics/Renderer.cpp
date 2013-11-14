@@ -1,7 +1,7 @@
 #include "Renderer.hpp"
 
 Renderer::Renderer(void){
-    cam = new Camera();
+    camera = new Camera();
 
 }
 
@@ -16,22 +16,22 @@ void Renderer::repaint(){
     glDisable(GL_DEPTH_TEST);
 
     if(skybox != NULL){
-    	skybox->draw(cam->skyboxMatrix(),pMatrix);
+        skybox->draw(camera->skyboxMatrix(),pMatrix);
     }
 
     glEnable(GL_DEPTH_TEST);
 
     if(world != NULL){
-        world->draw(cam->vMatrix,pMatrix);
+        world->draw(camera->vMatrix,pMatrix);
     }
 
     if(water != NULL){
-        water->draw(cam->vMatrix,pMatrix);
+        water->draw(camera->vMatrix,pMatrix);
     }
 
     for(Object * o : renderList){
-        printf("Pointer to object is: %x \n",o);
-        o->draw(cam->vMatrix,pMatrix);
+        //printf("Pointer to object is: %x \n",o);
+        o->draw(camera->vMatrix,pMatrix);
     }
 
     glEnable(GL_CULL_FACE);

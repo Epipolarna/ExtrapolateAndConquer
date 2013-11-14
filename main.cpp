@@ -1,7 +1,6 @@
 #include <QApplication>
-#include "Graphics/GraphicsWindow.hpp"
-
 #include "ExtrapolateAndConquer.hpp"
+#include "Graphics/OpenGLWindow.hpp"
 
 int main(int argc, char *argv[])
 {

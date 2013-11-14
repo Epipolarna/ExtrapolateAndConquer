@@ -1,36 +1,55 @@
 #include "ExtrapolateAndConquer.hpp"
+#include <QDesktopWidget>
+#include <QStyle>
 
 ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[]){
     
     application = new QApplication(argc,argv);
-    graphicsWindow = new GraphicsWindow();
+
+    QSurfaceFormat format;
+    format.setVersion(3,2);
+    format.setProfile(QSurfaceFormat::CoreProfile);
+    format.setDepthBufferSize(32);
+
+    context = new QOpenGLContext;
+    context->setFormat(format);
+    context->create();
+
+    openGLWindow = new OpenGLWindow(context);
+    openGLWindow->setGeometry(QStyle::alignedRect(Qt::LeftToRight,
+                                                  Qt::AlignCenter,
+                                                  openGLWindow->size(),
+                                                  application->desktop()->availableGeometry()));
+    openGLWindow->show();
+
+    camera = openGLWindow->getRenderer()->camera;
+
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(loopBody()));
-
-    cam = graphicsWindow->getRenderer()->cam;
-
-    graphicsWindow->registerEventManager(cam);
-    graphicsWindow->show();
 }
 
 ExtrapolateAndConquer::~ExtrapolateAndConquer(){
     //TODO destroy game
 }
 
-Entity<Components> * e;
+Entity<Components> * entity;
 void ExtrapolateAndConquer::initialize(void){
 
-    loadResources();
-    Renderer* r = graphicsWindow->getRenderer();
+    openGLWindow->initialize();
 
-    Object* o1 = new Object(rm.getModel("teapot"),rm.getShader("phong"));
+    resourceManager = new ResourceManager;
+    loadResources();
+
+    //Renderer* renderer = graphicsWindow->getRenderer();
+    Renderer* renderer = openGLWindow->getRenderer();
+
+    Object* o1 = new Object(resourceManager->getModel("teapot"),resourceManager->getShader("phong"));
 
     //the skybox needs to be specially added to the renderer
-    Object* skybox = new Object(rm.getModel("skybox"),rm.getShader("skyboxShader"),rm.getTexture("skybox0"));
-    r->skybox = skybox;
+    Object* skybox = new Object(resourceManager->getModel("skybox"),resourceManager->getShader("skyboxShader"),resourceManager->getTexture("skybox0"));
+    renderer->skybox = skybox;
     
-    r->renderList.push_back(o1);
-
+    renderer->renderList.push_back(o1);
 
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
@@ -41,23 +60,23 @@ void ExtrapolateAndConquer::initialize(void){
     sphereCollisionSystem.initialize(entityManager);
 	
 	// Initialize entity
-    e = &entityManager.createEntity();
-    e->add<SimplePhysics>();
-    e->get<SimplePhysics>().position = QVector3D(0,0,0);
-    e->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
-    e->add<Graphics>();
-    e->get<Graphics>().object = new Object(rm.getModel("teapot"), rm.getShader("phong"));
+    entity = &entityManager.createEntity();
+    entity->add<SimplePhysics>();
+    entity->get<SimplePhysics>().position = QVector3D(0,0,0);
+    entity->get<SimplePhysics>().velocity = QVector3D(0,-0.01,0);
+    entity->add<Graphics>();
+    entity->get<Graphics>().object = new Object(resourceManager->getModel("teapot"), resourceManager->getShader("phong"));
 
-    e->add<SpherePhysics>();
-    SpherePhysics & sp = e->get<SpherePhysics>();
+    entity->add<SpherePhysics>();
+    SpherePhysics & sp = entity->get<SpherePhysics>();
     sp.mass = 1.0;
     sp.elasticity = 0.1;
     sp.friction = 0.1;
     sp.radius = 1.0;
     sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
-    r->drawObject(e->get<Graphics>().object);
-    printf("Pointer to object is: %x \n",e->get<Graphics>().object);
+    renderer->drawObject(entity->get<Graphics>().object);
+    //printf("Pointer to object is: %x \n",entity->get<Graphics>().object);
 
 
     // Generate world
@@ -82,65 +101,65 @@ void ExtrapolateAndConquer::initialize(void){
     }
 
     Model* world;
-    WorldGen wg = WorldGen();
+    WorldGenerator wg = WorldGenerator();
     Object* worldObject;
 
     int nOctaves = sizeof(octaves)/sizeof(float);
     world = wg.generateWorld(1000,1000,0.5f,octaves,scales,nOctaves);
 
     QVector<GLuint> gt = QVector<GLuint>();
-    gt.push_back(rm.getTexture("grass"));
-    gt.push_back(rm.getTexture("grass"));
-    gt.push_back(rm.getTexture("grass"));
+    gt.push_back(resourceManager->getTexture("grass"));
+    gt.push_back(resourceManager->getTexture("grass"));
+    gt.push_back(resourceManager->getTexture("grass"));
 
-    worldObject = new Object(world, rm.getShader("terrainShader"), gt);
+    worldObject = new Object(world, resourceManager->getShader("terrainShader"), gt);
     worldObject->setShaderParameters(0.3, 0.7, 0.3, 50);
     worldObject->setColor(85,196,48,255);
     worldObject->setPosition(-500,0,-500);
     //worldObject->setTexScaling(1000);
 
-    r->world = worldObject;
+    renderer->world = worldObject;
 
     QVector<GLuint> ot = QVector<GLuint>();
-    ot.push_back(rm.getTexture("water"));
-    ot.push_back(rm.getTexture("waterNormalMap0"));
-    ot.push_back(rm.getTexture("waterNormalMap1"));
+    ot.push_back(resourceManager->getTexture("water"));
+    ot.push_back(0);
+    ot.push_back(resourceManager->getTexture("waterNormalMap2"));
 
-    Object* ocean = new Object(rm.getModel("unitSquare"), rm.getShader("oceanShader"),ot);
+    Object* ocean = new Object(resourceManager->getModel("unitSquare"), resourceManager->getShader("oceanShader"),ot);
     
     ocean->setShaderParameters(0.1, 0.6, 3.0, 50);
     ocean->setColor(59,58,99,200);
     ocean->setScale(1000,1,1000);
     ocean->setTexScaling(100);
 
-    r->water = ocean;
+    renderer->water = ocean;
 }
 
 void ExtrapolateAndConquer::loadResources(void){
     
     //test data
     printf("loading teapot data \n");
-    rm.loadShader("phong");
-    rm.loadModel("teapot");
+    resourceManager->loadShader("phong");
+    resourceManager->loadModel("teapot");
 
     //skybox data
     printf("loading skybox data \n");
-    rm.loadModel("skybox");
-    rm.loadTexture("skybox0");
-    rm.loadShader("skyboxShader");
+    resourceManager->loadModel("skybox");
+    resourceManager->loadTexture("skybox0");
+    resourceManager->loadShader("skyboxShader");
 
     //ground data
     printf("loading ground data \n");
-    rm.loadTexture("grass");
-    rm.loadShader("terrainShader");
+    resourceManager->loadTexture("grass");
+    resourceManager->loadShader("terrainShader");
 
     //water data
     printf("loading water data \n");
-    rm.loadTexture("water");
-    rm.loadTexture("waterNormalMap0");
-    rm.loadTexture("waterNormalMap1");
-    rm.loadModel("unitSquare");
-    rm.loadShader("oceanShader");
+    resourceManager->loadTexture("water", true);
+    resourceManager->loadTexture("waterNormalMap2");
+    //resourceManager->loadTexture("waterNormalMap1");
+    resourceManager->loadModel("unitSquare");
+    resourceManager->loadShader("oceanShader");
 }
 
 int ExtrapolateAndConquer::run(){
@@ -153,7 +172,7 @@ int ExtrapolateAndConquer::run(){
 
 bool first = true;
 void ExtrapolateAndConquer::loopBody(){
-    cam->updatePosition();
+    camera->updatePosition();
 
 
     // Run the systems...
@@ -173,5 +192,6 @@ void ExtrapolateAndConquer::loopBody(){
 
 
     //make sure to update the gl widget...
-    graphicsWindow->centralWidget()->update();
+    //graphicsWindow->centralWidget()->update();
+    openGLWindow->update();
 }

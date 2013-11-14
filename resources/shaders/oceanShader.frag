@@ -25,9 +25,9 @@ void main(void){
 
 	vec2 scaledTexCoord = exTexCoord*texScaling;
 	
-	vec4 texel0 = texture(tex0, scaledTexCoord);
-	vec4 texel1 = texture(tex1, scaledTexCoord);
-	vec4 texel2 = texture(tex2, scaledTexCoord); // Normalmap
+	vec4 texel0 = texture(tex0, scaledTexCoord);	// Main Texture
+	vec4 texel1 = texture(tex1, scaledTexCoord);	// Blend Texture
+	vec4 texel2 = texture(tex2, scaledTexCoord); 	// Normalmap
 	
 	vec3 normal = normalize(texel2.rbg *2-1);
 	

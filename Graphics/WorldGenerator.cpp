@@ -1,10 +1,10 @@
-#include "WorldGen.hpp"
+#include "WorldGenerator.hpp"
 
-WorldGen::WorldGen(){
+WorldGenerator::WorldGenerator(){
 
 }
 
-Model* WorldGen::generateWorld(float xRange, float zRange, float vertexDensity, float octaves[], float yScales[], int nOctaves){
+Model* WorldGenerator::generateWorld(float xRange, float zRange, float vertexDensity, float octaves[], float yScales[], int nOctaves){
 
     cv::Mat heightMap(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
     cv::Mat heightMapThresh(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
@@ -27,7 +27,7 @@ Model* WorldGen::generateWorld(float xRange, float zRange, float vertexDensity, 
         }
     }
 
-    qDebug() << "MaxScale: " << maxScale;
+    //qDebug() << "MaxScale: " << maxScale;
 
     // Generate height map and texture coordinates
     for (int x = 0; x < xRange*vertexDensity; x++){
@@ -50,7 +50,7 @@ Model* WorldGen::generateWorld(float xRange, float zRange, float vertexDensity, 
     cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
     //cv::imshow("heightMapThresh", heightMapThresh);
 
-    qDebug() << "step: " << step;
+    //qDebug() << "step: " << step;
 
     // Tie vertices together. openGL indexing starts at 0 tydligen..
     for (int x = 1; x < xRange*vertexDensity; x++){

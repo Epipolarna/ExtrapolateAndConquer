@@ -24,7 +24,7 @@ public:
     QMatrix4x4 pMatrix;
 
     Object* skybox;
-    Camera* cam;
+    Camera* camera;
 
     Object* water;
     Object* world;
