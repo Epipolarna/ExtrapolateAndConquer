@@ -31,7 +31,7 @@ void ExtrapolateAndConquer::initialize(void){
     
     r->renderList.push_back(o1);
 
-    /*
+
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
@@ -56,8 +56,9 @@ void ExtrapolateAndConquer::initialize(void){
     sp.radius = 1.0;
     sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
-    r->renderList.push_back(e->get<Graphics>().object);
-    */
+    r->drawObject(e->get<Graphics>().object);
+    printf("Pointer to object is: %x \n",e->get<Graphics>().object);
+
 
     // Generate world
     // ---------------------------
@@ -156,8 +157,8 @@ void ExtrapolateAndConquer::loopBody(){
 
 
     // Run the systems...
-    //simplePhysicsSystem.batch();
-    //graphicsUpdateSystem.batch();
+    simplePhysicsSystem.batch();
+    graphicsUpdateSystem.batch();
 
     // Run collision detection
     //sphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components

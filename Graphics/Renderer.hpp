@@ -17,6 +17,7 @@ public:
     Renderer();
 
     void repaint(void);
+    void drawObject(Object* o);
 
     std::vector<Object*> renderList;
 
