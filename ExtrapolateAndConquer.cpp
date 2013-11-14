@@ -31,7 +31,7 @@ void ExtrapolateAndConquer::initialize(void){
     
     r->renderList.push_back(o1);
 
-    /*
+
     // Initialize systems
     simplePhysicsSystem.initialize(entityManager);
     graphicsUpdateSystem.initialize(entityManager);
@@ -56,9 +56,8 @@ void ExtrapolateAndConquer::initialize(void){
     sp.radius = 1.0;
     sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
-    r->renderList.push_back(e->get<Graphics>().object);
-    */
-    
+    r->drawObject(e->get<Graphics>().object);
+    printf("Pointer to object is: %x \n",e->get<Graphics>().object);
 
 
     // Generate world
@@ -101,21 +100,47 @@ void ExtrapolateAndConquer::initialize(void){
     //worldObject->setTexScaling(1000);
 
     r->world = worldObject;
+
+    QVector<GLuint> ot = QVector<GLuint>();
+    ot.push_back(rm.getTexture("water"));
+    ot.push_back(rm.getTexture("waterNormalMap0"));
+    ot.push_back(rm.getTexture("waterNormalMap1"));
+
+    Object* ocean = new Object(rm.getModel("unitSquare"), rm.getShader("oceanShader"),ot);
+    
+    ocean->setShaderParameters(0.1, 0.6, 3.0, 50);
+    ocean->setColor(59,58,99,200);
+    ocean->setScale(1000,1,1000);
+    ocean->setTexScaling(100);
+
+    r->water = ocean;
 }
 
 void ExtrapolateAndConquer::loadResources(void){
     
     //test data
+    printf("loading teapot data \n");
     rm.loadShader("phong");
     rm.loadModel("teapot");
 
     //skybox data
+    printf("loading skybox data \n");
     rm.loadModel("skybox");
     rm.loadTexture("skybox0");
     rm.loadShader("skyboxShader");
 
+    //ground data
+    printf("loading ground data \n");
     rm.loadTexture("grass");
     rm.loadShader("terrainShader");
+
+    //water data
+    printf("loading water data \n");
+    rm.loadTexture("water");
+    rm.loadTexture("waterNormalMap0");
+    rm.loadTexture("waterNormalMap1");
+    rm.loadModel("unitSquare");
+    rm.loadShader("oceanShader");
 }
 
 int ExtrapolateAndConquer::run(){
@@ -130,13 +155,22 @@ bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     cam->updatePosition();
 
-    // Run collision detection
-    sphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
 
     // Run the systems...
     simplePhysicsSystem.batch();
-    spherePhysicsSystem.batch();
     graphicsUpdateSystem.batch();
+
+    // Run collision detection
+    //sphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
+
+    // Run physics simulators
+    //simplePhysicsSystem.batch();
+    //spherePhysicsSystem.batch();
+
+    // Run physics to graphics transfer of position/rotation
+    //graphicsUpdateSystem.batch();
+    //
+
 
     //make sure to update the gl widget...
     graphicsWindow->centralWidget()->update();

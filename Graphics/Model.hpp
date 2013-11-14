@@ -52,6 +52,8 @@ private:
 
 	void dumpData(void);
 
+	int lineCounter;
+
 	//data read from file
 	QVector<QVector3D> vertices;
 	QVector<QVector3D> normals;
