@@ -4,10 +4,15 @@ WorldGenerator::WorldGenerator(){
 
 }
 
-Model * WorldGenerator::generateWorld(float xRange, float zRange, float vertexDensity, float octaves[], float yScales[], int nOctaves){
+Model * WorldGenerator::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
+
+    vertexDensity = _vertexDensity;
+    sizeX = xRange;
+    sizeZ = zRange;
 
     heightMap = cv::Mat(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
     heightMapThresh = cv::Mat(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
+
 
     int step = heightMap.cols;
 
@@ -16,21 +21,15 @@ Model * WorldGenerator::generateWorld(float xRange, float zRange, float vertexDe
     QVector<QVector2D> textures;
     QVector<unsigned int> indices;
 
-    qDebug() << "Number of octaves: " << nOctaves;
+    //qDebug() << "Number of octaves: " << nOctaves;
 
     float y = 0;
 
-    // find max scale to scale correctly when saved to cv::Mat
-    float maxScale = 0;
+    // find total scale to scale correctly when saved to cv::Mat
+    scaleFactor = 0;
     for (int i = 0; i < nOctaves; i++){
-        if (yScales[i] > maxScale){
-            maxScale = yScales[i];
-        }
+            scaleFactor += yScales[i];
     }
-
-    scaleFactor = maxScale;
-
-    //qDebug() << "MaxScale: " << maxScale;
 
     // Generate height map and texture coordinates
     for (int x = 0; x < xRange*vertexDensity; x++){
@@ -45,7 +44,7 @@ Model * WorldGenerator::generateWorld(float xRange, float zRange, float vertexDe
 
             textures.push_back(QVector2D((float)x/(xRange*vertexDensity),(float)z/(zRange*vertexDensity)));
 
-            heightMap.at<float>(x,z) = (y + maxScale) / (2*maxScale);
+            heightMap.at<float>(x,z) = (y + scaleFactor) / (2*scaleFactor);
         }
     }
 
@@ -103,4 +102,35 @@ Model * WorldGenerator::generateWorld(float xRange, float zRange, float vertexDe
     worldModel->modelFromData(vertices,normals,textures,indices);
 
     return worldModel;
+}
+
+float WorldGenerator::getHeight(float x, float z)
+{
+    float y = 0;
+    // Check if the current position is on the terrain patch
+    if(x >= 0 && x < (sizeX-1) &&
+       z >= 0 && z < (sizeZ-1) )
+    {
+        float xScaled = x*vertexDensity;
+        float zScaled = z*vertexDensity;
+        float xFloor = floorf(xScaled);
+        float xCeil  = ceilf( xScaled);
+        float zFloor = floorf(zScaled);
+        float zCeil  = ceilf( zScaled);
+
+        float y00 = heightMap.at<float>(xFloor,zFloor);
+        float y01 = heightMap.at<float>(xFloor,zCeil);
+        float y10 = heightMap.at<float>(xCeil,zFloor);
+        float y11 = heightMap.at<float>(xCeil,zCeil);
+
+        float y0 = (1-(xScaled-xFloor))*y00 + (xScaled-xFloor)*y10;
+        float y1 = (1-(xScaled-xFloor))*y01 + (xScaled-xFloor)*y11;
+
+        y = (1-(zScaled-zFloor))*y0 + (zScaled-zFloor)*y1;
+        y = y * 2*scaleFactor - scaleFactor;
+    }
+
+    qDebug() << "Ground level at current camera position: " << y;
+
+    return y;
 }

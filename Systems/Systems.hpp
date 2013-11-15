@@ -124,14 +124,14 @@ public:
             physics.linearMomentum += -linearMomentum_dt;
             //physics.position += QVector3D(0,1,0)*0;
             //physics.linearMomentum += QVector3D(0,1,0)*0;
-            LOG("-------------------------------------");
+            //LOG("-------------------------------------");
             //LOG("radialVector: " << radialVector.x() << "," << radialVector.y() << "," << radialVector.z());
-            LOG("distance to terrain: " << distance);
+            //LOG("distance to terrain: " << distance);
             //LOG("radialVelocity: " << radialVelocity.x() << "," << radialVelocity.y() << "," << radialVelocity.z());
             //LOG("positionIncr: " << posIncr.x() << "," << posIncr.y() << "," << posIncr.z());
             //LOG("linMomentIncr: " << linearMomentum_dt.x() << "," << linearMomentum_dt.y() << "," << linearMomentum_dt.z());
 
-           // LOG("positionIncr: " << -(radialVelocity * (physics.radius - distance)).y());
+            //LOG("positionIncr: " << -(radialVelocity * (physics.radius - distance)).y());
             //LOG("linearMomentumIncr: " << linearMomentum_dt.y());
 
             // Update rotation

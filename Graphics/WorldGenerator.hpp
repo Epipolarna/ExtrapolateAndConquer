@@ -17,11 +17,19 @@
 class WorldGenerator{
 	public:
         WorldGenerator();
-        Model* generateWorld(float xRange, float zRange, float vertexDensity, float octaves[], float yScales[], int nOctaves);
+        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves);
+
+        /*!
+         * \brief getHeight at global position x and z.
+         */
+        float getHeight(float x, float z);
 
         cv::Mat heightMap;
         cv::Mat heightMapThresh;
         float scaleFactor;
+        float vertexDensity;
+        float sizeX;
+        float sizeZ;
 };
 
 #endif

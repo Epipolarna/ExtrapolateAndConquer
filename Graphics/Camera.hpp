@@ -16,7 +16,8 @@ public:
     float translationSpeed, pitchSpeed, rollSpeed, yawSpeed, mouseSensitivity;
 
     void setPosition(QVector3D position);
-    void setLookAt(QVector3D lookAt);
+    void setLookAtDirection(QVector3D position);
+    void setLookAtPoint(QVector3D _lookAtPoint);
     void setUp(QVector3D up);
 
     void keyPressEvent(QKeyEvent* e);

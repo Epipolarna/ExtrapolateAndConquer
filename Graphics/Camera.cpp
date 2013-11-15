@@ -2,8 +2,8 @@
 
 Camera::Camera()
 {
-    position = QVector3D(0,10,1);
-    lookAtPoint = QVector3D(0,10,0);
+    position = QVector3D(0,0,0);
+    lookAtPoint = QVector3D(0,0,-1);
     lookAtDirection = QVector3D(0,0,-1);
     up = QVector3D(0,1,0);
 
@@ -23,10 +23,20 @@ void Camera::setPosition(QVector3D _position)
     vMatrix.lookAt(position, lookAtPoint, up);
 }
 
-void Camera::setLookAt(QVector3D _lookAt)
+void Camera::setLookAtDirection(QVector3D _lookAtDirection)
 {
-    lookAtPoint = _lookAt;
-    lookAtDirection = lookAtPoint - position;
+    lookAtDirection = _lookAtDirection;
+    lookAtDirection.normalize();
+    lookAtPoint = position + lookAtDirection;
+    vMatrix.setToIdentity();
+    vMatrix.lookAt(position, lookAtPoint, up);
+}
+
+void Camera::setLookAtPoint(QVector3D _lookAtPoint)
+{
+    lookAtDirection = _lookAtPoint - position;
+    lookAtDirection.normalize();
+    lookAtPoint = position + lookAtDirection;
     vMatrix.setToIdentity();
     vMatrix.lookAt(position, lookAtPoint, up);
 }
@@ -34,6 +44,7 @@ void Camera::setLookAt(QVector3D _lookAt)
 void Camera::setUp(QVector3D _up)
 {
     up = _up;
+    up.normalize();
     vMatrix.setToIdentity();
     vMatrix.lookAt(position, lookAtPoint, up);
 }
@@ -116,13 +127,11 @@ void Camera::updatePosition()
     }
 
     if(keyMap[Qt::Key_Q]){
-        qDebug() << "rotating left";
         rotationMatrix.setToIdentity();
         rotationMatrix.rotate(-rollSpeed*elapsedSeconds, lookAtDirection);
         up = rotationMatrix*up;
     }
     if(keyMap[Qt::Key_E]){
-        qDebug() << "rotating right";
         rotationMatrix.setToIdentity();
         rotationMatrix.rotate(rollSpeed*elapsedSeconds, lookAtDirection);
         up = rotationMatrix*up;
@@ -136,7 +145,6 @@ void Camera::updatePosition()
     }
 
     velocityVector.normalize();
-    qDebug() << velocityVector*translationSpeed*elapsedSeconds;
     position += velocityVector*translationSpeed*elapsedSeconds;
     lookAtPoint += velocityVector*translationSpeed*elapsedSeconds;
 

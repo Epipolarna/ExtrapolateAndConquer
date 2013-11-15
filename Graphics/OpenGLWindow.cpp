@@ -18,6 +18,8 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 
     renderer = new Renderer();
     camera = renderer->camera;
+    camera->setPosition(QVector3D(0,10,0));
+    camera->setLookAtDirection(QVector3D(1,0,1));
 
     trackMouse = false;
 
@@ -132,8 +134,10 @@ void OpenGLWindow::mouseMoveEvent(QMouseEvent *e)
         mousePosition = QPoint(width()/2, height()/2);
         QCursor::setPos(mapToGlobal(mousePosition));
     } else {
+        /*
         QToolTip::showText(e->globalPos(),
                                QString::number( e->pos().x() ) + ", " +
                                QString::number( e->pos().y() ) );
+                               */
     }
 }

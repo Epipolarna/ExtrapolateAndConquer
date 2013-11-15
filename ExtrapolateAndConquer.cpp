@@ -102,14 +102,14 @@ void ExtrapolateAndConquer::initialize(void){
     }
 
     Model* world;
-    WorldGenerator wg = WorldGenerator();
+    worldGenerator = new WorldGenerator();
     Object* worldObject;
 
     int nOctaves = sizeof(octaves)/sizeof(float);
-    world = wg.generateWorld(1000,1000,0.5f,octaves,scales,nOctaves);
-    hightMapOfChunk = wg.heightMap;
+    world = worldGenerator->generateWorld(1000,1000,0.5f,octaves,scales,nOctaves);
+    hightMapOfChunk = worldGenerator->heightMap;
 
-    sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*wg.scaleFactor-wg.scaleFactor));
+    sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*worldGenerator->scaleFactor-worldGenerator->scaleFactor));
 
     QVector<GLuint> gt = QVector<GLuint>();
     gt.push_back(resourceManager->getTexture("grass"));
@@ -119,7 +119,7 @@ void ExtrapolateAndConquer::initialize(void){
     worldObject = new Object(world, resourceManager->getShader("terrainShader"), gt);
     worldObject->setShaderParameters(0.3, 0.7, 0.3, 50);
     worldObject->setColor(85,196,48,255);
-    worldObject->setPosition(-500,0,-500);
+    //worldObject->setPosition(0,0,0);
     //worldObject->setTexScaling(1000);
 
     renderer->world = worldObject;
@@ -182,6 +182,7 @@ int ExtrapolateAndConquer::run(){
 bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     camera->updatePosition();
+    worldGenerator->getHeight(camera->position.x(), camera->position.z());
 
     SpherePhysics & sp = e->get<SpherePhysics>();
     sp.force += QVector3D(0.1,0,0);

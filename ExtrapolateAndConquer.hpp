@@ -48,6 +48,7 @@ public:
     QOpenGLContext* context;
     OpenGLWindow* openGLWindow;
     Camera* camera;
+    WorldGenerator* worldGenerator;
 
     QTimer* timer;
 
