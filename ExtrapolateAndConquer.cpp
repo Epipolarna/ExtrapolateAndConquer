@@ -57,7 +57,7 @@ void ExtrapolateAndConquer::initialize(void){
     sphereSphereCollisionSystem.initialize(entityManager);
     sphereTerrainCollisionSystem.initialize(entityManager);
 
-    int nBalls = 100;
+    int nBalls = 1000;
     for(int i = 0; i < nBalls; i++){
         // Initialize entity
         e = &entityManager.createEntity();
