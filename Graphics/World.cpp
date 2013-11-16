@@ -22,17 +22,16 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     QVector<QVector2D> textures;
     QVector<unsigned int> indices;
 
-    //qDebug() << "Number of octaves: " << nOctaves;
-
-    float y = 0;
-
     // find total scale to scale correctly when saved to cv::Mat
     scaleFactor = 0;
     for (int i = 0; i < nOctaves; i++){
             scaleFactor += yScales[i];
     }
 
+    // -------------- Generate Vertices and Texture Coordinates -------------
+
     // Generate height map and texture coordinates
+    float y = 0;
     for (int x = 0; x <= xRange*vertexDensity; x++){
         for (int z = 0; z <= zRange*vertexDensity; z++){
 
@@ -53,7 +52,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     //cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
     //cv::imshow("heightMapThresh", heightMapThresh);
 
-    //qDebug() << "step: " << step;
+    // -------------- Generate Faces ----------------------------
 
     // Tie vertices together. openGL indexing starts at 0 tydligen..
     for (int x = 1; x <= xRange*vertexDensity; x++){
@@ -75,7 +74,9 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     QVector3D tangent1, tangent2;
     QVector3D normal;
 
-    // Calculate normals
+    // -------------- Generate Normals ----------------------------
+
+    // Add standard normal for first.
     for (int z = 0; z <= zRange*vertexDensity; z++){
         normals.push_back(QVector3D(0,1,0));
 
@@ -107,6 +108,15 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
             normalMap.at<cv::Vec3f>(x,z) = cvNormal;
         }
     }
+
+    for (int z = 0; z <= zRange*vertexDensity; z++){
+        normals.push_back(QVector3D(0,1,0));
+
+        cv::Vec3f cvNormal(normal.x(), normal.y(), normal.z());
+        normalMap.at<cv::Vec3f>(0,z) = cvNormal;
+    }
+
+    // -------------- Save and return ----------------------------
 
     Model* worldModel = new Model();
 
