@@ -23,9 +23,10 @@ class World{
          * \brief getHeight at global position x and z.
          */
         float getHeight(float x, float z);
-        float getNormal(float x, float z);
+        QVector3D getNormal(float x, float z);
 
         cv::Mat heightMap;
+        cv::Mat normalMap;
         cv::Mat heightMapThresh;
         float scaleFactor;
         float vertexDensity;

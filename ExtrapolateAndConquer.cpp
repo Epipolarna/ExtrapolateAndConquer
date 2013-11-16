@@ -87,7 +87,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     // 1.8715 or 2.1042
     float lacunarity = 1/1.87;
-    float gain = 0.4;
+    float gain = 0.3;
 
     //for each pixel, get the value
     float period = 400;
@@ -181,6 +181,7 @@ bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     camera->updatePosition();
     world->getHeight(camera->position.x(), camera->position.z());
+    world->getNormal(camera->position.x(), camera->position.z());
 
     SpherePhysics & sp = e->get<SpherePhysics>();
     sp.force += QVector3D(0.1,0,0);

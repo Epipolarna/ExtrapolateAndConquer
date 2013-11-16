@@ -1,4 +1,5 @@
 #include "World.hpp"
+#include <iostream>
 
 World::World(){
 
@@ -11,8 +12,8 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     sizeZ = zRange;
 
     heightMap = cv::Mat(xRange*vertexDensity+1, zRange*vertexDensity+1, CV_32FC1);
+    normalMap = cv::Mat(xRange*vertexDensity+1, zRange*vertexDensity+1, CV_32FC3);
     heightMapThresh = cv::Mat(xRange*vertexDensity+1, zRange*vertexDensity+1, CV_32FC1);
-
 
     int step = heightMap.cols;
 
@@ -49,7 +50,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     }
 
     //cv::imshow("heightMap", heightMap);
-    cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
+    //cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
     //cv::imshow("heightMapThresh", heightMapThresh);
 
     //qDebug() << "step: " << step;
@@ -77,10 +78,17 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     // Calculate normals
     for (int z = 0; z <= zRange*vertexDensity; z++){
         normals.push_back(QVector3D(0,1,0));
+
+        cv::Vec3f cvNormal(normal.x(), normal.y(), normal.z());
+        normalMap.at<cv::Vec3f>(0,z) = cvNormal;
     }
 
     for (int x = 1; x <= xRange*vertexDensity; x++){
         normals.push_back(QVector3D(0,1,0));
+
+        cv::Vec3f cvNormal(normal.x(), normal.y(), normal.z());
+        normalMap.at<cv::Vec3f>(x,0) = cvNormal;
+
         for (int z = 1; z <= zRange*vertexDensity; z++){
 
             y00 = heightMap.at<float>(x-1,z-1);
@@ -94,6 +102,9 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
             normal.normalize();
 
             normals.push_back(normal);
+
+            cv::Vec3f cvNormal(normal.x(), normal.y(), normal.z());
+            normalMap.at<cv::Vec3f>(x,z) = cvNormal;
         }
     }
 
@@ -130,7 +141,40 @@ float World::getHeight(float x, float z)
         y = y * 2*scaleFactor - scaleFactor;
     }
 
-    qDebug() << "Ground level at current camera position: " << y;
+    qDebug() << "Ground level at current position: " << y;
 
     return y;
+}
+
+QVector3D World::getNormal(float x, float z)
+{
+    QVector3D normal(0,1,0);
+    // Check if the current position is on the terrain patch
+    if(x >= 0 && x < (sizeX-1) &&
+       z >= 0 && z < (sizeZ-1) )
+    {
+        float xScaled = x*vertexDensity;
+        float zScaled = z*vertexDensity;
+        float xFloor = floorf(xScaled);
+        float xCeil  = ceilf( xScaled);
+        float zFloor = floorf(zScaled);
+        float zCeil  = ceilf( zScaled);
+
+        cv::Vec3f n00 = normalMap.at<cv::Vec3f>(xFloor,zFloor);
+        cv::Vec3f n01 = normalMap.at<cv::Vec3f>(xFloor,zCeil);
+        cv::Vec3f n10 = normalMap.at<cv::Vec3f>(xCeil,zFloor);
+        cv::Vec3f n11 = normalMap.at<cv::Vec3f>(xCeil,zCeil);
+
+        cv::Vec3f n0 = (1-(xScaled-xFloor))*n00 + (xScaled-xFloor)*n10;
+        cv::Vec3f n1 = (1-(xScaled-xFloor))*n01 + (xScaled-xFloor)*n11;
+
+        cv::Vec3f n = (1-(zScaled-zFloor))*n0 + (zScaled-zFloor)*n1;
+
+        normal = QVector3D( n[0], n[1], n[2]);
+        normal.normalize();
+    }
+
+    qDebug() << "Ground normal at current position: " << normal;
+
+    return normal;
 }
