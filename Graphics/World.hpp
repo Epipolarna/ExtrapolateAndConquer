@@ -23,6 +23,7 @@ class World{
          * \brief getHeight at global position x and z.
          */
         float getHeight(float x, float z);
+        float getNormal(float x, float z);
 
         cv::Mat heightMap;
         cv::Mat heightMapThresh;

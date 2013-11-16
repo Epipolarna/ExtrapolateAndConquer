@@ -155,6 +155,7 @@ private:
 
         if( sphereBottom < groundLevel ){
             float y_diff = sphereBottom - groundLevel;
+            // world->getNormal is on its way.
             normal = (y_diff+radius) * QVector3D(0, 1, 0);
             terrainImpactPoint = QVector3D(position.x(), groundLevel, position.z());
             return true;
