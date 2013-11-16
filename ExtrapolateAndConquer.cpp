@@ -57,46 +57,30 @@ void ExtrapolateAndConquer::initialize(void){
     sphereSphereCollisionSystem.initialize(entityManager);
     sphereTerrainCollisionSystem.initialize(entityManager);
 
-    // Initialize entity
-    e = &entityManager.createEntity();
+    int nBalls = 1000;
+    for(int i = 0; i < nBalls; i++){
+        // Initialize entity
+        e = &entityManager.createEntity();
 
-    // Add Sphere physics
-    e->add<SpherePhysics>();
-    SpherePhysics & sp = e->get<SpherePhysics>();
-    sp.position = QVector3D(10,19,14);
-    sp.rotation2 = QQuaternion(1,0,0,0);
-    sp.mass = 1.0;
-    sp.elasticity = 0.8;
-    sp.friction = 1.0;
-    sp.radius = 1.0;
-    sp.gravitationalConstant = 9.82;
-    sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
+        // Add Sphere physics
+        e->add<SpherePhysics>();
+        SpherePhysics & sp = e->get<SpherePhysics>();
+        sp.position = QVector3D(qrand()%100,30,qrand()%100);
+        sp.rotation2 = QQuaternion(1,0,0,0);
+        sp.mass = 1.0;
+        sp.elasticity = 0.8;
+        sp.friction = 1.0;
+        sp.radius = 1.0;
+        sp.gravitationalConstant = 9.82;
+        sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
-    // Add Graphics
-    e->add<Graphics>();
-    e->get<Graphics>().object = new Object(resourceManager->getModel("sphere"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
-    e->get<Graphics>().object->setScale(sp.radius);
+        // Add Graphics
+        e->add<Graphics>();
+        e->get<Graphics>().object = new Object(resourceManager->getModel("sphere"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
+        e->get<Graphics>().object->setScale(sp.radius);
 
-    renderer->drawObject(e->get<Graphics>().object);
-
-    e = &entityManager.createEntity();
-    // Add Sphere physics
-    e->add<SpherePhysics>();
-    SpherePhysics & sp2 = e->get<SpherePhysics>();
-    sp2.position = QVector3D(10,15,14);
-    sp2.rotation2 = QQuaternion(1,0,0,0);
-    sp2.mass = 1.0;
-    sp2.elasticity = 0.5;
-    sp2.friction = 1.0;
-    sp2.radius = 1.0;
-    sp2.gravitationalConstant = 9.82;
-    sp2.momentOfInertia = 6.0/12.0 * sp2.mass * sp2.radius * sp2.radius;
-    // Add Graphics
-    e->add<Graphics>();
-    e->get<Graphics>().object = new Object(resourceManager->getModel("sphere"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
-    e->get<Graphics>().object->setScale(sp2.radius);
-    renderer->drawObject(e->get<Graphics>().object);
-
+        renderer->drawObject(e->get<Graphics>().object);
+    }
 
     // Generate world
     // ---------------------------

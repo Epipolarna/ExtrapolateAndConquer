@@ -167,7 +167,7 @@ float World::getHeight(float x, float z)
         y = y * 2*scaleFactor - scaleFactor;
     }
 
-    qDebug() << "Ground level at current position: " << y;
+    //qDebug() << "Ground level at current position: " << y;
 
     return y;
 }
@@ -200,7 +200,7 @@ QVector3D World::getNormal(float x, float z)
         normal.normalize();
     }
 
-    qDebug() << "Ground normal at current position: " << normal;
+    //qDebug() << "Ground normal at current position: " << normal;
 
     return normal;
 }

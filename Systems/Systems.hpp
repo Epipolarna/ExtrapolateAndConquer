@@ -140,9 +140,9 @@ public:
             QVector3D frictionForce = -physics.friction * physics.mass * physics.gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
             physics.torque += QVector3D::crossProduct(frictionForce, normal);
 
-            LOG("old distance: " << distance);
-            LOG("new distance: " << (physics.position - terrainImpactPoint).length());
-            LOG("------------------------------------");
+            //LOG("old distance: " << distance);
+            //LOG("new distance: " << (physics.position - terrainImpactPoint).length());
+            //LOG("------------------------------------");
         }
     }
     void setHeightMap(cv::Mat heightMap) { this->heightMap = heightMap; }
