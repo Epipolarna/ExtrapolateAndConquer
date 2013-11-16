@@ -1,5 +1,5 @@
-#ifndef WORLD_GENERATOR_H
-#define WORLD_GENERATOR_H
+#ifndef WORLD_H
+#define WORLD_H
 
 #include <vector>
 #include <math.h>
@@ -14,9 +14,9 @@
 #include "Object.hpp"
 #include "simplexnoise1234.h"
 
-class WorldGenerator{
+class World{
 	public:
-        WorldGenerator();
+        World();
         Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves);
 
         /*!

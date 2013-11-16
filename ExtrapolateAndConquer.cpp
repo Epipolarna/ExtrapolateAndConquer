@@ -87,7 +87,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     // 1.8715 or 2.1042
     float lacunarity = 1/1.87;
-    float gain = 0.60;
+    float gain = 0.4;
 
     //for each pixel, get the value
     float period = 400;
@@ -101,26 +101,24 @@ void ExtrapolateAndConquer::initialize(void){
         amplitude *= gain;
     }
 
-    Model* world;
-    worldGenerator = new WorldGenerator();
+    Model* worldModel;
+    world = new World();
     Object* worldObject;
 
     int nOctaves = sizeof(octaves)/sizeof(float);
-    world = worldGenerator->generateWorld(1000,1000,0.5f,octaves,scales,nOctaves);
-    hightMapOfChunk = worldGenerator->heightMap;
+    worldModel = world->generateWorld(100,100,1.0f,octaves,scales,nOctaves);
+    hightMapOfChunk = world->heightMap;
 
-    sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*worldGenerator->scaleFactor-worldGenerator->scaleFactor));
+    sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*world->scaleFactor-world->scaleFactor));
+    sphereTerrainCollisionSystem.setWorld(world);
 
-    QVector<GLuint> gt = QVector<GLuint>();
-    gt.push_back(resourceManager->getTexture("grass"));
-    gt.push_back(resourceManager->getTexture("grass"));
-    gt.push_back(resourceManager->getTexture("grass"));
+    QVector<GLuint> worldTextures = QVector<GLuint>();
+    worldTextures.push_back(resourceManager->getTexture("grass1"));
 
-    worldObject = new Object(world, resourceManager->getShader("terrainShader"), gt);
-    worldObject->setShaderParameters(0.3, 0.7, 0.3, 50);
+    worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
+    worldObject->setShaderParameters(0.6, 0.4, 0.4, 50);
     worldObject->setColor(85,196,48,255);
-    //worldObject->setPosition(0,0,0);
-    //worldObject->setTexScaling(1000);
+    worldObject->setTexScaling(1000);
 
     renderer->world = worldObject;
 
@@ -133,7 +131,7 @@ void ExtrapolateAndConquer::initialize(void){
     
     ocean->setShaderParameters(0.1, 0.6, 3.0, 50);
     ocean->setColor(59,58,99,200);
-    ocean->setScale(1000,1,1000);
+    ocean->setScale(100,1,100);
     ocean->setTexScaling(100);
 
     renderer->water = ocean;
@@ -159,13 +157,13 @@ void ExtrapolateAndConquer::loadResources(void){
 
     //ground data
     printf("loading ground data \n");
-    resourceManager->loadTexture("grass");
+    resourceManager->loadTexture("grass1", true);
     resourceManager->loadShader("terrainShader");
 
     //water data
     printf("loading water data \n");
-    resourceManager->loadTexture("water", true);
-    resourceManager->loadTexture("waterNormalMap2");
+    //resourceManager->loadTexture("water", true);
+    resourceManager->loadTexture("waterNormalMap2", true);
     //resourceManager->loadTexture("waterNormalMap1");
     resourceManager->loadModel("unitSquare");
     resourceManager->loadShader("oceanShader");
@@ -182,7 +180,7 @@ int ExtrapolateAndConquer::run(){
 bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     camera->updatePosition();
-    worldGenerator->getHeight(camera->position.x(), camera->position.z());
+    world->getHeight(camera->position.x(), camera->position.z());
 
     SpherePhysics & sp = e->get<SpherePhysics>();
     sp.force += QVector3D(0.1,0,0);

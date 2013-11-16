@@ -141,12 +141,25 @@ public:
         }
     }
     void setHeightMap(cv::Mat heightMap) { this->heightMap = heightMap; }
+    void setWorld(World* world) { this->world = world; }
 private:
     cv::Mat heightMap;
+    World* world;
     QVector3D normal;
     QVector3D terrainImpactPoint;
 
     bool isColliding(QVector3D & position, float radius) {
+
+        float groundLevel = world->getHeight(position.x(), position.z());
+        float sphereBottom = position.y()-radius;
+
+        if( sphereBottom < groundLevel ){
+            float y_diff = sphereBottom - groundLevel;
+            normal = (y_diff+radius) * QVector3D(0, 1, 0);
+            terrainImpactPoint = QVector3D(position.x(), groundLevel, position.z());
+            return true;
+        }
+/*
         int roundX = std::round(position.x()+heightMap.size().width/2.0);
         int roundZ = std::round(position.z()+heightMap.size().height/2.0);
         if(roundX >= 0 && roundX <= heightMap.size().width && roundZ >= 0 && roundZ <= heightMap.size().height)
@@ -164,6 +177,7 @@ private:
         {
             //std::cerr << "SphereTerrainCollisionSystem::isColliding() Object outside of heightmap!";
         }
+        */
         return false;
     }
     static inline QVector3D projectOn(QVector3D vector, QVector3D basis) {

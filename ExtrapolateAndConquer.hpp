@@ -12,7 +12,7 @@
 #include "Graphics/Renderer.hpp"
 #include "Graphics/Object.hpp"
 #include "Graphics/Model.hpp"
-#include "Graphics/WorldGenerator.hpp"
+#include "Graphics/World.hpp"
 
 #include "EntitySystem/EntitySystem.hpp"
 #include "Components/Components.hpp"
@@ -48,7 +48,7 @@ public:
     QOpenGLContext* context;
     OpenGLWindow* openGLWindow;
     Camera* camera;
-    WorldGenerator* worldGenerator;
+    World* world;
 
     QTimer* timer;
 

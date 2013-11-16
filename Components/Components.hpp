@@ -5,6 +5,7 @@
 
 // Includes
 #include "Graphics/Object.hpp"
+#include "Graphics/World.hpp"
 
 // List all components
 #define Components Name,SimplePhysics,Graphics,SpherePhysics

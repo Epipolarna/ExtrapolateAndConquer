@@ -1,17 +1,17 @@
-#include "WorldGenerator.hpp"
+#include "World.hpp"
 
-WorldGenerator::WorldGenerator(){
+World::World(){
 
 }
 
-Model * WorldGenerator::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
+Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
 
     vertexDensity = _vertexDensity;
     sizeX = xRange;
     sizeZ = zRange;
 
-    heightMap = cv::Mat(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
-    heightMapThresh = cv::Mat(xRange*vertexDensity, zRange*vertexDensity, CV_32FC1);
+    heightMap = cv::Mat(xRange*vertexDensity+1, zRange*vertexDensity+1, CV_32FC1);
+    heightMapThresh = cv::Mat(xRange*vertexDensity+1, zRange*vertexDensity+1, CV_32FC1);
 
 
     int step = heightMap.cols;
@@ -32,8 +32,8 @@ Model * WorldGenerator::generateWorld(float xRange, float zRange, float _vertexD
     }
 
     // Generate height map and texture coordinates
-    for (int x = 0; x < xRange*vertexDensity; x++){
-        for (int z = 0; z < zRange*vertexDensity; z++){
+    for (int x = 0; x <= xRange*vertexDensity; x++){
+        for (int z = 0; z <= zRange*vertexDensity; z++){
 
             y = 0;
             for(int i = 0; i < nOctaves; i++){
@@ -55,8 +55,8 @@ Model * WorldGenerator::generateWorld(float xRange, float zRange, float _vertexD
     //qDebug() << "step: " << step;
 
     // Tie vertices together. openGL indexing starts at 0 tydligen..
-    for (int x = 1; x < xRange*vertexDensity; x++){
-        for (int z = 1; z < zRange*vertexDensity; z++){
+    for (int x = 1; x <= xRange*vertexDensity; x++){
+        for (int z = 1; z <= zRange*vertexDensity; z++){
 
             // First triangle
             indices.push_back( (x-1)*step + z-1);  // 0
@@ -75,13 +75,13 @@ Model * WorldGenerator::generateWorld(float xRange, float zRange, float _vertexD
     QVector3D normal;
 
     // Calculate normals
-    for (int z = 0; z < zRange*vertexDensity; z++){
+    for (int z = 0; z <= zRange*vertexDensity; z++){
         normals.push_back(QVector3D(0,1,0));
     }
 
-    for (int x = 1; x < xRange*vertexDensity; x++){
+    for (int x = 1; x <= xRange*vertexDensity; x++){
         normals.push_back(QVector3D(0,1,0));
-        for (int z = 1; z < zRange*vertexDensity; z++){
+        for (int z = 1; z <= zRange*vertexDensity; z++){
 
             y00 = heightMap.at<float>(x-1,z-1);
             y01 = heightMap.at<float>(x-1,z);
@@ -104,7 +104,7 @@ Model * WorldGenerator::generateWorld(float xRange, float zRange, float _vertexD
     return worldModel;
 }
 
-float WorldGenerator::getHeight(float x, float z)
+float World::getHeight(float x, float z)
 {
     float y = 0;
     // Check if the current position is on the terrain patch
