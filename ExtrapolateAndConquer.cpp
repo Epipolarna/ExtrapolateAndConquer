@@ -134,7 +134,7 @@ void ExtrapolateAndConquer::initialize(void){
     worldTextures.push_back(resourceManager->getTexture("grass1"));
 
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
-    worldObject->setShaderParameters(0.7f, 0.5f, 0.0f, 20);
+    worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
     worldObject->setTexScaling(1000);
 
