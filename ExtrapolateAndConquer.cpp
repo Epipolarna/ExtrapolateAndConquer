@@ -67,7 +67,7 @@ void ExtrapolateAndConquer::initialize(void){
         SpherePhysics & sp = e->get<SpherePhysics>();
         sp.position = QVector3D(qrand()%100,30,qrand()%100);
         sp.rotation2 = QQuaternion(1,0,0,0);
-        sp.mass = 1.0;
+        sp.mass = 100.0;
         sp.elasticity = 0.8;
         sp.friction = 1.0;
         sp.radius = 1.0;

@@ -98,6 +98,17 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
             y7 = heightMap.at<float>(x-1,z+1);
             y8 = heightMap.at<float>(x-1,z);
 
+            // Scale & bias
+            y0 = 2*y0*scaleFactor - scaleFactor;
+            y1 = 2*y1*scaleFactor - scaleFactor;
+            y2 = 2*y2*scaleFactor - scaleFactor;
+            y3 = 2*y3*scaleFactor - scaleFactor;
+            y4 = 2*y4*scaleFactor - scaleFactor;
+            y5 = 2*y5*scaleFactor - scaleFactor;
+            y6 = 2*y6*scaleFactor - scaleFactor;
+            y7 = 2*y7*scaleFactor - scaleFactor;
+            y8 = 2*y8*scaleFactor - scaleFactor;
+
             t1 = QVector3D(-1, y1-y0, -1);
             t2 = QVector3D( 0, y2-y0, -1);
             t3 = QVector3D( 1, y3-y0, -1);
