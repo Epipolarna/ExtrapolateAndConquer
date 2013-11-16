@@ -32,6 +32,8 @@ class World{
         float vertexDensity;
         float sizeX;
         float sizeZ;
+
+        QVector3D lightPosition;
 };
 
 #endif

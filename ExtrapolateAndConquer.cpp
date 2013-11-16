@@ -105,7 +105,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     // 1.8715 or 2.1042
     float lacunarity = 1/1.87;
-    float gain = 0.3;
+    float gain = 0.6;
 
     //for each pixel, get the value
     float period = 400;
@@ -134,7 +134,7 @@ void ExtrapolateAndConquer::initialize(void){
     worldTextures.push_back(resourceManager->getTexture("grass1"));
 
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
-    worldObject->setShaderParameters(0.6, 0.4, 0.4, 50);
+    worldObject->setShaderParameters(0.7f, 0.5f, 0.0f, 20);
     worldObject->setColor(85,196,48,255);
     worldObject->setTexScaling(1000);
 
@@ -147,7 +147,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     Object* ocean = new Object(resourceManager->getModel("unitSquare"), resourceManager->getShader("oceanShader"),ot);
     
-    ocean->setShaderParameters(0.1, 0.6, 3.0, 50);
+    ocean->setShaderParameters(0.4f, 0.6f, 1.0f, 50);
     ocean->setColor(59,58,99,200);
     ocean->setScale(100,1,100);
     ocean->setTexScaling(100);
