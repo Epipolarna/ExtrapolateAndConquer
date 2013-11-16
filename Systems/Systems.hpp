@@ -125,7 +125,7 @@ public:
         if(isColliding(physics.position, physics.radius))
         {
             // Impulse collision with a terrain that have a mass == infinity
-            QVector3D radialVector = (physics.position - terrainImpactPoint).normalized();
+            QVector3D radialVector = normal.normalized();//(physics.position - terrainImpactPoint).normalized();
             float distance = (physics.position - terrainImpactPoint).length();
 
             QVector3D velocity = physics.linearMomentum/physics.mass;
