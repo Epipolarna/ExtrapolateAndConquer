@@ -161,25 +161,6 @@ private:
             terrainImpactPoint = QVector3D(position.x(), groundLevel, position.z());
             return true;
         }
-/*
-        int roundX = std::round(position.x()+heightMap.size().width/2.0);
-        int roundZ = std::round(position.z()+heightMap.size().height/2.0);
-        if(roundX >= 0 && roundX <= heightMap.size().width && roundZ >= 0 && roundZ <= heightMap.size().height)
-        {
-            float y_diff = position.y()-radius - heightMap.at<float>(roundX,roundZ);
-            if(y_diff <= 0) {
-                normal = (y_diff+radius) * QVector3D(0, 1, 0);
-                terrainImpactPoint = QVector3D(position.x(), heightMap.at<float>(roundX,roundZ), position.z());
-                //LOG("Collision, (y_diff, positionY-r, heightmapY) = " << y_diff << ", " << position.y()-radius << ", " << heightMap.at<float>(roundX,roundZ));
-                return true;
-            }
-            //LOG("Not Collision, (y_diff, positionY-r, heightmapY) = " << y_diff << ", " << position.y()-radius << ", " << heightMap.at<float>(roundX,roundZ));
-        }
-        else
-        {
-            //std::cerr << "SphereTerrainCollisionSystem::isColliding() Object outside of heightmap!";
-        }
-        */
         return false;
     }
     static inline QVector3D projectOn(QVector3D vector, QVector3D basis) {

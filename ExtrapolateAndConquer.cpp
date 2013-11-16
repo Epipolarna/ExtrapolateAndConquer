@@ -202,7 +202,7 @@ void ExtrapolateAndConquer::loopBody(){
     world->getNormal(camera->position.x(), camera->position.z());
 
     SpherePhysics & sp = e->get<SpherePhysics>();
-    sp.force += QVector3D(0.1,0,0);
+    sp.force += QVector3D(0.1,0,0.2);
 
     // Run collision detection
     sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
