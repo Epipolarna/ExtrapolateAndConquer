@@ -63,7 +63,7 @@ void ExtrapolateAndConquer::initialize(void){
     // Add Sphere physics
     e->add<SpherePhysics>();
     SpherePhysics & sp = e->get<SpherePhysics>();
-    sp.position = QVector3D(0,13,0);
+    sp.position = QVector3D(10,23,10);
     sp.rotation2 = QQuaternion(1,0,0,0);
     sp.mass = 1.0;
     sp.elasticity = 0.8;
@@ -83,7 +83,7 @@ void ExtrapolateAndConquer::initialize(void){
     // Add Sphere physics
     e->add<SpherePhysics>();
     SpherePhysics & sp2 = e->get<SpherePhysics>();
-    sp2.position = QVector3D(0,20,0);
+    sp2.position = QVector3D(10,30,10);
     sp2.rotation2 = QQuaternion(1,0,0,0);
     sp2.mass = 1.0;
     sp2.elasticity = 0.5;
