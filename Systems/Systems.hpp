@@ -80,20 +80,31 @@ public:
             for(int j = i+1; j < components.size(); j++) {
                 SpherePhysics & A = components[i];
                 SpherePhysics & B = components[j];
-                QVector3D radialVector = A.position - B.position;
-                float distance = radialVector.length();
-                float addedDiameters = 2*(A.radius+B.radius);
-                if(distance < addedDiameters)
+                QVector3D radialVector = (A.position - B.position).normalized();
+                float distance = (A.position - B.position).length();
+                float addedRadius = A.radius+B.radius;
+                if(distance < addedRadius)
                 {
-                    QVector3D velocityDifferance = A.velocity - B.velocity;
-                    QVector3D radialVelocityDifferance = projectOn(velocityDifferance, radialVector);
+                    QVector3D velocityA = A.linearMomentum/A.mass;
+                    QVector3D velocityB = B.linearMomentum/B.mass;
+                    QVector3D radialVelocityDifferance = projectOn(velocityB, radialVector) - projectOn(velocityA, radialVector);
                     float meanElasticity = (A.elasticity+B.elasticity)/2;
                     QVector3D linearMomentum_dt = radialVelocityDifferance*(meanElasticity + 1)/(1/A.mass + 1/B.mass);
 
-                    A.position += radialVelocityDifferance * (2*A.radius - distance);
-                    B.position -= radialVelocityDifferance * (2*B.radius - distance);
+                    A.position += radialVector * (addedRadius - distance);
+                    B.position -= radialVector * (addedRadius - distance);
                     A.linearMomentum += linearMomentum_dt;
                     B.linearMomentum -= linearMomentum_dt;
+
+                    // Collision induced rotation
+                    QVector3D actualVelocityA = A.velocity - QVector3D::crossProduct(A.angularVelocity, radialVector);
+                    QVector3D frictionForceA = -A.friction * A.mass * A.gravitationalConstant * actualVelocityA;	//gravitationalConstant = 9.82
+                    A.torque += QVector3D::crossProduct(frictionForceA, radialVector);
+
+                    QVector3D actualVelocityB = B.velocity - QVector3D::crossProduct(B.angularVelocity, -radialVector);
+                    QVector3D frictionForceB = -B.friction * B.mass * B.gravitationalConstant * actualVelocityB;	//gravitationalConstant = 9.82
+                    B.torque += QVector3D::crossProduct(frictionForceB, -radialVector);
+
                 }
             }
         }
@@ -114,27 +125,17 @@ public:
         if(isColliding(physics.position, physics.radius))
         {
             // Impulse collision with a terrain that have a mass == infinity
-            QVector3D radialVector = physics.position - terrainImpactPoint;
-            float distance = radialVector.length();
-            QVector3D radialVelocity = projectOn(physics.velocity, radialVector.normalized());
-            QVector3D linearMomentum_dt = radialVelocity*(physics.elasticity*0.5 + 1)*physics.mass;    //dt = 0.01
+            QVector3D radialVector = (physics.position - terrainImpactPoint).normalized();
+            float distance = (physics.position - terrainImpactPoint).length();
 
-            QVector3D posIncr = -radialVelocity * std::abs(physics.radius - distance);
-            physics.position += posIncr;
-            physics.linearMomentum += -linearMomentum_dt;
-            //physics.position += QVector3D(0,1,0)*0;
-            //physics.linearMomentum += QVector3D(0,1,0)*0;
-            //LOG("-------------------------------------");
-            //LOG("radialVector: " << radialVector.x() << "," << radialVector.y() << "," << radialVector.z());
-            //LOG("distance to terrain: " << distance);
-            //LOG("radialVelocity: " << radialVelocity.x() << "," << radialVelocity.y() << "," << radialVelocity.z());
-            //LOG("positionIncr: " << posIncr.x() << "," << posIncr.y() << "," << posIncr.z());
-            //LOG("linMomentIncr: " << linearMomentum_dt.x() << "," << linearMomentum_dt.y() << "," << linearMomentum_dt.z());
+            QVector3D velocity = physics.linearMomentum/physics.mass;
+            QVector3D radialVelocity = -projectOn(velocity, radialVector.normalized());
+            QVector3D linearMomentum_dt = radialVelocity*(physics.elasticity + 1)*physics.mass;
 
-            //LOG("positionIncr: " << -(radialVelocity * (physics.radius - distance)).y());
-            //LOG("linearMomentumIncr: " << linearMomentum_dt.y());
+            physics.position += radialVector * std::abs(physics.radius - distance);
+            physics.linearMomentum += linearMomentum_dt;
 
-            // Update rotation
+            // Collision induced rotation
             QVector3D actualVelocity = physics.velocity - QVector3D::crossProduct(physics.angularVelocity, normal);
             QVector3D frictionForce = -physics.friction * physics.mass * physics.gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
             physics.torque += QVector3D::crossProduct(frictionForce, normal);

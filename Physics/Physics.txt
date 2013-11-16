@@ -28,8 +28,8 @@ On Collision of objects: A,B (impulse collision)
 		float meanElasticity = (A.elasticity+B.elasticity)/2;
 		vec3 linearMomentum_dt = radialVelocity*(meanElasticity + 1)/(1/A.mass + 1/B.mass);
 		
-		A.position += A.position distanceV * (2*A.radius - distance);
-		B.position += B.position distanceV * (2*B.radius - distance);
+		A.position += distanceV * (2*A.radius - distance);
+		B.position += distanceV * (2*B.radius - distance);
 		A.linearMomentum += linearMomentum_dt;
 		B.linearMomentum -= linearMomentum_dt;
 
