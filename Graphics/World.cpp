@@ -110,7 +110,6 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
             y8 = 2*y8*scaleFactor - scaleFactor;
 
             float vertexStep = 1/vertexDensity;
-            //qDebug() << "VertexStep: " << vertexStep;
 
             t1 = QVector3D(-vertexStep, y1-y0, -vertexStep);
             t2 = QVector3D( 0,          y2-y0, -vertexStep);

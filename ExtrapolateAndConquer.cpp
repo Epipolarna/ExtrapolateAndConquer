@@ -27,6 +27,7 @@ ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[]){
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(loopBody()));
+    fpsMeter = new QElapsedTimer;
 }
 
 ExtrapolateAndConquer::~ExtrapolateAndConquer(){
@@ -176,13 +177,14 @@ void ExtrapolateAndConquer::loadResources(void){
 int ExtrapolateAndConquer::run(){
 
     initialize();
-    timer->start(20);
+    timer->start(2);
     int returnCode = application->exec();
     return returnCode;
 }
 
 bool first = true;
 void ExtrapolateAndConquer::loopBody(){
+    timer->stop();
     camera->updatePosition();
     world->getHeight(camera->position.x(), camera->position.z());
     world->getNormal(camera->position.x(), camera->position.z());
@@ -203,4 +205,9 @@ void ExtrapolateAndConquer::loopBody(){
     //make sure to update the gl widget...
     //graphicsWindow->centralWidget()->update();
     openGLWindow->update();
+
+    elapsedTime = fpsMeter->elapsed();
+    fpsMeter->restart();
+    qDebug() << "FPS: " << 1000/elapsedTime;
+    timer->start();
 }

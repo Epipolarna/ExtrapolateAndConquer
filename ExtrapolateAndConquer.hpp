@@ -3,6 +3,7 @@
 
 #include <QApplication>
 #include <QTimer>
+#include <QElapsedTimer>
 #include <vector>
 #include <QOpenGLContext>
 
@@ -51,6 +52,8 @@ public:
     World* world;
 
     QTimer* timer;
+    QElapsedTimer* fpsMeter;
+    qint64 elapsedTime;
 
     Entity<Components> * e;
     cv::Mat hightMapOfChunk;
