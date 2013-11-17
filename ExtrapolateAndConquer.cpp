@@ -69,7 +69,7 @@ void ExtrapolateAndConquer::initialize(void){
         sp.position = QVector3D(qrand()%100,30,qrand()%100);
         sp.rotation2 = QQuaternion(1,0,0,0);
         sp.mass = 100.0;
-        sp.elasticity = 0.8;
+        sp.elasticity = 0.3;
         sp.friction = 1.0;
         sp.radius = 1.0;
         sp.gravitationalConstant = 9.82;
@@ -77,14 +77,13 @@ void ExtrapolateAndConquer::initialize(void){
 
         // Add Graphics
         e->add<Graphics>();
-        e->get<Graphics>().object = new Object(resourceManager->getModel("sphere"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
+        e->get<Graphics>().object = new Object(resourceManager->getModel("unitSphere10"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
         e->get<Graphics>().object->setScale(sp.radius);
 
         renderer->drawObject(e->get<Graphics>().object);
     }
 
-    // Generate world
-    // ---------------------------
+    // ------------- Generate world ------------------------
     float octaves[16];
     float scales[16];
 
@@ -93,7 +92,7 @@ void ExtrapolateAndConquer::initialize(void){
     float gain = 0.6;
 
     //for each pixel, get the value
-    float period = 400;
+    float period = 100;
     float amplitude = 20;
     for (int i = 0; i < 16; i++)
     {
@@ -109,7 +108,7 @@ void ExtrapolateAndConquer::initialize(void){
     Object* worldObject;
 
     int nOctaves = sizeof(octaves)/sizeof(float);
-    worldModel = world->generateWorld(100,100,1.0f,octaves,scales,nOctaves);
+    worldModel = world->generateWorld(100,100,0.25f,octaves,scales,nOctaves);
     hightMapOfChunk = world->heightMap;
 
     sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*world->scaleFactor-world->scaleFactor));
@@ -151,7 +150,7 @@ void ExtrapolateAndConquer::loadResources(void){
 
     printf("loading sphere data \n");
     resourceManager->loadShader("phongTex");
-    resourceManager->loadModel("sphere");
+    resourceManager->loadModel("unitSphere10");
     resourceManager->loadTexture("sphere");
 
     //skybox data
