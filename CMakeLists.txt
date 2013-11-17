@@ -6,6 +6,7 @@ IF(APPLE)
     MESSAGE( STATUS "Apple system" )
     SET (CMAKE_CXX_FLAGS "-stdlib=libc++ -std=c++11 -pedantic")
     INCLUDE_DIRECTORIES( /System/Library/Frameworks )
+    set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
 ENDIF()
 
 IF(WIN32)

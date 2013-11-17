@@ -6,6 +6,7 @@ Renderer::Renderer(void){
 }
 
 void Renderer::drawObject(Object* o){
+    //TODO batch data for instanced rendering somehow
     this->renderList.push_back(o);
 }
 

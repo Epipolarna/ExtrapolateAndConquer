@@ -34,6 +34,12 @@ class World{
         float sizeZ;
 
         QVector3D lightPosition;
+
+        GLuint textureRef;
+    private:
+        void generateTexture(void);
+        void uploadCVTexture(void);
+        cv::Mat textureData;
 };
 
 #endif

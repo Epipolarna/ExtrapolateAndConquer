@@ -149,6 +149,8 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
 
     worldModel->modelFromData(vertices,normals,textures,indices);
 
+    generateTexture();
+
     return worldModel;
 }
 
@@ -214,4 +216,60 @@ QVector3D World::getNormal(float x, float z)
     //qDebug() << "Ground normal at current position: " << normal;
 
     return normal;
+}
+
+
+//TODO construct texture data in non-flipped way...
+void World::uploadCVTexture(void){
+    glGenTextures(1,&textureRef);
+    glBindTexture(GL_TEXTURE_2D, textureRef);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // Set texture clamping method
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+    
+    glTexImage2D(GL_TEXTURE_2D,       
+                 0,                   
+                 GL_RGBA,              
+                 textureData.cols,    
+                 textureData.rows,    
+                 0,                   
+                 GL_BGRA,              
+                 GL_UNSIGNED_BYTE,    
+                 textureData.ptr());  
+    
+    //glGenerateMipmap(GL_TEXTURE_2D);
+}
+
+void World::generateTexture(){
+    
+    textureData = cv::Mat((int)heightMap.rows*vertexDensity,(int)heightMap.cols*vertexDensity,CV_8UC4);
+
+    for(int i=0; i < heightMap.rows;++i){
+        for(int j=0; j < heightMap.cols;++j){
+            float h = getHeight(i,j);
+            if(h < 0){
+                textureData.at<cv::Vec4b>(i,j)[0] = 255;
+                textureData.at<cv::Vec4b>(i,j)[1] = 0;
+                textureData.at<cv::Vec4b>(i,j)[2] = 0;
+                textureData.at<cv::Vec4b>(i,j)[3] = 255;
+            }else if(h < 100){
+                textureData.at<cv::Vec4b>(i,j)[0] = 0;
+                textureData.at<cv::Vec4b>(i,j)[1] = 255;
+                textureData.at<cv::Vec4b>(i,j)[2] = 0;
+                textureData.at<cv::Vec4b>(i,j)[3] = 255;
+            }else{
+                textureData.at<cv::Vec4b>(i,j)[0] = 0;
+                textureData.at<cv::Vec4b>(i,j)[1] = 255;
+                textureData.at<cv::Vec4b>(i,j)[2] = 255;
+                textureData.at<cv::Vec4b>(i,j)[3] = 255;
+            }
+        }
+    }
+    //cv::flip(textureData,textureData,0);
+    uploadCVTexture();
 }
