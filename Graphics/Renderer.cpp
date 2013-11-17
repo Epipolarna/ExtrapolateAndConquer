@@ -13,26 +13,30 @@ void Renderer::drawObject(Object* o){
 void Renderer::repaint(){
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
 
     if(skybox != NULL){
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
         skybox->draw(camera->skyboxMatrix(),pMatrix);
     }
 
-    glEnable(GL_DEPTH_TEST);
-
     if(world != NULL){
+        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
         world->draw(camera->vMatrix,pMatrix);
     }
 
-    if(water != NULL){
-        water->draw(camera->vMatrix,pMatrix);
-    }
-
     for(Object * o : renderList){
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE);
         o->draw(camera->vMatrix,pMatrix);
     }
 
-    glEnable(GL_CULL_FACE);
+    if(water != NULL){
+        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
+        glEnable(GL_BLEND);
+        water->draw(camera->vMatrix,pMatrix);
+        glDisable(GL_BLEND);
+    }
 }

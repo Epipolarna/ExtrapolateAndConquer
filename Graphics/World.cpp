@@ -109,14 +109,17 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
             y7 = 2*y7*scaleFactor - scaleFactor;
             y8 = 2*y8*scaleFactor - scaleFactor;
 
-            t1 = QVector3D(-1, y1-y0, -1);
-            t2 = QVector3D( 0, y2-y0, -1);
-            t3 = QVector3D( 1, y3-y0, -1);
-            t4 = QVector3D( 1, y4-y0,  0);
-            t5 = QVector3D( 1, y5-y0,  1);
-            t6 = QVector3D( 0, y6-y0,  1);
-            t7 = QVector3D(-1, y7-y0,  1);
-            t8 = QVector3D(-1, y8-y0,  0);
+            float vertexStep = 1/vertexDensity;
+            qDebug() << "VertexStep: " << vertexStep;
+
+            t1 = QVector3D(-vertexStep, y1-y0, -vertexStep);
+            t2 = QVector3D( 0,          y2-y0, -vertexStep);
+            t3 = QVector3D( vertexStep, y3-y0, -vertexStep);
+            t4 = QVector3D( vertexStep, y4-y0,  0);
+            t5 = QVector3D( vertexStep, y5-y0,  vertexStep);
+            t6 = QVector3D( 0,          y6-y0,  vertexStep);
+            t7 = QVector3D(-vertexStep, y7-y0,  vertexStep);
+            t8 = QVector3D(-vertexStep, y8-y0,  0);
 
             normal += QVector3D::crossProduct(t2,t1);
             normal += QVector3D::crossProduct(t3,t2);

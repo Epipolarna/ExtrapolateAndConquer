@@ -3,21 +3,20 @@
 in vec3 vertex;
 in vec3 normal;
 in vec2 texCoord;
-out vec3 exNormal; // Phong
-out vec3 exSurface; // Phong (specular)
-out vec2 exTexCoord;
 
 uniform mat4 mvpMatrix;
 uniform mat4 mMatrix;
 uniform mat4 vMatrix;
 uniform mat4 pMatrix;
 
+out vec3 exPosition;
+out vec3 exNormal;
+out vec2 exTexCoord;
+
 void main(void)
 {
-    exNormal = inverse(transpose(mat3(vMatrix * mMatrix))) * normal; // Phong, "fake" normal transformation
+	exPosition = vec3(mMatrix*vec4(vertex,1));
+	exNormal = mat3(mMatrix)*normal;
 	exTexCoord = texCoord;
-
-    exSurface = vec3(vMatrix * mMatrix * vec4(vertex, 1.0)); // Don't include projection here - we only want to go to view coordinates
-
-    gl_Position = mvpMatrix * vec4(vertex, 1.0); // This should include projection
+    gl_Position = mvpMatrix * vec4(vertex, 1.0);
 }

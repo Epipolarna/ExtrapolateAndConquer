@@ -1,50 +1,46 @@
 #version 150
 
-// Simplified Phong: No materials, only one, hard coded light source
-// (in view coordinates) and no ambient
-
-// Note: Simplified! In particular, the light source is given in view
-// coordinates, which means that it will follow the camera.
-// You usually give light sources in world coordinates.
-
-in vec3 exNormal; // Phong
-in vec3 exSurface; // Phong (specular)
+in vec3 exPosition;
+in vec3 exNormal;
 in vec2 exTexCoord;
-out vec4 outColor;
 
-uniform sampler2D tex;
+uniform sampler2D tex0;
+uniform float texScaling;
 
 uniform float ambientCoeff;
 uniform float diffuseCoeff;
 uniform float specularCoeff;
 uniform float specularExponent;
 
+uniform mat4 vMatrix;
+
+uniform vec4 color;
 uniform vec3 scale;
+
+out vec4 outColor;
 
 void main(void)
 {
-    vec3 lightColor = vec3(1, 1, 1);
+	
+	vec2 scaledTexCoord = exTexCoord*texScaling;
+	
+	vec4 texel0 = texture(tex0, scaledTexCoord);	// Main Texture
+	
+	// Phong
+	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
 
-    float ambientCoeff  = 0.2;
-    float diffuseCoeff  = 0.6;
-    float specularCoeff = 100;
-    float specularExponent = 50;
-
-    const vec3 light = normalize(vec3(1, 1, 1)); // Given in VIEW coordinates! You usually specify light sources in world coordinates.
-    float diffuse, specular, shade;
-
-    // Diffuse
-    diffuse = dot(normalize(exNormal), light);
-    diffuse = max(0.0, diffuse); // No negative light
-
-    // Specular
-    vec3 r = reflect(-light, normalize(exNormal));
-    vec3 v = normalize(-exSurface); // View direction
-    specular = dot(r, v);
-    if (specular > 0.0)
-            specular = 1.0 * pow(specular, specularExponent);
-    specular = max(specular, 0.0);
-
-    shade = ambientCoeff + diffuseCoeff*diffuse + specularCoeff*specular;
-	outColor = texture(tex, exTexCoord*scale.x);
+	vec3 lightPosition = vec3(-1000,500,-100);
+	vec3 normal = normalize(exNormal);
+	
+	vec3 lightDirection = normalize(lightPosition - exPosition);
+	
+	vec3 reflection = normalize(2 * normal * dot(lightDirection, normal) - lightDirection);
+    vec3 cameraDirection = normalize(cameraPosition - exPosition);
+	
+	float diffuseComponent = max(dot(normal, lightDirection), 0);
+	float specularComponent = pow(max(dot(reflection, cameraDirection), 0), specularExponent);
+	
+	float shading = ambientCoeff + diffuseCoeff*diffuseComponent + specularCoeff*specularComponent;
+	
+	outColor = vec4(texel0.rgb*shading, 1);
 }
