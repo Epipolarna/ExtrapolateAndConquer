@@ -139,6 +139,10 @@ void ExtrapolateAndConquer::initialize(void){
 
     renderer->water = ocean;
 
+
+    renderer->treeShader = resourceManager->getShader("instance");
+    renderer->treeModel = resourceManager->getModel("tree");
+
     printf("init done! \n");
 }
 
@@ -172,6 +176,10 @@ void ExtrapolateAndConquer::loadResources(void){
     //resourceManager->loadTexture("waterNormalMap1");
     resourceManager->loadModel("unitSquare");
     resourceManager->loadShader("oceanShader");
+
+    //load trees
+    resourceManager->loadModel("bush01");
+    resourceManager->loadShader("instance");
 }
 
 int ExtrapolateAndConquer::run(){

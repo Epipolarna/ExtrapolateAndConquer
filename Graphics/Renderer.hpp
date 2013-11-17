@@ -11,7 +11,7 @@
 #include "Object.hpp"
 #include "Camera.hpp"
 
-class Renderer
+class Renderer : public QOpenGLFunctions 
 {
 public:
     Renderer();
@@ -25,10 +25,13 @@ public:
 
     Object* skybox;
     Camera* camera;
-
     Object* water;
     Object* world;
+
+    Model* treeModel;
+    QOpenGLShaderProgram* treeShader;
 private:
+	std::vector<QVector3D> treePositions;
 };
 
 #endif // RENDERER_HPP

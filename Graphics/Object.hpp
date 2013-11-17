@@ -34,6 +34,9 @@ public:
 
     void uppdateTransform();
 
+    QVector3D getPosition(void);
+    Model* getModel(void);
+
 private:
 
     void initVariables(void);

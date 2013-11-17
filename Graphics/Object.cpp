@@ -47,6 +47,14 @@ void Object::setTexScaling(float s){
     this->texScaling = s;
 }
 
+
+QVector3D Object::getPosition(){
+    return position;
+}
+Model* Object::getModel(){
+    return model;
+}
+
 void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
 
     program->bind();
@@ -72,8 +80,6 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
 
     glActiveTexture(GL_TEXTURE0);
 
-
-    //glBindTexture(GL_TEXTURE_2D, textures[0]);
 
     if(model->VAO.isCreated()){
         model->VAO.bind();
