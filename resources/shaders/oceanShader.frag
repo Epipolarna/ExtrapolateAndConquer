@@ -48,4 +48,5 @@ void main(void){
 	float shading = ambientCoeff + diffuseCoeff*diffuseComponent + specularCoeff*specularComponent;
 	
 	outColor = vec4(color.rgb*shading, color.a);
+	outColor += vec4(1,1,1,1)*specularComponent;
 }

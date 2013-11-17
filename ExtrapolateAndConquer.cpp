@@ -58,7 +58,7 @@ void ExtrapolateAndConquer::initialize(void){
     sphereSphereCollisionSystem.initialize(entityManager);
     sphereTerrainCollisionSystem.initialize(entityManager);
 
-    int nBalls = 10;
+    int nBalls = 100;
     printf("initing %d balls \n ",nBalls);
     for(int i = 0; i < nBalls; i++){
         // Initialize entity
@@ -134,8 +134,8 @@ void ExtrapolateAndConquer::initialize(void){
     
     ocean->setShaderParameters(0.4f, 0.6f, 1.0f, 50);
     ocean->setColor(59,58,99,200);
-    ocean->setScale(100,1,100);
-    ocean->setTexScaling(100);
+    ocean->setScale(10000,1,10000);
+    ocean->setTexScaling(10000);
 
     renderer->water = ocean;
 
