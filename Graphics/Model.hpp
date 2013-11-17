@@ -52,6 +52,7 @@ private:
 
 	void dumpData(void);
 
+	//line counter used for parser error messages
 	int lineCounter;
 
 	//data read from file
