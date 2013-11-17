@@ -152,7 +152,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
 
     worldModel->modelFromData(vertices,normals,textures,indices);
 
-    generateTexture();
+    //generateTexture();
 
     return worldModel;
 }
@@ -274,5 +274,5 @@ void World::generateTexture(){
         }
     }
     //cv::flip(textureData,textureData,0);
-    uploadCVTexture();
+    //uploadCVTexture();
 }
