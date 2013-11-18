@@ -1,7 +1,7 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 
-#include <QOpenGLFunctions>
+#include <QOpenGLFunctions_3_2_Core>
 #include <QGLShaderProgram>
 #include <QGLFramebufferObject>
 #include <QOpenGLBuffer>
@@ -11,7 +11,7 @@
 #include "Object.hpp"
 #include "Camera.hpp"
 
-class Renderer : public QOpenGLFunctions 
+class Renderer : public QOpenGLFunctions_3_2_Core
 {
 public:
     Renderer();

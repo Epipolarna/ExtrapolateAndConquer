@@ -2,6 +2,7 @@
 
 Renderer::Renderer(void){
     camera = new Camera();
+    initializeOpenGLFunctions();
 }
 
 void Renderer::drawObject(Object* o){
