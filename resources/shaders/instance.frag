@@ -38,5 +38,6 @@ void main(void)
 	
 	float shading = ambientCoeff + diffuseCoeff*diffuseComponent + specularCoeff*specularComponent;
 	
-	outColor = vec4(texel0.rgb*shading, 1);
+
+	outColor = vec4(texel0.rgb*shading, texel0.a);
 }

@@ -80,15 +80,17 @@ void Renderer::repaint(){
         o->draw(camera->vMatrix,pMatrix);
     }
 
-    if(treeModel != NULL && treePositions.size() > 0){
-        drawObjects(treeModel,treeShader,treePositions,treeTexture);
-    }
-
     if(water != NULL){
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
         glEnable(GL_BLEND);
         water->draw(camera->vMatrix,pMatrix);
+        glDisable(GL_BLEND);
+    }
+
+    if(treeModel != NULL && treePositions.size() > 0){
+        glEnable(GL_BLEND);
+        drawObjects(treeModel,treeShader,treePositions,treeTexture);
         glDisable(GL_BLEND);
     }
 }
