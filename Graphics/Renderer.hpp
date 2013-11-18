@@ -11,7 +11,7 @@
 #include "Object.hpp"
 #include "Camera.hpp"
 
-class Renderer : public QOpenGLFunctions 
+class Renderer : public QOpenGLFunctions
 {
 public:
     Renderer();
