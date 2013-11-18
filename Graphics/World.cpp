@@ -40,7 +40,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
                 y += SimplexNoise1234::noise(x/octaves[i], z/octaves[i]) * yScales[i];
             }
 
-            vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
+            //vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
 
             textures.push_back(QVector2D((float)x/(xRange*vertexDensity),(float)z/(zRange*vertexDensity)));
 
@@ -48,7 +48,37 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
         }
     }
 
-    //cv::imshow("heightMap", heightMap);
+    // Manipulate height map
+
+    cv::Mat gaussKernelX = cv::getGaussianKernel(xRange*vertexDensity+1, (xRange*vertexDensity+1)/3, CV_32FC1);
+    float maxX = gaussKernelX.at<float>(floor((xRange*vertexDensity+1)/2));
+    gaussKernelX /= maxX;
+    cv::Mat gaussKernelZ = cv::getGaussianKernel(zRange*vertexDensity+1, (zRange*vertexDensity+1)/3, CV_32FC1);
+    float maxZ = gaussKernelZ.at<float>(floor((zRange*vertexDensity+1)/2));
+    gaussKernelZ /= maxZ;
+    cv::Mat gaussKernel = gaussKernelX * gaussKernelZ.t();
+
+    //cv::threshold(gaussKernel, gaussKernel, 0.5, 1, 0);
+    cv::imshow("gauss", gaussKernel);
+
+    heightMap = heightMap.mul(gaussKernel);
+
+
+    // Push height map to VBO
+    for (int x = 0; x <= xRange*vertexDensity; x++){
+        for (int z = 0; z <= zRange*vertexDensity; z++){
+
+            y = heightMap.at<float>(x,z);
+
+            y = 2*y*scaleFactor - scaleFactor;
+
+            vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
+        }
+    }
+
+
+
+    cv::imshow("heightMap", heightMap);
     //cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
     //cv::imshow("heightMapThresh", heightMapThresh);
 
