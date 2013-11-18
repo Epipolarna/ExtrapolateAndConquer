@@ -140,7 +140,7 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->water = ocean;
 
     renderer->treeShader = resourceManager->getShader("instance");
-    renderer->treeModel = resourceManager->getModel("teapot");
+    renderer->treeModel = resourceManager->getModel("bush");
 
     for(int i=-50; i < 50; ++i){
         renderer->treePositions.push_back(QVector3D(i,0,i));
@@ -182,6 +182,7 @@ void ExtrapolateAndConquer::loadResources(void){
     //load trees
     printf("loading tree data \n");
     resourceManager->loadShader("instance");
+    resourceManager->loadModel("bush");
 
     printf("all resources loaded! \n");
 }
