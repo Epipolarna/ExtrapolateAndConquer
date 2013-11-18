@@ -4,11 +4,11 @@
 #include <QApplication>
 #include <QWindow>
 #include <QOpenGLContext>
-#include <QOpenGLFunctions>
+#include <QOpenGLFunctions_3_2_Core>
 
 #include "Renderer.hpp"
 
-class OpenGLWindow : public QWindow, protected QOpenGLFunctions
+class OpenGLWindow : public QWindow, protected QOpenGLFunctions_3_2_Core
 {
     Q_OBJECT
 
