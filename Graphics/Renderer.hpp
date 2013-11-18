@@ -18,6 +18,7 @@ public:
 
     void repaint(void);
     void drawObject(Object* o);
+    void drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions);
 
     std::vector<Object*> renderList;
 
@@ -28,10 +29,11 @@ public:
     Object* water;
     Object* world;
 
+    //Trees
     Model* treeModel;
     QOpenGLShaderProgram* treeShader;
+    std::vector<QVector3D> treePositions;
 private:
-	std::vector<QVector3D> treePositions;
 };
 
 #endif // RENDERER_HPP

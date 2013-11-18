@@ -6,19 +6,18 @@ in vec2 texCoord;
 
 out vec3 exPosition;
 out vec3 exNormal;
-out vec3 exTexCoord;
+out vec2 exTexCoord;
 
-uniform mat4 mMatrix;
 uniform mat4 vMatrix;
 uniform mat4 pMatrix;
+uniform mat4 mMatrix[100];
 
 void main(void){
 
-	mat4 mpvMatrix = mMatrix * vMatrix * pMatrix;
-	
-	exPosition = position;
+	mat4 mpvMatrix =  pMatrix * vMatrix * mMatrix[gl_InstanceID];
+	exPosition = vec3(mMatrix[gl_InstanceID]*vec4(vertex,1));;
 	exNormal = normal;
 	exTexCoord = texCoord;
 
-    gl_Position = mvpMatrix * vec4(vertex, 1.0);
+    gl_Position = mpvMatrix * vec4(vertex, 1.0);
 }

@@ -139,11 +139,13 @@ void ExtrapolateAndConquer::initialize(void){
 
     renderer->water = ocean;
 
-
     renderer->treeShader = resourceManager->getShader("instance");
-    renderer->treeModel = resourceManager->getModel("tree");
+    renderer->treeModel = resourceManager->getModel("teapot");
 
-    printf("init done! \n");
+    for(int i=-50; i < 50; ++i){
+        renderer->treePositions.push_back(QVector3D(i,0,i));
+    }
+    printf("all inting done! \n");
 }
 
 void ExtrapolateAndConquer::loadResources(void){
@@ -178,8 +180,10 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadShader("oceanShader");
 
     //load trees
-    resourceManager->loadModel("bush01");
+    printf("loading tree data \n");
     resourceManager->loadShader("instance");
+
+    printf("all resources loaded! \n");
 }
 
 int ExtrapolateAndConquer::run(){
@@ -216,6 +220,6 @@ void ExtrapolateAndConquer::loopBody(){
 
     elapsedTime = fpsMeter->elapsed();
     fpsMeter->restart();
-    qDebug() << "FPS: " << 1000/elapsedTime;
+    //qDebug() << "FPS: " << 1000/elapsedTime;
     timer->start();
 }

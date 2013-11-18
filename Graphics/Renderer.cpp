@@ -2,7 +2,6 @@
 
 Renderer::Renderer(void){
     camera = new Camera();
-
 }
 
 void Renderer::drawObject(Object* o){
@@ -10,7 +9,7 @@ void Renderer::drawObject(Object* o){
     this->renderList.push_back(o);
 }
 
-void drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions){
+void Renderer::drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions){
     
     program->bind();
     model->VAO.bind();
@@ -23,10 +22,6 @@ void drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3
     model->TBO.bind();
     program->enableAttributeArray("texCoord");
     program->setAttributeBuffer("texCoord",GL_FLOAT,0,2);
-    //instance buffers...
-    GLuint bufferID;
-    glGenBuffers(1,&bufferID);
-    glBindBuffer(GL_UNIFORM_BUFFER,bufferID);
     
     std::vector<QMatrix4x4> mMatrices;
     //make position matrices...
@@ -36,8 +31,11 @@ void drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3
         m.translate(pos);
         mMatrices.push_back(m);
     }
-    glBufferData(GL_UNIFORM_BUFFER,positions.size()*16*sizeof(GLfloat),&mMatrices,GL_STATIC_DRAW);
-    glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,positions.size());
+
+    program->setUniformValueArray("mMatrix",&mMatrices[0],mMatrices.size());
+    program->setUniformValue("pMatrix",pMatrix);
+    program->setUniformValue("vMatrix",camera->vMatrix);
+    glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,mMatrices.size());
 
     model->VAO.release();
     program->release();
@@ -65,7 +63,7 @@ void Renderer::repaint(){
         o->draw(camera->vMatrix,pMatrix);
     }
 
-    if(treeModel != NULL){
+    if(treeModel != NULL && treePositions.size() > 0){
         drawObjects(treeModel,treeShader,treePositions);
     }
 
