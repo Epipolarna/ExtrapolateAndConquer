@@ -8,7 +8,7 @@
 #include "Graphics/World.hpp"
 
 // List all components
-#define Components Name,SimplePhysics,Graphics,SpherePhysics
+#define Components Name,SimplePhysics,Graphics,SpherePhysics,SimpleAI
 
 /*
  * Component prototype list
@@ -17,6 +17,7 @@ struct Name;
 struct SimplePhysics;
 struct SpherePhysics;
 struct Graphics;
+struct SimpleAI;
 
 
 /*
@@ -69,10 +70,11 @@ struct SpherePhysics : public Component<> {
 
 };
 
-struct SphereCollision : public Component<SpherePhysics> {
-    const std::string getName() override { return "SphereCollision"; }
+struct SimpleAI : public Component<SpherePhysics> {
+    const std::string getName() override { return "SimpleAI"; }
 
-    float SphereCollision;    // Should be recalculated by the collisionHandler each iteration
+
 };
+
 
 #endif

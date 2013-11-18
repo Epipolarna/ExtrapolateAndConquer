@@ -201,6 +201,8 @@ void ExtrapolateAndConquer::loopBody(){
     world->getHeight(camera->position.x(), camera->position.z());
     world->getNormal(camera->position.x(), camera->position.z());
 
+    spherePhysicsSystem.setTimeInterval(fpsMeter->elapsed()/1000.0);  // Set dt.
+
     SpherePhysics & sp = e->get<SpherePhysics>();
     sp.force += QVector3D(0.1,0,0.2);
 

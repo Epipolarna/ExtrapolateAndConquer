@@ -21,15 +21,9 @@ public:
     void processStep(Graphics & graphic) override {
         Entity<Components> & e = getEntity(graphic);
 
-        //SimplePhysics & physics = e.get<SimplePhysics>();
-        //graphic.object->setPosition(physics.position);
-
         SpherePhysics & physics = e.get<SpherePhysics>();
         graphic.object->setPosition(physics.position);
         graphic.object->setRotation(physics.rotation2);
-
-        //qDebug() << "Position:" << physics.position;
-        //qDebug() << "Rotation:" << physics.rotation2;
     }
 };
 
