@@ -5,11 +5,13 @@
 #include <QKeyEvent>
 #include <QCursor>
 
+#include <iostream>
 OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
     :QWindow(screen), context(context)
 {
     setSurfaceType(OpenGLSurface);
     setFormat(context->format());
+    std::cerr << "OpenGL version: "+std::to_string(context->format().majorVersion())+"."+std::to_string(context->format().minorVersion());
     create();
 
     context->makeCurrent(this);
