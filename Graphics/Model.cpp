@@ -237,7 +237,63 @@ void Model::upload(void){
 }
 
 
-void Model::loadModel(const QString filename){
+void Model::unitizeModel(){
+	//compute max/min on each dimension
+	float maxX,maxY,maxZ;
+	float minX,minY,minZ;
+
+	//sane initials..
+	maxX = minX = vertex[0].x();
+	maxY = minY = vertex[0].y();
+	maxZ = minZ = vertex[0].z();
+
+	for(QVector3D &v : vertex){
+		if(maxX < v.x()){
+			maxX = v.x();
+		}
+		if(maxY < v.y()){
+			maxY = v.y();
+		}
+		if(maxZ < v.z()){
+			maxZ = v.z();
+		}
+
+		if(minX > v.x()){
+			minX = v.x();
+		}
+		if(minY > v.y()){
+			minY = v.y();
+		}
+		if(minZ > v.z()){
+			minZ = v.z();
+		}
+	}
+
+	//dimensions
+	float w = std::abs(maxX) - std::abs(minX);
+	float h = std::abs(maxY) - std::abs(minY);
+	float d = std::abs(maxZ) - std::abs(minZ);
+
+	//get model center
+	float cx = w / 2.0;
+	float cy = h / 2.0;
+	float cz = d / 2.0;
+
+	//compute scaling factor..
+	float max = std::max(w, std::max(h,d));
+	float scale = 2.0 / max;
+
+	printf("untizing scale was %f, max was: %f \n",scale,max);
+	//translate and scale vertices
+	for(QVector3D &v : vertex){
+		v = QVector3D((v.x()-cx)*scale,
+					  (v.y()-cy)*scale,
+					  (v.z()-cz)*scale);
+
+	}
+}
+
+void Model::loadModel(const QString filename, const bool unitize){
 	
 	QFile file(filename);
 	lineCounter = 0;
@@ -250,6 +306,11 @@ void Model::loadModel(const QString filename){
 		QString line = QString(rawLine).toLower();
 
 		parseLine(line);
+	}
+
+	if(unitize){
+		printf("unitizing model \n");
+		unitizeModel();
 	}
 
 	upload();

@@ -2,6 +2,7 @@
 
 Renderer::Renderer(void){
     camera = new Camera();
+    initializeOpenGLFunctions();
 }
 
 void Renderer::drawObject(Object* o){
@@ -9,8 +10,14 @@ void Renderer::drawObject(Object* o){
     this->renderList.push_back(o);
 }
 
-void Renderer::drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions){
+void Renderer::drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions,GLuint tex){
     
+    float ambientCoeff  = 0.2;
+    float diffuseCoeff  = 0.6;
+    float specularCoeff = 100;
+    float specularExponent = 50;
+    float texScaling = 1.0;
+
     program->bind();
     model->VAO.bind();
     model->VBO.bind();
@@ -22,7 +29,17 @@ void Renderer::drawObjects(Model* model,QOpenGLShaderProgram* program,std::vecto
     model->TBO.bind();
     program->enableAttributeArray("texCoord");
     program->setAttributeBuffer("texCoord",GL_FLOAT,0,2);
+
+    program->setUniformValue("tex0", 0);
+    program->setUniformValue("texScaling", texScaling);
+    program->setUniformValue("ambientCoeff", ambientCoeff);
+    program->setUniformValue("diffuseCoeff", diffuseCoeff);
+    program->setUniformValue("specularCoeff", specularCoeff);
+    program->setUniformValue("specularExponent", specularExponent);
     
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D,tex);
+
     std::vector<QMatrix4x4> mMatrices;
     //make position matrices...
     for(QVector3D pos : positions){
@@ -64,7 +81,7 @@ void Renderer::repaint(){
     }
 
     if(treeModel != NULL && treePositions.size() > 0){
-        drawObjects(treeModel,treeShader,treePositions);
+        drawObjects(treeModel,treeShader,treePositions,treeTexture);
     }
 
     if(water != NULL){

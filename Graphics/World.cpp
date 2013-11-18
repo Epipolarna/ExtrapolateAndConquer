@@ -275,3 +275,25 @@ void World::generateTexture(){
     //cv::flip(textureData,textureData,0);
     //uploadCVTexture();
 }
+
+std::vector<QVector3D> World::placeTrees(void){
+    //hack to place trees on the world
+    //FIXME there is nothing right with this function
+    printf("placing trees! \n");
+    std::srand(std::time(0));
+    int count = 0;
+    std::vector<QVector3D> plants = std::vector<QVector3D>();
+    for(int i=0; i < heightMap.cols; ++i){
+        for(int j=0; j < heightMap.rows; ++j){
+            float h = getHeight(i,j);
+            if(h > 0){
+                int random = std::rand();
+                if(random % 10 == 0){
+                    plants.push_back(QVector3D(i,h,j));
+                }
+            }
+        }
+    }
+    printf("placed %d trees \n",plants.size());
+    return plants;
+}

@@ -31,9 +31,9 @@ QOpenGLShaderProgram* ResourceManager::getShader(QString name){
     }
 }
 
-bool ResourceManager::loadModel(QString modelName){
+bool ResourceManager::loadModel(QString modelName, bool unitize){
 	Model *ml = new Model();
-	ml->loadModel(modelPath+modelName+".obj");
+	ml->loadModel(modelPath+modelName+".obj",unitize);
 
     models[modelName] = ml;
     //TODO unhappy cases

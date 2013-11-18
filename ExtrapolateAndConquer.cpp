@@ -141,10 +141,9 @@ void ExtrapolateAndConquer::initialize(void){
 
     renderer->treeShader = resourceManager->getShader("instance");
     renderer->treeModel = resourceManager->getModel("bush");
-
-    for(int i=-50; i < 50; ++i){
-        renderer->treePositions.push_back(QVector3D(i,0,i));
-    }
+    renderer->treeTexture = resourceManager->getTexture("bush");
+    renderer->treePositions = world->placeTrees();
+    
     printf("all inting done! \n");
 }
 
@@ -182,7 +181,8 @@ void ExtrapolateAndConquer::loadResources(void){
     //load trees
     printf("loading tree data \n");
     resourceManager->loadShader("instance");
-    resourceManager->loadModel("bush");
+    resourceManager->loadModel("bush",true);
+    resourceManager->loadTexture("bush");
 
     printf("all resources loaded! \n");
 }

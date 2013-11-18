@@ -11,6 +11,9 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+#include <cstdlib>
+#include <ctime>
+
 #include "Object.hpp"
 #include "simplexnoise1234.h"
 
@@ -18,6 +21,7 @@ class World{
 	public:
         World();
         Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves);
+        std::vector<QVector3D> placeTrees(void);
 
         /*!
          * \brief getHeight at global position x and z.

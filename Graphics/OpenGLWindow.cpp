@@ -25,12 +25,13 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 
     connect(this, SIGNAL(widthChanged(int)), this, SLOT(resizeGl()));
     connect(this, SIGNAL(heightChanged(int)), this, SLOT(resizeGl()));
+
+    initializeOpenGLFunctions();
 }
 
 void OpenGLWindow::initialize()
 {
     context->makeCurrent(this);
-    initializeOpenGLFunctions();
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);

@@ -18,7 +18,7 @@ public:
 
     void repaint(void);
     void drawObject(Object* o);
-    void drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions);
+    void drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions, GLuint tex);
 
     std::vector<Object*> renderList;
 
@@ -33,6 +33,7 @@ public:
     Model* treeModel;
     QOpenGLShaderProgram* treeShader;
     std::vector<QVector3D> treePositions;
+    GLuint treeTexture;
 private:
 };
 

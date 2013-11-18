@@ -29,7 +29,7 @@ public:
 
 
     bool loadTexture(QString textureName,bool mipmap=false);
-    bool loadModel(QString modelName);
+    bool loadModel(QString modelName, bool unitize=false);
     bool loadShader(QString shaderName);
 
 private:
