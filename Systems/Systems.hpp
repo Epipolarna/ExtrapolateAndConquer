@@ -4,6 +4,7 @@
 #include "EntitySystem/EntitySystem.hpp"
 #include "Components/Components.hpp"
 
+#include "Systems_AI.hpp"
 
 class SimplePhysicsSystem : public System<SimplePhysics, Components>
 {
@@ -99,6 +100,9 @@ public:
                     QVector3D frictionForceB = -B.friction * B.mass * B.gravitationalConstant * actualVelocityB;	//gravitationalConstant = 9.82
                     B.torque += QVector3D::crossProduct(frictionForceB, -radialVector);
 
+                    // Add collision vector
+                    A.collisionVector += radialVector;
+                    B.collisionVector += -radialVector;
                 }
             }
         }
@@ -166,5 +170,6 @@ private:
         return basis * QVector3D::dotProduct(vector, basis);
     }
 };
+
 
 #endif
