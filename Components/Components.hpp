@@ -8,7 +8,7 @@
 #include "Graphics/World.hpp"
 
 // List all components
-#define Components Name,SimplePhysics,Graphics,SpherePhysics
+#define Components Name,SimplePhysics,Graphics,SpherePhysics,SimpleAI
 
 /*
  * Component prototype list
@@ -17,6 +17,7 @@ struct Name;
 struct SimplePhysics;
 struct SpherePhysics;
 struct Graphics;
+struct SimpleAI;
 
 
 /*
@@ -67,12 +68,22 @@ struct SpherePhysics : public Component<> {
 
     float radius;	// Size of sphere - the object currently must be a sphere.
 
+    QVector3D collisionVector;      // The sum of the vectors from all collisions
+
 };
 
-struct SphereCollision : public Component<SpherePhysics> {
-    const std::string getName() override { return "SphereCollision"; }
+struct SimpleAI : public Component<SpherePhysics> {
+    const std::string getName() override { return "SimpleAI"; }
 
-    float SphereCollision;    // Should be recalculated by the collisionHandler each iteration
+
+
+    // Motion and Path finding
+    bool hasLocationTarget;     // True if there is a location it is heading for.
+    bool hasFarMotionPlan;      // True if a sparse long-distance plan leading to the targeted location has been created.
+    bool hasNearMotionPlan;     // True if a dense short-distance plan (between nodes in the long-distance plan) has been created.
+
+
 };
+
 
 #endif
