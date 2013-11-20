@@ -1,5 +1,6 @@
 #include "World.hpp"
 #include <iostream>
+#include <QTime>
 
 World::World(){
 }
@@ -31,6 +32,11 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     // -------------- Generate Vertices and Texture Coordinates -------------
 
     // Generate height map and texture coordinates
+    QTime now = QTime::currentTime();
+    qsrand(now.msec());
+    float xRandomOffset = qrand() %256;
+    float zRandomOffset = qrand() %256;
+
     float y = 0;
     for (int x = 0; x <= xRange*vertexDensity; x++){
         for (int z = 0; z <= zRange*vertexDensity; z++){
@@ -40,7 +46,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
                 y = -scaleFactor;
             } else {
                 for(int i = 0; i < nOctaves; i++){
-                    y += SimplexNoise1234::noise(x/octaves[i], z/octaves[i]) * yScales[i];
+                    y += SimplexNoise1234::noise(x/octaves[i] + xRandomOffset, z/octaves[i] + zRandomOffset) * yScales[i];
                 }
             }
 
