@@ -36,8 +36,12 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
         for (int z = 0; z <= zRange*vertexDensity; z++){
 
             y = 0;
-            for(int i = 0; i < nOctaves; i++){
-                y += SimplexNoise1234::noise(x/octaves[i], z/octaves[i]) * yScales[i];
+            if( x == 0 || z == 0 || x == xRange*vertexDensity || z == zRange*vertexDensity){
+                y = -scaleFactor;
+            } else {
+                for(int i = 0; i < nOctaves; i++){
+                    y += SimplexNoise1234::noise(x/octaves[i], z/octaves[i]) * yScales[i];
+                }
             }
 
             //vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
@@ -58,10 +62,13 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     gaussKernelZ /= maxZ;
     cv::Mat gaussKernel = gaussKernelX * gaussKernelZ.t();
 
-    //cv::threshold(gaussKernel, gaussKernel, 0.5, 1, 0);
+    cv::threshold(gaussKernel, gaussKernel, 0.5, 1, 2);
+    gaussKernel *= 2;
     cv::imshow("gauss", gaussKernel);
 
+    cv::imshow("HeightMap Unmanipulated", heightMap);
     heightMap = heightMap.mul(gaussKernel);
+    cv::imshow("HeightMap manipulated", heightMap);
 
 
     // Push height map to VBO
@@ -75,12 +82,6 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
             vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
         }
     }
-
-
-
-    cv::imshow("heightMap", heightMap);
-    //cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
-    //cv::imshow("heightMapThresh", heightMapThresh);
 
     // -------------- Generate Faces ----------------------------
 
