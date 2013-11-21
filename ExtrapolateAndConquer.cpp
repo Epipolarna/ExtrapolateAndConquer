@@ -91,10 +91,10 @@ void ExtrapolateAndConquer::initialize(void){
 
     // 1.8715 or 2.1042
     float lacunarity = 1/1.87;
-    float gain = 0.6;
+    float gain = 0.66;
 
     //for each pixel, get the value
-    float period = 100;
+    float period = 400;
     float amplitude = 20;
     for (int i = 0; i < 16; i++)
     {
@@ -110,7 +110,7 @@ void ExtrapolateAndConquer::initialize(void){
     Object* worldObject;
 
     int nOctaves = sizeof(octaves)/sizeof(float);
-    worldModel = world->generateWorld(100,100,0.25f,octaves,scales,nOctaves);
+    worldModel = world->generateWorld(300,300,0.5f,octaves,scales,nOctaves);
     hightMapOfChunk = world->heightMap;
 
     sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*world->scaleFactor-world->scaleFactor));
@@ -141,11 +141,10 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->water = ocean;
 
     renderer->treeShader = resourceManager->getShader("instance");
-    renderer->treeModel = resourceManager->getModel("teapot");
-
-    for(int i=-50; i < 50; ++i){
-        renderer->treePositions.push_back(QVector3D(i,0,i));
-    }
+    renderer->treeModel = resourceManager->getModel("bush");
+    renderer->treeTexture = resourceManager->getTexture("bush");
+    renderer->treePositions = world->placeTrees();
+    
     printf("all inting done! \n");
 }
 
@@ -183,6 +182,8 @@ void ExtrapolateAndConquer::loadResources(void){
     //load trees
     printf("loading tree data \n");
     resourceManager->loadShader("instance");
+    resourceManager->loadModel("bush",true);
+    resourceManager->loadTexture("bush");
 
     printf("all resources loaded! \n");
 }

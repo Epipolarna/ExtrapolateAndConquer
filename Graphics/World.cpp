@@ -1,5 +1,6 @@
 #include "World.hpp"
 #include <iostream>
+#include <QTime>
 
 World::World(){
 }
@@ -31,16 +32,25 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     // -------------- Generate Vertices and Texture Coordinates -------------
 
     // Generate height map and texture coordinates
+    QTime now = QTime::currentTime();
+    qsrand(now.msec());
+    float xRandomOffset = qrand() %256;
+    float zRandomOffset = qrand() %256;
+
     float y = 0;
     for (int x = 0; x <= xRange*vertexDensity; x++){
         for (int z = 0; z <= zRange*vertexDensity; z++){
 
             y = 0;
-            for(int i = 0; i < nOctaves; i++){
-                y += SimplexNoise1234::noise(x/octaves[i], z/octaves[i]) * yScales[i];
+            if( x == 0 || z == 0 || x == xRange*vertexDensity || z == zRange*vertexDensity){
+                y = -scaleFactor;
+            } else {
+                for(int i = 0; i < nOctaves; i++){
+                    y += SimplexNoise1234::noise(x/octaves[i] + xRandomOffset, z/octaves[i] + zRandomOffset) * yScales[i];
+                }
             }
 
-            vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
+            //vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
 
             textures.push_back(QVector2D((float)x/(xRange*vertexDensity),(float)z/(zRange*vertexDensity)));
 
@@ -48,9 +58,35 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
         }
     }
 
-    //cv::imshow("heightMap", heightMap);
-    //cv::threshold(heightMap, heightMapThresh, 0.5, 1, 1);
-    //cv::imshow("heightMapThresh", heightMapThresh);
+    // Manipulate height map
+
+    cv::Mat gaussKernelX = cv::getGaussianKernel(xRange*vertexDensity+1, (xRange*vertexDensity+1)/3, CV_32FC1);
+    float maxX = gaussKernelX.at<float>(floor((xRange*vertexDensity+1)/2));
+    gaussKernelX /= maxX;
+    cv::Mat gaussKernelZ = cv::getGaussianKernel(zRange*vertexDensity+1, (zRange*vertexDensity+1)/3, CV_32FC1);
+    float maxZ = gaussKernelZ.at<float>(floor((zRange*vertexDensity+1)/2));
+    gaussKernelZ /= maxZ;
+    cv::Mat gaussKernel = gaussKernelX * gaussKernelZ.t();
+
+    cv::threshold(gaussKernel, gaussKernel, 0.5, 1, 2);
+    gaussKernel *= 2;
+    //cv::imshow("gauss", gaussKernel);
+
+    //cv::imshow("HeightMap Unmanipulated", heightMap);
+    heightMap = heightMap.mul(gaussKernel);
+    //cv::imshow("HeightMap manipulated", heightMap);
+
+    // Push height map to VBO
+    for (int x = 0; x <= xRange*vertexDensity; x++){
+        for (int z = 0; z <= zRange*vertexDensity; z++){
+
+            y = heightMap.at<float>(x,z);
+
+            y = 2*y*scaleFactor - scaleFactor;
+
+            vertices.push_back(QVector3D((float)x/vertexDensity, y, (float)z/vertexDensity));
+        }
+    }
 
     // -------------- Generate Faces ----------------------------
 
@@ -274,4 +310,26 @@ void World::generateTexture(){
     }
     //cv::flip(textureData,textureData,0);
     //uploadCVTexture();
+}
+
+std::vector<QVector3D> World::placeTrees(void){
+    //hack to place trees on the world
+    //FIXME there is nothing right with this function
+    printf("placing trees! \n");
+    std::srand(std::time(0));
+    int count = 0;
+    std::vector<QVector3D> plants = std::vector<QVector3D>();
+    for(int i=0; i < heightMap.cols; ++i){
+        for(int j=0; j < heightMap.rows; ++j){
+            float h = getHeight(i,j);
+            if(h > 0){
+                int random = std::rand();
+                if(random % 10 == 0){
+                    plants.push_back(QVector3D(i,h,j));
+                }
+            }
+        }
+    }
+    printf("placed %d trees \n",plants.size());
+    return plants;
 }
