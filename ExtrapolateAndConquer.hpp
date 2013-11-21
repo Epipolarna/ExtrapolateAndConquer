@@ -44,6 +44,7 @@ public:
     SpherePhysicsSystem spherePhysicsSystem;
     SphereSphereCollisionSystem sphereSphereCollisionSystem;
     SphereTerrainCollisionSystem sphereTerrainCollisionSystem;
+    AISystem aiSystem;
 
     QApplication* application;
     QOpenGLContext* context;

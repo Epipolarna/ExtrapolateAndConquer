@@ -8,7 +8,7 @@
 #include "Graphics/World.hpp"
 
 // List all components
-#define Components Name,SimplePhysics,Graphics,SpherePhysics,SimpleAI
+#define Components Name,SimplePhysics,Graphics,SpherePhysics,AI
 
 /*
  * Component prototype list
@@ -17,7 +17,7 @@ struct Name;
 struct SimplePhysics;
 struct SpherePhysics;
 struct Graphics;
-struct SimpleAI;
+struct AI;
 
 
 /*
@@ -72,18 +72,21 @@ struct SpherePhysics : public Component<> {
 
 };
 
-struct SimpleAI : public Component<SpherePhysics> {
-    const std::string getName() override { return "SimpleAI"; }
+#include "aux_AI.hpp"
+struct AI : public Component<SpherePhysics> {
+    const std::string getName() override { return "AI"; }
 
-
+    // Surrounding awareness
+    float viewRange;
+    ObjectsInSight objectsInSight;
 
     // Motion and Path finding
     bool hasLocationTarget;     // True if there is a location it is heading for.
     bool hasFarMotionPlan;      // True if a sparse long-distance plan leading to the targeted location has been created.
-    bool hasNearMotionPlan;     // True if a dense short-distance plan (between nodes in the long-distance plan) has been created.
-
+    QPoint locationTarget;
 
 };
+
 
 
 #endif

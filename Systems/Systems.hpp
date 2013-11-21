@@ -173,4 +173,6 @@ private:
     }
 };
 
+#include "AISystem.hpp"
+
 #endif

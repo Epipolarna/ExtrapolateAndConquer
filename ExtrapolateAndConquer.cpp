@@ -57,6 +57,7 @@ void ExtrapolateAndConquer::initialize(void){
     spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
     sphereSphereCollisionSystem.initialize(entityManager);
     sphereTerrainCollisionSystem.initialize(entityManager);
+    aiSystem.initialize(entityManager);
 
     int nBalls = 100;
     printf("initing %d balls \n ",nBalls);
@@ -216,6 +217,9 @@ void ExtrapolateAndConquer::loopBody(){
 
     // Run physics to graphics transfer of position/rotation
     graphicsUpdateSystem.batch();
+
+    // Run AI
+    aiSystem.batch();
 
     //make sure to update the gl widget...
     //graphicsWindow->centralWidget()->update();
