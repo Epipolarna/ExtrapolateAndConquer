@@ -70,12 +70,11 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
 
     cv::threshold(gaussKernel, gaussKernel, 0.5, 1, 2);
     gaussKernel *= 2;
-    cv::imshow("gauss", gaussKernel);
+    //cv::imshow("gauss", gaussKernel);
 
-    cv::imshow("HeightMap Unmanipulated", heightMap);
+    //cv::imshow("HeightMap Unmanipulated", heightMap);
     heightMap = heightMap.mul(gaussKernel);
-    cv::imshow("HeightMap manipulated", heightMap);
-
+    //cv::imshow("HeightMap manipulated", heightMap);
 
     // Push height map to VBO
     for (int x = 0; x <= xRange*vertexDensity; x++){

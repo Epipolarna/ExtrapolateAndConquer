@@ -20,6 +20,9 @@ public:
     void drawObject(Object* o);
     void drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions, GLuint tex);
 
+    void initFBO();
+    void useFBO(QGLFramebufferObject* FBO);
+
     std::vector<Object*> renderList;
 
     QMatrix4x4 pMatrix;
@@ -32,6 +35,7 @@ public:
     //Trees
     Model* treeModel;
     QOpenGLShaderProgram* treeShader;
+    QGLFramebufferObject *FBO1, *FBO2, *FBO3;
     std::vector<QVector3D> treePositions;
     GLuint treeTexture;
 private:
