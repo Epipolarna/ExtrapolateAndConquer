@@ -83,7 +83,7 @@ struct AI : public Component<SpherePhysics> {
     // Motion and Path finding
     bool hasLocationTarget;     // True if there is a location it is heading for.
     bool hasFarMotionPlan;      // True if a sparse long-distance plan leading to the targeted location has been created.
-    QPoint locationTarget;
+    QVector2D locationTarget;
 
 };
 

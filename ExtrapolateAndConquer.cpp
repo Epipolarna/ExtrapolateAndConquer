@@ -51,13 +51,7 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->skybox = skybox;
 
 
-    // Initialize systems
-    graphicsUpdateSystem.initialize(entityManager);
-    spherePhysicsSystem.initialize(entityManager);
-    spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
-    sphereSphereCollisionSystem.initialize(entityManager);
-    sphereTerrainCollisionSystem.initialize(entityManager);
-    aiSystem.initialize(entityManager);
+
 
     int nBalls = 100;
     printf("initing %d balls \n ",nBalls);
@@ -68,7 +62,7 @@ void ExtrapolateAndConquer::initialize(void){
         // Add Sphere physics
         e->add<SpherePhysics>();
         SpherePhysics & sp = e->get<SpherePhysics>();
-        sp.position = QVector3D(qrand()%100,30,qrand()%100);
+        sp.position = QVector3D(qrand()%100+100,30,qrand()%100+100);
         sp.rotation2 = QQuaternion(1,0,0,0);
         sp.mass = 100.0;
         sp.elasticity = 0.3;
@@ -144,8 +138,29 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->treeModel = resourceManager->getModel("bush");
     renderer->treeTexture = resourceManager->getTexture("bush");
     renderer->treePositions = world->placeTrees();
+
+    // Global influence map
+    int resolution = 4;
+    cv::Mat influenceMap = cv::Mat::zeros(world->sizeX*resolution, world->sizeZ*resolution, CV_8U);
+
+    for(SpherePhysics & physics : entityManager.getComponents<SpherePhysics>()) {
+        cv::circle(influenceMap, cv::Point2i(physics.position.x()*resolution, physics.position.z()*resolution), physics.radius, cv::Scalar(255), -1);
+    }
+    cv::dilate(influenceMap, influenceMap, cv::Mat::ones(3,3,CV_8U), cv::Point2i(-1,-1), 3);
+    cv::GaussianBlur(influenceMap, influenceMap, cv::Size(9,9), 3);
+
+    cv::imshow("Influence map", influenceMap);
+
+    // Initialize systems
+    graphicsUpdateSystem.initialize(entityManager);
+    spherePhysicsSystem.initialize(entityManager);
+    spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
+    sphereSphereCollisionSystem.initialize(entityManager);
+    sphereTerrainCollisionSystem.initialize(entityManager);
+    aiSystem.initialize(entityManager);
+    aiSystem.setInfluenceMap(influenceMap);
     
-    printf("all inting done! \n");
+    printf("all initialization done! \n");
 }
 
 void ExtrapolateAndConquer::loadResources(void){
