@@ -134,9 +134,10 @@ void EntityManager<Components...>::addComponent(Entity<Components...> & entity) 
     }
 
     // If additional Components are required, add these aswell (recursively)
-    meta::FOR_EACH< typename Component::REQUIRED_COMPONENTS,
-                    ADD_COMPONENT, std::tuple<Component, Components...>,
-                    std::tuple<Entity<Components...>&>
+    meta::FOR_EACH< typename Component::REQUIRED_COMPONENTS,    // List to iterate over
+                    ADD_COMPONENT,                              // Template to apply on each item
+                    std::tuple<Component, Components...>,       // Additional template parameters to above template
+                    std::tuple<Entity<Components...>&>          // Argument types to the above templatet's function "execute"
                   >::execute(entity);
 }
 
@@ -161,9 +162,10 @@ void EntityManager<Components...>::removeComponent(Entity<Components...> & entit
     entity.template assign<Component>(-1);
 
     // If any other Component require this component, remove it aswell.
-    meta::FOR_EACH< std::tuple<Components...>,          // List of Components
-                    REMOVE_IF_REQUIRES, std::tuple<Component, Components...>,
-                    std::tuple<Entity<Components...>&>  // Argument types to execute (below)
+    meta::FOR_EACH< std::tuple<Components...>,              // List to iterate over
+                    REMOVE_IF_REQUIRES,                     // Template to apply on each item
+                    std::tuple<Component, Components...>,   // Additional template parameters to above template
+                    std::tuple<Entity<Components...>&>      // Argument types to the templet's function "execute"
                   >::execute(entity);
 }
 
