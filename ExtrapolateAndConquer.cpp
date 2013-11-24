@@ -47,7 +47,7 @@ void ExtrapolateAndConquer::initialize(void){
     //renderer->renderList.push_back(o1);
 
     //the skybox needs to be specially added to the renderer
-    Object* skybox = new Object(resourceManager->getModel("skybox"),resourceManager->getShader("skyboxShader"),resourceManager->getTexture("skybox0"));
+    Object* skybox = new Object(resourceManager->getModel("skybox"),resourceManager->getShader("skyboxShader"),resourceManager->getTexture("skybox1"));
     renderer->skybox = skybox;
 
 
@@ -149,7 +149,7 @@ void ExtrapolateAndConquer::initialize(void){
     cv::dilate(influenceMap, influenceMap, cv::Mat::ones(3,3,CV_8U), cv::Point2i(-1,-1), 3);
     cv::GaussianBlur(influenceMap, influenceMap, cv::Size(9,9), 3);
 
-    cv::imshow("Influence map", influenceMap);
+    //cv::imshow("Influence map", influenceMap);
 
     // Initialize systems
     graphicsUpdateSystem.initialize(entityManager);
@@ -178,7 +178,7 @@ void ExtrapolateAndConquer::loadResources(void){
     //skybox data
     printf("loading skybox data \n");
     resourceManager->loadModel("skybox");
-    resourceManager->loadTexture("skybox0");
+    resourceManager->loadTexture("skybox1");
     resourceManager->loadShader("skyboxShader");
 
     //ground data

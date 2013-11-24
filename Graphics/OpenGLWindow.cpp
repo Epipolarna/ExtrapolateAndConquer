@@ -41,6 +41,9 @@ void OpenGLWindow::initialize()
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0.0f, 0.0f, 1.0f, 0);
 
+    glEnable(GL_FOG);
+
+
     int errorCode = glGetError();
     if(errorCode != 0){
         printf("error after initing gl is: %x \n",errorCode);
