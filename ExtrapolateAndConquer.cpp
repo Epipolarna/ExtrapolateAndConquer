@@ -50,7 +50,8 @@ void ExtrapolateAndConquer::initialize(void){
     Object* skybox = new Object(resourceManager->getModel("skybox"),resourceManager->getShader("skyboxShader"),resourceManager->getTexture("skybox1"));
     renderer->skybox = skybox;
 
-
+    // FBO setup
+    renderer->fboSquare = new Object(resourceManager->getModel("fboSquare"),resourceManager->getShader("fbo"),renderer->FBO1->texture());
 
 
     int nBalls = 100;
@@ -164,6 +165,11 @@ void ExtrapolateAndConquer::initialize(void){
 }
 
 void ExtrapolateAndConquer::loadResources(void){
+
+    //FBO Square. Used to draw the scene on when it has been drawn to a FBO
+    printf("loading teapot data \n");
+    resourceManager->loadShader("fbo");
+    resourceManager->loadModel("fboSquare");
 
     //test data
     printf("loading teapot data \n");

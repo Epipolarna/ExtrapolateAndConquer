@@ -20,6 +20,8 @@ public:
     void drawObject(Object* o);
     void drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions, GLuint tex);
 
+    void setSize(int width, int height);
+
     void initFBO();
     void useFBO(QGLFramebufferObject* FBO);
 
@@ -31,6 +33,9 @@ public:
     Camera* camera;
     Object* water;
     Object* world;
+    Object* fboSquare;
+
+    int width, height;
 
     //Trees
     Model* treeModel;

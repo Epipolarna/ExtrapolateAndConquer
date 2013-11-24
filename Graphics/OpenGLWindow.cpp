@@ -19,6 +19,7 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
     resize(1280,800);
 
     renderer = new Renderer();
+    renderer->setSize(width(), height());
     camera = renderer->camera;
     camera->setPosition(QVector3D(0,10,0));
     camera->setLookAtDirection(QVector3D(1,0,1));
@@ -41,9 +42,6 @@ void OpenGLWindow::initialize()
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0.0f, 0.0f, 1.0f, 0);
 
-    glEnable(GL_FOG);
-
-
     int errorCode = glGetError();
     if(errorCode != 0){
         printf("error after initing gl is: %x \n",errorCode);
@@ -64,8 +62,10 @@ void OpenGLWindow::resizeGl()
 {
     context->makeCurrent(this);
 
+    renderer->setSize(width(), height());
     renderer->pMatrix.setToIdentity();
     renderer->pMatrix.perspective(60.0, (float) width() / (float) height(), 0.1, 1000);
+
 
     glViewport(0, 0, width(), height());
 }

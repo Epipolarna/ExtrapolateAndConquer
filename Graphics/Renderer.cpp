@@ -2,7 +2,10 @@
 
 Renderer::Renderer(void){
     camera = new Camera();
+    width = 1280;
+    height = 800;
     initializeOpenGLFunctions();
+    initFBO();
 }
 
 void Renderer::drawObject(Object* o){
@@ -58,61 +61,42 @@ void Renderer::drawObjects(Model* model,QOpenGLShaderProgram* program,std::vecto
     program->release();
 }
 
+void Renderer::setSize(int width, int height)
+{
+    this->width = width;
+    this->height = height;
+}
+
 void Renderer::initFBO()
 {
-    /*
     if (!QGLFramebufferObject::hasOpenGLFramebufferObjects()) {
             qWarning("This system has no framebuffer object support");
     }
     // QGLFramebufferObject::Depth enables the depth buffer for the FBO
+    QGLFramebufferObjectFormat fboFormat;
     fboFormat.setInternalTextureFormat(GL_RGBA16F);
     fboFormat.setAttachment(QGLFramebufferObject::Depth);
     fboFormat.setSamples(0);
 
-    FBO1 = new QGLFramebufferObject(width(), height(), fboFormat);
-    FBO2 = new QGLFramebufferObject(width(), height(), fboFormat);
-    FBO3 = new QGLFramebufferObject(width(), height(), fboFormat);
-    */
+    //FBO1 = new QGLFramebufferObject(width, height, fboFormat);
+    FBO1 = new QGLFramebufferObject(width, height, QGLFramebufferObject::Depth);
+    FBO2 = new QGLFramebufferObject(width, height, fboFormat);
+    FBO3 = new QGLFramebufferObject(width, height, fboFormat);
 }
 
 void Renderer::useFBO(QGLFramebufferObject *FBO)
 {
-    /*
     FBO->bind();
     // Since the GL_TEXTURE? cannot be found in QGLFBO it has to
     // expressed relative GL_TEXTURE0
     glActiveTexture(GL_TEXTURE0 + FBO->texture());
     glBindTexture(GL_TEXTURE_2D, FBO->texture());
-    */
 }
 
 void Renderer::repaint(){
 
-    // -------------- FBO ----------------------------
-    /*
     // Draw scene to the FBO1
     useFBO(FBO1);
-    //glViewport(???); might be needed to support resize
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    player->setPosition(1,0,-3);
-    object->draw(player, pMatrix);
-    //QImage im1 = FBO1->toImage();
-    //im1.save("im1.png");
-
-    useFBO(FBO2);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    square->program = threshShader;
-    square->draw(player, pMatrix, FBO1->texture());
-    //QImage im2 = FBO2->toImage();
-    //im2.save("im2.png");
-
-    // Draw the FBO to a square and display
-    QGLFramebufferObject::bindDefault();    // Set the "normal" screen as render target
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    square->program = texShader;
-    square->draw(player, pMatrix, FBO2->texture());
-    */
-    // -----------------------------------------------
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -149,4 +133,16 @@ void Renderer::repaint(){
         glDisable(GL_BLEND);
     }
     */
+
+    //QImage im1 = FBO1->toImage();
+    //im1.save("im1.png");
+
+    // Render the FBO to the default buffer
+
+    QGLFramebufferObject::bindDefault();    // Set the "normal" screen as render target
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    fboSquare->draw(camera->vMatrix,pMatrix);
 }
