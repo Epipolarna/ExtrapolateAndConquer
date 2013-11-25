@@ -3,6 +3,7 @@
 #include <QTime>
 
 World::World(){
+    lightPosition = QVector3D(-1000,500,-100);
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
@@ -10,7 +11,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     vertexDensity = _vertexDensity;
     sizeX = xRange;
     sizeZ = zRange;
-    lightPosition = QVector3D(0,100,0);
+    //lightPosition = QVector3D(-1000,500,-100);
 
     heightMap = cv::Mat(xRange*vertexDensity+1, zRange*vertexDensity+1, CV_32FC1);
     normalMap = cv::Mat(xRange*vertexDensity+1, zRange*vertexDensity+1, CV_32FC3);

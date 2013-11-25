@@ -23,11 +23,14 @@ public:
     void setSize(int width, int height);
 
     void initFBO();
-    void useFBO(QGLFramebufferObject* FBO);
+    void useFBO();
+
+    QOpenGLShaderProgram *depthProgram;
 
     std::vector<Object*> renderList;
 
     QMatrix4x4 pMatrix;
+    QVector3D lightPosition;
 
     Object* skybox;
     Camera* camera;
@@ -40,8 +43,7 @@ public:
     //Trees
     Model* treeModel;
     QOpenGLShaderProgram* treeShader;
-    QGLFramebufferObject *FBO1, *FBO2, *FBO3;
-    GLuint fboID, fboColor, fboDepth;
+    GLuint fboID, fboColorTex, fboDepth, fboDepthTex;
     std::vector<QVector3D> treePositions;
     GLuint treeTexture;
 private:

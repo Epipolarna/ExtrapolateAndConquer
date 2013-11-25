@@ -4,6 +4,7 @@ in vec3 exPosition;
 in vec3 exNormal;
 in vec2 exTexCoord;
 
+uniform vec3 lightPosition;
 uniform sampler2D tex0;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
@@ -34,7 +35,6 @@ float phongShading()
 {
 	// This function is a bit modifyed to support normalMap
 	// and to set the global specularComponent used to blend water alpha
-	vec3 lightPosition = vec3(-1000,500,-100);
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
 	
 	vec3 normal = normalFromNormalMap(tex2); // Get normal from normalMap

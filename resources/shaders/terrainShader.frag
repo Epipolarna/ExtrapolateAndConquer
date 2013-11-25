@@ -4,10 +4,12 @@ in vec3 exPosition;
 in vec3 exNormal;
 in vec2 exTexCoord;
 
+uniform vec3 lightPosition;
 uniform sampler2D tex0;
 uniform sampler2D tex1;
 uniform sampler2D tex2;
-uniform float texScaling;	
+uniform float texScaling;
+	
 
 uniform float ambientCoeff;
 uniform float diffuseCoeff;
@@ -23,7 +25,6 @@ out vec4 outColor;
 
 float phongShading()
 {
-	vec3 lightPosition = vec3(-1000,500,-100);
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
 	
 	vec3 normal = normalize(exNormal);

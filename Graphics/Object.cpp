@@ -55,9 +55,10 @@ Model* Object::getModel(){
     return model;
 }
 
-void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
+void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3D lightPosition){
 
     program->bind();
+    program->setUniformValue("lightPosition", lightPosition);
     program->setUniformValue("mvpMatrix", pMatrix*vMatrix*mMatrix);
     program->setUniformValue("mMatrix", mMatrix);
     program->setUniformValue("vMatrix", vMatrix);
@@ -112,6 +113,40 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix){
         program->setAttributeBuffer("texCoord",GL_FLOAT,0,2);
     }else{
         printf("TBO is not created!! \n");
+        exit(0);
+    }
+
+    glDrawElements(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L);
+
+    model->VAO.release();
+    program->release();
+}
+
+void Object::drawDepth(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3D lightPosition)
+{
+    program->bind();
+    program->setUniformValue("mvpMatrix", pMatrix*vMatrix*mMatrix);
+    program->setUniformValue("mMatrix", mMatrix);
+    program->setUniformValue("vMatrix", vMatrix);
+    program->setUniformValue("pMatrix", pMatrix);
+    program->setUniformValue("scale", scale);
+
+    glActiveTexture(GL_TEXTURE0);
+
+
+    if(model->VAO.isCreated()){
+        model->VAO.bind();
+    }else{
+        printf("VAO is not created!! \n");
+        exit(0);
+    }
+
+    if(model->VBO.isCreated()){
+        model->VBO.bind();
+        program->enableAttributeArray("vertex");
+        program->setAttributeBuffer("vertex",GL_FLOAT,0,3);
+    }else{
+        printf("VBO is not created!! \n");
         exit(0);
     }
 

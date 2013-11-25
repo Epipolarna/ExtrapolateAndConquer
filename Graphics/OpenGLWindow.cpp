@@ -68,7 +68,6 @@ void OpenGLWindow::resizeGl()
     renderer->pMatrix.setToIdentity();
     renderer->pMatrix.perspective(60.0, (float) width() / (float) height(), 0.1, 1000);
 
-
     glViewport(0, 0, width(), height());
 }
 
