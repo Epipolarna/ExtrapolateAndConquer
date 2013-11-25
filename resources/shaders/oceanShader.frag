@@ -16,6 +16,8 @@ uniform float specularCoeff;
 uniform float specularExponent;
 float specularComponent;
 
+uniform float incr;	// [0 1]
+
 uniform mat4 vMatrix;
 
 uniform vec4 color;
@@ -26,6 +28,8 @@ out vec4 outColor;
 vec3 normalFromNormalMap(sampler2D normalMap)
 {
 	vec2 scaledTexCoord = exTexCoord*texScaling;
+	scaledTexCoord[1] += incr;
+	
 	vec4 texel2 = texture(tex2, scaledTexCoord); 	// Normalmap
 	vec3 normal = normalize(texel2.rbg *2-1);
 	return normal;
@@ -68,6 +72,13 @@ void main(void){
 	float shading = phongShading();
 	
 	outColor = vec4(color.rgb*shading, color.a);
+	outColor += vec4(1,1,1,1)*specularComponent;
+	
+	// ad hoc heaven mirror. Should be improved a lot.
+	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
+	float cameraDistance = abs(cameraPosition - exPosition);
+	vec2 scaledTexCoord = (exTexCoord+vec2(-cameraPosition.x, cameraPosition.z)/2000);
+	outColor = vec4(texture(tex1, scaledTexCoord).rgb*shading, color.a);
 	outColor += vec4(1,1,1,1)*specularComponent;
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
