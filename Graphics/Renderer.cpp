@@ -155,7 +155,6 @@ void Renderer::repaint(){
         glDisable(GL_CULL_FACE);
         glEnable(GL_BLEND);
         water->program->bind();
-        water->program->setUniformValue("wave", wave);
         water->program->setUniformValue("incr", incr);
         water->draw(camera->vMatrix,pMatrix,lightPosition);
         glDisable(GL_BLEND);
