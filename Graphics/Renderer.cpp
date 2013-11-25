@@ -144,10 +144,19 @@ void Renderer::repaint(){
         o->draw(camera->vMatrix,pMatrix,lightPosition);
     }
 
+    // Used to move the waves
+    static float incr = 0;
+    incr += 0.0005;
+    incr = incr > 1 ? incr-1 : incr;
+
+
     if(water != NULL){
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
         glEnable(GL_BLEND);
+        water->program->bind();
+        water->program->setUniformValue("wave", wave);
+        water->program->setUniformValue("incr", incr);
         water->draw(camera->vMatrix,pMatrix,lightPosition);
         glDisable(GL_BLEND);
     }

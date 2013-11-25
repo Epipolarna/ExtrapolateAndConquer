@@ -79,7 +79,7 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3
         glBindTexture(GL_TEXTURE_2D,textures[i]);
     }
 
-    glActiveTexture(GL_TEXTURE0);
+    //glActiveTexture(GL_TEXTURE0);
 
 
     if(model->VAO.isCreated()){
