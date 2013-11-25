@@ -41,6 +41,7 @@ public:
     Model* treeModel;
     QOpenGLShaderProgram* treeShader;
     QGLFramebufferObject *FBO1, *FBO2, *FBO3;
+    GLuint fboID, fboColor, fboDepth;
     std::vector<QVector3D> treePositions;
     GLuint treeTexture;
 private:

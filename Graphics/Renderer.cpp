@@ -82,15 +82,46 @@ void Renderer::initFBO()
     FBO1 = new QGLFramebufferObject(width, height, QGLFramebufferObject::Depth);
     FBO2 = new QGLFramebufferObject(width, height, fboFormat);
     FBO3 = new QGLFramebufferObject(width, height, fboFormat);
+
+    // ------- Classic OpenGL ---------------------------
+
+    glGenFramebuffers(1, &fboID);
+    glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+
+    // ColorBuffer
+    glGenTextures(1, &fboColor);
+    glBindTexture(GL_TEXTURE_2D, fboColor);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fboColor, 0);
+
+    // DepthBuffer
+    glGenTextures(1, &fboDepth);
+    glBindTexture(GL_TEXTURE_2D, fboDepth);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0L);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, fboDepth, 0);
+
+    // Set current buffer to default
+    QGLFramebufferObject::bindDefault();
 }
 
 void Renderer::useFBO(QGLFramebufferObject *FBO)
 {
-    FBO->bind();
+    //FBO->bind();
     // Since the GL_TEXTURE? cannot be found in QGLFBO it has to
     // expressed relative GL_TEXTURE0
-    glActiveTexture(GL_TEXTURE0 + FBO->texture());
-    glBindTexture(GL_TEXTURE_2D, FBO->texture());
+    //glActiveTexture(GL_TEXTURE0 + FBO->texture());
+    //glBindTexture(GL_TEXTURE_2D, FBO->texture());
+
+    glBindFramebuffer(GL_FRAMEBUFFER, fboID);
 }
 
 void Renderer::repaint(){

@@ -37,6 +37,8 @@ void OpenGLWindow::initialize()
     context->makeCurrent(this);
 
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
+    glShadeModel(GL_SMOOTH);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

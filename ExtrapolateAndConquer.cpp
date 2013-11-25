@@ -51,7 +51,7 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->skybox = skybox;
 
     // FBO setup
-    renderer->fboSquare = new Object(resourceManager->getModel("fboSquare"),resourceManager->getShader("fbo"),renderer->FBO1->texture());
+    renderer->fboSquare = new Object(resourceManager->getModel("fboSquare"),resourceManager->getShader("fbo"),renderer->fboColor);
 
 
     int nBalls = 100;
@@ -130,8 +130,8 @@ void ExtrapolateAndConquer::initialize(void){
     
     ocean->setShaderParameters(0.4f, 0.6f, 1.0f, 50);
     ocean->setColor(59,58,99,200);
-    ocean->setScale(10000,1,10000);
-    ocean->setTexScaling(10000);
+    ocean->setScale(2000,1,2000);
+    ocean->setTexScaling(2000);
 
     renderer->water = ocean;
 
