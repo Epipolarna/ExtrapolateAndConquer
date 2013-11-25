@@ -144,6 +144,7 @@ void Renderer::repaint(){
         o->draw(camera->vMatrix,pMatrix,lightPosition);
     }
 
+    // Debug & testing
     static float wave = 0;
     static float incr = 0;
 

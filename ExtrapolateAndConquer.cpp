@@ -125,7 +125,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     QVector<GLuint> ot = QVector<GLuint>();
     ot.push_back(resourceManager->getTexture("water"));
-    ot.push_back(0);
+    ot.push_back(resourceManager->getTexture("skyboxWaterReflection"));
     ot.push_back(resourceManager->getTexture("waterNormalMap2"));
 
     Object* ocean = new Object(resourceManager->getModel("unitSquare"), resourceManager->getShader("oceanShader"),ot);
@@ -202,6 +202,10 @@ void ExtrapolateAndConquer::loadResources(void){
     //resourceManager->loadTexture("waterNormalMap1");
     resourceManager->loadModel("unitSquare");
     resourceManager->loadShader("oceanShader");
+
+    resourceManager->loadTexture("skyTop", true);
+    resourceManager->loadTexture("skyboxWaterReflection", true);
+
 
     //load trees
     printf("loading tree data \n");

@@ -75,7 +75,13 @@ void main(void){
 	outColor = vec4(color.rgb*shading, color.a);
 	outColor += vec4(1,1,1,1)*specularComponent;
 	
+	// ad hoc heaven mirror. Should be improved a lot.
+	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
+	float cameraDistance = abs(cameraPosition - exPosition);
+	vec2 scaledTexCoord = (exTexCoord+vec2(-cameraPosition.x, cameraPosition.z)/2000);
+	outColor = vec4(texture(tex1, scaledTexCoord).rgb*shading, color.a);
+	outColor += vec4(1,1,1,1)*specularComponent;
+	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
 	outColor = mix(fogColor, outColor, fogBlending());
-	//outColor = vec4(sin(wave), 0, 0, 1);
 }
