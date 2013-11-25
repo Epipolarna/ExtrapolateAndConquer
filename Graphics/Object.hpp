@@ -14,8 +14,8 @@ public:
     Object(Model* model, QOpenGLShaderProgram* program, QVector<GLuint> textures);
 
     void setShaderParameters(float ambientCoeff,float diffuseCoeff,float specularCoeff,float specularExponent);
-    void draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3D lightPosition);
-    void drawDepth(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3D lightPosition);
+    void draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3D lightPosition, QMatrix4x4 lightSourceVMatrix);
+    void customDraw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QOpenGLShaderProgram* program);
 
     QOpenGLShaderProgram* program, *depthProgram;
 

@@ -11,6 +11,11 @@
 #include "Object.hpp"
 #include "Camera.hpp"
 
+struct FBO
+{
+    GLuint id, colorTex, depthTex;
+};
+
 class Renderer : public QOpenGLFunctions_3_2_Core
 {
 public:
@@ -22,14 +27,14 @@ public:
 
     void setSize(int width, int height);
 
-    void initFBO();
-    void useFBO();
+    void initFBO(FBO *fbo);
+    void useFBO(FBO *fbo);
 
     QOpenGLShaderProgram *depthProgram;
 
     std::vector<Object*> renderList;
 
-    QMatrix4x4 pMatrix;
+    QMatrix4x4 pMatrix, lightSourceVMatrix;
     QVector3D lightPosition;
 
     Object* skybox;
@@ -43,6 +48,7 @@ public:
     //Trees
     Model* treeModel;
     QOpenGLShaderProgram* treeShader;
+    FBO *fbo1, *fbo2, *fbo3;
     GLuint fboID, fboColorTex, fboDepth, fboDepthTex;
     std::vector<QVector3D> treePositions;
     GLuint treeTexture;

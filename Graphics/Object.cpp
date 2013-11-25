@@ -1,6 +1,6 @@
 #include "Object.hpp"
 
-const int Object::textureSlots[] = {GL_TEXTURE0, GL_TEXTURE1, GL_TEXTURE2};
+const int Object::textureSlots[] = {GL_TEXTURE0, GL_TEXTURE1, GL_TEXTURE2, GL_TEXTURE3};
 
 #include <iostream>
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){
@@ -55,7 +55,7 @@ Model* Object::getModel(){
     return model;
 }
 
-void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3D lightPosition){
+void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3D lightPosition, QMatrix4x4 lightSourceVMatrix){
 
     program->bind();
     program->setUniformValue("lightPosition", lightPosition);
@@ -63,9 +63,11 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3
     program->setUniformValue("mMatrix", mMatrix);
     program->setUniformValue("vMatrix", vMatrix);
     program->setUniformValue("pMatrix", pMatrix);
-    program->setUniformValue("tex0", 0);
-    program->setUniformValue("tex1", 1);
-    program->setUniformValue("tex2", 2);
+    program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
+    program->setUniformValue("tex0", 0);        // Main tex
+    program->setUniformValue("tex1", 1);        // Blend tex
+    program->setUniformValue("tex2", 2);        // Normal map
+    program->setUniformValue("tex3", 3);        // Shadow map
     program->setUniformValue("texScaling", texScaling);
     program->setUniformValue("scale", scale);
     program->setUniformValue("color", color);
@@ -78,6 +80,8 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3
         glActiveTexture(textureSlots[i]);
         glBindTexture(GL_TEXTURE_2D,textures[i]);
     }
+
+
 
     glActiveTexture(GL_TEXTURE0);
 
@@ -122,7 +126,7 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3
     program->release();
 }
 
-void Object::drawDepth(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3D lightPosition)
+void Object::customDraw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QOpenGLShaderProgram *program)
 {
     program->bind();
     program->setUniformValue("mvpMatrix", pMatrix*vMatrix*mMatrix);

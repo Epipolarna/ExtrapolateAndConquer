@@ -5,4 +5,5 @@ add_library(Graphics
             Object.cpp
             Model.cpp
             simplexnoise1234.cpp
-            World.cpp )
+            World.cpp
+            )

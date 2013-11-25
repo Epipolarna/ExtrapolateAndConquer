@@ -5,7 +5,12 @@ Renderer::Renderer(void){
     width = 1280;
     height = 800;
     initializeOpenGLFunctions();
-    initFBO();
+    fbo1 = new FBO;
+    fbo2 = new FBO;
+    fbo3 = new FBO;
+    initFBO(fbo1);
+    initFBO(fbo2);
+    initFBO(fbo3);
 }
 
 void Renderer::drawObject(Object* o){
@@ -67,7 +72,7 @@ void Renderer::setSize(int width, int height)
     this->height = height;
 }
 
-void Renderer::initFBO()
+void Renderer::initFBO(FBO* fbo)
 {
     if (!QGLFramebufferObject::hasOpenGLFramebufferObjects()) {
             qWarning("This system has no framebuffer object support");
@@ -75,80 +80,95 @@ void Renderer::initFBO()
 
     // ------- Classic OpenGL ---------------------------
 
-    glGenFramebuffers(1, &fboID);
-    glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+    glGenFramebuffers(1, &fbo->id);
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo->id);
 
     // ColorBuffer
-    glGenTextures(1, &fboColorTex);
-    glBindTexture(GL_TEXTURE_2D, fboColorTex);
+    glGenTextures(1, &fbo->colorTex);
+    glBindTexture(GL_TEXTURE_2D, fbo->colorTex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fboColorTex, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fbo->colorTex, 0);
 
     // DepthBuffer
-    glGenTextures(1, &fboDepthTex);
-    glBindTexture(GL_TEXTURE_2D, fboDepthTex);
+    glGenTextures(1, &fbo->depthTex);
+    glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, fboDepthTex, 0);
-
-    //glGenRenderbuffers(1, &fboDepth);
-    //glBindRenderbuffer(GL_RENDERBUFFER, fboDepth);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, fbo->depthTex, 0);
 
     // Set current buffer to default
     QGLFramebufferObject::bindDefault();
 }
 
-void Renderer::useFBO()
+void Renderer::useFBO(FBO* fbo)
 {
-    //FBO->bind();
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo->id);
     // Since the GL_TEXTURE? cannot be found in QGLFBO it has to
     // expressed relative GL_TEXTURE0
-    //glActiveTexture(GL_TEXTURE0 + FBO->texture());
-    //glBindTexture(GL_TEXTURE_2D, FBO->texture());
-
-    glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+    glActiveTexture(GL_TEXTURE0 + fbo->colorTex);
+    glBindTexture(GL_TEXTURE_2D, fbo->colorTex);
+    glActiveTexture(GL_TEXTURE0 + fbo->depthTex);
+    glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
 }
 
 void Renderer::repaint(){
 
-    // Draw scene to the FBO1
-    useFBO();
+    // Draw the scene from the lightsource to shadowMap FBO
+    //glBindFramebuffer(GL_FRAMEBUFFER, fbo1->id);
+    useFBO(fbo1);
 
-    qDebug() << lightPosition;
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    if(world != NULL){
+        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
+        world->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
+    }
+
+    for(Object * o : renderList){
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE);
+        o->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
+    }
+
+    //camera->vMatrix = lightSourceVMatrix;
+
+    // Draw everything again to the default FBO
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if(skybox != NULL){
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
-        skybox->draw(camera->skyboxMatrix(),pMatrix,lightPosition);
+        skybox->draw(camera->skyboxMatrix(),pMatrix,lightPosition,lightSourceVMatrix);
     }
 
     if(world != NULL){
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
-        world->draw(camera->vMatrix,pMatrix,lightPosition);
+        world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     }
 
     for(Object * o : renderList){
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
-        o->draw(camera->vMatrix,pMatrix,lightPosition);
+        o->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     }
 
     if(water != NULL){
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
         glEnable(GL_BLEND);
-        water->draw(camera->vMatrix,pMatrix,lightPosition);
+        water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
     }
 
@@ -164,11 +184,15 @@ void Renderer::repaint(){
     //im1.save("im1.png");
 
     // Render the FBO to the default buffer
-
+/*
     QGLFramebufferObject::bindDefault();    // Set the "normal" screen as render target
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    fboSquare->draw(camera->vMatrix,pMatrix,lightPosition);
+    fboSquare->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
+    */
 }
+
+
+

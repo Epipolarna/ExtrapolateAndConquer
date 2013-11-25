@@ -51,7 +51,7 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->skybox = skybox;
 
     // FBO setup
-    renderer->fboSquare = new Object(resourceManager->getModel("fboSquare"),resourceManager->getShader("fbo"),renderer->fboColorTex);
+    renderer->fboSquare = new Object(resourceManager->getModel("fboSquare"),resourceManager->getShader("fbo"),renderer->fbo1->colorTex);
     renderer->depthProgram = resourceManager->getShader("depth");
 
 
@@ -104,6 +104,10 @@ void ExtrapolateAndConquer::initialize(void){
     Model* worldModel;
     world = new World();
     renderer->lightPosition = world->lightPosition;
+    QMatrix4x4 mat;
+    mat.setToIdentity();
+    mat.lookAt(renderer->lightPosition, QVector3D(150,-100,150), QVector3D(0,1,0));
+    renderer->lightSourceVMatrix = mat;
     Object* worldObject;
 
     int nOctaves = sizeof(octaves)/sizeof(float);
@@ -115,6 +119,9 @@ void ExtrapolateAndConquer::initialize(void){
 
     QVector<GLuint> worldTextures = QVector<GLuint>();
     worldTextures.push_back(resourceManager->getTexture("grass1"));
+    worldTextures.push_back(0);
+    worldTextures.push_back(0);
+    worldTextures.push_back(renderer->fbo1->depthTex);
 
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);

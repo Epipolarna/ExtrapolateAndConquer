@@ -3,9 +3,11 @@
 in vec3 exPosition;
 in vec3 exNormal;
 in vec2 exTexCoord;
+in vec4 lightSpaceVertex;
 
 uniform vec3 lightPosition;
 uniform sampler2D tex0;
+uniform sampler2D tex3;
 uniform float texScaling;
 
 uniform float ambientCoeff;
@@ -50,12 +52,21 @@ float fogBlending()
     return blendingFactor;
 }  
 
+float shadowTest(vec2 texcoods) {
+	float shadow = texture(tex3, texcoods).r;
+	float epsilon = 0.000001;
+	if (shadow + epsilon < lightSpaceVertex.z) {
+		return 0.5; // shadowed
+	}
+	return 1.0; // not shadowed
+}
+
 void main(void)
 {
 	vec2 scaledTexCoord = exTexCoord*texScaling;
 	vec4 texel0 = texture(tex0, scaledTexCoord);
 	
-	outColor = texel0*phongShading();
+	outColor = phongShading()*shadowTest(lightSpaceVertex.xy)*texel0;
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
 	outColor = mix(fogColor, outColor, fogBlending());
