@@ -16,7 +16,6 @@ uniform float specularCoeff;
 uniform float specularExponent;
 float specularComponent;
 
-uniform float wave;	// [0 3.1415]
 uniform float incr;	// [0 1]
 
 uniform mat4 vMatrix;

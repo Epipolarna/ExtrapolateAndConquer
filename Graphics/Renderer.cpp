@@ -144,13 +144,8 @@ void Renderer::repaint(){
         o->draw(camera->vMatrix,pMatrix,lightPosition);
     }
 
-    // Debug & testing
-    static float wave = 0;
+    // Used to move the waves
     static float incr = 0;
-
-    wave += 0.01;
-    wave = wave > 2*3.1415 ? wave-2*3.1415 : wave;
-
     incr += 0.0005;
     incr = incr > 1 ? incr-1 : incr;
 
