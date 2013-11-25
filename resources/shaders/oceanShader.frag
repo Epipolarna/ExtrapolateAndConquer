@@ -76,7 +76,7 @@ void main(void){
 	
 	// ad hoc heaven mirror. Should be improved a lot.
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
-	float cameraDistance = abs(cameraPosition - exPosition);
+	float cameraDistance = length(cameraPosition - exPosition);
 	vec2 scaledTexCoord = (exTexCoord+vec2(-cameraPosition.x, cameraPosition.z)/2000);
 	outColor = vec4(texture(tex1, scaledTexCoord).rgb*shading, color.a);
 	outColor += vec4(1,1,1,1)*specularComponent;

@@ -176,7 +176,7 @@ void Renderer::repaint(){
         glEnable(GL_BLEND);
         water->program->bind();
         water->program->setUniformValue("incr", incr);
-        water->draw(camera->vMatrix,pMatrix,lightPosition);
+        water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
     }
 
