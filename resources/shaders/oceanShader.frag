@@ -16,6 +16,9 @@ uniform float specularCoeff;
 uniform float specularExponent;
 float specularComponent;
 
+uniform float wave;	// [0 3.1415]
+uniform float incr;	// [0 1]
+
 uniform mat4 vMatrix;
 
 uniform vec4 color;
@@ -26,6 +29,8 @@ out vec4 outColor;
 vec3 normalFromNormalMap(sampler2D normalMap)
 {
 	vec2 scaledTexCoord = exTexCoord*texScaling;
+	scaledTexCoord[1] += incr;
+	
 	vec4 texel2 = texture(tex2, scaledTexCoord); 	// Normalmap
 	vec3 normal = normalize(texel2.rbg *2-1);
 	return normal;
@@ -72,4 +77,5 @@ void main(void){
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
 	outColor = mix(fogColor, outColor, fogBlending());
+	//outColor = vec4(sin(wave), 0, 0, 1);
 }
