@@ -3,7 +3,7 @@
 #include <QTime>
 
 World::World(){
-    lightPosition = QVector3D(-100,50,-10);
+    lightPosition = QVector3D(-100,100,-10);
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){

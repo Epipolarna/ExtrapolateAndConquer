@@ -21,8 +21,8 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
     renderer = new Renderer();
     renderer->setSize(width(), height());
     camera = renderer->camera;
-    camera->setPosition(QVector3D(0,10,0));
-    camera->setLookAtDirection(QVector3D(1,0,1));
+    camera->setPosition(QVector3D(50,20,0));
+    camera->setLookAtDirection(QVector3D(0,0,1));
 
     trackMouse = false;
 

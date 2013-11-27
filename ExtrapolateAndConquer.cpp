@@ -64,7 +64,7 @@ void ExtrapolateAndConquer::initialize(void){
         // Add Sphere physics
         e->add<SpherePhysics>();
         SpherePhysics & sp = e->get<SpherePhysics>();
-        sp.position = QVector3D(qrand()%100+100,30,qrand()%100+100);
+        sp.position = QVector3D(qrand()%100+100,5,qrand()%100+100);
         sp.rotation2 = QQuaternion(1,0,0,0);
         sp.mass = 100.0;
         sp.elasticity = 0.3;
@@ -77,6 +77,7 @@ void ExtrapolateAndConquer::initialize(void){
         e->add<Graphics>();
         e->get<Graphics>().object = new Object(resourceManager->getModel("unitSphere10"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
         e->get<Graphics>().object->setScale(sp.radius);
+        e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
 
         renderer->drawObject(e->get<Graphics>().object);
     }
