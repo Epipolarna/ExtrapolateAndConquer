@@ -52,7 +52,11 @@ public:
     GLuint fboID, fboColorTex, fboDepth, fboDepthTex;
     std::vector<QVector3D> treePositions;
     GLuint treeTexture;
+
+    
 private:
+    void drawStaticObjects(void);
+
 };
 
 #endif // RENDERER_HPP

@@ -50,8 +50,8 @@ bool Model::readVertex(const QStringList data){
 			j = j + 1;
 		}
 	}
-
-    if(j == 3){
+	
+	if(j == 3){
 		vertices.push_back(QVector3D(f[0],f[1],f[2]));
 		return true;
 	}else{
@@ -130,7 +130,7 @@ void Model::makeVertex(const QStringList data){
     if(j == 2){
         printf("CASE NOT IMPLEMENTED! \n");
         exit(0);
-        //only normal and vertex
+        //only texture and vertex
         /*
         QVector3D v = vertices[dex[0]];
         QVector2D n = normals[dex[1]];
@@ -151,7 +151,7 @@ void Model::makeVertex(const QStringList data){
             texture.push_back(t);
             index.push_back(vertex.size()-1);
         }
-    }else{
+	}else{
         printf("Invalid index specification!\n");
         exit(0);
     }

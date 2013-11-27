@@ -4,6 +4,7 @@
 #include "Camera.hpp"
 #include "Model.hpp"
 
+#include <iostream>
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 

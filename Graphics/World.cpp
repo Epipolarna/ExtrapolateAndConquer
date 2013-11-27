@@ -257,80 +257,39 @@ QVector3D World::getNormal(float x, float z)
     return normal;
 }
 
+std::vector<QVector3D> World::placeTrees(){
+    std::vector<QVector3D> trees;
+    cv::Mat treeMap = cv::Mat(sizeX*vertexDensity,sizeZ*vertexDensity,CV_32FC1);
+    cv::RNG generator = cv::RNG();
+    generator.state = 100;
 
-//TODO construct texture data in non-flipped way...
-void World::uploadCVTexture(void){
-    glGenTextures(1,&textureRef);
-    glBindTexture(GL_TEXTURE_2D, textureRef);
+    //generate a map of sensible heights and sensible inclinations...
+    for(int x=0; x < sizeX*vertexDensity; ++x){
+        for(int z=0; z < sizeZ*vertexDensity; ++z){
+            float h = getHeight(x,z);
+            QVector3D n = getNormal(x,z);
+            float treeFactor = 0.005;
+            
+            float a = QVector3D::dotProduct(n,QVector3D(0,1,0));
+            treeFactor = treeFactor * a;
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // Set texture clamping method
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-    
-    glTexImage2D(GL_TEXTURE_2D,       
-                 0,                   
-                 GL_RGBA,              
-                 textureData.cols,    
-                 textureData.rows,    
-                 0,                   
-                 GL_BGRA,              
-                 GL_UNSIGNED_BYTE,    
-                 textureData.ptr());  
-    
-    //glGenerateMipmap(GL_TEXTURE_2D);
-}
-
-void World::generateTexture(){
-    
-    textureData = cv::Mat((int)heightMap.rows*vertexDensity,(int)heightMap.cols*vertexDensity,CV_8UC4);
-
-    for(int i=0; i < heightMap.rows;++i){
-        for(int j=0; j < heightMap.cols;++j){
-            float h = getHeight(i,j);
-            if(h < 0){
-                textureData.at<cv::Vec4b>(i,j)[0] = 255;
-                textureData.at<cv::Vec4b>(i,j)[1] = 0;
-                textureData.at<cv::Vec4b>(i,j)[2] = 0;
-                textureData.at<cv::Vec4b>(i,j)[3] = 255;
-            }else if(h < 100){
-                textureData.at<cv::Vec4b>(i,j)[0] = 0;
-                textureData.at<cv::Vec4b>(i,j)[1] = 255;
-                textureData.at<cv::Vec4b>(i,j)[2] = 0;
-                textureData.at<cv::Vec4b>(i,j)[3] = 255;
+            //if the randomly gaussian number is smaller than the tree factor place a tree here..
+            float randomNumber = generator.gaussian(0.5) + 0.5;
+            if(randomNumber < treeFactor && h > 0){
+                trees.push_back(QVector3D(x,h,z));
+                treeMap.at<float>(x,z) = 1.0;
             }else{
-                textureData.at<cv::Vec4b>(i,j)[0] = 0;
-                textureData.at<cv::Vec4b>(i,j)[1] = 255;
-                textureData.at<cv::Vec4b>(i,j)[2] = 255;
-                textureData.at<cv::Vec4b>(i,j)[3] = 255;
+                treeMap.at<float>(x,z) = 0.0;
             }
-        }
-    }
-    //cv::flip(textureData,textureData,0);
-    //uploadCVTexture();
-}
 
-std::vector<QVector3D> World::placeTrees(void){
-    //hack to place trees on the world
-    //FIXME there is nothing right with this function
-    printf("placing trees! \n");
-    std::srand(std::time(0));
-    int count = 0;
-    std::vector<QVector3D> plants = std::vector<QVector3D>();
-    for(int i=0; i < heightMap.cols; ++i){
-        for(int j=0; j < heightMap.rows; ++j){
-            float h = getHeight(i,j);
-            if(h > 0){
-                int random = std::rand();
-                if(random % 10 == 0){
-                    plants.push_back(QVector3D(i,h,j));
-                }
-            }
         }
     }
-    printf("placed %d trees \n",plants.size());
-    return plants;
+
+    cv::namedWindow("w1n");
+    cv::imshow("w1n",treeMap);
+    cv::namedWindow("w2n");
+    cv::imshow("w2n",heightMap);
+    cv::waitKey(0);
+
+    return trees;
 }

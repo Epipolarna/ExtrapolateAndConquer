@@ -201,6 +201,3 @@ void Renderer::repaint(){
     fboSquare->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     */
 }
-
-
-

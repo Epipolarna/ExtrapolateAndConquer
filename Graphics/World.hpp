@@ -16,6 +16,7 @@
 
 #include "Object.hpp"
 #include "simplexnoise1234.h"
+#include "StaticObject.hpp"
 
 class World{
 	public:

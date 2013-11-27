@@ -145,9 +145,8 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->water = ocean;
 
     renderer->treeShader = resourceManager->getShader("instance");
-    renderer->treeModel = resourceManager->getModel("bush");
-    renderer->treeTexture = resourceManager->getTexture("bush");
-    renderer->treePositions = world->placeTrees();
+    renderer->treeModel = resourceManager->getModel("teapot");
+    renderer->treeTexture = resourceManager->getTexture("treestump");
 
     // Global influence map
     int resolution = 4;
@@ -158,6 +157,9 @@ void ExtrapolateAndConquer::initialize(void){
     }
     cv::dilate(influenceMap, influenceMap, cv::Mat::ones(3,3,CV_8U), cv::Point2i(-1,-1), 3);
     cv::GaussianBlur(influenceMap, influenceMap, cv::Size(9,9), 3);
+
+
+    world->placeTrees();
 
     //cv::imshow("Influence map", influenceMap);
 
@@ -213,12 +215,7 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadTexture("skyTop", true);
     resourceManager->loadTexture("skyboxWaterReflection", true);
 
-
-    //load trees
-    printf("loading tree data \n");
     resourceManager->loadShader("instance");
-    resourceManager->loadModel("bush",true);
-    resourceManager->loadTexture("bush");
 
     printf("all resources loaded! \n");
 }
