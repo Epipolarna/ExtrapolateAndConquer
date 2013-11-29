@@ -147,11 +147,9 @@ void Renderer::repaint(){
         o->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
     }
 
-    /*
     if(water != NULL){
         water->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
     }
-    */
 
     // Draw everything again to the default FBO
     useFBO(0); // Default
