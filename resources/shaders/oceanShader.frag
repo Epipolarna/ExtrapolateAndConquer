@@ -74,7 +74,7 @@ float shadowTest(vec2 texcoods) {
 	float shadow = texture(tex3, texcoods).r;
 	float epsilon = 0.000001;
 	if (shadow + epsilon < lightSpaceVertex.z) {
-		return 0.5; // shadowed
+		return 0.0; // shadowed
 	}
 	return 1.0; // not shadowed
 }
@@ -82,36 +82,20 @@ float shadowTest(vec2 texcoods) {
 void main(void){
 
 	vec4 texel3 = texture(tex3, exTexCoord);
-	float shadow = texel3.r;
 	
 	float shading = phongShading();
-	
-	//outColor = vec4(color.rgb*shading, color.a);
-	//outColor += vec4(1,1,1,1)*specularComponent;
+	float shadow = shadowTest(lightSpaceVertex.xy);
 	
 	// ad hoc heaven mirror. Should be improved a lot.
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
 	float cameraDistance = length(cameraPosition - exPosition);
 	vec2 scaledTexCoord = (exTexCoord+vec2(-cameraPosition.x, cameraPosition.z)/2000);
-	outColor = vec4(texture(tex1, scaledTexCoord).rgb*shading, color.a);
-	outColor += vec4(1,1,1,1)*(specularCoeff*specularComponent + diffuseCoeff*diffuseComponent);
+	//outColor = vec4(texture(tex1, scaledTexCoord).rgb*shading, color.a);
+	outColor = vec4(texture(tex1, scaledTexCoord).rgb, color.a);
+	outColor += vec4(1)*(specularCoeff*specularComponent + diffuseCoeff*diffuseComponent)*shadow;
 	
-	outColor *= shadowTest(lightSpaceVertex.xy);
+	
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
 	outColor = mix(fogColor, outColor, fogBlending());
-	
-	/*
-	float zBuffer = texel3.x;
-    zBuffer = 2.0 * zBuffer - 1.0;
-	float zNear = 0.1; 
-	float zFar = 1000.0;
-    float zNormalized = 2.0 * zNear * zFar / (zFar + zNear - zBuffer * (zFar - zNear));
-	zNormalized = zNormalized/zFar;
-	*/
-	
-	//outColor = vec4(1);
-	//outColor *= shadowTest(lightSpaceVertex.xy);
-	//outColor = vec4(vec3(1)*shadowTest(lightSpaceVertex.xy), 1);
-	//outColor = vec4(vec3(zNormalized), 1);
 }
