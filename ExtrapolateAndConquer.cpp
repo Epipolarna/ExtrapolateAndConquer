@@ -64,7 +64,7 @@ void ExtrapolateAndConquer::initialize(void){
         // Add Sphere physics
         e->add<SpherePhysics>();
         SpherePhysics & sp = e->get<SpherePhysics>();
-        sp.position = QVector3D(qrand()%100+100,30,qrand()%100+100);
+        sp.position = QVector3D(qrand()%100+100,5,qrand()%100+100);
         sp.rotation2 = QQuaternion(1,0,0,0);
         sp.mass = 100.0;
         sp.elasticity = 0.3;
@@ -77,6 +77,7 @@ void ExtrapolateAndConquer::initialize(void){
         e->add<Graphics>();
         e->get<Graphics>().object = new Object(resourceManager->getModel("unitSphere10"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
         e->get<Graphics>().object->setScale(sp.radius);
+        e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
 
         renderer->drawObject(e->get<Graphics>().object);
     }
@@ -126,6 +127,7 @@ void ExtrapolateAndConquer::initialize(void){
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
+    //worldObject->setScale(2,0,2);
     worldObject->setTexScaling(1000);
 
     renderer->world = worldObject;
@@ -134,12 +136,13 @@ void ExtrapolateAndConquer::initialize(void){
     ot.push_back(resourceManager->getTexture("water"));
     ot.push_back(resourceManager->getTexture("skyboxWaterReflection"));
     ot.push_back(resourceManager->getTexture("waterNormalMap2"));
+    ot.push_back(renderer->fbo1->depthTex);
 
-    Object* ocean = new Object(resourceManager->getModel("unitSquare"), resourceManager->getShader("oceanShader"),ot);
+    Object* ocean = new Object(resourceManager->getModel("hiResSquare"), resourceManager->getShader("oceanShader"),ot);
     
-    ocean->setShaderParameters(0.4f, 0.6f, 1.0f, 50);
+    ocean->setShaderParameters(0.4f, 0.4f, 1.0f, 50);
     ocean->setColor(59,58,99,200);
-    ocean->setScale(2000,1,2000);
+    //ocean->setScale(500,1,500);
     ocean->setTexScaling(2000);
 
     renderer->water = ocean;
@@ -209,7 +212,8 @@ void ExtrapolateAndConquer::loadResources(void){
     //resourceManager->loadTexture("water", true);
     resourceManager->loadTexture("waterNormalMap2", true);
     //resourceManager->loadTexture("waterNormalMap1");
-    resourceManager->loadModel("unitSquare");
+    //resourceManager->loadModel("unitSquare");
+    resourceManager->loadModel("hiResSquare");
     resourceManager->loadShader("oceanShader");
 
     resourceManager->loadTexture("skyTop", true);

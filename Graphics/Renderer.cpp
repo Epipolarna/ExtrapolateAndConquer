@@ -4,6 +4,7 @@ Renderer::Renderer(void){
     camera = new Camera();
     width = 1280;
     height = 800;
+    shadowMapSize = 2048;
     initializeOpenGLFunctions();
     fbo1 = new FBO;
     fbo2 = new FBO;
@@ -90,13 +91,15 @@ void Renderer::initFBO(FBO* fbo)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, shadowMapSize, shadowMapSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fbo->colorTex, 0);
 
     // DepthBuffer
     glGenTextures(1, &fbo->depthTex);
     glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, shadowMapSize, shadowMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -110,39 +113,46 @@ void Renderer::initFBO(FBO* fbo)
 
 void Renderer::useFBO(FBO* fbo)
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo->id);
-    // Since the GL_TEXTURE? cannot be found in QGLFBO it has to
-    // expressed relative GL_TEXTURE0
-    glActiveTexture(GL_TEXTURE0 + fbo->colorTex);
-    glBindTexture(GL_TEXTURE_2D, fbo->colorTex);
-    glActiveTexture(GL_TEXTURE0 + fbo->depthTex);
-    glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
+    if(fbo == 0){
+    // Bind default
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glViewport(0,0, width, height);
+    } else {
+        glBindFramebuffer(GL_FRAMEBUFFER, fbo->id);
+        // Since the GL_TEXTURE? cannot be found in QGLFBO it has to
+        // expressed relative GL_TEXTURE0
+        glActiveTexture(GL_TEXTURE0 + fbo->colorTex);
+        glBindTexture(GL_TEXTURE_2D, fbo->colorTex);
+        glActiveTexture(GL_TEXTURE0 + fbo->depthTex);
+        glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
+
+        glViewport(0,0, shadowMapSize, shadowMapSize);
+    }
 }
 
 void Renderer::repaint(){
 
     // Draw the scene from the lightsource to shadowMap FBO
-    //glBindFramebuffer(GL_FRAMEBUFFER, fbo1->id);
     useFBO(fbo1);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
 
     if(world != NULL){
-        glEnable(GL_DEPTH_TEST);
-        glDisable(GL_CULL_FACE);
         world->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
     }
 
     for(Object * o : renderList){
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_CULL_FACE);
         o->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
     }
 
-    //camera->vMatrix = lightSourceVMatrix;
+    if(water != NULL){
+        water->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
+    }
 
     // Draw everything again to the default FBO
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    useFBO(0); // Default
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

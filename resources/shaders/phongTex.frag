@@ -51,7 +51,7 @@ float fogBlending()
 	
     return blendingFactor;
 }  
-
+/*
 float shadowTest(vec2 texcoods) {
 	float shadow = texture(tex3, texcoods).r;
 	float epsilon = 0.000001;
@@ -60,13 +60,44 @@ float shadowTest(vec2 texcoods) {
 	}
 	return 1.0; // not shadowed
 }
+*/
+int nShadows = 0;
+float shadowCoeff = 0.5;
+
+float shadowTest(vec2 texcoods, int kernelSize) {
+	float shadow = 0;
+	float depthComparison = 0;
+	float epsilon = 0.000001;
+	
+	float texOffset = 3.0/(kernelSize*1000); // Motsvarar spridning på skuggan
+	
+	for(int i = 0; i < kernelSize; i++){
+		for(int j = 0; j < kernelSize; j++){
+		
+			depthComparison = lightSpaceVertex.z - texture(tex3, texcoods + vec2(texOffset*(i - kernelSize/2), texOffset*(j - kernelSize/2))).r;
+			if(depthComparison > epsilon){
+				shadow += 1.0 / pow(kernelSize,2);
+				nShadows += 1;
+			}
+		}
+	}
+	
+	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
+}
 
 void main(void)
 {
 	vec2 scaledTexCoord = exTexCoord*texScaling;
 	vec4 texel0 = texture(tex0, scaledTexCoord);
 	
-	outColor = phongShading()*shadowTest(lightSpaceVertex.xy)*texel0;
+	if(exPosition.y < 0){
+		outColor = texel0*ambientCoeff*ambientCoeff;
+	} else {
+		int testKernelSize = 3;
+		int kernelSize = 4;
+		
+		outColor = texel0*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
+	}
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
 	outColor = mix(fogColor, outColor, fogBlending());

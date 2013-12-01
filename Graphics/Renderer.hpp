@@ -43,7 +43,7 @@ public:
     Object* world;
     Object* fboSquare;
 
-    int width, height;
+    int width, height, shadowMapSize;
 
     //Trees
     Model* treeModel;
