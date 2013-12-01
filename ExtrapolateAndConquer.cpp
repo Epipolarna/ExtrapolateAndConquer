@@ -147,9 +147,13 @@ void ExtrapolateAndConquer::initialize(void){
 
     renderer->water = ocean;
 
+    //tree stuff..
     renderer->treeShader = resourceManager->getShader("instance");
     renderer->treeModel = resourceManager->getModel("teapot");
-    renderer->treeTexture = resourceManager->getTexture("treestump");
+    renderer->treeTexture = resourceManager->getTexture("sphere");
+    renderer->treePositions = world->placeTrees();
+
+    printf("placed %d trees \n",renderer->treePositions.size());
 
     // Global influence map
     int resolution = 4;
@@ -161,10 +165,6 @@ void ExtrapolateAndConquer::initialize(void){
     cv::dilate(influenceMap, influenceMap, cv::Mat::ones(3,3,CV_8U), cv::Point2i(-1,-1), 3);
     cv::GaussianBlur(influenceMap, influenceMap, cv::Size(9,9), 3);
 
-
-    world->placeTrees();
-
-    //cv::imshow("Influence map", influenceMap);
 
     // Initialize systems
     graphicsUpdateSystem.initialize(entityManager);

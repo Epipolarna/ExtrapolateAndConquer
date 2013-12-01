@@ -262,10 +262,11 @@ std::vector<QVector3D> World::placeTrees(){
     cv::Mat treeMap = cv::Mat(sizeX*vertexDensity,sizeZ*vertexDensity,CV_32FC1);
     cv::RNG generator = cv::RNG();
     generator.state = 100;
-
+    printf("placing trees... \n");
+    printf("vertex size is: %f,%f, and density is: %f \n",sizeX,sizeZ,vertexDensity);
     //generate a map of sensible heights and sensible inclinations...
-    for(int x=0; x < sizeX*vertexDensity; ++x){
-        for(int z=0; z < sizeZ*vertexDensity; ++z){
+    for(float x=0; x < sizeX*vertexDensity; x = x + vertexDensity + 5){
+        for(float z=0; z < sizeZ*vertexDensity; z = z + vertexDensity + 5){
             float h = getHeight(x,z);
             QVector3D n = getNormal(x,z);
             float treeFactor = 0.005;
@@ -275,8 +276,9 @@ std::vector<QVector3D> World::placeTrees(){
 
             //if the randomly gaussian number is smaller than the tree factor place a tree here..
             float randomNumber = generator.gaussian(0.5) + 0.5;
-            if(randomNumber < treeFactor && h > 0){
+            if(randomNumber < treeFactor && h > 0 && trees.size() < 75){
                 trees.push_back(QVector3D(x,h,z));
+                printf("placed tree at: %f,%f,%f \n",x,h,z);
                 treeMap.at<float>(x,z) = 1.0;
             }else{
                 treeMap.at<float>(x,z) = 0.0;
@@ -284,12 +286,6 @@ std::vector<QVector3D> World::placeTrees(){
 
         }
     }
-
-    cv::namedWindow("w1n");
-    cv::imshow("w1n",treeMap);
-    cv::namedWindow("w2n");
-    cv::imshow("w2n",heightMap);
-    cv::waitKey(0);
 
     return trees;
 }

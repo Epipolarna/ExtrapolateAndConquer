@@ -56,6 +56,7 @@ public:
     
 private:
     void drawStaticObjects(void);
+    const int maxInstanceObjects = 100;
 
 };
 

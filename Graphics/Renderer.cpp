@@ -49,19 +49,49 @@ void Renderer::drawObjects(Model* model,QOpenGLShaderProgram* program,std::vecto
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,tex);
 
-    std::vector<QMatrix4x4> mMatrices;
+    std::vector<std::vector<QMatrix4x4>> mMatrices;
+    mMatrices.push_back(std::vector<QMatrix4x4>(maxInstanceObjects));
     //make position matrices...
-    for(QVector3D pos : positions){
+
+    int pp = positions.size();
+
+    /*
+    for(int i=0,listnr=0; i < positions.size(); ++i){
+        if(i % maxInstanceObjects == 0 && i != 0){
+            listnr = listnr + 1;
+            mMatrices.push_back(std::vector<QMatrix4x4>(maxInstanceObjects));
+        }
         QMatrix4x4 m = QMatrix4x4();
+        QVector3D p = positions[i];
+
         m.setToIdentity();
-        m.translate(pos);
-        mMatrices.push_back(m);
+        m.translate(p);
+        mMatrices[listnr].push_back(m);
     }
 
-    program->setUniformValueArray("mMatrix",&mMatrices[0],mMatrices.size());
+    for(std::vector<QMatrix4x4> mList : mMatrices){
+        program->setUniformValueArray("mMatrix",&mList[0],mList.size());
+        program->setUniformValue("pMatrix",pMatrix);
+        program->setUniformValue("vMatrix",camera->vMatrix);
+        glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,mList.size());
+    }
+    */
+
+    //make the matrix array
+    std::vector<QMatrix4x4> translations = std::vector<QMatrix4x4>(positions.size());
+    for(int i=0; i < positions.size(); ++i){
+        QMatrix4x4 m = QMatrix4x4();
+        QVector3D p = positions[i];
+
+        m.setToIdentity();
+        m.translate(p);
+        translations.push_back(m);
+    }
+
+    program->setUniformValueArray("mMatrix",&translations[0],translations.size());
     program->setUniformValue("pMatrix",pMatrix);
     program->setUniformValue("vMatrix",camera->vMatrix);
-    glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,mMatrices.size());
+    glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,translations.size());
 
     model->VAO.release();
     program->release();
@@ -190,13 +220,12 @@ void Renderer::repaint(){
         glDisable(GL_BLEND);
     }
 
-    /*
+    
     if(treeModel != NULL && treePositions.size() > 0){
         glEnable(GL_BLEND);
         drawObjects(treeModel,treeShader,treePositions,treeTexture);
         glDisable(GL_BLEND);
     }
-    */
 
     //QImage im1 = FBO1->toImage();
     //im1.save("im1.png");

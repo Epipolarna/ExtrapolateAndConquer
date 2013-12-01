@@ -44,6 +44,7 @@ class World{
     private:
         void generateTexture(void);
         void uploadCVTexture(void);
+
         cv::Mat textureData;
 };
 
