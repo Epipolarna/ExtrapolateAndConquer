@@ -151,9 +151,9 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->treeShader = resourceManager->getShader("instance");
     renderer->treeModel = resourceManager->getModel("teapot");
     renderer->treeTexture = resourceManager->getTexture("sphere");
-    renderer->treePositions = world->placeTrees();
+    renderer->treePositions = world->getTrees();
 
-    printf("placed %d trees \n",renderer->treePositions.size());
+    printf("placed %lu trees \n",renderer->treePositions.size());
 
     // Global influence map
     int resolution = 4;

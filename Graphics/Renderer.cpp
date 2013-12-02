@@ -49,49 +49,30 @@ void Renderer::drawObjects(Model* model,QOpenGLShaderProgram* program,std::vecto
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,tex);
 
-    std::vector<std::vector<QMatrix4x4>> mMatrices;
-    mMatrices.push_back(std::vector<QMatrix4x4>(maxInstanceObjects));
-    //make position matrices...
-
-    int pp = positions.size();
-
-    /*
-    for(int i=0,listnr=0; i < positions.size(); ++i){
-        if(i % maxInstanceObjects == 0 && i != 0){
-            listnr = listnr + 1;
-            mMatrices.push_back(std::vector<QMatrix4x4>(maxInstanceObjects));
-        }
-        QMatrix4x4 m = QMatrix4x4();
-        QVector3D p = positions[i];
-
-        m.setToIdentity();
-        m.translate(p);
-        mMatrices[listnr].push_back(m);
-    }
-
-    for(std::vector<QMatrix4x4> mList : mMatrices){
-        program->setUniformValueArray("mMatrix",&mList[0],mList.size());
-        program->setUniformValue("pMatrix",pMatrix);
-        program->setUniformValue("vMatrix",camera->vMatrix);
-        glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,mList.size());
-    }
-    */
-
     //make the matrix array
     std::vector<QMatrix4x4> translations = std::vector<QMatrix4x4>(positions.size());
-    for(int i=0; i < positions.size(); ++i){
+    for(QVector3D p : positions){
         QMatrix4x4 m = QMatrix4x4();
-        QVector3D p = positions[i];
-
         m.setToIdentity();
         m.translate(p);
         translations.push_back(m);
     }
 
-    program->setUniformValueArray("mMatrix",&translations[0],translations.size());
-    program->setUniformValue("pMatrix",pMatrix);
-    program->setUniformValue("vMatrix",camera->vMatrix);
-    glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,translations.size());
+    //draw in chunks of maxInstanceObjects
+    for(int i=0; i < translations.size(); i = i + maxInstanceObjects){
+
+        int lastIndex = i + maxInstanceObjects;
+        if(lastIndex > translations.size()){
+            lastIndex = translations.size() - i;
+        }
+
+        int offset = lastIndex - i;
+
+        program->setUniformValueArray("mMatrix",&translations[i],offset);
+        program->setUniformValue("pMatrix",pMatrix);
+        program->setUniformValue("vMatrix",camera->vMatrix);
+        glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,offset);
+    }
 
     model->VAO.release();
     program->release();

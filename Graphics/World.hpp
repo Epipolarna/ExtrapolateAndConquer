@@ -22,8 +22,7 @@ class World{
 	public:
         World();
         Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves);
-        std::vector<QVector3D> placeTrees(void);
-
+        std::vector<QVector3D> getTrees(void);
         /*!
          * \brief getHeight at global position x and z.
          */
@@ -42,10 +41,14 @@ class World{
 
         GLuint textureRef;
     private:
+
+        float distanceToTree(const QVector3D tree);
+        std::vector<QVector3D> placeTrees(void);
         void generateTexture(void);
         void uploadCVTexture(void);
 
         cv::Mat textureData;
+        std::vector<QVector3D> treePositions;
 };
 
 #endif

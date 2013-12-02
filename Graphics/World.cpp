@@ -188,7 +188,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
 
     worldModel->modelFromData(vertices,normals,textures,indices);
 
-    //generateTexture();
+    placeTrees();
 
     return worldModel;
 }
@@ -257,35 +257,49 @@ QVector3D World::getNormal(float x, float z)
     return normal;
 }
 
-std::vector<QVector3D> World::placeTrees(){
-    std::vector<QVector3D> trees;
-    cv::Mat treeMap = cv::Mat(sizeX*vertexDensity,sizeZ*vertexDensity,CV_32FC1);
-    cv::RNG generator = cv::RNG();
-    generator.state = 100;
-    printf("placing trees... \n");
-    printf("vertex size is: %f,%f, and density is: %f \n",sizeX,sizeZ,vertexDensity);
-    //generate a map of sensible heights and sensible inclinations...
-    for(float x=0; x < sizeX*vertexDensity; x = x + vertexDensity + 5){
-        for(float z=0; z < sizeZ*vertexDensity; z = z + vertexDensity + 5){
-            float h = getHeight(x,z);
-            QVector3D n = getNormal(x,z);
-            float treeFactor = 0.005;
-            
-            float a = QVector3D::dotProduct(n,QVector3D(0,1,0));
-            treeFactor = treeFactor * a;
 
-            //if the randomly gaussian number is smaller than the tree factor place a tree here..
-            float randomNumber = generator.gaussian(0.5) + 0.5;
-            if(randomNumber < treeFactor && h > 0 && trees.size() < 75){
-                trees.push_back(QVector3D(x,h,z));
-                printf("placed tree at: %f,%f,%f \n",x,h,z);
-                treeMap.at<float>(x,z) = 1.0;
-            }else{
-                treeMap.at<float>(x,z) = 0.0;
-            }
+std::vector<QVector3D> World::getTrees(void){
+    return treePositions;
+}
 
+float World::distanceToTree(QVector3D position){
+    float closest = 10000000000;
+    for(QVector3D& p : treePositions){
+        QVector3D diffVector = p - position; 
+        float distance = diffVector.lengthSquared();
+        if(distance < closest){
+            closest = distance;
         }
     }
+    return closest;
+}
 
-    return trees;
+std::vector<QVector3D> World::placeTrees(){
+    treePositions = std::vector<QVector3D>();
+    cv::RNG generator = cv::RNG();
+    int maxNumTrees = 2000;
+    int maxNumIters = 10000;
+    int numIters = 0;
+    int numTrees = 0;
+
+
+    float offsetX = (float)sizeX / 2;
+    float offsetZ = (float)sizeZ / 2;
+    float sigmaX = offsetX;
+    float sigmaZ = offsetZ;
+
+    while(maxNumTrees > numTrees && maxNumIters > numIters){
+        float x = generator.gaussian(sigmaX) + offsetX;
+        float z = generator.gaussian(sigmaZ) + offsetZ;
+        float y = getHeight(x,z);
+        QVector3D position = QVector3D(x,y,z);
+        float distClosestTree = distanceToTree(position);
+        if(y > 0 && distClosestTree > 15){
+            treePositions.push_back(position);
+            maxNumTrees = maxNumTrees + 1;
+        }
+        numIters = numIters + 1;
+    }
+
+    treePositions;
 }
