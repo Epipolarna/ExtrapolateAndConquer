@@ -119,12 +119,12 @@ void ExtrapolateAndConquer::initialize(void){
     sphereTerrainCollisionSystem.setWorld(world);
 
     QVector<GLuint> worldTextures = QVector<GLuint>();
-    worldTextures.push_back(resourceManager->getTexture("grass1"));
+    worldTextures.push_back(resourceManager->getTexture("TerrainAtlasDiffuse1"));
     worldTextures.push_back(0);
     worldTextures.push_back(0);
     worldTextures.push_back(renderer->fbo1->depthTex);
 
-    worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
+    worldObject = new Object(worldModel, resourceManager->getShader("terrainAtlasShader"), worldTextures);
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
     //worldObject->setScale(2,0,2);
@@ -205,8 +205,11 @@ void ExtrapolateAndConquer::loadResources(void){
 
     //ground data
     printf("loading ground data \n");
-    resourceManager->loadTexture("grass1", true);
     resourceManager->loadShader("terrainShader");
+    resourceManager->loadTexture("grass1", true);
+    //ground data using texture atlas
+    resourceManager->loadShader("terrainAtlasShader");
+    resourceManager->loadTextureAtlas("TerrainAtlasDiffuse1", 2, true);
 
     //water data
     printf("loading water data \n");

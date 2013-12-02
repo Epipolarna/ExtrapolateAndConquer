@@ -2,6 +2,10 @@
 #define RESOURCEMANAGER_HPP
 
 #include <map>
+#include <cmath>
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include <QString>
 
 #include <QGLWidget>
@@ -29,6 +33,7 @@ public:
 
 
     bool loadTexture(QString textureName,bool mipmap=false);
+    bool loadTextureAtlas(QString textureAtlasName, int atlasSize, bool mipmap=false);
     bool loadModel(QString modelName, bool unitize=false);
     bool loadShader(QString shaderName);
 
