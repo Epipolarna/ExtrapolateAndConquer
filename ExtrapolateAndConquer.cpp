@@ -43,7 +43,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     Renderer* renderer = openGLWindow->getRenderer();
 
-    Object* o1 = new Object(resourceManager->getModel("teapot"),resourceManager->getShader("phong"));
+    Object* o1 = new Object(resourceManager->getModel("tree0"),resourceManager->getShader("phong"));
     //renderer->renderList.push_back(o1);
 
     //the skybox needs to be specially added to the renderer
@@ -149,7 +149,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     //tree stuff..
     renderer->treeShader = resourceManager->getShader("instance");
-    renderer->treeModel = resourceManager->getModel("teapot");
+    renderer->treeModel = resourceManager->getModel("tree0");
     renderer->treeTexture = resourceManager->getTexture("sphere");
     renderer->treePositions = world->getTrees();
 
@@ -190,6 +190,7 @@ void ExtrapolateAndConquer::loadResources(void){
     printf("loading teapot data \n");
     resourceManager->loadShader("phong");
     resourceManager->loadModel("teapot");
+    resourceManager->loadModel("tree0");
 
     printf("loading sphere data \n");
     resourceManager->loadShader("phongTex");

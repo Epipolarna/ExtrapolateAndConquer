@@ -277,7 +277,7 @@ float World::distanceToTree(QVector3D position){
 std::vector<QVector3D> World::placeTrees(){
     treePositions = std::vector<QVector3D>();
     cv::RNG generator = cv::RNG();
-    int maxNumTrees = 2000;
+    int maxNumTrees = 10;
     int maxNumIters = 10000;
     int numIters = 0;
     int numTrees = 0;
@@ -296,10 +296,10 @@ std::vector<QVector3D> World::placeTrees(){
         float distClosestTree = distanceToTree(position);
         if(y > 0 && distClosestTree > 15){
             treePositions.push_back(position);
-            maxNumTrees = maxNumTrees + 1;
+            numTrees = numTrees + 1;
         }
         numIters = numIters + 1;
     }
 
-    treePositions;
+    return treePositions;
 }
