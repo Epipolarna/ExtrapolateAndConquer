@@ -158,6 +158,8 @@ void Renderer::repaint(){
         o->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
     }
 
+    // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
+
     if(water != NULL){
         water->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
     }
