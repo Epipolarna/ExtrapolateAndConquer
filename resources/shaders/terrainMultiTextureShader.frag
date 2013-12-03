@@ -85,7 +85,7 @@ float shadowTest(vec2 texcoods, int kernelSize) {
 vec4 mixTextures(sampler2D texture1, sampler2D texture2, float x, float start, float stop, int exp)
 {
 	vec2 scaledTexCoord = exTexCoord*texScaling;
-	return mix(texture(texture1, scaledTexCoord), texture(texture2, scaledTexCoord), pow((x-start)/(stop-start),exp));
+	return mix(texture(texture1, scaledTexCoord), texture(texture2, scaledTexCoord), clamp(pow((x-start)/(stop-start),exp), 0, 1));
 }
 
 vec4 blendTextures(sampler2D sand, sampler2D grass, sampler2D rock)
@@ -96,7 +96,7 @@ vec4 blendTextures(sampler2D sand, sampler2D grass, sampler2D rock)
 				
 	float grassStart = 0.1;
 	float sandEnd = 2;
-	float rockStart = 8;
+	float rockStart = 2;
 	float grassEnd = 14;
 		
 	if(height < grassStart)
@@ -107,8 +107,8 @@ vec4 blendTextures(sampler2D sand, sampler2D grass, sampler2D rock)
 	if(height < rockStart)
 		return texture(grass, scaledTexCoord);
 	if(height <= grassEnd)
-		return mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1),
-		           mixTextures(grass, rock, height, rockStart, grassEnd, 2), 2*horizontal);
+		return mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
+		           mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
 	return texture(rock, scaledTexCoord);
 }
 
