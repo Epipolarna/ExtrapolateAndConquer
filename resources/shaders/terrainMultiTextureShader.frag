@@ -6,10 +6,10 @@ in vec2 exTexCoord;
 in vec4 lightSpaceVertex;
 
 uniform vec3 lightPosition;
-uniform sampler2D tex0;
-uniform sampler2D tex1;
-uniform sampler2D tex2;
-uniform sampler2D tex3;
+uniform sampler2D tex0;	// sand
+uniform sampler2D tex1;	// grass
+uniform sampler2D tex2; // rock
+uniform sampler2D tex3;	// Shadow
 uniform float texScaling;
 	
 
@@ -82,22 +82,45 @@ float shadowTest(vec2 texcoods, int kernelSize) {
 	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
 }
 
-vec4 textureAtlas(vec2 texCoord, int index, sampler2D atlas, int size)
+vec4 mixTextures(sampler2D texture1, sampler2D texture2, float x, float start, float stop, int exp)
 {
-	vec2 uv = mod(fract(texCoord), 1.0/(2*size))+index*1.5/size + vec2(0, floor(index/size));	
-	return texture(atlas, uv);
+	vec2 scaledTexCoord = exTexCoord*texScaling;
+	return mix(texture(texture1, scaledTexCoord), texture(texture2, scaledTexCoord), pow((x-start)/(stop-start),exp));
+}
+
+vec4 blendTextures(sampler2D sand, sampler2D grass, sampler2D rock)
+{
+	vec2 scaledTexCoord = exTexCoord*texScaling;
+	float height = exPosition.y;
+	float horizontal = dot(exNormal, vec3(0,1,0));
+				
+	float grassStart = 0.1;
+	float sandEnd = 2;
+	float rockStart = 8;
+	float grassEnd = 14;
+		
+	if(height < grassStart)
+		return texture(sand, scaledTexCoord);
+	if(height <= sandEnd)
+		return mix(mixTextures(sand, grass, height, grassStart, sandEnd, 2),
+		           mixTextures(sand, grass, height, grassStart, sandEnd, 1), 2*horizontal);
+	if(height < rockStart)
+		return texture(grass, scaledTexCoord);
+	if(height <= grassEnd)
+		return mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1),
+		           mixTextures(grass, rock, height, rockStart, grassEnd, 2), 2*horizontal);
+	return texture(rock, scaledTexCoord);
 }
 
 
 void main(void){
 
 	vec2 scaledTexCoord = exTexCoord*texScaling;
-	vec4 texel0 = texture(tex0, scaledTexCoord);
 	vec4 texel3 = texture(tex3, exTexCoord);
-
-	// Select texture from texture aglas
-	texel0 = textureAtlas(scaledTexCoord, 0, tex0, 2);
 	
+	// Texture blending
+	vec4 texel0 = blendTextures(tex0, tex1, tex2);
+
 	/*
 	float zBuffer = texel3.x;
     zBuffer = 2.0 * zBuffer - 1.0;
