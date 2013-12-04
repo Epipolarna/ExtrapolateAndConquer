@@ -3,3 +3,4 @@ CMakeLists.txt.user
 *.exe
 *.autosave
 *ExNc*
+*.dll

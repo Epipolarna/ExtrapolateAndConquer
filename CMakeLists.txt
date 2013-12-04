@@ -17,7 +17,9 @@ IF(WIN32)
         add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     ENDIF()
     set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
-    #cmake_policy(SET CMP0020 NEW)
+    cmake_policy(SET CMP0020 NEW)
+
+    MESSAGE(STATUS "OPENCV_MINGW_X86_INSTALL_DIR: " $ENV{OPENCV_MINGW_X86_INSTALL_DIR})
 ENDIF()
 
 # Tell CMake to run moc when necessary:
@@ -28,8 +30,10 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Load external libraries
 find_package(Qt5 COMPONENTS Core Gui Widgets OpenGL REQUIRED)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED HINTS $ENV{OPENCV_MINGW_X86_INSTALL_DIR})
 find_package(OpenGL REQUIRED)
+
+MESSAGE( STATUS "OPENCV_LIB_DIR: " ${OpenCV_LIB_DIR} )
 
 # Include
 INCLUDE_DIRECTORIES(
