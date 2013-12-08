@@ -102,34 +102,52 @@ vec4 blendTextures(sampler2D sandTexture, sampler2D grassTexture, sampler2D rock
 	vec4 sand = texture(sandTexture, scaledTexCoord);
 	vec4 grass = texture(grassTexture, scaledTexCoord);
 	vec4 rock = texture(rockTexture, scaledTexCoord);
-	
+		
 	if(height < grassStart)
 		return sand;
-	if(height <= sandEnd)
-		return mix(mixTextures(sand, grass, height, grassStart, sandEnd, 2),
-		           mixTextures(sand, grass, height, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
-	if(height < rockStart) {
+	if(height <= sandEnd) {
+		vec4 grassRockMix = mix(mixTextures(grass, rock, sandEnd, rockStart, grassEnd, 1/2),
+							    mixTextures(grass, rock, sandEnd, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mix(mixTextures(sand, grassRockMix, height, grassStart, sandEnd, 2),
+		           mixTextures(sand, grassRockMix, height, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
+	}
+	if(height <= rockStart) {
 		vec4 lastMix = mix(mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 2),
 						   mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
-		return mixTextures(lastMix, grass, height, sandEnd, rockStart, 1);
+		vec4 nextMix_ = mix(mixTextures(grass, rock, rockStart, rockStart, grassEnd, 1/2),
+						   mixTextures(grass, rock, rockStart, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		vec4 nextMix = mix(mixTextures(nextMix_, rock, rockStart, rockStart, grassEnd, 1/2),
+							mixTextures(nextMix_, rock, rockStart, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mixTextures(lastMix, nextMix, rockStart, sandEnd, rockStart, 1);
 	}
-	if(height <= grassEnd)
-		return mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
-		           mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+	if(height <= grassEnd) {
+		vec4 lastMix = mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
+						   mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mix(mixTextures(lastMix, rock, height, rockStart, grassEnd, 1/2),
+		           mixTextures(lastMix, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		}
 	return rock;
 	/*
 	if(height < grassStart)
-		return texture(sand, scaledTexCoord);
-	if(height <= sandEnd)
+		return sand;
+	if(height <= sandEnd) {
 		return mix(mixTextures(sand, grass, height, grassStart, sandEnd, 2),
 		           mixTextures(sand, grass, height, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
-	if(height < rockStart)
-		return texture(grass, scaledTexCoord);
-	if(height <= grassEnd)
-		return mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
-		           mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
-	return texture(rock, scaledTexCoord);
-	*/
+	}
+	if(height < rockStart) {
+		vec4 lastMix = mix(mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 2),
+						   mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
+		vec4 nextMix = mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
+						   mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mixTextures(lastMix, nextMix, height, sandEnd, rockStart, 1);
+	}
+	if(height <= grassEnd) {
+		vec4 lastMix = mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
+						   mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mix(mixTextures(lastMix, rock, height, rockStart, grassEnd, 1/2),
+		           mixTextures(lastMix, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		}
+	return rock;*/
 }
 
 
