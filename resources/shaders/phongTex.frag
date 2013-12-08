@@ -47,7 +47,7 @@ float fogBlending()
 	float density = 0.005;
     const float e = 2.71828182845904523536028747135266249;
 	
-    float blendingFactor = pow(e, -pow(depth*density, 2));
+    float blendingFactor = pow(e, -pow(depth*density, 2.0));
 	
     return blendingFactor;
 }  
@@ -76,7 +76,7 @@ float shadowTest(vec2 texcoods, int kernelSize) {
 		
 			depthComparison = lightSpaceVertex.z - texture(tex3, texcoods + vec2(texOffset*(i - kernelSize/2), texOffset*(j - kernelSize/2))).r;
 			if(depthComparison > epsilon){
-				shadow += 1.0 / pow(kernelSize,2);
+				shadow += 1.0 / pow(kernelSize,2.0);
 				nShadows += 1;
 			}
 		}

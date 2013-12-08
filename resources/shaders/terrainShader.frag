@@ -53,7 +53,7 @@ float fogBlending()
 	float density = 0.005;
     const float e = 2.71828182845904523536028747135266249;
 	
-    float blendingFactor = pow(e, -pow(depth*density, 2));
+    float blendingFactor = pow(e, -pow(depth*density, 2.0));
 	
     return blendingFactor;
 }  
@@ -68,12 +68,13 @@ float shadowTest(vec2 texcoods, int kernelSize) {
 	
 	float texOffset = 3.0/(kernelSize*1000); // Motsvarar spridning på skuggan
 	
+	float kernelSizeF = kernelSize;
 	for(int i = 0; i < kernelSize; i++){
 		for(int j = 0; j < kernelSize; j++){
 		
 			depthComparison = lightSpaceVertex.z - texture(tex3, texcoods + vec2(texOffset*(i - kernelSize/2), texOffset*(j - kernelSize/2))).r;
 			if(depthComparison > epsilon){
-				shadow += 1.0 / pow(kernelSize,2);
+				shadow += 1.0 / pow(kernelSizeF,2.0);
 				nShadows += 1;
 			}
 		}
@@ -116,7 +117,7 @@ void main(void){
 		if(nShadows == 0){
 			outColor = texel0*phongShading();
 			//outColor = vec4(1,0,0,1);
-		} else if(nShadows == pow(testKernelSize, 2)){
+		} else if(nShadows == pow(testKernelSize, 2.0)){
 			outColor = texel0*ambientCoeff*ambientCoeff;
 			//outColor = vec4(0,1,0,1);
 		} else {

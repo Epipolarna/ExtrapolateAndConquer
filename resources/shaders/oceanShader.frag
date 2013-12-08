@@ -65,7 +65,7 @@ float fogBlending()
 	float density = 0.005;
     const float e = 2.71828182845904523536028747135266249;
 	
-    float blendingFactor = pow(e, -pow(depth*density, 2));
+    float blendingFactor = pow(e, -pow(depth*density, 2.0));
 	
     return blendingFactor;
 }  
