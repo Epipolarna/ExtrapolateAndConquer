@@ -38,7 +38,7 @@ float phongShading()
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
 	vec3 cameraDirection = normalize(cameraPosition - exPosition);
 	vec3 reflection = normalize(2 * normal * dot(lightDirection, normal) - lightDirection);
-	float specularComponent = pow(max(dot(reflection, cameraDirection), 0), specularExponent);
+	float specularComponent = pow(max(dot(reflection, cameraDirection), 0.0), specularExponent);
 	*/
 	
 	//float shading = ambientCoeff + diffuseCoeff*diffuseComponent + specularCoeff*specularComponent;
@@ -68,7 +68,7 @@ float shadowTest(vec2 texcoods, int kernelSize) {
 	
 	float texOffset = 3.0/(kernelSize*1000); // Motsvarar spridning på skuggan
 	
-	dfloat kernelSizeF = kernelSize;
+	float kernelSizeF = kernelSize;
 	for(int i = 0; i < kernelSize; i++){
 		for(int j = 0; j < kernelSize; j++){
 		
