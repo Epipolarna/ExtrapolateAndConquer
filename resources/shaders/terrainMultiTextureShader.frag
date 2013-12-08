@@ -83,13 +83,12 @@ float shadowTest(vec2 texcoods, int kernelSize) {
 	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
 }
 
-vec4 mixTextures(sampler2D texture1, sampler2D texture2, float x, float start, float stop, float exp)
+vec4 mixTextures(vec4 texture1, vec4 texture2, float x, float start, float stop, float exp)
 {
-	vec2 scaledTexCoord = exTexCoord*texScaling;
-	return mix(texture(texture1, scaledTexCoord), texture(texture2, scaledTexCoord), clamp(pow((x-start)/(stop-start), exp), 0, 1));
+	return mix(texture1, texture2, clamp(pow((x-start)/(stop-start),exp), 0, 1));
 }
 
-vec4 blendTextures(sampler2D sand, sampler2D grass, sampler2D rock)
+vec4 blendTextures(sampler2D sandTexture, sampler2D grassTexture, sampler2D rockTexture)
 {
 	vec2 scaledTexCoord = exTexCoord*texScaling;
 	float height = exPosition.y;
@@ -99,7 +98,26 @@ vec4 blendTextures(sampler2D sand, sampler2D grass, sampler2D rock)
 	float sandEnd = 1;
 	float rockStart = 3;
 	float grassEnd = 14;
-		
+	
+	vec4 sand = texture(sandTexture, scaledTexCoord);
+	vec4 grass = texture(grassTexture, scaledTexCoord);
+	vec4 rock = texture(rockTexture, scaledTexCoord);
+	
+	if(height < grassStart)
+		return sand;
+	if(height <= sandEnd)
+		return mix(mixTextures(sand, grass, height, grassStart, sandEnd, 2),
+		           mixTextures(sand, grass, height, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
+	if(height < rockStart) {
+		vec4 lastMix = mix(mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 2),
+						   mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
+		return mixTextures(lastMix, grass, height, sandEnd, rockStart, 1);
+	}
+	if(height <= grassEnd)
+		return mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
+		           mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+	return rock;
+	/*
 	if(height < grassStart)
 		return texture(sand, scaledTexCoord);
 	if(height <= sandEnd)
@@ -111,7 +129,9 @@ vec4 blendTextures(sampler2D sand, sampler2D grass, sampler2D rock)
 		return mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
 		           mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
 	return texture(rock, scaledTexCoord);
+	*/
 }
+
 
 
 void main(void){
