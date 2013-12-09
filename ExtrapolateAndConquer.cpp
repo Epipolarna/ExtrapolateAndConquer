@@ -119,7 +119,7 @@ void ExtrapolateAndConquer::initialize(void){
     sphereTerrainCollisionSystem.setWorld(world);
 
     QVector<GLuint> worldTextures = QVector<GLuint>();
-    worldTextures.push_back(resourceManager->getTexture("sand0"));
+    worldTextures.push_back(resourceManager->getTexture("sand1"));
     worldTextures.push_back(resourceManager->getTexture("grass1"));
     worldTextures.push_back(resourceManager->getTexture("rock0"));
     worldTextures.push_back(renderer->fbo1->depthTex);
@@ -209,6 +209,7 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadShader("terrainMultiTextureShader");
     resourceManager->loadTexture("grass1", true);
     resourceManager->loadTexture("sand0", true);
+    resourceManager->loadTexture("sand1", true);
     resourceManager->loadTexture("rock0", true);
     resourceManager->loadTexture("snow0", true);
 
