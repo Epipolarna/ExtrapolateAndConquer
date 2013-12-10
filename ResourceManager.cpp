@@ -14,15 +14,15 @@ ResourceManager::~ResourceManager(){
     //destroy all resources etc
 }
 
-Model* ResourceManager::getModel(QString name){
+Model* ResourceManager::getModel(const QString name){
 	return models[name];
 }
 
-GLuint ResourceManager::getTexture(QString name){
+GLuint ResourceManager::getTexture(const QString name){
 	return textures[name];
 }
 
-QOpenGLShaderProgram* ResourceManager::getShader(QString name){
+QOpenGLShaderProgram* ResourceManager::getShader(const QString name){
     if(shaders.find(name) != shaders.end()){
         return shaders[name];
     }else{

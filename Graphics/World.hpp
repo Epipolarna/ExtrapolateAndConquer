@@ -6,6 +6,8 @@
 
 #include <QVector3D>
 #include <QDebug>
+#include <QQuaternion>
+#include <QVector>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -16,13 +18,15 @@
 
 #include "Object.hpp"
 #include "simplexnoise1234.h"
-#include "StaticObject.hpp"
+#include "StaticObjectList.hpp"
+
+#include "../ResourceManager.hpp"
 
 class World{
 	public:
-        World();
+        World( ResourceManager* resources);
         Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves);
-        std::vector<QVector3D> getTrees(void);
+        StaticObjectList* getTrees(void);
         /*!
          * \brief getHeight at global position x and z.
          */
@@ -42,13 +46,12 @@ class World{
         GLuint textureRef;
     private:
 
-        float distanceToTree(const QVector3D tree);
-        std::vector<QVector3D> placeTrees(void);
+        void placeTrees(void);
         void generateTexture(void);
         void uploadCVTexture(void);
 
         cv::Mat textureData;
-        std::vector<QVector3D> treePositions;
+        StaticObjectList* trees;
 };
 
 #endif

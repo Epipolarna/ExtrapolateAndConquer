@@ -2,8 +2,12 @@
 #include <iostream>
 #include <QTime>
 
-World::World(){
+World::World( ResourceManager* resources){
     lightPosition = QVector3D(-100,100,-10);
+    QVector<GLuint> treeTextures;
+
+    treeTextures.push_back(resources->getTexture("tree"));
+    trees = new StaticObjectList(resources->getModel("tree"),treeTextures);
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
@@ -258,24 +262,11 @@ QVector3D World::getNormal(float x, float z)
 }
 
 
-std::vector<QVector3D> World::getTrees(void){
-    return treePositions;
+StaticObjectList* World::getTrees(void){
+    return trees;
 }
 
-float World::distanceToTree(QVector3D position){
-    float closest = 10000000000;
-    for(QVector3D& p : treePositions){
-        QVector3D diffVector = p - position; 
-        float distance = diffVector.lengthSquared();
-        if(distance < closest){
-            closest = distance;
-        }
-    }
-    return closest;
-}
-
-std::vector<QVector3D> World::placeTrees(){
-    treePositions = std::vector<QVector3D>();
+void World::placeTrees(void){
     cv::RNG generator = cv::RNG();
     int maxNumTrees = 10;
     int maxNumIters = 10000;
@@ -292,14 +283,12 @@ std::vector<QVector3D> World::placeTrees(){
         float x = generator.gaussian(sigmaX) + offsetX;
         float z = generator.gaussian(sigmaZ) + offsetZ;
         float y = getHeight(x,z);
-        QVector3D position = QVector3D(x,y,z);
-        float distClosestTree = distanceToTree(position);
-        if(y > 0 && distClosestTree > 15){
-            treePositions.push_back(position);
+        
+        if(y > 0){
+            trees->appendObject(QVector3D(x,y,z),QQuaternion(1,0,0,0));
             numTrees = numTrees + 1;
         }
         numIters = numIters + 1;
     }
 
-    return treePositions;
 }

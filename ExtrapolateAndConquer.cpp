@@ -103,7 +103,7 @@ void ExtrapolateAndConquer::initialize(void){
     }
 
     Model* worldModel;
-    world = new World();
+    world = new World(resourceManager);
     renderer->lightPosition = world->lightPosition;
     QMatrix4x4 mat;
     mat.setToIdentity();
@@ -151,7 +151,6 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->treeShader = resourceManager->getShader("instance");
     renderer->treeModel = resourceManager->getModel("tree0");
     renderer->treeTexture = resourceManager->getTexture("sphere");
-    renderer->treePositions = world->getTrees();
 
     printf("placed %lu trees \n",renderer->treePositions.size());
 
