@@ -51,7 +51,12 @@ float phongShading()
 
 float fogBlending()
 {
-	float depth = length((vMatrix * vec4(exPosition,1)).xyz);
+	
+	//float depth = length((vMatrix * vec4(exPosition,1)).xyz);
+	float depth = 1;
+	if(exPosition.y < 0)
+		depth = -exPosition.y*22;
+		
 	float density = 0.005;
     const float e = 2.71828182845904523536028747135266249;
 	
@@ -267,7 +272,11 @@ void main(void){
 	}
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
-	//outColor = mix(fogColor, outColor, fogBlending());
+	
+	// Under water
+	//if(exPosition.y < 0)	// Should be enabled when the skybox is colored aswell..
+	//	fogColor = vec4(0.02,0.02,0.1,1.0);
+	outColor = mix(fogColor, outColor, fogBlending());
 	
 	//outColor = vec4(vec3(zNormalized), 1);
 }
