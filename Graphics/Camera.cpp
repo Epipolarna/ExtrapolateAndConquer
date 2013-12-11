@@ -19,8 +19,7 @@ void Camera::setPosition(QVector3D _position)
 {
     position = _position;
     lookAtDirection = lookAtPoint - position;
-    vMatrix.setToIdentity();
-    vMatrix.lookAt(position, lookAtPoint, up);
+    updateLookAt();
 }
 
 void Camera::setLookAtDirection(QVector3D _lookAtDirection)
@@ -28,8 +27,7 @@ void Camera::setLookAtDirection(QVector3D _lookAtDirection)
     lookAtDirection = _lookAtDirection;
     lookAtDirection.normalize();
     lookAtPoint = position + lookAtDirection;
-    vMatrix.setToIdentity();
-    vMatrix.lookAt(position, lookAtPoint, up);
+    updateLookAt();
 }
 
 void Camera::setLookAtPoint(QVector3D _lookAtPoint)
@@ -37,16 +35,14 @@ void Camera::setLookAtPoint(QVector3D _lookAtPoint)
     lookAtDirection = _lookAtPoint - position;
     lookAtDirection.normalize();
     lookAtPoint = position + lookAtDirection;
-    vMatrix.setToIdentity();
-    vMatrix.lookAt(position, lookAtPoint, up);
+    updateLookAt();
 }
 
 void Camera::setUp(QVector3D _up)
 {
     up = _up;
     up.normalize();
-    vMatrix.setToIdentity();
-    vMatrix.lookAt(position, lookAtPoint, up);
+    updateLookAt();
 }
 
 void Camera::keyPressEvent(QKeyEvent *e)
@@ -71,8 +67,7 @@ void Camera::mouseMoveEvent(int dX, int dY)
     up = rotationMatrix*up;
     lookAtPoint = position + lookAtDirection;
 
-    vMatrix.setToIdentity();
-    vMatrix.lookAt(position, lookAtPoint, up);
+    updateLookAt();
 }
 
 void Camera::updatePosition()
@@ -148,8 +143,31 @@ void Camera::updatePosition()
     position += velocityVector*translationSpeed*elapsedSeconds;
     lookAtPoint += velocityVector*translationSpeed*elapsedSeconds;
 
+    updateLookAt();
+}
+
+void Camera::updateLookAt()
+{
     vMatrix.setToIdentity();
     vMatrix.lookAt(position, lookAtPoint, up);
+
+    vMatrixInv = vMatrix;
+    vMatrixInv.inverted();
+
+    // Calculater bounding box of current frustum
+    //qDebug() << "FRUSTUM CALC";
+    //qDebug() << vMatrixInv*pMatrixInv*QVector4D(1,1,1,1);
+    //qDebug() << vMatrixInv*pMatrixInv*QVector4D(1,1,0,1);
+
+    for(int x = -1; x <= 1; x+=2){
+        for(int y = -1; y <= 1; y+=2){
+            for(int z = 0; z <= 1; z++){
+                //qDebug() << QVector4D(x,y,z,1);
+                //qDebug() << vMatrixInv*pMatrixInv*QVector4D(x,y,z,1);
+            }
+        }
+    }
+
 }
 
 QMatrix4x4 Camera::skyboxMatrix()

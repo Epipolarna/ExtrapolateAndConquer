@@ -6,11 +6,12 @@ in vec2 exTexCoord;
 in vec4 lightSpaceVertex;
 
 uniform vec3 lightPosition;
-uniform sampler2D tex0;
-uniform sampler2D tex1;
-uniform sampler2D tex2;
-uniform sampler2D tex3;
+uniform sampler2D tex0;	// sand
+uniform sampler2D tex1;	// grass
+uniform sampler2D tex2; // rock
+uniform sampler2D tex3;	// Shadow
 uniform float texScaling;
+uniform float specialValue;
 	
 
 uniform float ambientCoeff;
@@ -38,7 +39,7 @@ float phongShading()
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
 	vec3 cameraDirection = normalize(cameraPosition - exPosition);
 	vec3 reflection = normalize(2 * normal * dot(lightDirection, normal) - lightDirection);
-	float specularComponent = pow(max(dot(reflection, cameraDirection), 0), specularExponent);
+	float specularComponent = pow(max(dot(reflection, cameraDirection), 0.0), specularExponent);
 	*/
 	
 	//float shading = ambientCoeff + diffuseCoeff*diffuseComponent + specularCoeff*specularComponent;
@@ -66,6 +67,13 @@ float shadowTest(vec2 texcoods, int kernelSize) {
 	float depthComparison = 0;
 	float epsilon = 0.000001;
 	
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods).r;
+	if(depthComparison > epsilon){
+		shadow += 1.0 / (kernelSize*kernelSize);
+		nShadows += 1;
+	}
+
+/*	
 	float texOffset = 3.0/(kernelSize*1000); // Motsvarar spridning på skuggan
 	
 	float kernelSizeF = kernelSize;
@@ -74,13 +82,99 @@ float shadowTest(vec2 texcoods, int kernelSize) {
 		
 			depthComparison = lightSpaceVertex.z - texture(tex3, texcoods + vec2(texOffset*(i - kernelSize/2), texOffset*(j - kernelSize/2))).r;
 			if(depthComparison > epsilon){
-				shadow += 1.0 / pow(kernelSizeF,2.0);
+				shadow += 1.0 / pow(kernelSizeF, 2.0);
 				nShadows += 1;
 			}
 		}
 	}
+	*/
 	
 	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
+}
+
+vec4 mixTextures(vec4 texture1, vec4 texture2, float x, float start, float stop, float exp)
+{
+	return mix(texture1, texture2, clamp(pow((x-start)/(stop-start),exp), 0, 1));
+}
+
+vec4 blendTextures(sampler2D sandTexture, sampler2D grassTexture, sampler2D rockTexture)
+{
+	vec2 scaledTexCoord = exTexCoord*texScaling;
+	float height = exPosition.y;
+	float horizontal = dot(exNormal, vec3(0,1,0));
+				
+	float grassStart = 0.1;
+	float sandEnd = 0.6;
+	float rockStart = 3;
+	float grassEnd = 14;
+	
+	/*
+	float PI = 3.14159265358979323846264;
+	
+	vec2 n = normalize(vec2(exNormal.x, exNormal.z));
+	float rad = atan(n) + specialValue;
+	
+	float X = cos(rad);
+	float Z = sin(rad);
+	
+	vec2 sandTexCoord = (mat2( X, -Z,
+						       Z,  X  ) * (exTexCoord - vec2(0.5,0.5)) + vec2(0.5,0.5)) * texScaling;
+							   
+	
+	sandTexCoord = mod(sandTexCoord, 1);
+	vec4 sand = texture(sandTexture, sandTexCoord);
+	*/
+	
+	vec4 sand = texture(sandTexture, scaledTexCoord);
+	vec4 grass = texture(grassTexture, scaledTexCoord);
+	vec4 rock = texture(rockTexture, scaledTexCoord);
+	
+	
+	if(height < grassStart)
+		return sand;
+	if(height <= sandEnd) {
+		vec4 grassRockMix = mix(mixTextures(grass, rock, sandEnd, rockStart, grassEnd, 1/2),
+							    mixTextures(grass, rock, sandEnd, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mix(mixTextures(sand, grassRockMix, height, grassStart, sandEnd, 2),
+		           mixTextures(sand, grassRockMix, height, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
+	}
+	if(height <= rockStart) {
+		vec4 lastMix = mix(mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 2),
+						   mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
+		vec4 nextMix_ = mix(mixTextures(grass, rock, rockStart, rockStart, grassEnd, 1/2),
+						   mixTextures(grass, rock, rockStart, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		vec4 nextMix = mix(mixTextures(nextMix_, rock, rockStart, rockStart, grassEnd, 1/2),
+							mixTextures(nextMix_, rock, rockStart, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mixTextures(lastMix, nextMix, rockStart, sandEnd, rockStart, 1);
+	}
+	if(height <= grassEnd) {
+		vec4 lastMix = mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
+						   mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mix(mixTextures(lastMix, rock, height, rockStart, grassEnd, 1/2),
+		           mixTextures(lastMix, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		}
+	return rock;
+	/*
+	if(height < grassStart)
+		return sand;
+	if(height <= sandEnd) {
+		return mix(mixTextures(sand, grass, height, grassStart, sandEnd, 2),
+		           mixTextures(sand, grass, height, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
+	}
+	if(height < rockStart) {
+		vec4 lastMix = mix(mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 2),
+						   mixTextures(sand, grass, sandEnd, grassStart, sandEnd, 1), clamp(2*horizontal,0,1));
+		vec4 nextMix = mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
+						   mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mixTextures(lastMix, nextMix, height, sandEnd, rockStart, 1);
+	}
+	if(height <= grassEnd) {
+		vec4 lastMix = mix(mixTextures(grass, rock, height, rockStart, grassEnd, 1/2),
+						   mixTextures(grass, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		return mix(mixTextures(lastMix, rock, height, rockStart, grassEnd, 1/2),
+		           mixTextures(lastMix, rock, height, rockStart, grassEnd, 2), clamp(1.5*horizontal, 0, 1));
+		}
+	return rock;*/
 }
 
 
@@ -88,8 +182,11 @@ float shadowTest(vec2 texcoods, int kernelSize) {
 void main(void){
 
 	vec2 scaledTexCoord = exTexCoord*texScaling;
-	vec4 texel0 = texture(tex0, scaledTexCoord);
 	vec4 texel3 = texture(tex3, exTexCoord);
+	
+	// Texture blending
+	//vec4 texel0 = blendTextures(tex0, tex1, tex2);
+	vec4 texel0 = vec4(0.9,0.9,0.9,1);
 
 	/*
 	float zBuffer = texel3.x;
@@ -108,11 +205,12 @@ void main(void){
 		
 	} else { 
 		// If over water
-		int testKernelSize = 3;
-		int kernelSize = 4;
+		int testKernelSize = 1;
+		int kernelSize = 2;
 		//shadowTest(lightSpaceVertex.xy, testKernelSize);
 	
-		outColor = texel0*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
+		//outColor = texel0*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
+		outColor = texel0*shadowTest(lightSpaceVertex.xy, kernelSize);
 	/*
 		if(nShadows == 0){
 			outColor = texel0*phongShading();
@@ -128,7 +226,7 @@ void main(void){
 	}
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
-	outColor = mix(fogColor, outColor, fogBlending());
+	//outColor = mix(fogColor, outColor, fogBlending());
 	
 	//outColor = vec4(vec3(zNormalized), 1);
 }

@@ -36,10 +36,14 @@ ExtrapolateAndConquer::~ExtrapolateAndConquer(){
 
 void ExtrapolateAndConquer::initialize(void){
 
+    fpsMeter->start();
     openGLWindow->initialize();
+    qDebug() << "OpenGL init: " << fpsMeter->elapsed() << "ms";
 
+    fpsMeter->start();
     resourceManager = new ResourceManager;
     loadResources();
+    qDebug() << "Resource Loading: " << fpsMeter->elapsed() << "ms";
 
     Renderer* renderer = openGLWindow->getRenderer();
 
@@ -83,6 +87,7 @@ void ExtrapolateAndConquer::initialize(void){
     }
 
     // ------------- Generate world ------------------------
+    fpsMeter->start();
     float octaves[16];
     float scales[16];
 
@@ -105,15 +110,26 @@ void ExtrapolateAndConquer::initialize(void){
     Model* worldModel;
     world = new World();
     renderer->lightPosition = world->lightPosition;
-    QMatrix4x4 mat;
-    mat.setToIdentity();
-    mat.lookAt(renderer->lightPosition, QVector3D(150,-100,150), QVector3D(0,1,0));
-    renderer->lightSourceVMatrix = mat;
+
     Object* worldObject;
 
     int nOctaves = sizeof(octaves)/sizeof(float);
     worldModel = world->generateWorld(300,300,0.5f,octaves,scales,nOctaves);
     hightMapOfChunk = world->heightMap;
+
+    // Shadow map Matrices
+    renderer->lightSourceVMatrix.setToIdentity();
+    renderer->lightSourceVMatrix.lookAt(renderer->lightPosition, QVector3D(150,-100,150), QVector3D(0,1,0));
+    renderer->lightSourceVMatrixInv = renderer->lightSourceVMatrix;
+    renderer->lightSourceVMatrixInv.inverted();
+
+    renderer->lightSourcePMatrix.setToIdentity();
+    float nearPlane = world->lightPosition.length();
+    float farPlane = (QVector3D(world->sizeX, 0, world->sizeZ) - world->lightPosition).length();
+    //renderer->lightSourcePMatrix.perspective(60.0, 1, nearPlane, farPlane);
+    renderer->lightSourcePMatrix.ortho(-100,100,-100,100,nearPlane,farPlane);
+    renderer->lightSourcePMatrixInv = renderer->lightSourcePMatrix;
+    renderer->lightSourcePMatrixInv.inverted();
 
     sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*world->scaleFactor-world->scaleFactor));
     sphereTerrainCollisionSystem.setWorld(world);
@@ -124,13 +140,15 @@ void ExtrapolateAndConquer::initialize(void){
     worldTextures.push_back(resourceManager->getTexture("rock1"));
     worldTextures.push_back(renderer->fbo1->depthTex);
 
-    worldObject = new Object(worldModel, resourceManager->getShader("terrainMultiTextureShader"), worldTextures);
+    worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
     //worldObject->setScale(2,0,2);
     worldObject->setTexScaling(10);
 
     renderer->world = worldObject;
+    qDebug() << "Generating world: " << fpsMeter->elapsed() << "ms";
+
 
     QVector<GLuint> ot = QVector<GLuint>();
     ot.push_back(resourceManager->getTexture("water"));
@@ -187,9 +205,9 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadModel("fboSquare");
 
     //test data
-    printf("loading teapot data \n");
+    printf("loading tree data \n");
     resourceManager->loadShader("phong");
-    resourceManager->loadModel("teapot");
+    //resourceManager->loadModel("teapot");
     resourceManager->loadModel("tree0");
 
     printf("loading sphere data \n");
@@ -205,13 +223,13 @@ void ExtrapolateAndConquer::loadResources(void){
 
     //ground data
     printf("loading ground data \n");
+    //resourceManager->loadShader("terrainShader");
     resourceManager->loadShader("terrainShader");
-    resourceManager->loadShader("terrainMultiTextureShader");
     resourceManager->loadTexture("grass2", true);
-    resourceManager->loadTexture("sand0", true);
+    //resourceManager->loadTexture("sand0", true);
     resourceManager->loadTexture("sand2", true);
     resourceManager->loadTexture("rock1", true);
-    resourceManager->loadTexture("snow1", true);
+    //resourceManager->loadTexture("snow1", true);
 
 
     //water data
@@ -223,7 +241,7 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadModel("hiResSquare");
     resourceManager->loadShader("oceanShader");
 
-    resourceManager->loadTexture("skyTop", true);
+    //resourceManager->loadTexture("skyTop", true);
     resourceManager->loadTexture("skyboxWaterReflection", true);
 
     resourceManager->loadShader("instance");

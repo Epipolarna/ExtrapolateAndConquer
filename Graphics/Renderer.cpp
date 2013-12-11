@@ -1,5 +1,6 @@
 #include "Renderer.hpp"
 
+
 Renderer::Renderer(void){
     camera = new Camera();
     width = 1280;
@@ -109,8 +110,8 @@ void Renderer::initFBO(FBO* fbo)
     glGenTextures(1, &fbo->depthTex);
     glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, shadowMapSize, shadowMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -141,15 +142,16 @@ void Renderer::useFBO(FBO* fbo)
 
 void Renderer::repaint(){
 
+
     // Draw the scene from the lightsource to shadowMap FBO
     useFBO(fbo1);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 
     if(world != NULL){
-        world->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
+        world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
     }
 
     for(Object * o : renderList){
@@ -161,6 +163,8 @@ void Renderer::repaint(){
     if(water != NULL){
         water->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
     }
+
+    glCullFace(GL_BACK);
 
     // Draw everything again to the default FBO
     useFBO(0); // Default
@@ -176,6 +180,9 @@ void Renderer::repaint(){
     if(world != NULL){
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
+        world->program->bind();
+        world->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
+        world->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
         world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     }
 
@@ -201,12 +208,13 @@ void Renderer::repaint(){
         glDisable(GL_BLEND);
     }
 
-    
+    /*
     if(treeModel != NULL && treePositions.size() > 0){
         glEnable(GL_BLEND);
         drawObjects(treeModel,treeShader,treePositions,treeTexture);
         glDisable(GL_BLEND);
     }
+    */
 
     //QImage im1 = FBO1->toImage();
     //im1.save("im1.png");
@@ -220,4 +228,6 @@ void Renderer::repaint(){
     glDisable(GL_DEPTH_TEST);
     fboSquare->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     */
+
+
 }

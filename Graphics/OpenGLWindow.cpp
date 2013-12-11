@@ -11,7 +11,7 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 {
     setSurfaceType(OpenGLSurface);
     setFormat(context->format());
-    std::cerr << "OpenGL version: "+std::to_string(context->format().majorVersion())+"."+std::to_string(context->format().minorVersion());
+    std::cerr << "OpenGL version: "+std::to_string(context->format().majorVersion())+"."+std::to_string(context->format().minorVersion()) << std::endl;
     create();
 
     context->makeCurrent(this);
@@ -66,7 +66,34 @@ void OpenGLWindow::resizeGl()
 
     renderer->setSize(width(), height());
     renderer->pMatrix.setToIdentity();
-    renderer->pMatrix.perspective(60.0, (float) width() / (float) height(), 0.1, 1000);
+    float FOVvert = 60.0;
+    float aspectRatio = (float) width() / (float) height();
+    float FOVhorz = FOVvert*aspectRatio;
+    float nearPlane = 0.1;
+    float farPlane = 1000;
+    renderer->pMatrix.perspective(FOVvert, aspectRatio, nearPlane, farPlane);
+
+    //Near
+    float nearVert = nearPlane*atanf(FOVvert/2);
+    float nearHorz = nearPlane*atanf(FOVhorz/2);
+    qDebug() << "nearVert" << nearVert;
+    qDebug() << "nearHorz" << nearHorz;
+    float NLL;
+    float NLR;
+    float NUL;
+    float NUR;
+
+    //Far
+    float FLL;
+    float FLR;
+    float FUL;
+    float FUR;
+
+
+    renderer->pMatrixInv = renderer->pMatrix;
+    renderer->pMatrixInv.inverted();
+    camera->pMatrix = renderer->pMatrix;
+    camera->pMatrixInv = renderer->pMatrixInv;
 
     glViewport(0, 0, width(), height());
 }

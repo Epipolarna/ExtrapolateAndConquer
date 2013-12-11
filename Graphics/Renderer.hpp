@@ -34,7 +34,13 @@ public:
 
     std::vector<Object*> renderList;
 
-    QMatrix4x4 pMatrix, lightSourceVMatrix;
+    QMatrix4x4 pMatrix;
+    QMatrix4x4 pMatrixInv;
+    QMatrix4x4 lightSourceVMatrix;
+    QMatrix4x4 lightSourcePMatrix;
+    QMatrix4x4 lightSourceVMatrixInv;
+    QMatrix4x4 lightSourcePMatrixInv;
+
     QVector3D lightPosition;
 
     Object* skybox;
