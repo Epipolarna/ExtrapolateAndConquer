@@ -119,16 +119,16 @@ void ExtrapolateAndConquer::initialize(void){
     sphereTerrainCollisionSystem.setWorld(world);
 
     QVector<GLuint> worldTextures = QVector<GLuint>();
-    worldTextures.push_back(resourceManager->getTexture("sand0"));
-    worldTextures.push_back(resourceManager->getTexture("grass1"));
-    worldTextures.push_back(resourceManager->getTexture("rock0"));
+    worldTextures.push_back(resourceManager->getTexture("sand2"));
+    worldTextures.push_back(resourceManager->getTexture("grass2"));
+    worldTextures.push_back(resourceManager->getTexture("rock1"));
     worldTextures.push_back(renderer->fbo1->depthTex);
 
     worldObject = new Object(worldModel, resourceManager->getShader("terrainMultiTextureShader"), worldTextures);
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
     //worldObject->setScale(2,0,2);
-    worldObject->setTexScaling(1000);
+    worldObject->setTexScaling(10);
 
     renderer->world = worldObject;
 
@@ -200,10 +200,11 @@ void ExtrapolateAndConquer::loadResources(void){
     printf("loading ground data \n");
     resourceManager->loadShader("terrainShader");
     resourceManager->loadShader("terrainMultiTextureShader");
-    resourceManager->loadTexture("grass1", true);
+    resourceManager->loadTexture("grass2", true);
     resourceManager->loadTexture("sand0", true);
-    resourceManager->loadTexture("rock0", true);
-    resourceManager->loadTexture("snow0", true);
+    resourceManager->loadTexture("sand2", true);
+    resourceManager->loadTexture("rock1", true);
+    resourceManager->loadTexture("snow1", true);
 
 
     //water data

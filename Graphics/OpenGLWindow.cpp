@@ -106,6 +106,9 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         close();
         break;
     case Qt::Key_T:
+        specialValue += 0.01;
+        std::cerr << specialValue;
+        break;
     case Qt::Key_R:
         trackMouse = !trackMouse;
         if(trackMouse){

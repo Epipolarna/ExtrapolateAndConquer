@@ -11,6 +11,7 @@ uniform sampler2D tex1;	// grass
 uniform sampler2D tex2; // rock
 uniform sampler2D tex3;	// Shadow
 uniform float texScaling;
+uniform float specialValue;
 	
 
 uniform float ambientCoeff;
@@ -95,14 +96,32 @@ vec4 blendTextures(sampler2D sandTexture, sampler2D grassTexture, sampler2D rock
 	float horizontal = dot(exNormal, vec3(0,1,0));
 				
 	float grassStart = 0.1;
-	float sandEnd = 1;
+	float sandEnd = 0.6;
 	float rockStart = 3;
 	float grassEnd = 14;
+	
+	/*
+	float PI = 3.14159265358979323846264;
+	
+	vec2 n = normalize(vec2(exNormal.x, exNormal.z));
+	float rad = atan(n) + specialValue;
+	
+	float X = cos(rad);
+	float Z = sin(rad);
+	
+	vec2 sandTexCoord = (mat2( X, -Z,
+						       Z,  X  ) * (exTexCoord - vec2(0.5,0.5)) + vec2(0.5,0.5)) * texScaling;
+							   
+	
+	sandTexCoord = mod(sandTexCoord, 1);
+	vec4 sand = texture(sandTexture, sandTexCoord);
+	*/
 	
 	vec4 sand = texture(sandTexture, scaledTexCoord);
 	vec4 grass = texture(grassTexture, scaledTexCoord);
 	vec4 rock = texture(rockTexture, scaledTexCoord);
-		
+	
+	
 	if(height < grassStart)
 		return sand;
 	if(height <= sandEnd) {
