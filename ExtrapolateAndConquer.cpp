@@ -157,13 +157,30 @@ void ExtrapolateAndConquer::initialize(void){
 
     // Global influence map
     int resolution = 4;
-    cv::Mat influenceMap = cv::Mat::zeros(world->sizeX*resolution, world->sizeZ*resolution, CV_8U);
+    influenceMap = cv::Mat::zeros(world->sizeX*resolution, world->sizeZ*resolution, CV_8U);
 
     for(SpherePhysics & physics : entityManager.getComponents<SpherePhysics>()) {
         cv::circle(influenceMap, cv::Point2i(physics.position.x()*resolution, physics.position.z()*resolution), physics.radius, cv::Scalar(255), -1);
     }
     cv::dilate(influenceMap, influenceMap, cv::Mat::ones(3,3,CV_8U), cv::Point2i(-1,-1), 3);
     cv::GaussianBlur(influenceMap, influenceMap, cv::Size(9,9), 3);
+    cv::imshow("Influence Map", influenceMap);
+
+    // AI test
+    e = &entityManager.createEntity();
+    // Add Sphere physics
+    e->add<SpherePhysics>();
+    SpherePhysics & sp = e->get<SpherePhysics>();
+    sp.position = QVector3D(500,1000000,500);
+    sp.rotation2 = QQuaternion(1,0,0,0);
+    sp.mass = 1.0;
+    sp.elasticity = 0.3;
+    sp.friction = 1.0;
+    sp.radius = 1.0;
+    sp.gravitationalConstant = 0;
+    sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
+    e->add<AI>();
+    e->get<AI>().locationTarget = QVector2D(2000,2000);
 
 
     // Initialize systems
@@ -249,7 +266,12 @@ void ExtrapolateAndConquer::loopBody(){
     spherePhysicsSystem.setTimeInterval(fpsMeter->elapsed()/1000.0);  // Set dt.
 
     SpherePhysics & sp = e->get<SpherePhysics>();
-    sp.force += QVector3D(0.1,0,0.2);
+    //sp.force += QVector3D(0.1,0,0.2);
+
+
+    sp.force = QVector3D(0.1,0,0.1);
+    // Run AI
+    aiSystem.batch();
 
     // Run collision detection
     sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
@@ -261,8 +283,10 @@ void ExtrapolateAndConquer::loopBody(){
     // Run physics to graphics transfer of position/rotation
     graphicsUpdateSystem.batch();
 
-    // Run AI
-    aiSystem.batch();
+
+    // Debug AI
+    influenceMap.at<uchar>(sp.position.x(),sp.position.z()) = 255;
+    cv::imshow("Influence Map", influenceMap);
 
     //make sure to update the gl widget...
     //graphicsWindow->centralWidget()->update();

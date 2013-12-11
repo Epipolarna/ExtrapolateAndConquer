@@ -58,6 +58,7 @@ public:
 
     Entity<Components> * e;
     cv::Mat hightMapOfChunk;
+    cv::Mat influenceMap;
 
     void loadResources(void);
 };

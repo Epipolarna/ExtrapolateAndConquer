@@ -14,7 +14,7 @@ public:
             // Calculate evasive movement direction considering hinderence from the influence map
             QVector2D movementDirection = ai.locationTarget - QVector2D(physics.position.x(), physics.position.z());
             QVector2D influenceVector = getLocalInfluenceDerivative(physics.position);
-            movementDirection = (256*movementDirection.normalized()+2*influenceVector).normalized();
+            movementDirection = (movementDirection.normalized()+2*influenceVector).normalized();
 
             // Move in movement direction
             physics.force += movementDirection*0.1;
