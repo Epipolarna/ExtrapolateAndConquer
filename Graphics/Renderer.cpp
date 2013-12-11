@@ -221,14 +221,6 @@ void Renderer::repaint(){
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 
-    if(world != NULL){
-        world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
-    }
-
-    for(Object * o : renderList){
-        o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
-    }
-
     // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
     if(worldData != NULL){
         //glDepthMask(GL_FALSE);
@@ -236,6 +228,14 @@ void Renderer::repaint(){
         drawInstanceObjects(worldData->trees, true);
         //glDisable(GL_BLEND);
         //glDepthMask(GL_TRUE);
+    }
+
+    if(world != NULL){
+        world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+    }
+
+    for(Object * o : renderList){
+        o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
     }
 
     if(water != NULL){
