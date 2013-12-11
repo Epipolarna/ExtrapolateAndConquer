@@ -12,7 +12,11 @@ public:
     Camera();
 
     QVector3D position, lookAtPoint, lookAtDirection, up;
-    QMatrix4x4 vMatrix, rotationMatrix;
+    QMatrix4x4 vMatrix;
+    QMatrix4x4 vMatrixInv;
+    QMatrix4x4 pMatrix;
+    QMatrix4x4 pMatrixInv;
+    QMatrix4x4 rotationMatrix;
     float translationSpeed, pitchSpeed, rollSpeed, yawSpeed, mouseSensitivity;
 
     void setPosition(QVector3D position);
@@ -24,6 +28,8 @@ public:
     void keyReleaseEvent(QKeyEvent* e);
     void mouseMoveEvent(int dX, int dY);
     void updatePosition();
+
+    void updateLookAt();
 
     QMatrix4x4 skyboxMatrix();
 

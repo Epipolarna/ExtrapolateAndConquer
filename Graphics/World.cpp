@@ -2,8 +2,12 @@
 #include <iostream>
 #include <QTime>
 
-World::World(){
+World::World( ResourceManager* resources){
     lightPosition = QVector3D(-100,100,-10);
+    QVector<GLuint> treeTextures;
+
+    treeTextures.push_back(resources->getTexture("bush"));
+    trees = new StaticObjectList(resources->getModel("bush"),treeTextures,resources->getShader("instance"));
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
@@ -258,30 +262,16 @@ QVector3D World::getNormal(float x, float z)
 }
 
 
-std::vector<QVector3D> World::getTrees(void){
-    return treePositions;
+StaticObjectList* World::getTrees(void){
+    return trees;
 }
 
-float World::distanceToTree(QVector3D position){
-    float closest = 10000000000;
-    for(QVector3D& p : treePositions){
-        QVector3D diffVector = p - position; 
-        float distance = diffVector.lengthSquared();
-        if(distance < closest){
-            closest = distance;
-        }
-    }
-    return closest;
-}
-
-std::vector<QVector3D> World::placeTrees(){
-    treePositions = std::vector<QVector3D>();
+void World::placeTrees(void){
     cv::RNG generator = cv::RNG();
-    int maxNumTrees = 10;
+    int maxNumTrees = 351;
     int maxNumIters = 10000;
     int numIters = 0;
     int numTrees = 0;
-
 
     float offsetX = (float)sizeX / 2;
     float offsetZ = (float)sizeZ / 2;
@@ -292,14 +282,16 @@ std::vector<QVector3D> World::placeTrees(){
         float x = generator.gaussian(sigmaX) + offsetX;
         float z = generator.gaussian(sigmaZ) + offsetZ;
         float y = getHeight(x,z);
-        QVector3D position = QVector3D(x,y,z);
-        float distClosestTree = distanceToTree(position);
-        if(y > 0 && distClosestTree > 15){
-            treePositions.push_back(position);
+        float rotation = (float)generator.uniform(0,600) / 100.0; //roughly a random ammount of radians
+        //float scale = generator.gaussian(0.1);
+        float scale = 1.0;
+        if(y > 0){
+            QQuaternion rot = QQuaternion(rotation,0,1,0);
+            rot.normalize();
+            trees->appendObject(QVector3D(x,y,z),rot,QVector3D(scale,scale,scale));
             numTrees = numTrees + 1;
         }
         numIters = numIters + 1;
     }
-
-    return treePositions;
+    printf("placed %d trees \n",trees->getMatrices().size());
 }

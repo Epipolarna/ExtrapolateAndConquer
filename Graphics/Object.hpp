@@ -67,5 +67,7 @@ private:
     static const int textureSlots[];
 };
 
+extern float specialValue;
+
 
 #endif // OBJECT_HPP

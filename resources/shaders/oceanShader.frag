@@ -70,13 +70,38 @@ float fogBlending()
     return blendingFactor;
 }  
 
-float shadowTest(vec2 texcoods) {
-	float shadow = texture(tex3, texcoods).r;
-	float epsilon = 0.000001;
-	if (shadow + epsilon < lightSpaceVertex.z) {
-		return 0.0; // shadowed
+int nShadows = 0;
+float shadowCoeff = 0.5;
+
+float shadowTest(vec2 texcoods, float kernelSize) {
+	float shadow = 0;
+	float depthComparison = 0;
+	float epsilon = 0.001;
+	
+	float texOffset = 0.7/(kernelSize*2048); // Motsvarar spridning på skuggan
+	
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
 	}
-	return 1.0; // not shadowed
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	
+	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
 }
 
 void main(void){
@@ -84,7 +109,7 @@ void main(void){
 	vec4 texel3 = texture(tex3, exTexCoord);
 	
 	float shading = phongShading();
-	float shadow = shadowTest(lightSpaceVertex.xy);
+	float shadow = shadowTest(lightSpaceVertex.xy, 2);
 	
 	// ad hoc heaven mirror. Should be improved a lot.
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;

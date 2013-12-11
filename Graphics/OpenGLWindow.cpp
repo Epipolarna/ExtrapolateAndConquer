@@ -11,7 +11,7 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 {
     setSurfaceType(OpenGLSurface);
     setFormat(context->format());
-    std::cerr << "OpenGL version: "+std::to_string(context->format().majorVersion())+"."+std::to_string(context->format().minorVersion());
+    std::cerr << "OpenGL version: "+std::to_string(context->format().majorVersion())+"."+std::to_string(context->format().minorVersion()) << std::endl;
     create();
 
     context->makeCurrent(this);
@@ -21,7 +21,7 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
     renderer = new Renderer();
     renderer->setSize(width(), height());
     camera = renderer->camera;
-    camera->setPosition(QVector3D(50,20,0));
+    camera->setPosition(QVector3D(0,0,0));
     camera->setLookAtDirection(QVector3D(0,0,1));
 
     trackMouse = false;
@@ -66,7 +66,56 @@ void OpenGLWindow::resizeGl()
 
     renderer->setSize(width(), height());
     renderer->pMatrix.setToIdentity();
-    renderer->pMatrix.perspective(60.0, (float) width() / (float) height(), 0.1, 1000);
+    float FOVvert = 60.0;
+    float aspectRatio = (float) width() / (float) height();
+    float nearPlane = 0.1;
+    float farPlane = 1000;
+    renderer->pMatrix.perspective(FOVvert, aspectRatio, nearPlane, farPlane);
+
+#define PI 3.14159265359
+
+    //Near
+    float nearVert = nearPlane*tanf(FOVvert/2 * PI/180);
+    float nearHorz = nearVert*aspectRatio;
+    qDebug() << "nearVert" << nearVert;
+    qDebug() << "nearHorz" << nearHorz;
+    QVector4D NLL(-nearHorz,-nearVert,-nearPlane,1);
+    QVector4D NLR(nearHorz,-nearVert,-nearPlane,1);
+    QVector4D NUL(-nearHorz,nearVert,-nearPlane,1);
+    QVector4D NUR(nearHorz,nearVert,-nearPlane,1);
+
+    //Far
+    float farVert = farPlane*tanf(FOVvert/2 * PI/180);
+    float farHorz = farVert*aspectRatio;
+    qDebug() << "farVert" << farVert;
+    qDebug() << "farHorz" << farHorz;
+    QVector4D FLL(-farHorz,-farVert,-farPlane,1);
+    QVector4D FLR(farHorz,-farVert,-farPlane,1);
+    QVector4D FUL(-farHorz,farVert,-farPlane,1);
+    QVector4D FUR(farHorz,farVert,-farPlane,1);
+
+    renderer->frustumCorners.clear();
+    renderer->frustumCorners.push_back(NLL);
+    renderer->frustumCorners.push_back(NLR);
+    renderer->frustumCorners.push_back(NUL);
+    renderer->frustumCorners.push_back(NUR);
+    renderer->frustumCorners.push_back(FLL);
+    renderer->frustumCorners.push_back(FLR);
+    renderer->frustumCorners.push_back(FUL);
+    renderer->frustumCorners.push_back(FUR);
+/*
+    qDebug() << "NLL" << NLL;
+    qDebug() << "NLR" << NLR;
+    qDebug() << "NUL" << NUL;
+    qDebug() << "NUR" << NUR;
+    qDebug() << "FLL" << FLL;
+    qDebug() << "FLR" << FLR;
+    qDebug() << "FUL" << FUL;
+    qDebug() << "FUR" << FUR;
+*/
+
+    renderer->pMatrixInv = renderer->pMatrix;
+    renderer->pMatrixInv.inverted();
 
     glViewport(0, 0, width(), height());
 }
@@ -106,6 +155,9 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         close();
         break;
     case Qt::Key_T:
+        specialValue += 0.01;
+        std::cerr << specialValue;
+        break;
     case Qt::Key_R:
         trackMouse = !trackMouse;
         if(trackMouse){

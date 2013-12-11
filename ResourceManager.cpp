@@ -1,6 +1,5 @@
 #include "ResourceManager.hpp"
 
-
 const QString ResourceManager::resourcePath = "./resources/";
 const QString ResourceManager::modelPath = resourcePath + "models/";
 const QString ResourceManager::shaderPath = resourcePath + "shaders/";
@@ -14,15 +13,28 @@ ResourceManager::~ResourceManager(){
     //destroy all resources etc
 }
 
-Model* ResourceManager::getModel(QString name){
-	return models[name];
+Model* ResourceManager::getModel(const QString name){
+    std::map< QString, Model* >::iterator item = models.find(name);
+    
+	if(item != models.end()){
+        return item->second;
+    }else{
+        printf("Warning, model resource: %s not found! \n",name.toStdString().c_str());
+        return NULL;
+    }
 }
 
-GLuint ResourceManager::getTexture(QString name){
-	return textures[name];
+GLuint ResourceManager::getTexture(const QString name){
+    std::map<QString,GLuint>::iterator item = textures.find(name);
+	if(item != textures.end()){
+        return item->second;
+    }else{
+        printf("Warning, texture resoruce :%s not found! \n",name.toStdString().c_str());
+        return 0;
+    }
 }
 
-QOpenGLShaderProgram* ResourceManager::getShader(QString name){
+QOpenGLShaderProgram* ResourceManager::getShader(const QString name){
     if(shaders.find(name) != shaders.end()){
         return shaders[name];
     }else{

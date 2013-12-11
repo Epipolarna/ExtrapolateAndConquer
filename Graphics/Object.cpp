@@ -75,6 +75,7 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3
     program->setUniformValue("diffuseCoeff", diffuseCoeff);
     program->setUniformValue("specularCoeff", specularCoeff);
     program->setUniformValue("specularExponent", specularExponent);
+    program->setUniformValue("specialValue", specialValue);
 
     for(int i=0; i < textures.size(); ++i){
         glActiveTexture(textureSlots[i]);
@@ -126,6 +127,8 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3
     program->release();
 }
 
+extern float specialValue = 0.0;
+
 void Object::customDraw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QOpenGLShaderProgram *program)
 {
     program->bind();
@@ -134,6 +137,7 @@ void Object::customDraw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QO
     program->setUniformValue("vMatrix", vMatrix);
     program->setUniformValue("pMatrix", pMatrix);
     program->setUniformValue("scale", scale);
+    program->setUniformValue("specialValue", specialValue);
 
     glActiveTexture(GL_TEXTURE0);
 

@@ -27,9 +27,9 @@ public:
     ResourceManager();
     ~ResourceManager();
     
-    Model* getModel(QString name);
-    GLuint getTexture(QString name);
-    QOpenGLShaderProgram* getShader(QString name);
+    Model* getModel(const QString name);
+    GLuint getTexture(const QString name);
+    QOpenGLShaderProgram* getShader(const QString name);
 
 
     bool loadTexture(QString textureName,bool mipmap=false);

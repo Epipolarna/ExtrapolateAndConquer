@@ -64,23 +64,32 @@ float shadowTest(vec2 texcoods) {
 int nShadows = 0;
 float shadowCoeff = 0.5;
 
-float shadowTest(vec2 texcoods, int kernelSize) {
+float shadowTest(vec2 texcoods, float kernelSize) {
 	float shadow = 0;
 	float depthComparison = 0;
-	float epsilon = 0.000001;
+	float epsilon = 0.001;
 	
-	float texOffset = 3.0/(kernelSize*1000); // Motsvarar spridning på skuggan
+	float texOffset = 0.7/(kernelSize*2048); // Motsvarar spridning på skuggan
 	
-	float kernelSizeF = kernelSize;
-	for(int i = 0; i < kernelSize; i++){
-		for(int j = 0; j < kernelSize; j++){
-		
-			depthComparison = lightSpaceVertex.z - texture(tex3, texcoods + vec2(texOffset*(i - kernelSize/2), texOffset*(j - kernelSize/2))).r;
-			if(depthComparison > epsilon){
-				shadow += 1.0 / pow(kernelSizeF,2.0);
-				nShadows += 1;
-			}
-		}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
 	}
 	
 	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
@@ -94,8 +103,7 @@ void main(void)
 	if(exPosition.y < 0){
 		outColor = texel0*ambientCoeff*ambientCoeff;
 	} else {
-		int testKernelSize = 3;
-		int kernelSize = 4;
+		int kernelSize = 2;
 		
 		outColor = texel0*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
 	}

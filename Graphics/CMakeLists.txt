@@ -6,5 +6,5 @@ add_library(Graphics
             Model.cpp
             simplexnoise1234.cpp
             World.cpp
-            StaticObject.cpp
+            StaticObjectList.cpp
             )
