@@ -60,8 +60,8 @@ void Renderer::drawInstanceObjects(StaticObjectList* statics){
 
     for(int i=0; i < translations.size(); i = i + maxInstanceObjects){
         int offset = maxInstanceObjects;
-        if(offset > translations.size()){
-            offset = translations.size() - 1;
+        if(i + offset > translations.size()){
+            offset = translations.size() - i;
         }
         program->setUniformValueArray("mMatrix",&translations[i],offset);
         glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,offset);
