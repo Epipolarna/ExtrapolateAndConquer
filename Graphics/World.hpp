@@ -44,6 +44,8 @@ class World{
         QVector3D lightPosition;
 
         GLuint textureRef;
+
+        StaticObjectList* trees;
     private:
 
         void placeTrees(void);
@@ -51,7 +53,6 @@ class World{
         void uploadCVTexture(void);
 
         cv::Mat textureData;
-        StaticObjectList* trees;
 };
 
 #endif

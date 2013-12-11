@@ -20,8 +20,12 @@ void Renderer::drawObject(Object* o){
     this->renderList.push_back(o);
 }
 
-void Renderer::drawObjects(Model* model,QOpenGLShaderProgram* program,std::vector<QVector3D> positions,GLuint tex){
-    
+void Renderer::drawInstanceObjects(StaticObjectList* statics){
+
+    QOpenGLShaderProgram* program = statics->getProgram();
+    Model* model = statics->getModel();
+    GLuint tex = statics->getTextures()[0];
+
     float ambientCoeff  = 0.2;
     float diffuseCoeff  = 0.6;
     float specularCoeff = 100;
@@ -50,28 +54,17 @@ void Renderer::drawObjects(Model* model,QOpenGLShaderProgram* program,std::vecto
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,tex);
 
-    //make the matrix array
-    std::vector<QMatrix4x4> translations = std::vector<QMatrix4x4>(positions.size());
-    for(QVector3D p : positions){
-        QMatrix4x4 m = QMatrix4x4();
-        m.setToIdentity();
-        m.translate(p);
-        translations.push_back(m);
-    }
 
-    //draw in chunks of maxInstanceObjects
+    program->setUniformValue("pMatrix",pMatrix);
+    program->setUniformValue("vMatrix",camera->vMatrix);
+    QVector<QMatrix4x4> translations = statics->getMatrices();
+
     for(int i=0; i < translations.size(); i = i + maxInstanceObjects){
-
-        int lastIndex = i + maxInstanceObjects;
-        if(lastIndex > translations.size()){
-            lastIndex = translations.size() - i;
+        int offset = maxInstanceObjects;
+        if(offset > translations.size()){
+            offset = translations.size() - 1;
         }
-
-        int offset = lastIndex - i;
-
         program->setUniformValueArray("mMatrix",&translations[i],offset);
-        program->setUniformValue("pMatrix",pMatrix);
-        program->setUniformValue("vMatrix",camera->vMatrix);
         glDrawElementsInstanced(GL_TRIANGLES,model->index.size(),GL_UNSIGNED_INT,0L,offset);
     }
 
@@ -281,17 +274,18 @@ void Renderer::repaint(){
         glDisable(GL_BLEND);
     }
 
-    if(treeModel != NULL && treePositions.size() > 0){
+    if(worldData != NULL){
         glEnable(GL_BLEND);
-        drawObjects(treeModel,treeShader,treePositions,treeTexture);
+        drawInstanceObjects(worldData->trees);
         glDisable(GL_BLEND);
     }
+    
 
     //QImage im1 = FBO1->toImage();
     //im1.save("im1.png");
 
     // Render the FBO to the default buffer
-/*
+    /*
     QGLFramebufferObject::bindDefault();    // Set the "normal" screen as render target
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

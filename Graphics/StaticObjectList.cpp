@@ -1,6 +1,7 @@
 #include "StaticObjectList.hpp"
 
-StaticObjectList::StaticObjectList( Model* m,  QVector<GLuint> textures) : m(m), textures(textures) {
+StaticObjectList::StaticObjectList( Model* m,  QVector<GLuint> textures, QOpenGLShaderProgram* program) : 
+									m(m), textures(textures), program(program){
 	matricesUpdated = false;
 	numObjects = 0;
 }
@@ -16,8 +17,11 @@ void StaticObjectList::appendObject( QVector3D position,  QQuaternion rotation, 
 void StaticObjectList::deleteObject( int index ){
 	positions.remove(index);
 	rotations.remove(index);
+	scales.remove(index);
 	numObjects = numObjects - 1;
-	matricesUpdated = false;
+	if(matricesUpdated){
+		mMatrices.remove(index);
+	}
 }
 
 void StaticObjectList::updateMatrices(void){
@@ -27,6 +31,7 @@ void StaticObjectList::updateMatrices(void){
 		mMatrix.translate(positions[i]);
 		mMatrix.rotate(rotations[i]);
 		mMatrix.scale(scales[i]);
+		mMatrices.push_back(mMatrix);
 	}
 	matricesUpdated = true;
 }
@@ -44,4 +49,7 @@ Model* StaticObjectList::getModel(void){
 }
 QVector<GLuint> StaticObjectList::getTextures(void){
 	return textures;
+}
+QOpenGLShaderProgram* StaticObjectList::getProgram(void){
+	return program;
 }

@@ -165,13 +165,6 @@ void ExtrapolateAndConquer::initialize(void){
 
     renderer->water = ocean;
 
-    //tree stuff..
-    renderer->treeShader = resourceManager->getShader("instance");
-    renderer->treeModel = resourceManager->getModel("tree0");
-    renderer->treeTexture = resourceManager->getTexture("sphere");
-
-    printf("placed %lu trees \n",renderer->treePositions.size());
-
     // Global influence map
     int resolution = 4;
     cv::Mat influenceMap = cv::Mat::zeros(world->sizeX*resolution, world->sizeZ*resolution, CV_8U);
@@ -191,7 +184,8 @@ void ExtrapolateAndConquer::initialize(void){
     sphereTerrainCollisionSystem.initialize(entityManager);
     aiSystem.initialize(entityManager);
     aiSystem.setInfluenceMap(influenceMap);
-    
+
+    renderer->worldData = world;
     printf("all initialization done! \n");
 }
 
