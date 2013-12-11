@@ -71,7 +71,7 @@ void ExtrapolateAndConquer::initialize(void){
         SpherePhysics & sp = e->get<SpherePhysics>();
         sp.position = QVector3D(qrand()%200,5,qrand()%200);
         sp.rotation2 = QQuaternion(1,0,0,0);
-        sp.mass = 100.0;
+        sp.mass = 1000.0;
         sp.elasticity = 0.3;
         sp.friction = 1.0;
         sp.radius = 1.0;
@@ -160,7 +160,7 @@ void ExtrapolateAndConquer::initialize(void){
     Object* ocean = new Object(resourceManager->getModel("hiResSquare"), resourceManager->getShader("oceanShader"),ot);
     
     ocean->setShaderParameters(0.4f, 0.4f, 1.0f, 50);
-    ocean->setColor(59,58,99,200);
+    ocean->setColor(59,58,99,170);
     //ocean->setScale(500,1,500);
     ocean->setTexScaling(2000);
 

@@ -127,7 +127,7 @@ void Object::draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3
     program->release();
 }
 
-extern float specialValue = 0.0;
+extern float specialValue = 1.0;
 
 void Object::customDraw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QOpenGLShaderProgram *program)
 {

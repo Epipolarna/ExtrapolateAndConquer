@@ -212,6 +212,13 @@ void Renderer::calculateLightSourceMatrices()
 
 void Renderer::repaint(){
 
+
+    // Used to move the waves (etc)
+    static float incr = 0.9;
+    incr += 0.0005;
+    incr = incr > 1 ? incr-1 : incr;
+
+
     calculateLightSourceMatrices();
 
     // Draw the scene from the lightsource to shadowMap FBO
@@ -260,6 +267,7 @@ void Renderer::repaint(){
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
         world->program->bind();
+        world->program->setUniformValue("incr", incr);
         world->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
         world->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
         world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
@@ -273,11 +281,6 @@ void Renderer::repaint(){
         o->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
         o->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     }
-
-    // Used to move the waves
-    static float incr = 0;
-    incr += 0.0005;
-    incr = incr > 1 ? incr-1 : incr;
 
     if(water != NULL){
         glEnable(GL_DEPTH_TEST);
