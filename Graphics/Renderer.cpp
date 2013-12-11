@@ -110,8 +110,8 @@ void Renderer::initFBO(FBO* fbo)
     glGenTextures(1, &fbo->depthTex);
     glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, shadowMapSize, shadowMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -140,8 +140,76 @@ void Renderer::useFBO(FBO* fbo)
     }
 }
 
+void Renderer::calculateLightSourceMatrices()
+{
+    /*
+    qDebug() << "CamPos:" << camera->position;
+    qDebug() << "CamLightSpacePos:" << lightSourceVMatrix*camera->position;
+    */
+    QVector4D lightSpaceVertex;
+    float minX = 1000000;
+    float maxX = 0.2;
+    float minY = 1000000;
+    float maxY = 0.2;
+    float minZ = 1000000;
+    float maxZ = 0.2;
+    float lsX = 0;
+    float lsY = 0;
+    float lsZ = 0;
+    bool okInv = false;
+
+    for(int i = 1; i < frustumCorners.size(); i++){
+        QVector4D worldSpaceVertex = frustumCorners[i];
+
+        lightSpaceVertex = lightSourceVMatrix*camera->vMatrix.inverted(&okInv)*worldSpaceVertex;
+        lsX = lightSpaceVertex.x();
+        lsY = lightSpaceVertex.y();
+        lsZ = -lightSpaceVertex.z();
+
+        // X
+        if(lsX > maxX){
+            maxX = lsX;
+        }
+        if(lsX < minX){
+            minX = lsX;
+        }
+
+        // Y
+        if(lsY > maxY){
+            maxY = lsY;
+        }
+        if(lsY < minY){
+            minY = lsY;
+        }
+
+        // Z
+        if(lsZ > 0){
+            if(lsZ > maxZ){
+                maxZ = lsZ;
+            }
+            if(lsZ < minZ){
+                minZ = lsZ;
+            }
+        } else {
+            minZ = 0.1;
+        }
+    }
+/*
+    qDebug() << "left" << minX;
+    qDebug() << "right" << maxX;
+    qDebug() << "bottom" << minY;
+    qDebug() << "top" << maxY;
+    qDebug() << "NearPlane" << minZ;
+    qDebug() << "FarPlane" << maxZ;
+*/
+    lightSourcePMatrix.setToIdentity();
+    lightSourcePMatrix.ortho(-120,120,-20,150,50,maxZ);
+    //lightSourcePMatrix.ortho(minX,maxX,minY,maxY,minZ,maxZ);
+}
+
 void Renderer::repaint(){
 
+    calculateLightSourceMatrices();
 
     // Draw the scene from the lightsource to shadowMap FBO
     useFBO(fbo1);
@@ -155,13 +223,13 @@ void Renderer::repaint(){
     }
 
     for(Object * o : renderList){
-        o->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
+        o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
     }
 
     // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
 
     if(water != NULL){
-        water->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
+        water->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
     }
 
     glCullFace(GL_BACK);
@@ -189,6 +257,9 @@ void Renderer::repaint(){
     for(Object * o : renderList){
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
+        o->program->bind();
+        o->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
+        o->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
         o->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     }
 
@@ -204,17 +275,17 @@ void Renderer::repaint(){
         glEnable(GL_BLEND);
         water->program->bind();
         water->program->setUniformValue("incr", incr);
+        water->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
+        water->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
         water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
     }
 
-    /*
     if(treeModel != NULL && treePositions.size() > 0){
         glEnable(GL_BLEND);
         drawObjects(treeModel,treeShader,treePositions,treeTexture);
         glDisable(GL_BLEND);
     }
-    */
 
     //QImage im1 = FBO1->toImage();
     //im1.save("im1.png");

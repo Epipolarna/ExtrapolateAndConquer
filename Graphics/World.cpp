@@ -35,8 +35,8 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     // Generate height map and texture coordinates
     QTime now = QTime::currentTime();
     qsrand(now.msec());
-    float xRandomOffset = 120; //qrand() %256;
-    float zRandomOffset = 37;  //qrand() %256;
+    float xRandomOffset = qrand() %256;
+    float zRandomOffset = qrand() %256;
 
     float y = 0;
     for (int x = 0; x <= xRange*vertexDensity; x++){

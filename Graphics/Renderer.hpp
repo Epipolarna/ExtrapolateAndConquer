@@ -30,6 +30,8 @@ public:
     void initFBO(FBO *fbo);
     void useFBO(FBO *fbo);
 
+    void calculateLightSourceMatrices();
+
     QOpenGLShaderProgram *depthProgram;
 
     std::vector<Object*> renderList;
@@ -40,6 +42,7 @@ public:
     QMatrix4x4 lightSourcePMatrix;
     QMatrix4x4 lightSourceVMatrixInv;
     QMatrix4x4 lightSourcePMatrixInv;
+    std::vector<QVector4D> frustumCorners;
 
     QVector3D lightPosition;
 

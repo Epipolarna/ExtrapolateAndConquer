@@ -62,32 +62,33 @@ float fogBlending()
 int nShadows = 0;
 float shadowCoeff = 0.5;
 
-float shadowTest(vec2 texcoods, int kernelSize) {
+float shadowTest(vec2 texcoods, float kernelSize) {
 	float shadow = 0;
 	float depthComparison = 0;
-	float epsilon = 0.000001;
+	float epsilon = 0.001;
+	
+	float texOffset = 0.7/(kernelSize*2048); // Motsvarar spridning på skuggan
 	
 	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods).r;
 	if(depthComparison > epsilon){
-		shadow += 1.0 / (kernelSize*kernelSize);
-		nShadows += 1;
+		shadow += 0.2;
 	}
-
-/*	
-	float texOffset = 3.0/(kernelSize*1000); // Motsvarar spridning på skuggan
-	
-	float kernelSizeF = kernelSize;
-	for(int i = 0; i < kernelSize; i++){
-		for(int j = 0; j < kernelSize; j++){
-		
-			depthComparison = lightSpaceVertex.z - texture(tex3, texcoods + vec2(texOffset*(i - kernelSize/2), texOffset*(j - kernelSize/2))).r;
-			if(depthComparison > epsilon){
-				shadow += 1.0 / pow(kernelSizeF, 2.0);
-				nShadows += 1;
-			}
-		}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
 	}
-	*/
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 0.2;
+	}
 	
 	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
 }
@@ -185,8 +186,8 @@ void main(void){
 	vec4 texel3 = texture(tex3, exTexCoord);
 	
 	// Texture blending
-	//vec4 texel0 = blendTextures(tex0, tex1, tex2);
-	vec4 texel0 = vec4(0.9,0.9,0.9,1);
+	vec4 texel0 = blendTextures(tex0, tex1, tex2);
+	//vec4 texel0 = vec4(0.9,0.9,0.9,1);
 
 	/*
 	float zBuffer = texel3.x;
@@ -205,7 +206,6 @@ void main(void){
 		
 	} else { 
 		// If over water
-		int testKernelSize = 1;
 		int kernelSize = 2;
 		//shadowTest(lightSpaceVertex.xy, testKernelSize);
 	

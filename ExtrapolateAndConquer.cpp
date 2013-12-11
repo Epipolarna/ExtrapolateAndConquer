@@ -114,12 +114,12 @@ void ExtrapolateAndConquer::initialize(void){
     Object* worldObject;
 
     int nOctaves = sizeof(octaves)/sizeof(float);
-    worldModel = world->generateWorld(300,300,0.5f,octaves,scales,nOctaves);
+    worldModel = world->generateWorld(200,200,0.5f,octaves,scales,nOctaves);
     hightMapOfChunk = world->heightMap;
 
     // Shadow map Matrices
     renderer->lightSourceVMatrix.setToIdentity();
-    renderer->lightSourceVMatrix.lookAt(renderer->lightPosition, QVector3D(150,-100,150), QVector3D(0,1,0));
+    renderer->lightSourceVMatrix.lookAt(renderer->lightPosition, QVector3D(130,-100,130), QVector3D(0,1,0));
     renderer->lightSourceVMatrixInv = renderer->lightSourceVMatrix;
     renderer->lightSourceVMatrixInv.inverted();
 

@@ -153,21 +153,6 @@ void Camera::updateLookAt()
 
     vMatrixInv = vMatrix;
     vMatrixInv.inverted();
-
-    // Calculater bounding box of current frustum
-    //qDebug() << "FRUSTUM CALC";
-    //qDebug() << vMatrixInv*pMatrixInv*QVector4D(1,1,1,1);
-    //qDebug() << vMatrixInv*pMatrixInv*QVector4D(1,1,0,1);
-
-    for(int x = -1; x <= 1; x+=2){
-        for(int y = -1; y <= 1; y+=2){
-            for(int z = 0; z <= 1; z++){
-                //qDebug() << QVector4D(x,y,z,1);
-                //qDebug() << vMatrixInv*pMatrixInv*QVector4D(x,y,z,1);
-            }
-        }
-    }
-
 }
 
 QMatrix4x4 Camera::skyboxMatrix()
