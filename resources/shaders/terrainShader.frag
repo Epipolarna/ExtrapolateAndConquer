@@ -23,6 +23,7 @@ uniform mat4 mMatrix;
 uniform mat4 vMatrix;
 
 uniform vec4 color;
+uniform float incr;	// [0 1]
 
 out vec4 outColor;
 
@@ -100,8 +101,20 @@ vec4 mixTextures(vec4 texture1, vec4 texture2, float x, float start, float stop,
 
 vec4 blendTextures(sampler2D sandTexture, sampler2D grassTexture, sampler2D rockTexture)
 {
-	vec2 scaledTexCoord = exTexCoord*texScaling;
 	float height = exPosition.y;
+	float PI = 3.14159265358979323846264;
+	vec2 texCoord = exTexCoord;
+	
+	// If under water
+
+	vec2 scaledTexCoord = texCoord*texScaling;
+	/*
+	if(height < 0.05 && height >= 0){
+		//scaledTexCoord.y -= incr;
+		//scaledTexCoord.x += sin(incr*2*PI/10);
+		scaledTexCoord.y += sin(incr*2*PI)*0.01;
+	}*/
+	
 	float horizontal = dot(exNormal, vec3(0,1,0));
 				
 	float grassStart = 0.1;
@@ -110,7 +123,6 @@ vec4 blendTextures(sampler2D sandTexture, sampler2D grassTexture, sampler2D rock
 	float grassEnd = 14;
 	
 	/*
-	float PI = 3.14159265358979323846264;
 	
 	vec2 n = normalize(vec2(exNormal.x, exNormal.z));
 	float rad = atan(n) + specialValue;
@@ -182,11 +194,40 @@ vec4 blendTextures(sampler2D sandTexture, sampler2D grassTexture, sampler2D rock
 
 void main(void){
 
+	float PI = 3.14159265358979323846264;
+	
 	vec2 scaledTexCoord = exTexCoord*texScaling;
 	vec4 texel3 = texture(tex3, exTexCoord);
 	
 	// Texture blending
 	vec4 texel0 = blendTextures(tex0, tex1, tex2);
+	
+	// Under water effects
+	if(exPosition.y < 0) {
+		texel0 = texel0*0.8 + vec4(0,0.1,0.2,1);
+	}
+	// Beach wave effects	
+	float overLimit = 0.10;
+	float y_speed = 3;
+	float shift = 0.5;
+	float y_limit1 = max(sin(incr*2*PI*y_speed), 0);
+	float y_limit2 = max(sin(mod(incr+shift, 1)*2*PI*y_speed), 0);
+	float x_shortness = 1;
+	if(exPosition.y >= 0 && exPosition.y < overLimit) {
+		vec4 addition = vec4(0,0,0,1);
+		if(exPosition.y < y_limit1 && exPosition.y < overLimit*(sin(exPosition.x*x_shortness + incr*2*PI)+1)/2*y_limit1 ) {
+			//texel0 = texel0*0.8 + (sin(incr*2*PI)+1)/2*vec4(0,0.1,0.2,1);
+			addition += vec4(0,0.1,0.2,0)*(1-exPosition.y/overLimit);
+		}
+		if(exPosition.y < y_limit2 && exPosition.y < overLimit*(sin(exPosition.x*x_shortness + mod(incr+shift,1)*2*PI)+1)/2*y_limit2 ) {
+			//texel0 = texel0*0.8 + (sin(incr*2*PI)+1)/2*vec4(0,0.1,0.2,1);
+			addition += vec4(0,0.1,0.2,0)*(1-exPosition.y/overLimit);
+		}
+		if(length(addition) > 1)
+			texel0 = texel0*0.8 + addition;
+	}
+	
+	
 	//vec4 texel0 = vec4(0.9,0.9,0.9,1);
 
 	/*
