@@ -239,6 +239,10 @@ void ExtrapolateAndConquer::loadResources(void){
 
     resourceManager->loadShader("instance");
 
+    //tree data
+    resourceManager->loadTexture("bush");
+    resourceManager->loadModel("bush",true);
+
     printf("all resources loaded! \n");
 }
 

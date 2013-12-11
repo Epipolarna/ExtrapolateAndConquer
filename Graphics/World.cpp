@@ -6,8 +6,8 @@ World::World( ResourceManager* resources){
     lightPosition = QVector3D(-100,100,-10);
     QVector<GLuint> treeTextures;
 
-    treeTextures.push_back(resources->getTexture("sphere"));
-    trees = new StaticObjectList(resources->getModel("teapot"),treeTextures,resources->getShader("instance"));
+    treeTextures.push_back(resources->getTexture("bush"));
+    trees = new StaticObjectList(resources->getModel("bush"),treeTextures,resources->getShader("instance"));
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){

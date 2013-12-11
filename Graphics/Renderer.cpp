@@ -238,6 +238,7 @@ void Renderer::repaint(){
         skybox->draw(camera->skyboxMatrix(),pMatrix,lightPosition,lightSourceVMatrix);
     }
 
+
     if(world != NULL){
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
@@ -261,7 +262,6 @@ void Renderer::repaint(){
     incr += 0.0005;
     incr = incr > 1 ? incr-1 : incr;
 
-
     if(water != NULL){
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
@@ -273,13 +273,15 @@ void Renderer::repaint(){
         water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
     }
+    
 
     if(worldData != NULL){
+        glDepthMask(GL_FALSE);
         glEnable(GL_BLEND);
         drawInstanceObjects(worldData->trees);
         glDisable(GL_BLEND);
+        glDepthMask(GL_TRUE);
     }
-    
 
     //QImage im1 = FBO1->toImage();
     //im1.save("im1.png");
