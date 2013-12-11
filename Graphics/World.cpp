@@ -6,8 +6,8 @@ World::World( ResourceManager* resources){
     lightPosition = QVector3D(-100,100,-10);
     QVector<GLuint> treeTextures;
 
-    treeTextures.push_back(resources->getTexture("tree"));
-    trees = new StaticObjectList(resources->getModel("tree"),treeTextures);
+    treeTextures.push_back(resources->getTexture("sphere"));
+    trees = new StaticObjectList(resources->getModel("teapot"),treeTextures,resources->getShader("instance"));
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
@@ -268,11 +268,10 @@ StaticObjectList* World::getTrees(void){
 
 void World::placeTrees(void){
     cv::RNG generator = cv::RNG();
-    int maxNumTrees = 10;
+    int maxNumTrees = 350;
     int maxNumIters = 10000;
     int numIters = 0;
     int numTrees = 0;
-
 
     float offsetX = (float)sizeX / 2;
     float offsetZ = (float)sizeZ / 2;
@@ -283,12 +282,16 @@ void World::placeTrees(void){
         float x = generator.gaussian(sigmaX) + offsetX;
         float z = generator.gaussian(sigmaZ) + offsetZ;
         float y = getHeight(x,z);
-        
+        float rotation = (float)generator.uniform(0,600) / 100.0; //roughly a random ammount of radians
+        //float scale = generator.gaussian(0.1);
+        float scale = 1.0;
         if(y > 0){
-            trees->appendObject(QVector3D(x,y,z),QQuaternion(1,0,0,0));
+            QQuaternion rot = QQuaternion(rotation,0,1,0);
+            rot.normalize();
+            trees->appendObject(QVector3D(x,y,z),rot,QVector3D(scale,scale,scale));
             numTrees = numTrees + 1;
         }
         numIters = numIters + 1;
     }
-
+    printf("placed %d trees \n",trees->getMatrices().size());
 }
