@@ -268,8 +268,8 @@ StaticObjectList* World::getTrees(void){
 
 void World::placeTrees(void){
     cv::RNG generator = cv::RNG();
-    int maxNumTrees = 351;
-    int maxNumIters = 10000;
+    int maxNumTrees = 500;
+    int maxNumIters = 100000;
     int numIters = 0;
     int numTrees = 0;
 

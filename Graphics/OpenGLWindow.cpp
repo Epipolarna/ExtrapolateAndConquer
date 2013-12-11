@@ -77,8 +77,8 @@ void OpenGLWindow::resizeGl()
     //Near
     float nearVert = nearPlane*tanf(FOVvert/2 * PI/180);
     float nearHorz = nearVert*aspectRatio;
-    qDebug() << "nearVert" << nearVert;
-    qDebug() << "nearHorz" << nearHorz;
+    //qDebug() << "nearVert" << nearVert;
+    //qDebug() << "nearHorz" << nearHorz;
     QVector4D NLL(-nearHorz,-nearVert,-nearPlane,1);
     QVector4D NLR(nearHorz,-nearVert,-nearPlane,1);
     QVector4D NUL(-nearHorz,nearVert,-nearPlane,1);
@@ -87,8 +87,8 @@ void OpenGLWindow::resizeGl()
     //Far
     float farVert = farPlane*tanf(FOVvert/2 * PI/180);
     float farHorz = farVert*aspectRatio;
-    qDebug() << "farVert" << farVert;
-    qDebug() << "farHorz" << farHorz;
+    //qDebug() << "farVert" << farVert;
+    //qDebug() << "farHorz" << farHorz;
     QVector4D FLL(-farHorz,-farVert,-farPlane,1);
     QVector4D FLR(farHorz,-farVert,-farPlane,1);
     QVector4D FUL(-farHorz,farVert,-farPlane,1);

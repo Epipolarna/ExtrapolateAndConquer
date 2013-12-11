@@ -25,7 +25,7 @@ public:
 
     void repaint(void);
     void drawObject(Object* o);
-    void drawInstanceObjects(StaticObjectList* statics);
+    void drawInstanceObjects(StaticObjectList* statics, bool renderToDepthMap);
 
     void setSize(int width, int height);
 
@@ -37,6 +37,7 @@ public:
 
 
     QOpenGLShaderProgram *depthProgram;
+    QOpenGLShaderProgram *instanceDepthProgram;
 
     std::vector<Object*> renderList;
 

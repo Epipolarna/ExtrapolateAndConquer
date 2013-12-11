@@ -57,6 +57,7 @@ void ExtrapolateAndConquer::initialize(void){
     // FBO setup
     renderer->fboSquare = new Object(resourceManager->getModel("fboSquare"),resourceManager->getShader("fbo"),renderer->fbo1->colorTex);
     renderer->depthProgram = resourceManager->getShader("depth");
+    renderer->instanceDepthProgram = resourceManager->getShader("instanceDepth");
 
 
     int nBalls = 100;
@@ -68,7 +69,7 @@ void ExtrapolateAndConquer::initialize(void){
         // Add Sphere physics
         e->add<SpherePhysics>();
         SpherePhysics & sp = e->get<SpherePhysics>();
-        sp.position = QVector3D(qrand()%100+100,5,qrand()%100+100);
+        sp.position = QVector3D(qrand()%200,5,qrand()%200);
         sp.rotation2 = QQuaternion(1,0,0,0);
         sp.mass = 100.0;
         sp.elasticity = 0.3;
@@ -195,6 +196,7 @@ void ExtrapolateAndConquer::loadResources(void){
     printf("loading shadowMapping data \n");
     resourceManager->loadShader("fbo");
     resourceManager->loadShader("depth");
+    resourceManager->loadShader("instanceDepth");
     resourceManager->loadModel("fboSquare");
 
     //test data

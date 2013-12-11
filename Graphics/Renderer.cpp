@@ -20,15 +20,21 @@ void Renderer::drawObject(Object* o){
     this->renderList.push_back(o);
 }
 
-void Renderer::drawInstanceObjects(StaticObjectList* statics){
+void Renderer::drawInstanceObjects(StaticObjectList* statics, bool renderToDepthMap){
 
-    QOpenGLShaderProgram* program = statics->getProgram();
+    QOpenGLShaderProgram* program;
+    if(renderToDepthMap){
+        program = instanceDepthProgram;
+    } else {
+        program = statics->getProgram();
+    }
+
     Model* model = statics->getModel();
     GLuint tex = statics->getTextures()[0];
 
     float ambientCoeff  = 0.2;
     float diffuseCoeff  = 0.6;
-    float specularCoeff = 100;
+    float specularCoeff = 0.2;
     float specularExponent = 50;
     float texScaling = 1.0;
 
@@ -54,9 +60,13 @@ void Renderer::drawInstanceObjects(StaticObjectList* statics){
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,tex);
 
-
-    program->setUniformValue("pMatrix",pMatrix);
-    program->setUniformValue("vMatrix",camera->vMatrix);
+    if(renderToDepthMap){
+        program->setUniformValue("pMatrix",lightSourcePMatrix);
+        program->setUniformValue("vMatrix",lightSourceVMatrix);
+    } else {
+        program->setUniformValue("pMatrix",pMatrix);
+        program->setUniformValue("vMatrix",camera->vMatrix);
+    }
     QVector<QMatrix4x4> translations = statics->getMatrices();
 
     for(int i=0; i < translations.size(); i = i + maxInstanceObjects){
@@ -220,6 +230,13 @@ void Renderer::repaint(){
     }
 
     // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
+    if(worldData != NULL){
+        //glDepthMask(GL_FALSE);
+        //glEnable(GL_BLEND);
+        drawInstanceObjects(worldData->trees, true);
+        //glDisable(GL_BLEND);
+        //glDepthMask(GL_TRUE);
+    }
 
     if(water != NULL){
         water->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
@@ -277,7 +294,7 @@ void Renderer::repaint(){
     if(worldData != NULL){
         glDepthMask(GL_FALSE);
         glEnable(GL_BLEND);
-        drawInstanceObjects(worldData->trees);
+        drawInstanceObjects(worldData->trees, false);
         glDisable(GL_BLEND);
         glDepthMask(GL_TRUE);
     }
