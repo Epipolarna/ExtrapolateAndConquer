@@ -13,20 +13,11 @@ void StaticObjectList::appendObject( QVector3D position,  QQuaternion rotation, 
 	matricesUpdated = false;
 }
 
-void StaticObjectList::deleteObject( int index){
+void StaticObjectList::deleteObject( int index ){
 	positions.remove(index);
 	rotations.remove(index);
 	numObjects = numObjects - 1;
 	matricesUpdated = false;
-}
-
-QVector<QMatrix4x4> StaticObjectList::getMatrices(void){
-	if(matricesUpdated){
-		return mMatrices;
-	}else{
-		updateMatrices();
-		return mMatrices;
-	}
 }
 
 void StaticObjectList::updateMatrices(void){
@@ -38,4 +29,19 @@ void StaticObjectList::updateMatrices(void){
 		mMatrix.scale(scales[i]);
 	}
 	matricesUpdated = true;
+}
+QVector<QMatrix4x4> StaticObjectList::getMatrices(void){
+	if(matricesUpdated){
+		return mMatrices;
+	}else{
+		updateMatrices();
+		return mMatrices;
+	}
+}
+
+Model* StaticObjectList::getModel(void){
+	return m;
+}
+QVector<GLuint> StaticObjectList::getTextures(void){
+	return textures;
 }
