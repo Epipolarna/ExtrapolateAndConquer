@@ -9,6 +9,7 @@ uniform mat4 mMatrix;
 uniform mat4 vMatrix;
 uniform mat4 pMatrix;
 uniform mat4 lightSourceVMatrix;
+uniform mat4 lightSourcePMatrix;
 
 out vec3 exPosition;
 out vec3 exNormal;
@@ -22,7 +23,7 @@ void main(void)
 	exTexCoord = texCoord;
     gl_Position = mvpMatrix * vec4(vertex, 1.0);
 	
-	lightSpaceVertex = pMatrix * lightSourceVMatrix * mMatrix * vec4 (vertex, 1.0);
+	lightSpaceVertex = lightSourcePMatrix * lightSourceVMatrix * mMatrix * vec4 (vertex, 1.0);
 	lightSpaceVertex.xyz /= lightSpaceVertex.w;
 	lightSpaceVertex.xyz += 1.0;
 	lightSpaceVertex.xyz *= 0.5;

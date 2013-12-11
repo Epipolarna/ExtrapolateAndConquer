@@ -1,5 +1,6 @@
 #include "Renderer.hpp"
 
+
 Renderer::Renderer(void){
     camera = new Camera();
     width = 1280;
@@ -132,28 +133,99 @@ void Renderer::useFBO(FBO* fbo)
     }
 }
 
+void Renderer::calculateLightSourceMatrices()
+{
+    /*
+    qDebug() << "CamPos:" << camera->position;
+    qDebug() << "CamLightSpacePos:" << lightSourceVMatrix*camera->position;
+    */
+    QVector4D lightSpaceVertex;
+    float minX = 1000000;
+    float maxX = 0.2;
+    float minY = 1000000;
+    float maxY = 0.2;
+    float minZ = 1000000;
+    float maxZ = 0.2;
+    float lsX = 0;
+    float lsY = 0;
+    float lsZ = 0;
+    bool okInv = false;
+
+    for(int i = 1; i < frustumCorners.size(); i++){
+        QVector4D worldSpaceVertex = frustumCorners[i];
+
+        lightSpaceVertex = lightSourceVMatrix*camera->vMatrix.inverted(&okInv)*worldSpaceVertex;
+        lsX = lightSpaceVertex.x();
+        lsY = lightSpaceVertex.y();
+        lsZ = -lightSpaceVertex.z();
+
+        // X
+        if(lsX > maxX){
+            maxX = lsX;
+        }
+        if(lsX < minX){
+            minX = lsX;
+        }
+
+        // Y
+        if(lsY > maxY){
+            maxY = lsY;
+        }
+        if(lsY < minY){
+            minY = lsY;
+        }
+
+        // Z
+        if(lsZ > 0){
+            if(lsZ > maxZ){
+                maxZ = lsZ;
+            }
+            if(lsZ < minZ){
+                minZ = lsZ;
+            }
+        } else {
+            minZ = 0.1;
+        }
+    }
+/*
+    qDebug() << "left" << minX;
+    qDebug() << "right" << maxX;
+    qDebug() << "bottom" << minY;
+    qDebug() << "top" << maxY;
+    qDebug() << "NearPlane" << minZ;
+    qDebug() << "FarPlane" << maxZ;
+*/
+    lightSourcePMatrix.setToIdentity();
+    lightSourcePMatrix.ortho(-120,120,-20,150,50,maxZ);
+    //lightSourcePMatrix.ortho(minX,maxX,minY,maxY,minZ,maxZ);
+}
+
 void Renderer::repaint(){
+
+    calculateLightSourceMatrices();
 
     // Draw the scene from the lightsource to shadowMap FBO
     useFBO(fbo1);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 
     if(world != NULL){
-        world->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
+        world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
     }
 
     for(Object * o : renderList){
-        o->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
+        o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
     }
 
     // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
 
     if(water != NULL){
-        water->customDraw(lightSourceVMatrix,pMatrix,depthProgram);
+        water->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
     }
+
+    glCullFace(GL_BACK);
 
     // Draw everything again to the default FBO
     useFBO(0); // Default
@@ -170,12 +242,18 @@ void Renderer::repaint(){
     if(world != NULL){
         glEnable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
+        world->program->bind();
+        world->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
+        world->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
         world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     }
 
     for(Object * o : renderList){
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
+        o->program->bind();
+        o->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
+        o->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
         o->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     }
 
@@ -190,10 +268,11 @@ void Renderer::repaint(){
         glEnable(GL_BLEND);
         water->program->bind();
         water->program->setUniformValue("incr", incr);
+        water->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
+        water->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
         water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
-    }
-    
+    }    
 
     if(worldData != NULL){
         glDepthMask(GL_FALSE);
@@ -215,4 +294,6 @@ void Renderer::repaint(){
     glDisable(GL_DEPTH_TEST);
     fboSquare->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     */
+
+
 }
