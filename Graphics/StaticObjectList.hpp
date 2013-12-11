@@ -14,7 +14,10 @@ public:
 	StaticObjectList( Model* m,QVector<GLuint> textures);
 	void appendObject( QVector3D position, QQuaternion rotation, QVector3D scale = QVector3D(1,1,1));
 	void deleteObject( int index);
+	
 	QVector<QMatrix4x4> getMatrices(void);
+	Model* getModel(void);
+	QVector<GLuint> getTextures(void);
 
 private:
 
