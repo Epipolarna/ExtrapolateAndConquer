@@ -37,6 +37,11 @@ class SpherePhysicsSystem : public System<SpherePhysics, Components>
 {
 public:
     void processStep(SpherePhysics & physics) override {
+
+        // Debug
+        qDebug() << "force: " << physics.force;
+        qDebug() << "position1: " << physics.position;
+
         // Update velocities
         physics.angularVelocity = physics.angularMomentum * (1.0/physics.momentOfInertia);
         physics.velocity = physics.linearMomentum / physics.mass;
@@ -54,6 +59,9 @@ public:
         physics.rotation += physics.angularVelocity * dt;
         physics.linearMomentum += physics.force * dt;
         physics.angularMomentum += physics.torque * dt;
+
+        // Debug
+        qDebug() << "position2: " << physics.position;
 
         // Reset force and torque
         physics.force = QVector3D(0,0,0);

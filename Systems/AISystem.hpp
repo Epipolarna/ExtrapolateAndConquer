@@ -18,6 +18,7 @@ public:
 
             // Move in movement direction
             physics.force += movementDirection*0.1;
+            qDebug() << "movementDirection: " << movementDirection;
         }
     }
     void setInfluenceMap(cv::Mat & influenceMap) {

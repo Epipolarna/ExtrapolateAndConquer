@@ -55,7 +55,7 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->depthProgram = resourceManager->getShader("depth");
 
 
-    int nBalls = 100;
+    int nBalls = 0;
     printf("initing %d balls \n ",nBalls);
     for(int i = 0; i < nBalls; i++){
         // Initialize entity
@@ -171,7 +171,7 @@ void ExtrapolateAndConquer::initialize(void){
     // Add Sphere physics
     e->add<SpherePhysics>();
     SpherePhysics & sp = e->get<SpherePhysics>();
-    sp.position = QVector3D(500,1000000,500);
+    sp.position = QVector3D(500,1000,500);
     sp.rotation2 = QQuaternion(1,0,0,0);
     sp.mass = 1.0;
     sp.elasticity = 0.3;
@@ -258,6 +258,7 @@ int ExtrapolateAndConquer::run(){
 
 bool first = true;
 void ExtrapolateAndConquer::loopBody(){
+
     timer->stop();
     camera->updatePosition();
     world->getHeight(camera->position.x(), camera->position.z());
@@ -285,6 +286,7 @@ void ExtrapolateAndConquer::loopBody(){
 
 
     // Debug AI
+    qDebug() << "position_: " << sp.position;
     influenceMap.at<uchar>(sp.position.x(),sp.position.z()) = 255;
     cv::imshow("Influence Map", influenceMap);
 
