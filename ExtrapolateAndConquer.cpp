@@ -296,6 +296,6 @@ void ExtrapolateAndConquer::loopBody(){
 
     elapsedTime = fpsMeter->elapsed();
     fpsMeter->restart();
-    //qDebug() << "FPS: " << 1000/elapsedTime;
+    qDebug() << "FPS: " << elapsedTime;
     timer->start();
 }
