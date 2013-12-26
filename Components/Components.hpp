@@ -6,18 +6,18 @@
 // Includes
 #include "Graphics/Object.hpp"
 #include "Graphics/World.hpp"
+#include "Graphics/graphics_utilities.hpp"
 
 // List all components
-#define Components Name,SimplePhysics,Graphics,SpherePhysics,AI
+#define Components Name,SpherePhysics,AI
 
 /*
  * Component prototype list
  ************************************************************/
 struct Name;
-struct SimplePhysics;
 struct SpherePhysics;
-struct Graphics;
 struct AI;
+struct Drawable;
 
 
 /*
@@ -27,19 +27,6 @@ struct Name : public Component<> {
     const std::string getName() override { return "Name"; }
 
     std::string name;
-};
-
-struct SimplePhysics : public Component<> {
-    const std::string getName() override { return "SimplePhysics"; }
-
-    QVector3D position;
-    QVector3D velocity;
-};
-
-struct Graphics : public Component<SpherePhysics> {
-    const std::string getName() override { return "Graphics"; }
-
-    Object* object = NULL;
 };
 
 struct SpherePhysics : public Component<> {
@@ -56,7 +43,7 @@ struct SpherePhysics : public Component<> {
     QVector3D angularVelocity;      // w = L * I^-1
     QQuaternion angularVelocity2;   // w = L * I^-1
 
-    QVector3D rotation;             // r = Integral( w, dt );
+    QVector3D rotation;
     QQuaternion rotation2;          // r = Integral( w, dt );
 
 
@@ -70,6 +57,18 @@ struct SpherePhysics : public Component<> {
 
     QVector3D collisionVector;      // The sum of the vectors from all collisions
 
+};
+
+struct Drawable : public Component<SpherePhysics>{
+    const std::string getName() override { return "Drawable"; }
+    //settings for the object itself
+    QVector3D scale;
+    TextureParameters textureData;
+    MaterialParameters lightData;
+    
+    //references to shared resources
+    QOpenGLShaderProgram* shader;
+    Model* modelData;
 };
 
 #include "aux_AI.hpp"

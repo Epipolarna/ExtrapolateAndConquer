@@ -41,8 +41,6 @@ public:
 
     EntityManager<Components> entityManager;
 
-    SimplePhysicsSystem simplePhysicsSystem;
-    GraphicsUpdateSystem graphicsUpdateSystem;
     SpherePhysicsSystem spherePhysicsSystem;
     SphereSphereCollisionSystem sphereSphereCollisionSystem;
     SphereTerrainCollisionSystem sphereTerrainCollisionSystem;

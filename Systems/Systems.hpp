@@ -4,35 +4,6 @@
 #include "EntitySystem/EntitySystem.hpp"
 #include "Components/Components.hpp"
 
-
-class SimplePhysicsSystem : public System<SimplePhysics, Components>
-{
-public:
-    void processStep(SimplePhysics & physics) override {
-        physics.position += physics.velocity;
-        Entity<Components> & e = getEntity(physics);
-    }
-};
-
-// Graphics require SpherePhysics
-class GraphicsUpdateSystem : public System<Graphics, Components>
-{
-public:
-    void processStep(Graphics & graphic) override {
-        Entity<Components> & e = getEntity(graphic);
-
-        //SimplePhysics & physics = e.get<SimplePhysics>();
-        //graphic.object->setPosition(physics.position);
-
-        SpherePhysics & physics = e.get<SpherePhysics>();
-        graphic.object->setPosition(physics.position);
-        graphic.object->setRotation(physics.rotation2);
-
-        //qDebug() << "Position:" << physics.position;
-        //qDebug() << "Rotation:" << physics.rotation2;
-    }
-};
-
 class SpherePhysicsSystem : public System<SpherePhysics, Components>
 {
 public:

@@ -79,12 +79,15 @@ void ExtrapolateAndConquer::initialize(void){
         sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
 
         // Add Graphics
+        //TODO move to new render system...
+        /*
         e->add<Graphics>();
         e->get<Graphics>().object = new Object(resourceManager->getModel("unitSphere10"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
         e->get<Graphics>().object->setScale(sp.radius);
         e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
 
         renderer->drawObject(e->get<Graphics>().object);
+        */
     }
 
     // ------------- Generate world ------------------------
@@ -178,7 +181,6 @@ void ExtrapolateAndConquer::initialize(void){
 
 
     // Initialize systems
-    graphicsUpdateSystem.initialize(entityManager);
     spherePhysicsSystem.initialize(entityManager);
     spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
     sphereSphereCollisionSystem.initialize(entityManager);
@@ -274,9 +276,6 @@ void ExtrapolateAndConquer::loopBody(){
 
     // Run physics simulators
     spherePhysicsSystem.batch();
-
-    // Run physics to graphics transfer of position/rotation
-    graphicsUpdateSystem.batch();
 
     // Run AI
     aiSystem.batch();
