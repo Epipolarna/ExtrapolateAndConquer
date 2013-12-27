@@ -41,7 +41,7 @@ public:
         physics.angularVelocity = physics.angularMomentum * (1.0/physics.momentOfInertia);
         physics.velocity = physics.linearMomentum / physics.mass;
 
-        //... Quaternion hax (angular velocity & rotation)
+        // Quaternion hax (angular velocity & rotation integration)
         QVector3D w = physics.angularMomentum * (1.0/physics.momentOfInertia);
         QVector3D w_dt = w * dt;
         physics.angularVelocity2 = QQuaternion(std::cos(w_dt.length()/2), w_dt.length() > 0.0001 ? w_dt * std::sin(w_dt.length()/2)/w_dt.length() : w_dt);
@@ -51,7 +51,7 @@ public:
 
         // Integrate variables
         physics.position += physics.velocity * dt;
-        physics.rotation += physics.angularVelocity * dt;
+        //physics.rotation += physics.angularVelocity * dt;  // Not used, see quarternions above
         physics.linearMomentum += physics.force * dt;
         physics.angularMomentum += physics.torque * dt;
 
