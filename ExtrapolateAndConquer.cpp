@@ -202,8 +202,27 @@ void ExtrapolateAndConquer::loadResources(void){
     //test data
     printf("loading tree data \n");
     resourceManager->loadShader("phong");
-    //resourceManager->loadModel("teapot");
+
     resourceManager->loadModel("tree0");
+
+    resourceManager->loadModel("tree1a");
+    resourceManager->loadModel("tree1b");
+    resourceManager->loadModel("tree2a");
+    resourceManager->loadModel("tree2b");
+    resourceManager->loadModel("tree3a");
+    resourceManager->loadModel("tree3b");
+    resourceManager->loadModel("tree4a");
+    resourceManager->loadModel("tree4b");
+
+    resourceManager->loadTexture("tree1a");
+    resourceManager->loadTexture("tree1b");
+    resourceManager->loadTexture("tree2a");
+    resourceManager->loadTexture("tree2b");
+    resourceManager->loadTexture("tree3a");
+    resourceManager->loadTexture("tree3b");
+    resourceManager->loadTexture("tree4a");
+    resourceManager->loadTexture("tree4b");
+
 
     printf("loading sphere data \n");
     resourceManager->loadShader("phongTex");

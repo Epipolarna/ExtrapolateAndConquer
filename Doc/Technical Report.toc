@@ -1,7 +1,8 @@
 \contentsline {section}{\numberline {1}Introduction}{1}{section.1}
 \contentsline {section}{\numberline {2}System Core}{2}{section.2}
-\contentsline {subsection}{\numberline {2.1}Rendering}{2}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Physics}{2}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.1}Entity System}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Rendering}{2}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Physics}{2}{subsection.2.3}
 \contentsline {section}{\numberline {3}Graphics}{3}{section.3}
 \contentsline {subsection}{\numberline {3.1}Generating a World}{3}{subsection.3.1}
 \contentsline {subsubsection}{\numberline {3.1.1}Sky}{3}{subsubsection.3.1.1}
@@ -14,4 +15,4 @@
 \contentsline {subsubsection}{\numberline {3.2.3}Normal Mapping}{4}{subsubsection.3.2.3}
 \contentsline {section}{\numberline {4}Artificial Intelligence}{5}{section.4}
 \contentsline {section}{\numberline {5}Conclusions}{6}{section.5}
-\contentsline {section}{References}{6}{section*.5}
+\contentsline {section}{References}{6}{section*.6}
