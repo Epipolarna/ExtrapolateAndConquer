@@ -1,8 +1,9 @@
-Complex entity system..
+We built and uses an Entity System as an underlying game engine framework.
+The idea behind an entity system is that objects should be treated as pure aggregations of data containers, with game logic being separated from objects all together. Instead of having deep class hierarchies and chained method calls, logic for managing specific components is batched on all such components in the system. This provides some advantages over other approaches such that the architecture becomes more flexible and extendable. It is clearer how to build functionality and especially where. Another advantage from the batching is the possibility of much higher performance (maximizing caching and minimizing cache misses) as well as simplifying parallelism of logic processing.
 
 \subsection{Entity System}
 An Entity System consists of three main parts: Entities, Components and Systems.
-An Entity is simply a label or identifier of an object. A Component is a pure data containers, and each entity has a collection of none to several different components. A System consist of logic for working with primarily one, but sometimes several, components. So, an object is an entity label and a collection of components that belong to it. The object is updated by different systems performing tasks on the components. A simple example used in this project is seen in figure \ref{fig:EntityComponentSystemExample}. 
+An Entity is simply a label or identifier of an object. A Component is a pure data containers, and each entity has a collection of none to several different components. A System consist of logic for working with primarily one, but sometimes several, components. So, an object is an entity label and a collection of components that belong to it. The object is updated by different systems performing tasks on the components. A example used in this project is seen in figure \ref{fig:EntityComponentSystemExample}.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{images/EntityComponentSystemExample.eps}

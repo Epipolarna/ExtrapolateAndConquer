@@ -4,3 +4,8 @@ CMakeLists.txt.user
 *.autosave
 *ExNc*
 *.dll
+*.lof
+*.log
+*.out
+*.toc
+*.gz
