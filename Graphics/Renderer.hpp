@@ -35,6 +35,9 @@ public:
     World* worldData;
     void calculateLightSourceMatrices();
 
+    void setDt(float dt) { this->dt = dt; }
+    float dt;
+
 
     QOpenGLShaderProgram *depthProgram;
     QOpenGLShaderProgram *instanceDepthProgram;

@@ -215,7 +215,8 @@ void Renderer::repaint(){
 
     // Used to move the waves (etc)
     static float incr = 0.9;
-    incr += 0.0005;
+    //incr += 0.0005;
+    incr += dt;
     incr = incr > 1 ? incr-1 : incr;
 
 
