@@ -4,10 +4,20 @@
 
 World::World( ResourceManager* resources){
     lightPosition = QVector3D(-100,100,-10);
+
     QVector<GLuint> treeTextures;
 
-    treeTextures.push_back(resources->getTexture("bush"));
-    trees = new StaticObjectList(resources->getModel("bush"),treeTextures,resources->getShader("instance"));
+    /* Okej så att ehh, tree*a innehåller ett stycke stam och tree*b innehåller motsvarande lövverk.
+     * Dessa måste placeras på samma position för att det ska makea sense.
+     * Det finns fyra olika sorters träd. tree1, tree2, tree3 och tree4.
+     * Det vore nice om dessa kunde slumpas ut fint över världen. Plz do
+     */
+
+    treeTextures.push_back(resources->getTexture("tree1a"));
+    trees = new StaticObjectList(resources->getModel("tree1a"),treeTextures,resources->getShader("instance"));
+
+    //treeTextures.push_back(resources->getTexture("tree1b"));
+    //trees = new StaticObjectList(resources->getModel("tree1b"),treeTextures,resources->getShader("instance"));
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
@@ -39,8 +49,11 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     // Generate height map and texture coordinates
     QTime now = QTime::currentTime();
     qsrand(now.msec());
-    float xRandomOffset = qrand() %256;
-    float zRandomOffset = qrand() %256;
+    float xRandomOffset = 45; //qrand() %256;
+    float zRandomOffset = 107; //qrand() %256;
+
+    qDebug() << "xRandomOffset" << xRandomOffset;
+    qDebug() << "zRandomOffset" << zRandomOffset;
 
     float y = 0;
     for (int x = 0; x <= xRange*vertexDensity; x++){
