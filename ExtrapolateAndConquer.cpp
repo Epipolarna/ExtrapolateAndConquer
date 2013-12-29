@@ -241,6 +241,7 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadShader("phong");
 
     resourceManager->loadModel("tree0");
+    resourceManager->loadModel("tree5");
 
     resourceManager->loadModel("tree1a");
     resourceManager->loadModel("tree1b");

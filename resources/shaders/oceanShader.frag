@@ -77,10 +77,10 @@ float shadowTest(vec2 texcoods, float kernelSize) {
 	float shadow = 0;
 	float depthComparison = 0;
 	//float epsilon = 0.001;
-	float epsilon = 0.0001;
+	float epsilon = 0.0003;
 	
 	float texOffset = 0.7/(kernelSize*2048); // Motsvarar spridning på skuggan
-	float shadowStep = 0.2;
+	float shadowStep = 0.3;
 	
 	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods).r;
 	if(depthComparison > epsilon){

@@ -1,4 +1,4 @@
-#include "World.hpp"
+﻿#include "World.hpp"
 #include <iostream>
 #include <QTime>
 
@@ -14,7 +14,7 @@ World::World( ResourceManager* resources){
      */
 
     treeTextures.push_back(resources->getTexture("tree1a"));
-    trees = new StaticObjectList(resources->getModel("tree1a"),treeTextures,resources->getShader("instance"));
+    trees = new StaticObjectList(resources->getModel("tree5"),treeTextures,resources->getShader("instance"));
 
     //treeTextures.push_back(resources->getTexture("tree1b"));
     //trees = new StaticObjectList(resources->getModel("tree1b"),treeTextures,resources->getShader("instance"));
