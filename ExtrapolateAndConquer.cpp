@@ -16,14 +16,12 @@ ExtrapolateAndConquer::ExtrapolateAndConquer(int argc, char *argv[]){
     context->create();
 
     openGLWindow = new OpenGLWindow(context);
+
     openGLWindow->setHostApplication(application);
     openGLWindow->setGeometry(QStyle::alignedRect(Qt::LeftToRight,
                                                   Qt::AlignCenter,
                                                   openGLWindow->size(),
                                                   application->desktop()->availableGeometry()));
-    openGLWindow->show();
-
-    camera = openGLWindow->getRenderer()->camera;
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(loopBody()));
@@ -196,9 +194,16 @@ void ExtrapolateAndConquer::initialize(void){
 
 void ExtrapolateAndConquer::initialize(void){
     printf("Initing ExtrapolateAndConquer\n");
+    camera = new Camera();
     openGLWindow->initialize();
+    openGLWindow->registerEventManager(camera);
+    openGLWindow->setRenderer(&renderer);
+
     resourceManager = new ResourceManager;
     loadResources();
+    //setup some infrastructure type stuff
+
+
 
     printf("initing the worldgen\n");
     world = new World(resourceManager);
@@ -214,21 +219,6 @@ void ExtrapolateAndConquer::initialize(void){
     printf("done initing\n");
 }
 
-/*
-void ExtrapolateAndConquer::initSystems(void){
-    //setup systems
-    spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
-    renderer.setResources(resourceManager);
-    renderer.setWorld(world);
-    renderer.setCamera(camera);
-
-    //init systems...
-    spherePhysicsSystem.initialize(entityManager);
-    sphereSphereCollisionSystem.initialize(entityManager);
-    sphereTerrainCollisionSystem.initialize(entityManager);
-    renderer.initialize(entityManager);
-}
-*/
 void ExtrapolateAndConquer::loadResources(void){
     printf("loading resources\n");
     //FBO Square. Used to draw the scene on when it has been drawn to a FBO
@@ -291,6 +281,8 @@ int ExtrapolateAndConquer::run(){
 
     initialize();
     timer->start(2);
+    openGLWindow->show();
+    
     int returnCode = application->exec();
     return returnCode;
 }
@@ -322,7 +314,5 @@ void ExtrapolateAndConquer::loopBody(){
     openGLWindow->update();
 
     elapsedTime = fpsMeter->elapsed();
-    fpsMeter->restart();
-    //qDebug() << "FPS: " << 1000/elapsedTime;
     timer->start();
 }

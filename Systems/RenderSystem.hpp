@@ -19,20 +19,18 @@ struct FBO{
 
 #endif
 
-//light data...
-struct LightData{
-    QVector3D position;
-};
-
 class RenderSystem : public System<Drawable, Components> , QOpenGLFunctions_3_2_Core{
 
 public:
+    RenderSystem();
+    
     void processStep(Drawable& object) override;
     void batch(void) override;
     
     void setWorld(World* w);
     void setCamera(Camera* c);
     void setResources(ResourceManager* rm);
+    void draw(void);
 private:
 
     //override the init function
@@ -85,7 +83,7 @@ private:
     QOpenGLShaderProgram* shadowShader;
 
     //data for the sun lightning....
-    LightData sun;
+    LightParameters sun;
 };
 
 #endif

@@ -8,6 +8,12 @@ const std::string RenderSystem::textureVariableNames[]= {std::string("tex0"),std
 														 std::string("tex12"),std::string("tex13"),std::string("tex14"),
 														 std::string("tex15")};
 
+RenderSystem::RenderSystem(){
+	camera = NULL;
+	worldData = NULL;
+	resources = NULL;
+}
+
 void RenderSystem::processStep(Drawable& object){
 
 	SpherePhysics& physics = getEntity(object).get<SpherePhysics>();
@@ -22,6 +28,12 @@ void RenderSystem::processStep(Drawable& object){
 }
 
 void RenderSystem::batch(void){
+	//TODO possibly some culling or something, possibly nothing at all
+}
+
+void RenderSystem::draw(void){
+	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	updateLighting();
 	drawWorld();
 	drawShadows();
@@ -34,6 +46,7 @@ void RenderSystem::updateLighting(void){
 
 void RenderSystem::setup(void){
 	printf("setting upp render system \n");
+	initializeOpenGLFunctions();
 	if(camera == NULL){
 		printf("Camera not assigned to renderer, crashing! \n");
 		exit(0);

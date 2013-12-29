@@ -18,12 +18,6 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 
     resize(1280,800);
 
-    renderer = new Renderer();
-    renderer->setSize(width(), height());
-    camera = renderer->camera;
-    camera->setPosition(QVector3D(0,0,0));
-    camera->setLookAtDirection(QVector3D(0,0,1));
-
     trackMouse = false;
 
     connect(this, SIGNAL(widthChanged(int)), this, SLOT(resizeGl()));
@@ -64,15 +58,17 @@ void OpenGLWindow::resizeGl()
 {
     context->makeCurrent(this);
 
-    renderer->setSize(width(), height());
-    renderer->pMatrix.setToIdentity();
+    //renderer->setSize(width(), height());
+    //renderer->pMatrix.setToIdentity();
+
     float FOVvert = 60.0;
     float aspectRatio = (float) width() / (float) height();
     float nearPlane = 0.1;
     float farPlane = 1000;
-    renderer->pMatrix.perspective(FOVvert, aspectRatio, nearPlane, farPlane);
+    //renderer->pMatrix.perspective(FOVvert, aspectRatio, nearPlane, farPlane);
 
-#define PI 3.14159265359
+    //this is not ok.
+    #define PI 3.14159265359
 
     //Near
     float nearVert = nearPlane*tanf(FOVvert/2 * PI/180);
@@ -94,47 +90,19 @@ void OpenGLWindow::resizeGl()
     QVector4D FUL(-farHorz,farVert,-farPlane,1);
     QVector4D FUR(farHorz,farVert,-farPlane,1);
 
-    renderer->frustumCorners.clear();
-    renderer->frustumCorners.push_back(NLL);
-    renderer->frustumCorners.push_back(NLR);
-    renderer->frustumCorners.push_back(NUL);
-    renderer->frustumCorners.push_back(NUR);
-    renderer->frustumCorners.push_back(FLL);
-    renderer->frustumCorners.push_back(FLR);
-    renderer->frustumCorners.push_back(FUL);
-    renderer->frustumCorners.push_back(FUR);
-/*
-    qDebug() << "NLL" << NLL;
-    qDebug() << "NLR" << NLR;
-    qDebug() << "NUL" << NUL;
-    qDebug() << "NUR" << NUR;
-    qDebug() << "FLL" << FLL;
-    qDebug() << "FLR" << FLR;
-    qDebug() << "FUL" << FUL;
-    qDebug() << "FUR" << FUR;
-*/
-
-    renderer->pMatrixInv = renderer->pMatrix;
-    renderer->pMatrixInv.inverted();
-
     glViewport(0, 0, width(), height());
 }
 
 void OpenGLWindow::paintGl()
 {
     context->makeCurrent(this);
-    renderer->repaint();
+    renderer->draw();
     context->swapBuffers(this);
 }
 
-void OpenGLWindow::setRenderer(Renderer *value)
+void OpenGLWindow::setRenderer(RenderSystem *renderer)
 {
-    renderer = value;
-}
-
-Renderer* OpenGLWindow::getRenderer()
-{
-    return renderer;
+    this->renderer = renderer;
 }
 
 void OpenGLWindow::setHostApplication(QApplication* _application)

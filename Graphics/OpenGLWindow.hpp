@@ -6,7 +6,7 @@
 #include <QOpenGLContext>
 #include <QOpenGLFunctions_3_2_Core>
 
-#include "Renderer.hpp"
+#include "../Systems/RenderSystem.hpp"
 
 class OpenGLWindow : public QWindow, protected QOpenGLFunctions_3_2_Core
 {
@@ -20,8 +20,7 @@ public:
     void update();
 
     void setHostApplication(QApplication *_application);
-    void setRenderer(Renderer *value);
-    Renderer* getRenderer();
+    void setRenderer(RenderSystem *renderer);
 
 protected slots:
     void resizeGl();
@@ -30,7 +29,7 @@ protected slots:
 private:
     QApplication* application;
     QOpenGLContext* context;
-    Renderer* renderer;
+    RenderSystem* renderer;
     Camera* camera;
 
     bool trackMouse;
