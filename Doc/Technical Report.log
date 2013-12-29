@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  29 DEC 2013 12:48
 entering extended mode
 **Technical*Report.tex
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.tex"
+=======
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.12.13)  29 DEC 2013 15:41
+entering extended mode
+**Technical*Report.tex
+
+("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.te
+x"
+>>>>>>> origin/master
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -13,9 +22,15 @@ german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
 ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
 an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
 ishmax, welsh, loaded.
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size10.clo"
+>>>>>>> origin/master
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -30,6 +45,7 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
@@ -46,6 +62,24 @@ Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
 ("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+>>>>>>> origin/master
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count87
@@ -61,6 +95,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen110
 \Gm@dimlist=\toks15
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\caption\subcaption.sty"
 Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
@@ -70,6 +105,18 @@ Package: caption 2013/04/14 v3.3-73 Customizing captions (AR)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\caption\caption3.sty"
 Package: caption3 2013/04/14 v1.5-71 caption3 kernel (AR)
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\subcaption.sty"
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption.sty"
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+>>>>>>> origin/master
 \captionmargin=\dimen111
 \captionmargin@=\dimen112
 \captionwidth=\dimen113
@@ -83,7 +130,11 @@ Package: caption3 2013/04/14 v1.5-71 caption3 kernel (AR)
 \c@subfigure=\count91
 \c@subtable=\count92
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\float\float.sty"
+>>>>>>> origin/master
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count93
 \float@exts=\toks16
@@ -91,19 +142,31 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks17
 \@floatcapt=\box27
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+>>>>>>> origin/master
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks18
 \inpenc@posthook=\toks19
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\utf8.def"
+>>>>>>> origin/master
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+>>>>>>> origin/master
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -253,7 +316,11 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+>>>>>>> origin/master
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -284,7 +351,11 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+>>>>>>> origin/master
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -308,6 +379,7 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\comment\comment.sty"
 \CommentStream=\write3
 
@@ -325,10 +397,30 @@ Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\comment\comment.sty"
+\CommentStream=\write3
+
+Excluding comment 'comment')
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\parskip.sty"
+Package: parskip 2001/04/09 non-zero parskip adjustments
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+>>>>>>> origin/master
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
@@ -336,6 +428,15 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+>>>>>>> origin/master
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count94
@@ -343,6 +444,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen118
 \Gin@req@width=\dimen119
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf.sty"
 Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
 
@@ -365,6 +467,30 @@ Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
 Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\epstopdf.sty"
+Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+>>>>>>> origin/master
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
@@ -373,7 +499,11 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+>>>>>>> origin/master
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
@@ -386,24 +516,43 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
 ))
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+>>>>>>> origin/master
 Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+>>>>>>> origin/master
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks20
 \ex@=\dimen120
 ))
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen121
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen121
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+>>>>>>> origin/master
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count95
@@ -444,17 +593,28 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+>>>>>>> origin/master
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\easylist\easylist.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\easylist\easylist.sty"
+>>>>>>> origin/master
 Package: easylist 2010/02/28 v.1.3 Numbered items with a single command.
 \el@CounterTotal=\count107
 \el@Scratch=\count108
@@ -476,6 +636,7 @@ Package: easylist 2010/02/28 v.1.3 Numbered items with a single command.
 \el@TotalMargin=\dimen130
 \el@LeftMove=\dimen131
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
@@ -484,6 +645,16 @@ Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
+
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+>>>>>>> origin/master
 Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -512,21 +683,33 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+>>>>>>> origin/master
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
 \@linkdim=\dimen132
 \Hy@linkcounter=\count121
 \Hy@pagecounter=\count122
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+>>>>>>> origin/master
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 \Hy@SavedSpaceFactor=\count123
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+>>>>>>> origin/master
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Hyper figures OFF on input line 4443.
@@ -538,7 +721,11 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count124
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
+>>>>>>> origin/master
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
@@ -563,24 +750,37 @@ LaTeX Info: Redefining \pageref on input line 6369.
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+>>>>>>> origin/master
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
 \Fld@listcount=\count129
 \c@bookmark@seq@number=\count130
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+>>>>>>> origin/master
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip46
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\hypcap.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\hypcap.sty"
+>>>>>>> origin/master
 Package: hypcap 2011/02/16 v1.11 Adjusting the anchors of captions (HO)
 )
 Package hyperref Info: Option `setpagesize' set `false' on input line 45.
 Package hyperref Info: Option `colorlinks' set `true' on input line 45.
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
 Package: pdfpages 2012/08/31 v0.4t Insert pages of external PDF documents (AM)
 
@@ -588,6 +788,15 @@ Package: pdfpages 2012/08/31 v0.4t Insert pages of external PDF documents (AM)
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\calc.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
+Package: pdfpages 2013/08/25 v0.4v Insert pages of external PDF documents (AM)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\calc.sty"
+>>>>>>> origin/master
 Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count131
 \calc@Bcount=\count132
@@ -600,6 +809,7 @@ LaTeX Info: Redefining \addtolength on input line 77.
 \calc@Ccount=\count133
 \calc@Cskip=\skip49
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.sty"
 Package: eso-pic 2010/10/06 v2.0c eso-pic (RN)
 
@@ -607,6 +817,15 @@ Package: eso-pic 2010/10/06 v2.0c eso-pic (RN)
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.sty"
+Package: eso-pic 2013/10/06 v2.0d eso-pic (RN)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+>>>>>>> origin/master
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -620,15 +839,24 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 ))
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"
 File: pppdftex.def 2012/08/31 v0.4t Pdfpages driver for pdfTeX (AM)
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"
+File: pppdftex.def 2013/08/25 v0.4v Pdfpages driver for pdfTeX (AM)
+>>>>>>> origin/master
 )
 \AM@pagebox=\box32
 \AM@toc@title=\toks25
 \c@AM@survey=\count134
 \AM@templatesizebox=\box33
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.sty"
+>>>>>>> origin/master
 \lst@mode=\count135
 \lst@gtempboxa=\box34
 \lst@token=\toks26
@@ -642,18 +870,32 @@ File: pppdftex.def 2012/08/31 v0.4t Pdfpages driver for pdfTeX (AM)
 \lst@lineno=\count140
 \lst@maxwidth=\dimen141
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
+>>>>>>> origin/master
 \c@lstnumber=\count141
 \lst@skipnumbers=\count142
 \lst@framebox=\box35
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.cfg"
 File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.cfg"
+File: listings.cfg 2013/08/26 1.5b listings configuration
+))
+Package: listings 2013/08/26 1.5b (Carsten Heinz)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+>>>>>>> origin/master
 \fancy@headwidth=\skip50
 \f@ncyO@elh=\skip51
 \f@ncyO@erh=\skip52
@@ -664,7 +906,12 @@ Package: listings 2007/02/22 1.4 (Carsten Heinz)
 \f@ncyO@olf=\skip57
 \f@ncyO@orf=\skip58
 )
+<<<<<<< HEAD
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.aux"
+=======
+("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.au
+x"
+>>>>>>> origin/master
 
 LaTeX Warning: Label `citekey' multiply defined.
 
@@ -724,7 +971,11 @@ Package caption Info: hyperref package is loaded.
 Package caption Info: hypcap package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+>>>>>>> origin/master
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count143
 \scratchdimen=\dimen142
@@ -740,10 +991,17 @@ Package caption Info: End \AtBeginDocument code.
 )
 \AtBeginShipoutBox=\box37
 Package hyperref Info: Link coloring ON on input line 80.
+<<<<<<< HEAD
  ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+=======
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+>>>>>>> origin/master
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count149
@@ -752,12 +1010,33 @@ LaTeX Info: Redefining \ref on input line 80.
 LaTeX Info: Redefining \pageref on input line 80.
 LaTeX Info: Redefining \nameref on input line 80.
 
+<<<<<<< HEAD
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.out")
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.out")
 \@outlinefile=\write4
 \c@lstlisting=\count150
 
 <Cover/cover.pdf, id=77, page=1, 597.50829pt x 845.0471pt>
+=======
+("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.ou
+t")
+("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.ou
+t")
+\@outlinefile=\write4
+\c@lstlisting=\count150
+ <Cover/cover.pdf, id=79, 597.50829pt x 845.0471pt>
+File: Cover/cover.pdf Graphic file (type pdf)
+ <use Cover/cover.pdf>
+Package pdftex.def Info: Cover/cover.pdf used on input line 83.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: Cover/cover.pdf Graphic file (type pdf)
+
+<use Cover/cover.pdf>
+Package pdftex.def Info: Cover/cover.pdf used on input line 83.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+
+<Cover/cover.pdf, id=82, page=1, 597.50829pt x 845.0471pt>
+>>>>>>> origin/master
 File: Cover/cover.pdf Graphic file (type pdf)
 
 <use Cover/cover.pdf, page 1>
@@ -783,16 +1062,26 @@ Package pdftex.def Info: Cover/cover.pdf, page1 used on input line 83.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [1
 
+<<<<<<< HEAD
  <D:/Dev/Git/ExtrapolateAndConquer/Doc/Cover/cover.pdf{C:/ProgramData/MiKTeX/2.
 9/pdftex/config/pdftex.map}>]
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/identity.tex
 LaTeX Font Info:    Try loading font information for U+msa on input line 14.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+=======
+ <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/Cover/cover.pdf{C:/
+ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}>]
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/identity.
+tex
+LaTeX Font Info:    Try loading font information for U+msa on input line 14.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+>>>>>>> origin/master
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 14.
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )) [2]
@@ -819,12 +1108,48 @@ Package epstopdf Info: Source file: <images/EntityComponentSystemExample.eps>
 nverted-to.pdf>
 (epstopdf)                    date: 2013-12-29 12:40:40
 (epstopdf)                    size: 63002 bytes
+=======
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)) [2]
+("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.to
+c")
+\tf@toc=\write5
+
+("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.lo
+f")
+\tf@lof=\write6
+
+("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.lo
+t")
+\tf@lot=\write7
+ [3]
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/introduct
+ion.tex)pdfTeX warning (ext4): destination with the same identifier (name{page.
+1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.119 \newpage
+               [1]
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/core.tex
+Package epstopdf Info: Source file: <images/EntityComponentSystemExample.eps>
+(epstopdf)                    date: 2013-12-29 15:39:49
+(epstopdf)                    size: 240215 bytes
+(epstopdf)             Output file: <images/EntityComponentSystemExample-eps-co
+nverted-to.pdf>
+(epstopdf)                    date: 2013-12-29 15:40:03
+(epstopdf)                    size: 62981 bytes
+>>>>>>> origin/master
 (epstopdf)             Command: <epstopdf --outfile=images/EntityComponentSyste
 mExample-eps-converted-to.pdf images/EntityComponentSystemExample.eps>
 (epstopdf)             \includegraphics on input line 9.
 Package epstopdf Info: Output file is already uptodate.
 
+<<<<<<< HEAD
 <images/EntityComponentSystemExample-eps-converted-to.pdf, id=142, 667.49374pt 
+=======
+<images/EntityComponentSystemExample-eps-converted-to.pdf, id=148, 667.49374pt 
+>>>>>>> origin/master
 x 270.00874pt>
 File: images/EntityComponentSystemExample-eps-converted-to.pdf Graphic file (ty
 pe pdf)
@@ -833,6 +1158,7 @@ Package pdftex.def Info: images/EntityComponentSystemExample-eps-converted-to.p
 df used on input line 9.
 (pdftex.def)             Requested size: 437.88495pt x 177.13512pt.
 )
+<<<<<<< HEAD
 [2 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/EntityComponentSystemExample-ep
 s-converted-to.pdf>]
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/graphics.tex
@@ -857,21 +1183,93 @@ quer/Doc/images/FracBrownMotion.png>]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 9.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+=======
+[2 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/EntityComp
+onentSystemExample-eps-converted-to.pdf>]
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/graphics.
+tex
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/world_gen
+eration.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--18
+
+ []
+
+[3] <images/Simplex.png, id=165, 376.40625pt x 376.40625pt>
+File: images/Simplex.png Graphic file (type png)
+
+<use images/Simplex.png>
+Package pdftex.def Info: images/Simplex.png used on input line 28.
+(pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
+
+<images/FracBrownMotion.png, id=167, 376.40625pt x 376.40625pt>
+File: images/FracBrownMotion.png Graphic file (type png)
+
+<use images/FracBrownMotion.png>
+Package pdftex.def Info: images/FracBrownMotion.png used on input line 34.
+(pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 43--49
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 43--49
+
+ []
+
+)
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/visual_ef
+fects.tex [4 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
+Simplex.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
+FracBrownMotion.png>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 9.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+>>>>>>> origin/master
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 9.
+<<<<<<< HEAD
 )) [4]
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/ai.tex) [5]
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/conclusions.tex)
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/bibliography.tex
+=======
+)) [5]
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/ai.tex)
+[6]
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/conclusio
+ns.tex)
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/bibliogra
+phy.tex
+>>>>>>> origin/master
 Underfull \hbox (badness 10000) in paragraph at lines 39--42
 
  []
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 153.
+<<<<<<< HEAD
  [6pdfTeX warning (ext4): destination with the same identifier (name{cite.citek
+=======
+ [7pdfTeX warning (ext4): destination with the same identifier (name{cite.citek
+>>>>>>> origin/master
 ey}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
@@ -880,7 +1278,12 @@ l.153 \end{document}
                     ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 153.
 
+<<<<<<< HEAD
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.aux")
+=======
+("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.au
+x")
+>>>>>>> origin/master
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 153.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 153.
 Package rerunfilecheck Info: File `Technical*Report.out' has not changed.
@@ -892,6 +1295,7 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 153.
  ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  10873 strings out of 493921
  158497 string characters out of 3147270
  255269 words of memory out of 3000000
@@ -913,4 +1317,27 @@ PDF statistics:
  225 PDF objects out of 1000 (max. 8388607)
  40 named destinations out of 1000 (max. 500000)
  175 words of extra memory for PDF output out of 10000 (max. 10000000)
+=======
+ 10890 strings out of 493921
+ 160548 string characters out of 3144875
+ 254448 words of memory out of 3000000
+ 13934 multiletter control sequences out of 15000+200000
+ 11885 words of font info for 45 fonts, out of 3000000 for 9000
+ 841 hyphenation exceptions out of 8191
+ 42i,18n,45p,740b,482s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
+:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/P
+rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Prog
+ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Fil
+es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files (
+x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x8
+6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on "Technical Report.pdf" (10 pages, 767538 bytes).
+PDF statistics:
+ 235 PDF objects out of 1000 (max. 8388607)
+ 42 named destinations out of 1000 (max. 500000)
+ 188 words of extra memory for PDF output out of 10000 (max. 10000000)
+>>>>>>> origin/master
 

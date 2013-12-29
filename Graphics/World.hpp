@@ -25,7 +25,7 @@
 class World{
 	public:
         World( ResourceManager* resources);
-        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves);
+        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, uint seed = -1);
         StaticObjectList* getTrees(void);
         /*!
          * \brief getHeight at global position x and z.

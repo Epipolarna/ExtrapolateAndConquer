@@ -33,7 +33,6 @@ public:
     void useFBO(FBO *fbo);
 
     World* worldData;
-
     void calculateLightSourceMatrices();
 
     void setDt(float dt) { this->dt = dt; }

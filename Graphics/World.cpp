@@ -7,10 +7,10 @@ World::World( ResourceManager* resources){
 
     QVector<GLuint> treeTextures;
 
-    /* Okej sÃ¥ att ehh, tree*a innehÃ¥ller ett stycke stam och tree*b innehÃ¥ller motsvarande lÃ¶vverk.
-     * Dessa mÃ¥ste placeras pÃ¥ samma position fÃ¶r att det ska makea sense.
-     * Det finns fyra olika sorters trÃ¤d. tree1, tree2, tree3 och tree4.
-     * Det vore nice om dessa kunde slumpas ut fint Ã¶ver vÃ¤rlden. Plz do
+    /* Okej så att ehh, tree*a innehåller ett stycke stam och tree*b innehåller motsvarande lövverk.
+     * Dessa måste placeras på samma position för att det ska makea sense.
+     * Det finns fyra olika sorters träd. tree1, tree2, tree3 och tree4.
+     * Det vore nice om dessa kunde slumpas ut fint över världen. Plz do
      */
 
     treeTextures.push_back(resources->getTexture("tree1a"));
@@ -20,7 +20,7 @@ World::World( ResourceManager* resources){
     //trees = new StaticObjectList(resources->getModel("tree1b"),treeTextures,resources->getShader("instance"));
 }
 
-Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
+Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, uint seed){
 
     vertexDensity = _vertexDensity;
     sizeX = xRange;
@@ -47,10 +47,19 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     // -------------- Generate Vertices and Texture Coordinates -------------
 
     // Generate height map and texture coordinates
-    QTime now = QTime::currentTime();
-    qsrand(now.msec());
+    if(seed < 0) {
+        QTime now = QTime::currentTime();
+        seed = now.msec();
+    }
+    qsrand(seed);
     float xRandomOffset = 45; //qrand() %256;
     float zRandomOffset = 107; //qrand() %256;
+    /*
+    float xRandomOffset = 45; //qrand() %256;
+    float zRandomOffset = 107; //qrand() %256;
+    qDebug() << "xRandomOffset" << xRandomOffset;
+    qDebug() << "zRandomOffset" << zRandomOffset;
+    */
 
     qDebug() << "xRandomOffset" << xRandomOffset;
     qDebug() << "zRandomOffset" << zRandomOffset;
