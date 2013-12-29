@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.12.13)  29 DEC 2013 15:32
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.12.13)  29 DEC 2013 15:41
 entering extended mode
 **Technical*Report.tex
 
@@ -833,12 +833,12 @@ l.119 \newpage
                [1]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/core.tex
 Package epstopdf Info: Source file: <images/EntityComponentSystemExample.eps>
-(epstopdf)                    date: 2013-12-27 16:57:43
-(epstopdf)                    size: 240234 bytes
+(epstopdf)                    date: 2013-12-29 15:39:49
+(epstopdf)                    size: 240215 bytes
 (epstopdf)             Output file: <images/EntityComponentSystemExample-eps-co
 nverted-to.pdf>
-(epstopdf)                    date: 2013-12-27 17:00:19
-(epstopdf)                    size: 63002 bytes
+(epstopdf)                    date: 2013-12-29 15:40:03
+(epstopdf)                    size: 62981 bytes
 (epstopdf)             Command: <epstopdf --outfile=images/EntityComponentSyste
 mExample-eps-converted-to.pdf images/EntityComponentSystemExample.eps>
 (epstopdf)             \includegraphics on input line 9.
@@ -882,22 +882,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 11--18
 File: images/Simplex.png Graphic file (type png)
 
 <use images/Simplex.png>
-Package pdftex.def Info: images/Simplex.png used on input line 29.
+Package pdftex.def Info: images/Simplex.png used on input line 28.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
 
 <images/FracBrownMotion.png, id=167, 376.40625pt x 376.40625pt>
 File: images/FracBrownMotion.png Graphic file (type png)
 
 <use images/FracBrownMotion.png>
-Package pdftex.def Info: images/FracBrownMotion.png used on input line 35.
+Package pdftex.def Info: images/FracBrownMotion.png used on input line 34.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 44--50
+Underfull \hbox (badness 10000) in paragraph at lines 43--49
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 44--50
+Underfull \hbox (badness 10000) in paragraph at lines 43--49
 
  []
 
@@ -964,7 +964,7 @@ ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program
 es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files (
 x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x8
 6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on "Technical Report.pdf" (10 pages, 767496 bytes).
+Output written on "Technical Report.pdf" (10 pages, 767538 bytes).
 PDF statistics:
  235 PDF objects out of 1000 (max. 8388607)
  42 named destinations out of 1000 (max. 500000)
