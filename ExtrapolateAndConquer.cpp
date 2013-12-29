@@ -36,6 +36,13 @@ ExtrapolateAndConquer::~ExtrapolateAndConquer(){
 
 void ExtrapolateAndConquer::initialize(void){
 
+    // Position 1
+    //camera->setPosition(QVector3D(83.166, 23.1683, 82.7445));
+    //camera->setLookAtPoint(QVector3D(84.0909, 22.7881, 82.7489));
+    // Position 2
+    //camera->setPosition(QVector3D(91.6946, 69.6868, 83.1389));
+    //camera->setLookAtPoint(QVector3D(92.2387, 68.8478, 83.142));
+
     fpsMeter->start();
     openGLWindow->initialize();
     qDebug() << "OpenGL init: " << fpsMeter->elapsed() << "ms";
@@ -114,8 +121,9 @@ void ExtrapolateAndConquer::initialize(void){
 
     Object* worldObject;
 
+    uint seed = 1;  // -1 means random seed from current time
     int nOctaves = sizeof(octaves)/sizeof(float);
-    worldModel = world->generateWorld(200,200,0.5f,octaves,scales,nOctaves);
+    worldModel = world->generateWorld(200,200,0.5f,octaves,scales,nOctaves, seed);
     hightMapOfChunk = world->heightMap;
 
     // Shadow map Matrices

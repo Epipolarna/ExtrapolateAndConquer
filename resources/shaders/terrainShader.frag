@@ -148,6 +148,20 @@ vec4 blendTextures(sampler2D sandTexture, sampler2D grassTexture, sampler2D rock
 	vec4 rock = texture(rockTexture, scaledTexCoord);
 	
 	
+	// naive
+	/*
+	if(height < grassStart)
+		return sand;
+	if(height <= sandEnd)
+		return mixTextures(sand, grass, height, grassStart, sandEnd, 1);
+	if(height <= rockStart)
+		return grass;
+	if(height <= grassEnd)
+		return mixTextures(grass, rock, height, rockStart, grassEnd, 1);;
+	return rock;
+	*/
+	
+	// advanced
 	if(height < grassStart)
 		return sand;
 	if(height <= sandEnd) {
