@@ -37,11 +37,14 @@ ExtrapolateAndConquer::~ExtrapolateAndConquer(){
 void ExtrapolateAndConquer::initialize(void){
 
     // Position 1
-    //camera->setPosition(QVector3D(83.166, 23.1683, 82.7445));
-    //camera->setLookAtPoint(QVector3D(84.0909, 22.7881, 82.7489));
+    //camera->setPosition(QVector3D(93.8781, 51.4692, -16.1341));
+    //camera->setLookAtPoint(QVector3D(94.0255, 51.0261, -15.2498));
     // Position 2
-    //camera->setPosition(QVector3D(91.6946, 69.6868, 83.1389));
-    //camera->setLookAtPoint(QVector3D(92.2387, 68.8478, 83.142));
+    //camera->setPosition(QVector3D(-8.42683, 27.0048, 51.5548));
+    //camera->setLookAtPoint(QVector3D(-7.60664, 26.7616, 52.0726));
+    // Position 3
+    //camera->setPosition(QVector3D(206.814, 13.8763, 56.0137));
+    //camera->setLookAtPoint(QVector3D(205.873, 13.78, 56.3387));
 
     fpsMeter->start();
     openGLWindow->initialize();

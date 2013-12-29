@@ -303,6 +303,24 @@ void Renderer::repaint(){
         glDepthMask(GL_TRUE);
     }
 
+    /*
+    unsigned char * image = new unsigned char[3*width*height];
+
+    glReadBuffer(GL_BACK_LEFT);
+    glReadPixels(0,0,width,height,GL_RGB,GL_UNSIGNED_BYTE,image);
+
+    cv::Mat screenDump = cv::Mat(height, width, CV_8UC3);
+    int index = 0;
+    for(int row = 0; row < height; row++)
+        for(int col = 0; col < width; col++) {
+            screenDump.at<cv::Vec3b>(row,col) = cv::Vec3b(image[index+2], image[index+1], image[index]);
+            index += 3;
+        }
+    cv::flip(screenDump, screenDump, 0);
+    cv::imwrite("screenShot.png", screenDump);
+    */
+
+
     //QImage im1 = FBO1->toImage();
     //im1.save("im1.png");
 
