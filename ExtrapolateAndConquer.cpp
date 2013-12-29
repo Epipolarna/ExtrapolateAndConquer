@@ -60,9 +60,13 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->instanceDepthProgram = resourceManager->getShader("instanceDepth");
 
 
-    int nBalls = 100;
+    int nBalls = 20;
     printf("initing %d balls \n ",nBalls);
+
+    // -------- Stone 1 --------------------------
+
     for(int i = 0; i < nBalls; i++){
+
         // Initialize entity
         e = &entityManager.createEntity();
 
@@ -80,12 +84,125 @@ void ExtrapolateAndConquer::initialize(void){
 
         // Add Graphics
         e->add<Graphics>();
-        e->get<Graphics>().object = new Object(resourceManager->getModel("unitSphere10"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
+        e->get<Graphics>().object = new Object(resourceManager->getModel("stone1"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone1"));
         e->get<Graphics>().object->setScale(sp.radius);
         e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
 
         renderer->drawObject(e->get<Graphics>().object);
     }
+
+    // -------- Stone 2 --------------------------
+
+    for(int i = 0; i < nBalls; i++){
+
+        // Initialize entity
+        e = &entityManager.createEntity();
+
+        // Add Sphere physics
+        e->add<SpherePhysics>();
+        SpherePhysics & sp = e->get<SpherePhysics>();
+        sp.position = QVector3D(qrand()%200,5,qrand()%200);
+        sp.rotation2 = QQuaternion(1,0,0,0);
+        sp.mass = 1000.0;
+        sp.elasticity = 0.3;
+        sp.friction = 1.0;
+        sp.radius = 0.5;
+        sp.gravitationalConstant = 9.82;
+        sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
+
+        // Add Graphics
+        e->add<Graphics>();
+        e->get<Graphics>().object = new Object(resourceManager->getModel("stone2"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone2"));
+        e->get<Graphics>().object->setScale(sp.radius);
+        e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
+
+        renderer->drawObject(e->get<Graphics>().object);
+    }
+
+    // -------- Stone 3 --------------------------
+
+    for(int i = 0; i < nBalls; i++){
+
+        // Initialize entity
+        e = &entityManager.createEntity();
+
+        // Add Sphere physics
+        e->add<SpherePhysics>();
+        SpherePhysics & sp = e->get<SpherePhysics>();
+        sp.position = QVector3D(qrand()%200,5,qrand()%200);
+        sp.rotation2 = QQuaternion(1,0,0,0);
+        sp.mass = 1000.0;
+        sp.elasticity = 0.3;
+        sp.friction = 1.0;
+        sp.radius = 0.3;
+        sp.gravitationalConstant = 9.82;
+        sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
+
+        // Add Graphics
+        e->add<Graphics>();
+        e->get<Graphics>().object = new Object(resourceManager->getModel("stone3"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone3"));
+        e->get<Graphics>().object->setScale(sp.radius);
+        e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
+
+        renderer->drawObject(e->get<Graphics>().object);
+    }
+
+    // -------- Stone 4 --------------------------
+
+    for(int i = 0; i < nBalls; i++){
+
+        // Initialize entity
+        e = &entityManager.createEntity();
+
+        // Add Sphere physics
+        e->add<SpherePhysics>();
+        SpherePhysics & sp = e->get<SpherePhysics>();
+        sp.position = QVector3D(qrand()%200,5,qrand()%200);
+        sp.rotation2 = QQuaternion(1,0,0,0);
+        sp.mass = 1000.0;
+        sp.elasticity = 0.3;
+        sp.friction = 1.0;
+        sp.radius = 0.25;
+        sp.gravitationalConstant = 9.82;
+        sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
+
+        // Add Graphics
+        e->add<Graphics>();
+        e->get<Graphics>().object = new Object(resourceManager->getModel("stone4"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone4"));
+        e->get<Graphics>().object->setScale(sp.radius);
+        e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
+
+        renderer->drawObject(e->get<Graphics>().object);
+    }
+
+    // -------- Stone 5 --------------------------
+
+    for(int i = 0; i < nBalls; i++){
+
+        // Initialize entity
+        e = &entityManager.createEntity();
+
+        // Add Sphere physics
+        e->add<SpherePhysics>();
+        SpherePhysics & sp = e->get<SpherePhysics>();
+        sp.position = QVector3D(qrand()%200,5,qrand()%200);
+        sp.rotation2 = QQuaternion(1,0,0,0);
+        sp.mass = 1000.0;
+        sp.elasticity = 0.3;
+        sp.friction = 1.0;
+        sp.radius = 0.2;
+        sp.gravitationalConstant = 9.82;
+        sp.momentOfInertia = 6.0/12.0 * sp.mass * sp.radius * sp.radius;
+
+        // Add Graphics
+        e->add<Graphics>();
+        e->get<Graphics>().object = new Object(resourceManager->getModel("stone5"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone5"));
+        e->get<Graphics>().object->setScale(sp.radius);
+        e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
+
+        renderer->drawObject(e->get<Graphics>().object);
+    }
+
 
     // ------------- Generate world ------------------------
     fpsMeter->start();
@@ -222,6 +339,21 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadTexture("tree3b");
     resourceManager->loadTexture("tree4a");
     resourceManager->loadTexture("tree4b");
+
+
+    //Stone data
+    printf("loading stone data \n");
+    resourceManager->loadModel("stone1");
+    resourceManager->loadModel("stone2");
+    resourceManager->loadModel("stone3");
+    resourceManager->loadModel("stone4");
+    resourceManager->loadModel("stone5");
+
+    resourceManager->loadTexture("stone1");
+    resourceManager->loadTexture("stone2");
+    resourceManager->loadTexture("stone3");
+    resourceManager->loadTexture("stone4");
+    resourceManager->loadTexture("stone5");
 
 
     printf("loading sphere data \n");
