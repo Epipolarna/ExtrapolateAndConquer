@@ -68,6 +68,9 @@ public:
 private:
     static const int maxInstanceObjects = 50;
 
+    // Not yet implemented
+    void sortOnDepth(std::vector<Object *> & objects, int iterations = -1);
+
 };
 
 #endif // RENDERER_HPP

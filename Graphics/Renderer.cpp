@@ -338,3 +338,12 @@ void Renderer::repaint(){
 
 
 }
+
+
+void Renderer::sortOnDepth(std::vector<Object *> & objects, int iterations)
+{
+    int i = 0;
+    bool swapped = false;
+
+    // "iterations" iterations of bubblesort according to the xyz distance to the camera goes here <-!
+}
