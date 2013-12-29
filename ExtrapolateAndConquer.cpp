@@ -241,7 +241,6 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadShader("phong");
 
     resourceManager->loadModel("tree0");
-    resourceManager->loadModel("tree5");
 
     resourceManager->loadModel("tree1a");
     resourceManager->loadModel("tree1b");
@@ -260,6 +259,9 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadTexture("tree3b");
     resourceManager->loadTexture("tree4a");
     resourceManager->loadTexture("tree4b");
+
+    resourceManager->loadModel("tree5");
+    resourceManager->loadTexture("tree5");
 
 
     //Stone data

@@ -13,7 +13,7 @@ World::World( ResourceManager* resources){
      * Det vore nice om dessa kunde slumpas ut fint över världen. Plz do
      */
 
-    treeTextures.push_back(resources->getTexture("tree1a"));
+    treeTextures.push_back(resources->getTexture("tree5"));
     trees = new StaticObjectList(resources->getModel("tree5"),treeTextures,resources->getShader("instance"));
 
     //treeTextures.push_back(resources->getTexture("tree1b"));
