@@ -4,7 +4,7 @@ PROJECT(ExNCo)
 
 IF(APPLE)
     MESSAGE( STATUS "Apple system" )
-    SET (CMAKE_CXX_FLAGS "-stdlib=libc++ -std=c++11 -pedantic")
+    SET (CMAKE_CXX_FLAGS "-stdlib=libc++ -std=c++11")
     INCLUDE_DIRECTORIES( /System/Library/Frameworks )
     set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
 ENDIF()

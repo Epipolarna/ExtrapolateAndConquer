@@ -22,7 +22,8 @@ public:
 	Model(void);
 
 	void loadModel(const QString filename,const bool unitize = false);
-    void modelFromData(const QVector<QVector3D> vertices, const QVector<QVector3D> normals, const QVector<QVector2D> textures, const QVector<unsigned int> indices);
+    void modelFromData(const QVector<QVector3D> vertices, const QVector<QVector3D> normals, 
+    				   const QVector<QVector2D> textures, const QVector<unsigned int> indices);
 	
 	QOpenGLVertexArrayObject VAO;
     QOpenGLBuffer VBO, NBO, TBO, IBO;

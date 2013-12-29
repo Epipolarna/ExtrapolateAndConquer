@@ -11,14 +11,19 @@ public:
     System() { es = 0; }
 
     // External methods
-    void initialize(EntityManager<Components...> & entityManager) { es = &entityManager; }
+    // call to init system, override setup instead of this method
+    virtual void initialize(EntityManager<Components...> & entityManager) final { es = &entityManager; setup(); }
+
     virtual void processStep(PrimaryComponent & c) = 0;
-    virtual void batch();
+    virtual void batch(void);
 
 protected:
     // Internal methods
     Entity<Components...> & getEntity(PrimaryComponent & c);
     std::vector<PrimaryComponent> & getComponents();
+
+    //Override this function for setting things up properly, run when initalize is called
+    virtual void setup(void) { /* Default implementaion empty*/ };
 
 private:
     EntityManager<Components...> * es;

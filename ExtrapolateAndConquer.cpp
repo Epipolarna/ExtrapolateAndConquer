@@ -34,6 +34,7 @@ ExtrapolateAndConquer::~ExtrapolateAndConquer(){
     //TODO destroy game
 }
 
+/*
 void ExtrapolateAndConquer::initialize(void){
 
     fpsMeter->start();
@@ -80,14 +81,14 @@ void ExtrapolateAndConquer::initialize(void){
 
         // Add Graphics
         //TODO move to new render system...
-        /*
-        e->add<Graphics>();
-        e->get<Graphics>().object = new Object(resourceManager->getModel("unitSphere10"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
-        e->get<Graphics>().object->setScale(sp.radius);
-        e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
+        
+        //e->add<Graphics>();
+        //e->get<Graphics>().object = new Object(resourceManager->getModel("unitSphere10"), resourceManager->getShader("phongTex"), resourceManager->getTexture("sphere"));
+        //e->get<Graphics>().object->setScale(sp.radius);
+        //e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
 
-        renderer->drawObject(e->get<Graphics>().object);
-        */
+        //renderer->drawObject(e->get<Graphics>().object);
+        
     }
 
     // ------------- Generate world ------------------------
@@ -191,9 +192,41 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->worldData = world;
     printf("all initialization done! \n");
 }
+*/
+
+void ExtrapolateAndConquer::initialize(void){
+    printf("Initing ExtrapolateAndConquer\n");
+    openGLWindow->initialize();
+    resourceManager = new ResourceManager;
+    loadResources();
+
+    printf("initing the worldgen\n");
+    world = new World(resourceManager);
+
+    printf("initing systems\n");
+    initSystems();
+
+    
+    printf("done initing\n");
+}
+
+
+void ExtrapolateAndConquer::initSystems(void){
+    //setup systems
+    spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
+    renderer.setResources(resourceManager);
+    renderer.setWorld(world);
+    renderer.setCamera(camera);
+
+    //init systems...
+    spherePhysicsSystem.initialize(entityManager);
+    sphereSphereCollisionSystem.initialize(entityManager);
+    sphereTerrainCollisionSystem.initialize(entityManager);
+    renderer.initialize(entityManager);
+}
 
 void ExtrapolateAndConquer::loadResources(void){
-
+    printf("loading resources\n");
     //FBO Square. Used to draw the scene on when it has been drawn to a FBO
     printf("loading shadowMapping data \n");
     resourceManager->loadShader("fbo");
@@ -258,7 +291,6 @@ int ExtrapolateAndConquer::run(){
     return returnCode;
 }
 
-bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     timer->stop();
     camera->updatePosition();

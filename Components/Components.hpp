@@ -1,15 +1,16 @@
 #ifndef COMPONENTS_HPP
 #define COMPONENTS_HPP
 
-#include "EntitySystem/EntitySystem.hpp"
+#include "../EntitySystem/EntitySystem.hpp"
+#include "../Components/Components.hpp"
 
 // Includes
-#include "Graphics/Object.hpp"
-#include "Graphics/World.hpp"
-#include "Graphics/graphics_utilities.hpp"
+#include "../Graphics/Object.hpp"
+#include "../Graphics/World.hpp"
+#include "../Graphics/graphics_utilities.hpp"
 
 // List all components
-#define Components Name,SpherePhysics,AI
+#define Components Name,SpherePhysics,AI,Drawable
 
 /*
  * Component prototype list
@@ -64,11 +65,13 @@ struct Drawable : public Component<SpherePhysics>{
     //settings for the object itself
     QVector3D scale;
     TextureParameters textureData;
-    MaterialParameters lightData;
+    MaterialParameters materialData;
     
     //references to shared resources
     QOpenGLShaderProgram* shader;
     Model* modelData;
+
+    QMatrix4x4 mMatrix;
 };
 
 #include "aux_AI.hpp"

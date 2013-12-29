@@ -20,7 +20,6 @@
 #include "Systems/Systems.hpp"
 
 
-
 class ExtrapolateAndConquer : QObject
 {
     Q_OBJECT
@@ -35,7 +34,7 @@ public:
 public slots:
     void loopBody();
 
-public:
+private:
 
     ResourceManager* resourceManager;
 
@@ -45,6 +44,7 @@ public:
     SphereSphereCollisionSystem sphereSphereCollisionSystem;
     SphereTerrainCollisionSystem sphereTerrainCollisionSystem;
     AISystem aiSystem;
+    RenderSystem renderer;
 
     QApplication* application;
     QOpenGLContext* context;
@@ -60,6 +60,7 @@ public:
     cv::Mat hightMapOfChunk;
 
     void loadResources(void);
+    void initSystems(void);
 };
 
 #endif // EXTRAPOLATEANDCONQUER_HPP

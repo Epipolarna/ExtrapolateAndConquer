@@ -13,10 +13,14 @@
 #include "StaticObjectList.hpp"
 #include "World.hpp"
 
+#ifndef FBO_H
+#define FBO_H
+
 struct FBO
 {
     GLuint id, colorTex, depthTex;
 };
+#endif
 
 class Renderer : public QOpenGLFunctions_3_2_Core
 {

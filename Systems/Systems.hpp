@@ -146,5 +146,6 @@ private:
 };
 
 #include "AISystem.hpp"
+#include "RenderSystem.hpp"
 
 #endif

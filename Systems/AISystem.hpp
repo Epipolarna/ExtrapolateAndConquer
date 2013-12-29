@@ -1,8 +1,8 @@
 #ifndef AI_SYSTEM_HPP
 #define AI_SYSTEM_HPP
 
-#include "EntitySystem/EntitySystem.hpp"
-#include "Components/Components.hpp"
+#include "../EntitySystem/EntitySystem.hpp"
+#include "../Components/Components.hpp"
 #include <opencv2/opencv.hpp>
 
 class AISystem : public System<AI, Components>
