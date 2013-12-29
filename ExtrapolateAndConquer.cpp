@@ -74,7 +74,7 @@ void ExtrapolateAndConquer::initialize(void){
     int nBalls = 40;
     qDebug() << "Initiating" << nBalls << "stones of each type (5 types).";
 
-
+    qsrand(1);
     // -------- Stones --------------------------
     for(int i = 0; i < nBalls*5; i++){
         // Initialize entity
@@ -83,7 +83,7 @@ void ExtrapolateAndConquer::initialize(void){
         e->add<Graphics>();
 
         SpherePhysics & physics = e->get<SpherePhysics>();
-        physics.position = QVector3D(qrand()%100+100,5,qrand()%100+100);
+        physics.position = QVector3D(qrand()%150+10,5,qrand()%150+65);
         physics.rotation2 = QQuaternion(1,0,0,0);
         physics.elasticity = 0.01;
         physics.friction = 1.0;
