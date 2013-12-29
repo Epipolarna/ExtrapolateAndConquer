@@ -19,8 +19,9 @@ Model* World::getChunks(void){
 }
 
 void World::setupWorldgen(void){
-    octaves = new float[16];
-    yScales = new float[16];
+    nOctaves = 16; //use 16 octaves
+    octaves = new float[nOctaves];
+    yScales = new float[nOctaves];
 
     // 1.8715 or 2.1042
     float lacunarity = 1/1.87;
@@ -29,7 +30,7 @@ void World::setupWorldgen(void){
     //for each pixel, get the value
     float period = 400;
     float amplitude = 20;
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i < nOctaves; i++)
     {
         octaves[i] = period;
         yScales[i] = amplitude;
@@ -38,7 +39,9 @@ void World::setupWorldgen(void){
         amplitude *= gain;
     }
 
-    int nOctaves = sizeof(octaves)/sizeof(float);
+    vertexDensity = 0.5;
+    xRange = 200;
+    zRange = 200;
 }
 
 Model * World::generateWorld(void){
@@ -223,6 +226,8 @@ Model * World::generateWorld(void){
     worldModel->modelFromData(vertices,normals,textures,indices);
 
     //placeTrees();
+
+    chunkCache = worldModel;
 
     return worldModel;
 }

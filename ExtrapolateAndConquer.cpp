@@ -207,6 +207,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     printf("initing the worldgen\n");
     world = new World(resourceManager);
+    world->generateWorld();
 
     printf("setting up systems...\n");
     renderer.setResources(resourceManager);
@@ -216,7 +217,7 @@ void ExtrapolateAndConquer::initialize(void){
     printf("initing systems\n");
     renderer.initialize(entityManager);
     
-    printf("done initing\n");
+    printf("init done \n");
 }
 
 void ExtrapolateAndConquer::loadResources(void){

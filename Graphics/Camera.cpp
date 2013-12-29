@@ -13,6 +13,10 @@ Camera::Camera()
     yawSpeed = 160;         // degrees/s
 
     mouseSensitivity = (float) 10 /10000;
+
+    //initialize the matrices...
+    pMatrix.setToIdentity();
+    vMatrix.setToIdentity();
 }
 
 void Camera::setPosition(QVector3D _position)

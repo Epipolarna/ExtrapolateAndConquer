@@ -95,6 +95,7 @@ void RenderSystem::drawWorld(void){
 
 	//TODO allow for more than one single world chunk
 	Model* worldModel = worldData->getChunks();
+
 	currentProgram = terrainShader;
 
 	terrainShader->bind();
