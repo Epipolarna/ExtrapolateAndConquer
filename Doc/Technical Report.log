@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.12.13)  29 DEC 2013 14:51
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.12.13)  29 DEC 2013 15:32
 entering extended mode
 **Technical*Report.tex
 
@@ -762,7 +762,7 @@ t")
 t")
 \@outlinefile=\write4
 \c@lstlisting=\count150
- <Cover/cover.pdf, id=75, 597.50829pt x 845.0471pt>
+ <Cover/cover.pdf, id=79, 597.50829pt x 845.0471pt>
 File: Cover/cover.pdf Graphic file (type pdf)
  <use Cover/cover.pdf>
 Package pdftex.def Info: Cover/cover.pdf used on input line 83.
@@ -773,7 +773,7 @@ File: Cover/cover.pdf Graphic file (type pdf)
 Package pdftex.def Info: Cover/cover.pdf used on input line 83.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 
-<Cover/cover.pdf, id=78, page=1, 597.50829pt x 845.0471pt>
+<Cover/cover.pdf, id=82, page=1, 597.50829pt x 845.0471pt>
 File: Cover/cover.pdf Graphic file (type pdf)
 
 <use Cover/cover.pdf, page 1>
@@ -844,7 +844,7 @@ mExample-eps-converted-to.pdf images/EntityComponentSystemExample.eps>
 (epstopdf)             \includegraphics on input line 9.
 Package epstopdf Info: Output file is already uptodate.
 
-<images/EntityComponentSystemExample-eps-converted-to.pdf, id=143, 667.49374pt 
+<images/EntityComponentSystemExample-eps-converted-to.pdf, id=148, 667.49374pt 
 x 270.00874pt>
 File: images/EntityComponentSystemExample-eps-converted-to.pdf Graphic file (ty
 pe pdf)
@@ -858,22 +858,52 @@ onentSystemExample-eps-converted-to.pdf>]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/graphics.
 tex
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/world_gen
-eration.tex <images/Simplex.png, id=156, 376.40625pt x 376.40625pt>
+eration.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--18
+
+ []
+
+[3] <images/Simplex.png, id=165, 376.40625pt x 376.40625pt>
 File: images/Simplex.png Graphic file (type png)
 
 <use images/Simplex.png>
-Package pdftex.def Info: images/Simplex.png used on input line 19.
+Package pdftex.def Info: images/Simplex.png used on input line 29.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
 
-<images/FracBrownMotion.png, id=158, 376.40625pt x 376.40625pt>
+<images/FracBrownMotion.png, id=167, 376.40625pt x 376.40625pt>
 File: images/FracBrownMotion.png Graphic file (type png)
 
 <use images/FracBrownMotion.png>
-Package pdftex.def Info: images/FracBrownMotion.png used on input line 25.
+Package pdftex.def Info: images/FracBrownMotion.png used on input line 35.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--50
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--50
+
+ []
+
 )
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/visual_ef
-fects.tex [3 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
+fects.tex [4 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
 Simplex.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
 FracBrownMotion.png>]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 9.
@@ -883,9 +913,9 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 9.
-)) [4]
+)) [5]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/ai.tex)
-[5]
+[6]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/conclusio
 ns.tex)
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/bibliogra
@@ -896,7 +926,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--42
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 153.
- [6pdfTeX warning (ext4): destination with the same identifier (name{cite.citek
+ [7pdfTeX warning (ext4): destination with the same identifier (name{cite.citek
 ey}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
@@ -918,10 +948,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 153.
  ) 
 Here is how much of TeX's memory you used:
- 10887 strings out of 493921
- 160502 string characters out of 3144875
- 255448 words of memory out of 3000000
- 13933 multiletter control sequences out of 15000+200000
+ 10890 strings out of 493921
+ 160548 string characters out of 3144875
+ 254448 words of memory out of 3000000
+ 13934 multiletter control sequences out of 15000+200000
  11885 words of font info for 45 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  42i,18n,45p,740b,482s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -934,9 +964,9 @@ ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program
 es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files (
 x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x8
 6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on "Technical Report.pdf" (9 pages, 765073 bytes).
+Output written on "Technical Report.pdf" (10 pages, 767496 bytes).
 PDF statistics:
- 226 PDF objects out of 1000 (max. 8388607)
- 40 named destinations out of 1000 (max. 500000)
- 180 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 235 PDF objects out of 1000 (max. 8388607)
+ 42 named destinations out of 1000 (max. 500000)
+ 188 words of extra memory for PDF output out of 10000 (max. 10000000)
 
