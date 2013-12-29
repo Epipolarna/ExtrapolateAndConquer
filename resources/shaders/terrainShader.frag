@@ -52,10 +52,12 @@ float phongShading()
 float fogBlending()
 {
 	
-	//float depth = length((vMatrix * vec4(exPosition,1)).xyz);
-	float depth = 1;
-	if(exPosition.y < 0)
-		depth = -exPosition.y*22;
+	float depth = length((vMatrix * vec4(exPosition,1)).xyz);
+	
+	// WTF?
+	//float depth = 1;
+	//if(exPosition.y < 0)
+	//	depth = -exPosition.y*22;
 		
 	float density = 0.005;
     const float e = 2.71828182845904523536028747135266249;

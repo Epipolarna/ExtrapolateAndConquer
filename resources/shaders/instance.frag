@@ -16,6 +16,17 @@ uniform mat4 vMatrix;
 
 out vec4 outColor;
 
+float fogBlending()
+{
+	float depth = length((vMatrix * vec4(exPosition,1)).xyz);
+	float density = 0.005;
+    const float e = 2.71828182845904523536028747135266249;
+	
+    float blendingFactor = pow(e, -pow(depth*density, 2.0));
+	
+    return blendingFactor;
+}  
+
 void main(void)
 {
 	vec2 scaledTexCoord = exTexCoord*texScaling;
@@ -40,4 +51,7 @@ void main(void)
 	
 
 	outColor = vec4(texel0.rgb*shading, texel0.a);
+	
+	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
+	outColor = mix(fogColor, outColor, fogBlending());
 }
