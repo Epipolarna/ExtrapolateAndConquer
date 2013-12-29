@@ -8,13 +8,43 @@ World::World( ResourceManager* resources){
 
     treeTextures.push_back(resources->getTexture("bush"));
     trees = new StaticObjectList(resources->getModel("bush"),treeTextures,resources->getShader("instance"));
+    chunkCache = NULL;
 }
 
-Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves){
+Model* World::getChunks(void){
+    if(chunkCache == NULL){
+        chunkCache = generateWorld();
+    }
+    return chunkCache;
+}
 
-    vertexDensity = _vertexDensity;
-    sizeX = xRange;
-    sizeZ = zRange;
+void World::setupWorldgen(void){
+    octaves = new float[16];
+    yScales = new float[16];
+
+    // 1.8715 or 2.1042
+    float lacunarity = 1/1.87;
+    float gain = 0.66;
+
+    //for each pixel, get the value
+    float period = 400;
+    float amplitude = 20;
+    for (int i = 0; i < 16; i++)
+    {
+        octaves[i] = period;
+        yScales[i] = amplitude;
+
+        period *= lacunarity;
+        amplitude *= gain;
+    }
+
+    int nOctaves = sizeof(octaves)/sizeof(float);
+}
+
+Model * World::generateWorld(void){
+
+    setupWorldgen();
+
     //lightPosition = QVector3D(-1000,500,-100);
 
     heightMap = cv::Mat(xRange*vertexDensity+1, zRange*vertexDensity+1, CV_32FC1);
@@ -192,7 +222,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
 
     worldModel->modelFromData(vertices,normals,textures,indices);
 
-    placeTrees();
+    //placeTrees();
 
     return worldModel;
 }
@@ -201,8 +231,8 @@ float World::getHeight(float x, float z)
 {
     float y = 0;
     // Check if the current position is on the terrain patch
-    if(x >= 0 && x < (sizeX-1) &&
-       z >= 0 && z < (sizeZ-1) )
+    if(x >= 0 && x < (xRange-1) &&
+       z >= 0 && z < (zRange-1) )
     {
         float xScaled = x*vertexDensity;
         float zScaled = z*vertexDensity;
@@ -232,8 +262,8 @@ QVector3D World::getNormal(float x, float z)
 {
     QVector3D normal(0,1,0);
     // Check if the current position is on the terrain patch
-    if(x >= 0 && x < (sizeX-1) &&
-       z >= 0 && z < (sizeZ-1) )
+    if(x >= 0 && x < (xRange-1) &&
+       z >= 0 && z < (zRange-1) )
     {
         float xScaled = x*vertexDensity;
         float zScaled = z*vertexDensity;
@@ -273,8 +303,8 @@ void World::placeTrees(void){
     int numIters = 0;
     int numTrees = 0;
 
-    float offsetX = (float)sizeX / 2;
-    float offsetZ = (float)sizeZ / 2;
+    float offsetX = (float)xRange / 2;
+    float offsetZ = (float)zRange / 2;
     float sigmaX = offsetX;
     float sigmaZ = offsetZ;
 

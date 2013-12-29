@@ -10,18 +10,56 @@ const std::string RenderSystem::textureVariableNames[]= {std::string("tex0"),std
 
 void RenderSystem::processStep(Drawable& object){
 
-	//TODO compute model matrix
+	SpherePhysics& physics = getEntity(object).get<SpherePhysics>();
+
+	//update the model matrix data...
+	object.mMatrix.setToIdentity();
+	object.mMatrix.translate(physics.position);
+	object.mMatrix.rotate(physics.rotation2);
+	object.mMatrix.scale(object.scale);	
+
 	objectList.push_back(object);
 }
 
 void RenderSystem::batch(void){
+	updateLighting();
 	drawWorld();
 	drawShadows();
 	drawObjects();
 }
 
-void RenderSystem::setup(void){
+void RenderSystem::updateLighting(void){
+	sun.position = QVector3D(0,1.0,0);
+}
 
+void RenderSystem::setup(void){
+	printf("setting upp render system \n");
+	if(camera == NULL){
+		printf("Camera not assigned to renderer, crashing! \n");
+		exit(0);
+	}
+
+	if(worldData == NULL){
+		printf("World not assigned to renderer, crashing! \n");
+		exit(0);
+	}
+
+	if(resources == NULL){
+		printf("Resource manager not assigned to renderer, crashing!\n");
+		exit(0);
+	}
+	resources->loadShader("oceanShader");
+	resources->loadShader("phongTex");
+	resources->loadShader("skyboxShader");
+	resources->loadShader("terrainShader");
+	resources->loadShader("depth");
+	resources->loadShader("phong");
+
+	objectShader = resources->getShader("phong");
+	shadowShader = resources->getShader("phong");
+	skyShader = resources->getShader("phong");
+	waterShader = resources->getShader("phong");
+	terrainShader = resources->getShader("phong");
 }
 
 //setters
@@ -38,24 +76,43 @@ void RenderSystem::setResources(ResourceManager* rm){
 }
 
 //private methods...
-void RenderSystem::drawWorld(void){
 
+void RenderSystem::drawWorld(void){
+	//draw the skybox?
+
+	//TODO allow for more than one single world chunk
+	Model* worldModel = worldData->getChunks();
+	currentProgram = terrainShader;
+
+	terrainShader->bind();
+
+    //just pass a unit matrix as world model data...
+    QMatrix4x4 unitmatrix;
+    unitmatrix.setToIdentity();
+
+    setMatrices(unitmatrix);
+    drawModel(worldModel);
+
+	terrainShader->release();
+	//draw the ocean?
 }
 
 void RenderSystem::drawShadows(void){
+	shadowShader->bind();
 
+	shadowShader->release();
 }
 
 void RenderSystem::drawObjects(void){
 
 	//set the shader used for object drawing..
-	currentProgram = objectList[0].shader;
-	//TODO implement support for different shaders...
+	objectShader->bind();
 
 	//draw all objects in the world
 	for(Drawable& d : objectList){
 		drawObject(d);
 	}
+	objectShader->release();
 }
 
 void RenderSystem::setMaterial(MaterialParameters pm){
@@ -88,29 +145,31 @@ void RenderSystem::setMatrices(QMatrix4x4 mMatrix){
     currentProgram->setUniformValue("pMatrix", camera->pMatrix);
 }
 
+void RenderSystem::drawModel(Model* modelData){
+	modelData->VAO.bind();
+    
+	modelData->VBO.bind();
+    currentProgram->enableAttributeArray("vertex");
+    currentProgram->setAttributeBuffer("vertex",GL_FLOAT,0,3);
+    
+    modelData->NBO.bind();
+    currentProgram->enableAttributeArray("normal");
+    currentProgram->setAttributeBuffer("normal",GL_FLOAT,0,3);
+    
+	modelData->TBO.bind();
+    currentProgram->enableAttributeArray("texCoord");
+    currentProgram->setAttributeBuffer("texCoord",GL_FLOAT,0,2);
+    
+    glDrawElements(GL_TRIANGLES,modelData->index.size(),GL_UNSIGNED_INT,0L);	
+}
+
 void RenderSystem::drawObject(Drawable& object){
-	//program->bind();
     
     setTexture(object.textureData);
     setMaterial(object.materialData);
     setMatrices(object.mMatrix);
 
-	object.modelData->VAO.bind();
-    
-	object.modelData->VBO.bind();
-    currentProgram->enableAttributeArray("vertex");
-    currentProgram->setAttributeBuffer("vertex",GL_FLOAT,0,3);
-    
-    object.modelData->NBO.bind();
-    currentProgram->enableAttributeArray("normal");
-    currentProgram->setAttributeBuffer("normal",GL_FLOAT,0,3);
-    
-	object.modelData->TBO.bind();
-    currentProgram->enableAttributeArray("texCoord");
-    currentProgram->setAttributeBuffer("texCoord",GL_FLOAT,0,2);
-    
-    glDrawElements(GL_TRIANGLES,object.modelData->index.size(),GL_UNSIGNED_INT,0L);
+	drawModel(object.modelData);
 
     object.modelData->VAO.release();
-    //program->release();
 }

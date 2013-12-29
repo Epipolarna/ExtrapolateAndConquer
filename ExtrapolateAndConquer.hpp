@@ -10,8 +10,7 @@
 #include "ResourceManager.hpp"
 
 #include "Graphics/OpenGLWindow.hpp"
-#include "Graphics/Renderer.hpp"
-#include "Graphics/Object.hpp"
+
 #include "Graphics/Model.hpp"
 #include "Graphics/World.hpp"
 

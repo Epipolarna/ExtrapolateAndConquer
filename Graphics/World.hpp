@@ -25,8 +25,13 @@
 class World{
 	public:
         World( ResourceManager* resources);
-        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves);
+        Model* generateWorld(void);
         StaticObjectList* getTrees(void);
+
+        Model* getChunks(void);
+
+        void setupWorldgen(void);
+
         /*!
          * \brief getHeight at global position x and z.
          */
@@ -37,9 +42,6 @@ class World{
         cv::Mat normalMap;
         cv::Mat heightMapThresh;
         float scaleFactor;
-        float vertexDensity;
-        float sizeX;
-        float sizeZ;
 
         QVector3D lightPosition;
 
@@ -48,11 +50,17 @@ class World{
         StaticObjectList* trees;
     private:
 
+        Model* chunkCache;
+
         void placeTrees(void);
         void generateTexture(void);
         void uploadCVTexture(void);
 
         cv::Mat textureData;
+
+        float xRange, zRange, vertexDensity;
+        float *octaves, *yScales;
+        int nOctaves;
 };
 
 #endif

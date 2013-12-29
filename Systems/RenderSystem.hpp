@@ -19,6 +19,10 @@ struct FBO{
 
 #endif
 
+//light data...
+struct LightData{
+    QVector3D position;
+};
 
 class RenderSystem : public System<Drawable, Components> , QOpenGLFunctions_3_2_Core{
 
@@ -39,8 +43,14 @@ private:
     void drawObjects(void);
 
 
+    //update the light positions and so on...
+    void updateLighting(void);
+
     //draw a single object using current shader etc
     void drawObject(Drawable& object);
+
+    //draw a specified model, using shader parameters set earilier
+    void drawModel(Model* modelData);
 
     //reference to the program currently in use
     QOpenGLShaderProgram* currentProgram;
@@ -52,10 +62,10 @@ private:
     //so keep a reference to the world object/generator
     World* worldData;
 
-    //we need a handle to the resouce manager for the shaders etc
+    //we need a handle to the resource manager for the shaders and textures
     ResourceManager* resources;
 
-    //list of all objects to draw
+    //list of all objects to draw, built by the entity system
     std::vector<Drawable> objectList;
 
     void setMaterial(MaterialParameters pm);
@@ -67,6 +77,15 @@ private:
     void useFBO(FBO& fbo);
     void initFBO(FBO& fbo);
     static const std::string textureVariableNames[];
+
+    QOpenGLShaderProgram* objectShader;
+    QOpenGLShaderProgram* terrainShader;
+    QOpenGLShaderProgram* waterShader;
+    QOpenGLShaderProgram* skyShader;
+    QOpenGLShaderProgram* shadowShader;
+
+    //data for the sun lightning....
+    LightData sun;
 };
 
 #endif

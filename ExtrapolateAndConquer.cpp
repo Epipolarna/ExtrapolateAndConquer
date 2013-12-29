@@ -203,14 +203,18 @@ void ExtrapolateAndConquer::initialize(void){
     printf("initing the worldgen\n");
     world = new World(resourceManager);
 
-    printf("initing systems\n");
-    initSystems();
+    printf("setting up systems...\n");
+    renderer.setResources(resourceManager);
+    renderer.setWorld(world);
+    renderer.setCamera(camera);
 
+    printf("initing systems\n");
+    renderer.initialize(entityManager);
     
     printf("done initing\n");
 }
 
-
+/*
 void ExtrapolateAndConquer::initSystems(void){
     //setup systems
     spherePhysicsSystem.setTimeInterval(0.01);  // Set dt. QTimer::interval() is in milliseconds
@@ -224,14 +228,14 @@ void ExtrapolateAndConquer::initSystems(void){
     sphereTerrainCollisionSystem.initialize(entityManager);
     renderer.initialize(entityManager);
 }
-
+*/
 void ExtrapolateAndConquer::loadResources(void){
     printf("loading resources\n");
     //FBO Square. Used to draw the scene on when it has been drawn to a FBO
     printf("loading shadowMapping data \n");
-    resourceManager->loadShader("fbo");
-    resourceManager->loadShader("depth");
-    resourceManager->loadShader("instanceDepth");
+    //resourceManager->loadShader("fbo");
+    //resourceManager->loadShader("depth");
+    //resourceManager->loadShader("instanceDepth");
     resourceManager->loadModel("fboSquare");
 
     //test data
@@ -249,12 +253,12 @@ void ExtrapolateAndConquer::loadResources(void){
     printf("loading skybox data \n");
     resourceManager->loadModel("skybox");
     resourceManager->loadTexture("skybox1");
-    resourceManager->loadShader("skyboxShader");
+    //resourceManager->loadShader("skyboxShader");
 
     //ground data
     printf("loading ground data \n");
     //resourceManager->loadShader("terrainShader");
-    resourceManager->loadShader("terrainShader");
+    //resourceManager->loadShader("terrainShader");
     resourceManager->loadTexture("grass2", true);
     //resourceManager->loadTexture("sand0", true);
     resourceManager->loadTexture("sand2", true);
@@ -269,7 +273,7 @@ void ExtrapolateAndConquer::loadResources(void){
     //resourceManager->loadTexture("waterNormalMap1");
     //resourceManager->loadModel("unitSquare");
     resourceManager->loadModel("hiResSquare");
-    resourceManager->loadShader("oceanShader");
+    //resourceManager->loadShader("oceanShader");
 
     //resourceManager->loadTexture("skyTop", true);
     resourceManager->loadTexture("skyboxWaterReflection", true);
@@ -297,20 +301,21 @@ void ExtrapolateAndConquer::loopBody(){
     world->getHeight(camera->position.x(), camera->position.z());
     world->getNormal(camera->position.x(), camera->position.z());
 
-    spherePhysicsSystem.setTimeInterval(fpsMeter->elapsed()/1000.0);  // Set dt.
-
+    //spherePhysicsSystem.setTimeInterval(fpsMeter->elapsed()/1000.0);  // Set dt.
+    /*
     SpherePhysics & sp = e->get<SpherePhysics>();
     sp.force += QVector3D(0.1,0,0.2);
+    */
 
     // Run collision detection
-    sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
-    sphereTerrainCollisionSystem.batch();
+    //sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
+    //sphereTerrainCollisionSystem.batch();
 
     // Run physics simulators
-    spherePhysicsSystem.batch();
+    //spherePhysicsSystem.batch();
 
     // Run AI
-    aiSystem.batch();
+    //aiSystem.batch();
 
     //make sure to update the gl widget...
     //graphicsWindow->centralWidget()->update();
