@@ -295,12 +295,7 @@ void Renderer::repaint(){
         water->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
         water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
-<<<<<<< HEAD
     }
-    
-=======
-    }    
->>>>>>> origin/master
 
     if(worldData != NULL){
         glDepthMask(GL_FALSE);
