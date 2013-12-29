@@ -199,7 +199,7 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadShader("instanceDepth");
     resourceManager->loadModel("fboSquare");
 
-    //test data
+    //tree data
     printf("loading tree data \n");
     resourceManager->loadShader("phong");
 
