@@ -33,14 +33,21 @@ public:
     }
 };
 
+#include <cmath>
 class SpherePhysicsSystem : public System<SpherePhysics, Components>
 {
 public:
     void processStep(SpherePhysics & physics) override {
 
         // Slowly lower the kinectic energy...
-        physics.angularMomentum *= 0.9999;
-        physics.linearMomentum *= 0.9999;
+        physics.angularMomentum *= 0.999999;
+        physics.linearMomentum *= 0.999999;
+
+        qDebug() << "torque" << physics.torque << "| angularMomentum" << physics.angularMomentum << "| dt" << dt;
+        if(std::isnan(physics.angularMomentum.x())) {
+            qDebug() << "stopped";
+            while(1);
+        }
 
         // Update velocities
         physics.angularVelocity = physics.angularMomentum * (1.0/physics.momentOfInertia);
@@ -98,10 +105,10 @@ public:
                     QVector3D linearMomentum_dt = radialVelocityDifferance*(meanElasticity + 1)/(1/A.mass + 1/B.mass);
 
                     // Lower Kinectic energy due to collision
-                    A.angularMomentum *= 0.99;
-                    A.linearMomentum *= 0.99;
-                    B.angularMomentum *= 0.99;
-                    B.linearMomentum *= 0.99;
+                    //A.angularMomentum *= 0.99;
+                    //A.linearMomentum *= 0.99;
+                    //B.angularMomentum *= 0.99;
+                    //B.linearMomentum *= 0.99;
 
                     A.position += radialVector * (addedRadius - distance);
                     B.position -= radialVector * (addedRadius - distance);
@@ -117,6 +124,13 @@ public:
                     QVector3D frictionForceB = -B.friction * B.mass * B.gravitationalConstant * actualVelocityB;	//gravitationalConstant = 9.82
                     B.torque += QVector3D::crossProduct(frictionForceB, -radialVector);
 
+
+                    qDebug() << "torqueAddA" << QVector3D::crossProduct(frictionForceA, radialVector);
+                    qDebug() << "torqueAddB" << QVector3D::crossProduct(frictionForceB, -radialVector);
+
+                    // Friction transform kinetic energy to waste heat
+                    //A.force += frictionForceA;
+                    //B.force += frictionForceB;
                 }
             }
         }
@@ -152,6 +166,14 @@ public:
             QVector3D frictionForce = -physics.friction * physics.mass * physics.gravitationalConstant * actualVelocity;	//gravitationalConstant = 9.82
             physics.torque += QVector3D::crossProduct(frictionForce, normal);
 
+            qDebug() << "torqueAdd" << QVector3D::crossProduct(frictionForce, normal) << "| normal" << normal;
+
+            // Friction transform kinetic energy to waste heat
+            qDebug() << "actualVelocity" << actualVelocity << "| angularVelocity" << physics.angularVelocity << "| angularMomentum" << physics.angularMomentum;
+            //qDebug() << "frictionForce" << frictionForce << "| actualVelocity" << actualVelocity;
+            physics.force += frictionForce;
+            //physics.angularMomentum *= 0.9;
+            //physics.linearMomentum  *= 0.9;
 
             //LOG("old distance: " << distance);
             //LOG("new distance: " << (physics.position - terrainImpactPoint).length());

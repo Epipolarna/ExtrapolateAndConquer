@@ -71,12 +71,12 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->instanceDepthProgram = resourceManager->getShader("instanceDepth");
 
 
-    int nBalls = 40;
+    int nBalls = 1;
     qDebug() << "Initiating" << nBalls << "stones of each type (5 types).";
 
     qsrand(1);
     // -------- Stones --------------------------
-    for(int i = 0; i < nBalls*5; i++){
+    for(int i = 0; i < nBalls; i++){
         // Initialize entity
         e = &entityManager.createEntity();
         e->add<SpherePhysics>();
@@ -88,6 +88,9 @@ void ExtrapolateAndConquer::initialize(void){
         physics.elasticity = 0.01;
         physics.friction = 1.0;
         physics.gravitationalConstant = 9.82;
+
+        physics.linearMomentum = QVector3D(0,0,0);
+        physics.angularMomentum = QVector3D(0,0,0);
 
         if(i < nBalls) {        // -------- Stone 1 -----------
             physics.mass = 100.0;
@@ -357,7 +360,7 @@ void ExtrapolateAndConquer::loopBody(){
             sp.linearMomentum = QVector3D(0,0,0);
             sp.velocity = QVector3D(0,0,0);
             sp.angularMomentum = QVector3D(0,0,0);
-            sp.angularVelocity2 = QQuaternion();
+            sp.angularVelocity2 = QQuaternion(1, 0, 0, 0);
 
         }
     }
