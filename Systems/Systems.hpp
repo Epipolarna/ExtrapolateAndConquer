@@ -39,8 +39,8 @@ public:
     void processStep(SpherePhysics & physics) override {
 
         // Slowly lower the kinectic energy...
-        physics.angularMomentum *= 0.999;
-        physics.linearMomentum *= 0.999;
+        physics.angularMomentum *= 0.99;
+        physics.linearMomentum *= 0.99;
 
         // Update velocities
         physics.angularVelocity = physics.angularMomentum * (1.0/physics.momentOfInertia);
