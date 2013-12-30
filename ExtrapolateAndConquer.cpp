@@ -272,11 +272,11 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadModel("stone4");
     resourceManager->loadModel("stone5");
 
-    resourceManager->loadTexture("stone1");
-    resourceManager->loadTexture("stone2");
-    resourceManager->loadTexture("stone3");
-    resourceManager->loadTexture("stone4");
-    resourceManager->loadTexture("stone5");
+    resourceManager->loadTexture("stone1", true);
+    resourceManager->loadTexture("stone2", true);
+    resourceManager->loadTexture("stone3", true);
+    resourceManager->loadTexture("stone4", true);
+    resourceManager->loadTexture("stone5", true);
 
 
     printf("loading sphere data \n");
