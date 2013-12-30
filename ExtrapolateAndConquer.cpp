@@ -71,7 +71,7 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->instanceDepthProgram = resourceManager->getShader("instanceDepth");
 
 
-    int nBalls = 10;
+    int nBalls = 1;
     qDebug() << "Initiating" << nBalls << "stones of each type (5 types).";
 
     qsrand(1);
