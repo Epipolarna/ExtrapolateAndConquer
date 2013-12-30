@@ -355,13 +355,14 @@ void World::placeTrees(void){
 
         float x = forest.x();
         float z = forest.y();
+
         //tree models need to be alittlebit in the ground
         float y = getHeight(forest.x(),forest.y()) - 1.0;
 
         int numTrees = 0;
         for(int i = 0; i < maxNumTries && numTrees < maxNumTrees; ++i){
-            float xOffest = gen.uniform((float)-50.0,(float)50.0);
-            float zOffset = gen.uniform((float)-50.0,(float)50.0);
+            float xOffest = gen.gaussian((float)50.0);
+            float zOffset = gen.gaussian((float)50.0);
 
             float treeX = x + xOffest;
             float treeZ = z + zOffset;
