@@ -307,8 +307,6 @@ void Renderer::repaint(){
     }
 
     if(worldData != NULL){
-        glAlphaFunc(GL_GREATER,0.1);
-        glEnable(GL_ALPHA_TEST);
         glEnable(GL_BLEND);
         drawInstanceObjects(worldData->tree1, false);
         drawInstanceObjects(worldData->leaf1, false);
@@ -319,8 +317,6 @@ void Renderer::repaint(){
         drawInstanceObjects(worldData->tree3, false);
         drawInstanceObjects(worldData->leaf3, false);
         glDisable(GL_BLEND);
-        glAlphaFunc(GL_ALWAYS,0);
-        glDisable(GL_ALPHA_TEST);
     }
 }
 
