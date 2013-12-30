@@ -90,27 +90,27 @@ void ExtrapolateAndConquer::initialize(void){
         physics.gravitationalConstant = 9.82;
 
         if(i < nBalls) {        // -------- Stone 1 -----------
-            physics.mass = 1000.0;
+            physics.mass = 100.0;
             physics.radius = 1.0;
             e->get<Graphics>().object = new Object(resourceManager->getModel("stone1"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone1"));
         } else
             if(i < nBalls*2) {  // -------- Stone 2 -----------
-                physics.mass = 500.0;
+                physics.mass = 50.0;
                 physics.radius = 0.5;
                 e->get<Graphics>().object = new Object(resourceManager->getModel("stone2"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone2"));
         } else
             if(i < nBalls*3) {  // -------- Stone 3 -----------
-                physics.mass = 300.0;
+                physics.mass = 30.0;
                 physics.radius = 0.3;
                 e->get<Graphics>().object = new Object(resourceManager->getModel("stone3"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone3"));
         } else
             if(i < nBalls*4) {  // -------- Stone 4 -----------
-                physics.mass = 250.0;
+                physics.mass = 25.0;
                 physics.radius = 0.25;
                 e->get<Graphics>().object = new Object(resourceManager->getModel("stone4"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone4"));
         } else {                // -------- Stone 5 -----------
-                physics.mass = 200.0;
-                physics.radius = 0.2;
+                physics.mass = 10.0;
+                physics.radius = 0.15;
                 e->get<Graphics>().object = new Object(resourceManager->getModel("stone5"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone5"));
         }
         physics.momentOfInertia = 6.0/12.0 * physics.mass * physics.radius * physics.radius;
@@ -172,6 +172,7 @@ void ExtrapolateAndConquer::initialize(void){
     sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*world->scaleFactor-world->scaleFactor));
     sphereTerrainCollisionSystem.setWorld(world);
 
+    // Ground texturing
     QVector<GLuint> worldTextures = QVector<GLuint>();
     worldTextures.push_back(resourceManager->getTexture("sand2"));
     worldTextures.push_back(resourceManager->getTexture("grass2"));
@@ -187,7 +188,7 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->world = worldObject;
     qDebug() << "Generating world: " << fpsMeter->elapsed() << "ms";
 
-
+    // Water
     QVector<GLuint> ot = QVector<GLuint>();
     ot.push_back(resourceManager->getTexture("water"));
     ot.push_back(resourceManager->getTexture("skyboxWaterReflection"));
@@ -333,16 +334,33 @@ int ExtrapolateAndConquer::run(){
 bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     timer->stop();
+    float dt = fpsMeter->elapsed()/1000.0;
+    fpsMeter->restart();
+
+    spherePhysicsSystem.setTimeInterval(dt);
+    openGLWindow->getRenderer()->setDt(dt);
+
     camera->updatePosition();
     world->getHeight(camera->position.x(), camera->position.z());
     world->getNormal(camera->position.x(), camera->position.z());
 
-    float dt = fpsMeter->elapsed()/1000.0;
-    spherePhysicsSystem.setTimeInterval(dt);
-    openGLWindow->getRenderer()->setDt(dt);
 
-    SpherePhysics & sp = e->get<SpherePhysics>();
-    sp.force += QVector3D(0.1,0,0.2);
+    SpherePhysics & physics = e->get<SpherePhysics>();
+    physics.force += QVector3D(0.1,0,0.2);
+
+    // Respawn objects outside of the map
+    for(SpherePhysics & sp : entityManager.getComponents<SpherePhysics>()) {
+        if(sp.position.x() < 0 || sp.position.z() < 0 || sp.position.x() > world->sizeX || sp.position.z() > world->sizeZ) {
+            sp.position = QVector3D(qrand()%150+10, 15, qrand()%150+65);
+
+            // Reset physics. Comment out to get stones flying in your head :)
+            sp.linearMomentum = QVector3D(0,0,0);
+            sp.velocity = QVector3D(0,0,0);
+            sp.angularMomentum = QVector3D(0,0,0);
+            sp.angularVelocity2 = QQuaternion();
+
+        }
+    }
 
     // Run collision detection
     sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
@@ -362,8 +380,8 @@ void ExtrapolateAndConquer::loopBody(){
     //graphicsWindow->centralWidget()->update();
     openGLWindow->update();
 
-    elapsedTime = fpsMeter->elapsed();
-    fpsMeter->restart();
-    //qDebug() << "FPS: " << 1000/elapsedTime;
+    //elapsedTime = fpsMeter->elapsed();
+    //fpsMeter->restart();
+    qDebug() << "FPS: " << 1/dt;
     timer->start();
 }

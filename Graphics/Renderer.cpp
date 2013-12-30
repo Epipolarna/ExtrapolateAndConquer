@@ -216,9 +216,10 @@ void Renderer::repaint(){
 
 
     // Used to move the waves (etc)
-    static float incr = 0.9;
+    static float incr = 0.0;
     //incr += 0.0005;
-    incr += dt;
+    float speed = 0.07;
+    incr += dt*speed;
     incr = incr > 1 ? incr-1 : incr;
 
 
@@ -276,6 +277,9 @@ void Renderer::repaint(){
         world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
     }
 
+    // slowly sort according to closeness to camera using single iterations of bubblesort
+    //sortOnDepth(renderList, 1);
+
     for(Object * o : renderList){
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
@@ -296,6 +300,9 @@ void Renderer::repaint(){
         water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
     }
+
+    // slowly sort according to closeness to camera using single iterations of bubblesort
+    worldData->trees->sortOnClosest(camera->position);
 
     if(worldData != NULL){
         glDepthMask(GL_FALSE);
@@ -342,8 +349,21 @@ void Renderer::repaint(){
 
 void Renderer::sortOnDepth(std::vector<Object *> & objects, int iterations)
 {
-    int i = 0;
-    bool swapped = false;
+    bool swapped = true;
 
     // "iterations" iterations of bubblesort according to the xyz distance to the camera goes here <-!
+    for(int i = 0; i < iterations && swapped; i++) {
+        for(int n = 0; n < objects.size()-1; n++) {
+            if(closerThan(objects[n], objects[n+1])) {
+                std::swap(objects[n], objects[n+1]);
+                swapped = true;
+            }
+        }
+    }
+}
+
+bool Renderer::closerThan(Object * obj1, Object *obj2) {
+    float distance1 = (camera->position - obj1->getPosition()).length();
+    float distance2 = (camera->position - obj2->getPosition()).length();
+    return distance1 < distance2;
 }

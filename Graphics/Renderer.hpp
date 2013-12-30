@@ -68,8 +68,8 @@ public:
 private:
     static const int maxInstanceObjects = 50;
 
-    // Not yet implemented
-    void sortOnDepth(std::vector<Object *> & objects, int iterations = -1);
+    void sortOnDepth(std::vector<Object *> & objects, int iterations = 1);
+    bool closerThan(Object * obj1, Object * obj2);
 
 };
 

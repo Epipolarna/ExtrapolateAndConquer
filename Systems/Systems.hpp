@@ -37,9 +37,15 @@ class SpherePhysicsSystem : public System<SpherePhysics, Components>
 {
 public:
     void processStep(SpherePhysics & physics) override {
+
+        // Slowly lower the kinectic energy...
+        physics.angularMomentum *= 0.999;
+        physics.linearMomentum *= 0.999;
+
         // Update velocities
         physics.angularVelocity = physics.angularMomentum * (1.0/physics.momentOfInertia);
         physics.velocity = physics.linearMomentum / physics.mass;
+
 
         // Quaternion hax (angular velocity & rotation integration)
         QVector3D w = physics.angularMomentum * (1.0/physics.momentOfInertia);

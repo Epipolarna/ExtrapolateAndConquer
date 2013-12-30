@@ -53,3 +53,27 @@ QVector<GLuint> StaticObjectList::getTextures(void){
 QOpenGLShaderProgram* StaticObjectList::getProgram(void){
 	return program;
 }
+
+
+void StaticObjectList::sortOnClosest(QVector3D center, int iterations) {
+    bool swapped = true;
+
+    for(int i = 0; i < iterations && swapped; i++) {
+        for(int n = 0; n < positions.size()-1; n++) {
+            if(closerThan(center, positions[n], positions[n+1])) {
+                std::swap(positions[n], positions[n+1]);
+                std::swap(rotations[n], rotations[n+1]);
+                std::swap(mMatrices[n], mMatrices[n+1]);
+                std::swap(scales[n], scales[n+1]);
+                swapped = true;
+            }
+        }
+    }
+}
+
+
+bool StaticObjectList::closerThan(QVector3D center, QVector3D pos1, QVector3D pos2) {
+    float distance1 = (center - pos1).length();
+    float distance2 = (center - pos2).length();
+    return distance1 < distance2;
+}

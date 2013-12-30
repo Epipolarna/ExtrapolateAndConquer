@@ -21,6 +21,8 @@ public:
 	QVector<GLuint> getTextures(void);
 	QOpenGLShaderProgram* getProgram(void);
 
+    void sortOnClosest(QVector3D center, int iterations = 1);
+
 private:
 
 	void updateMatrices(void);
@@ -36,6 +38,8 @@ private:
 	Model* m;
 	QVector<GLuint> textures;
 	int numObjects;
+
+    bool closerThan(QVector3D center, QVector3D pos1, QVector3D pos2);
 };
 
 #endif
