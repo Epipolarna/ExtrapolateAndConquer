@@ -214,14 +214,12 @@ void Renderer::calculateLightSourceMatrices()
 
 void Renderer::repaint(){
 
-
     // Used to move the waves (etc)
     static float incr = 0.0;
     //incr += 0.0005;
     float speed = 0.07;
     incr += dt*speed;
     incr = incr > 1 ? incr-1 : incr;
-
 
     calculateLightSourceMatrices();
 
@@ -308,11 +306,9 @@ void Renderer::repaint(){
         glDisable(GL_BLEND);
     }
 
-    // slowly sort according to closeness to camera using single iterations of bubblesort
-    //worldData->trees->sortOnClosest(camera->position);
-
     if(worldData != NULL){
-        glDepthMask(GL_FALSE);
+        glAlphaFunc(GL_GREATER,0.1);
+        glEnable(GL_ALPHA_TEST);
         glEnable(GL_BLEND);
         drawInstanceObjects(worldData->tree1, false);
         drawInstanceObjects(worldData->leaf1, false);
@@ -323,41 +319,9 @@ void Renderer::repaint(){
         drawInstanceObjects(worldData->tree3, false);
         drawInstanceObjects(worldData->leaf3, false);
         glDisable(GL_BLEND);
-        glDepthMask(GL_TRUE);
+        glAlphaFunc(GL_ALWAYS,0);
+        glDisable(GL_ALPHA_TEST);
     }
-
-    /*
-    unsigned char * image = new unsigned char[3*width*height];
-
-    glReadBuffer(GL_BACK_LEFT);
-    glReadPixels(0,0,width,height,GL_RGB,GL_UNSIGNED_BYTE,image);
-
-    cv::Mat screenDump = cv::Mat(height, width, CV_8UC3);
-    int index = 0;
-    for(int row = 0; row < height; row++)
-        for(int col = 0; col < width; col++) {
-            screenDump.at<cv::Vec3b>(row,col) = cv::Vec3b(image[index+2], image[index+1], image[index]);
-            index += 3;
-        }
-    cv::flip(screenDump, screenDump, 0);
-    cv::imwrite("screenShot.png", screenDump);
-    */
-
-
-    //QImage im1 = FBO1->toImage();
-    //im1.save("im1.png");
-
-    // Render the FBO to the default buffer
-    /*
-    QGLFramebufferObject::bindDefault();    // Set the "normal" screen as render target
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
-    fboSquare->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
-    */
-
-
 }
 
 
