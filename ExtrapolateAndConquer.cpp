@@ -83,7 +83,7 @@ void ExtrapolateAndConquer::initialize(void){
         e->add<Graphics>();
 
         SpherePhysics & physics = e->get<SpherePhysics>();
-        physics.position = QVector3D(qrand()%150+10,5,qrand()%150+65);
+        physics.position = QVector3D(qrand()%150+10,15,qrand()%150+65);
         physics.rotation2 = QQuaternion(1,0,0,0);
         physics.elasticity = 0.01;
         physics.friction = 1.0;
@@ -350,8 +350,8 @@ void ExtrapolateAndConquer::loopBody(){
 
     // Respawn objects outside of the map
     for(SpherePhysics & sp : entityManager.getComponents<SpherePhysics>()) {
-        if(sp.position.x() < 0 || sp.position.z() < 0 || sp.position.x() > world->sizeX || sp.position.z() > world->sizeZ) {
-            sp.position = QVector3D(qrand()%150+10, 15, qrand()%150+65);
+        if(sp.position.x() <= 0 || sp.position.z() <= 0 || sp.position.x() >= world->sizeX || sp.position.z() >= world->sizeZ) {
+            sp.position = QVector3D(qrand()%150+10, qrand()%25+10, qrand()%150+65);
 
             // Reset physics. Comment out to get stones flying in your head :)
             sp.linearMomentum = QVector3D(0,0,0);

@@ -39,8 +39,8 @@ public:
     void processStep(SpherePhysics & physics) override {
 
         // Slowly lower the kinectic energy...
-        physics.angularMomentum *= 0.999;
-        physics.linearMomentum *= 0.999;
+        physics.angularMomentum *= 0.9999;
+        physics.linearMomentum *= 0.9999;
 
         // Update velocities
         physics.angularVelocity = physics.angularMomentum * (1.0/physics.momentOfInertia);
@@ -96,6 +96,12 @@ public:
                     QVector3D radialVelocityDifferance = projectOn(velocityB, radialVector) - projectOn(velocityA, radialVector);
                     float meanElasticity = (A.elasticity+B.elasticity)/2;
                     QVector3D linearMomentum_dt = radialVelocityDifferance*(meanElasticity + 1)/(1/A.mass + 1/B.mass);
+
+                    // Lower Kinectic energy due to collision
+                    A.angularMomentum *= 0.99;
+                    A.linearMomentum *= 0.99;
+                    B.angularMomentum *= 0.99;
+                    B.linearMomentum *= 0.99;
 
                     A.position += radialVector * (addedRadius - distance);
                     B.position -= radialVector * (addedRadius - distance);
