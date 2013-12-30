@@ -26,7 +26,8 @@ class World{
 	public:
         World( ResourceManager* resources);
         Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, uint seed = -1);
-        StaticObjectList* getTrees(void);
+
+        
         /*!
          * \brief getHeight at global position x and z.
          */
@@ -36,6 +37,7 @@ class World{
         cv::Mat heightMap;
         cv::Mat normalMap;
         cv::Mat heightMapThresh;
+        
         float scaleFactor;
         float vertexDensity;
         float sizeX;
@@ -45,7 +47,15 @@ class World{
 
         GLuint textureRef;
 
-        StaticObjectList* trees;
+        StaticObjectList* tree1;
+        StaticObjectList* leaf1;
+
+        StaticObjectList* tree2;
+        StaticObjectList* leaf2;
+
+        StaticObjectList* tree3;
+        StaticObjectList* leaf3;
+
     private:
 
         void placeTrees(void);

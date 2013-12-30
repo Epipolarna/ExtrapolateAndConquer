@@ -236,7 +236,14 @@ void Renderer::repaint(){
     if(worldData != NULL){
         //glDepthMask(GL_FALSE);
         //glEnable(GL_BLEND);
-        drawInstanceObjects(worldData->trees, true);
+        drawInstanceObjects(worldData->tree1, true);
+        drawInstanceObjects(worldData->leaf1, true);
+
+        drawInstanceObjects(worldData->tree2, true);
+        drawInstanceObjects(worldData->leaf2, true);
+
+        drawInstanceObjects(worldData->tree3, true);
+        drawInstanceObjects(worldData->leaf3, true);
         //glDisable(GL_BLEND);
         //glDepthMask(GL_TRUE);
     }
@@ -302,12 +309,19 @@ void Renderer::repaint(){
     }
 
     // slowly sort according to closeness to camera using single iterations of bubblesort
-    worldData->trees->sortOnClosest(camera->position);
+    //worldData->trees->sortOnClosest(camera->position);
 
     if(worldData != NULL){
         glDepthMask(GL_FALSE);
         glEnable(GL_BLEND);
-        drawInstanceObjects(worldData->trees, false);
+        drawInstanceObjects(worldData->tree1, false);
+        drawInstanceObjects(worldData->leaf1, false);
+
+        drawInstanceObjects(worldData->tree2, false);
+        drawInstanceObjects(worldData->leaf2, false);
+
+        drawInstanceObjects(worldData->tree3, false);
+        drawInstanceObjects(worldData->leaf3, false);
         glDisable(GL_BLEND);
         glDepthMask(GL_TRUE);
     }
