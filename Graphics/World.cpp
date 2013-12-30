@@ -7,10 +7,10 @@ World::World( ResourceManager* resources){
 
     QVector<GLuint> treeTextures;
 
-    /* Okej s?tt ehh, tree*a inneh?er ett stycke stam och tree*b inneh?er motsvarande l??rk.
-     * Dessa m?e placeras p?amma position f??tt det ska makea sense.
-     * Det finns fyra olika sorters tr? tree1, tree2, tree3 och tree4.
-     * Det vore nice om dessa kunde slumpas ut fint ?? v?den. Plz do
+    /* Okej så att ehh, tree*a innehåller ett stycke stam och tree*b innehållerer motsvarande löverk.
+     * Dessa måste placeras på samma position för att det ska makea sense.
+     * Det finns fyra olika sorters träd tree1, tree2, tree3 och tree4.
+     * Det vore nice om dessa kunde slumpas ut fint på världen. Plz do
      */
 
     treeTextures.push_back(resources->getTexture("tree5"));
