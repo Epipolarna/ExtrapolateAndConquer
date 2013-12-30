@@ -295,7 +295,7 @@ QVector3D World::getNormal(float x, float z)
 }
 
 std::vector<QVector2D> World::getForests(void){
-    int max_num_forests = 3;
+    int max_num_forests = 10;
     int max_num_iters = 10000; //in case we get unlycky with the worldgen, stop placing trees
     cv::RNG rng;
 
@@ -349,7 +349,7 @@ void World::placeTrees(void){
     cv::RNG gen;
 
     int maxNumTrees = 50;
-    int maxNumTries = 1000;
+    int maxNumTries = 10000;
 
     for(QVector2D& forest : forests){
 
@@ -361,8 +361,8 @@ void World::placeTrees(void){
 
         int numTrees = 0;
         for(int i = 0; i < maxNumTries && numTrees < maxNumTrees; ++i){
-            float xOffest = gen.gaussian((float)50.0);
-            float zOffset = gen.gaussian((float)50.0);
+            float xOffest = gen.gaussian((float)6.0);
+            float zOffset = gen.gaussian((float)6.0);
 
             float treeX = x + xOffest;
             float treeZ = z + zOffset;
