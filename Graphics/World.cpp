@@ -294,13 +294,81 @@ QVector3D World::getNormal(float x, float z)
     return normal;
 }
 
-QVector<QVector2D> World::getForests(void){
-    QVector<QVector2D> forests;
-    
+std::vector<QVector2D> World::getForests(void){
+    int max_num_forests = 3;
+    int max_num_iters = 10000; //in case we get unlycky with the worldgen, stop placing trees
+    cv::RNG rng;
+
+    std::vector<QVector2D> forests;
+    //observe! two termination conditions
+    for(int i=0; i < max_num_iters && forests.size() < max_num_forests; ++i){
+        float x = rng.uniform((float)0.0,(float)sizeX);
+        float z = rng.uniform((float)0.0,(float)sizeZ);
+        float h = getHeight(x,z);
+        //TODO use normal information too...
+        //QVector3D normal = getNormal(x,z);
+
+        if(h > 0){
+            forests.push_back(QVector2D(x,z));
+        }
+    }
+
+    return forests;
+}
+
+void World::addTree(int type, QVector3D position){
+    QQuaternion noRotation;
+
+    switch(type){
+        case 0:
+            tree1->appendObject(position,noRotation);
+            leaf1->appendObject(position,noRotation);
+        break;
+        case 1:
+            tree2->appendObject(position,noRotation);
+            leaf2->appendObject(position,noRotation);
+        break;
+        case 2:
+            tree3->appendObject(position,noRotation);
+            leaf3->appendObject(position,noRotation);
+        default:
+            printf("INVALID TREE TYPE ERROR ! \n");
+            exit(0);
+        break;
+    }
 }
 
 void World::placeTrees(void){
     //make a list of possible forest areas
-
+    std::vector<QVector2D> forests = getForests();
     //make forests in these areas
+    cv::RNG gen;
+
+    int maxNumTrees = 50;
+    int maxNumTries = 1000;
+
+    for(QVector2D& forest : forests){
+        float x = forest.x();
+        float z = forest.y();
+        float y = getHeight(forest.x(),forest.y());
+
+        int numTrees = 0;
+        for(int i = 0; i < maxNumTries && numTrees < maxNumTrees; ++i){
+            float xOffest = gen.uniform((float)-30.0,(float)30.0);
+            float zOffset = gen.uniform((float)-30.0,(float)30.0);
+
+            float treeX = x + xOffest;
+            float treeZ = z + zOffset;
+            float treeY = getHeight(treeX,treeZ);
+
+            int treeType = gen.uniform((int)0,(int)2);
+            addTree(treeType,QVector3D(treeX,treeY,treeZ));
+            numTrees = numTrees + 1;
+        }
+    }
+
+    printf("placed %lu forests \n",forests.size());
+    printf("placed %lu tree1 \n",tree1->getNumObjects());
+    printf("placed %lu tree2 \n",tree2->getNumObjects());
+    printf("placed %lu tree3 \nc",tree3->getNumObjects());
 }

@@ -6,6 +6,10 @@ StaticObjectList::StaticObjectList( Model* m,  QVector<GLuint> textures, QOpenGL
 	numObjects = 0;
 }
 
+int StaticObjectList::getNumObjects(){
+	return numObjects;
+}
+
 void StaticObjectList::appendObject( QVector3D position,  QQuaternion rotation, QVector3D scale){
 	positions.push_back(position);
 	rotations.push_back(rotation);

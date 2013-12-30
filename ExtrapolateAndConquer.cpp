@@ -71,7 +71,7 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->instanceDepthProgram = resourceManager->getShader("instanceDepth");
 
 
-    int nBalls = 40;
+    int nBalls = 10;
     qDebug() << "Initiating" << nBalls << "stones of each type (5 types).";
 
     qsrand(1);
@@ -382,6 +382,6 @@ void ExtrapolateAndConquer::loopBody(){
 
     //elapsedTime = fpsMeter->elapsed();
     //fpsMeter->restart();
-    qDebug() << "FPS: " << 1/dt;
+    //qDebug() << "FPS: " << 1/dt;
     timer->start();
 }

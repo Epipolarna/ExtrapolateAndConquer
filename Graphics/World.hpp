@@ -58,6 +58,8 @@ class World{
 
     private:
 
+        std::vector<QVector2D> getForests(void);
+        void addTree(int type, QVector3D position);
         void placeTrees(void);
         void generateTexture(void);
         void uploadCVTexture(void);
