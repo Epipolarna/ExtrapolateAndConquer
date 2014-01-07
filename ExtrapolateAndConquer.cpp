@@ -74,7 +74,7 @@ void ExtrapolateAndConquer::initialize(void){
     int nBalls = 10;
     qDebug() << "Initiating" << nBalls << "stones of each type (5 types).";
 
-    qsrand(1);
+    qsrand(2);
     // -------- Stones --------------------------
     for(int i = 0; i < nBalls*5; i++){
         // Initialize entity
@@ -83,10 +83,10 @@ void ExtrapolateAndConquer::initialize(void){
         e->add<Graphics>();
 
         SpherePhysics & physics = e->get<SpherePhysics>();
-        physics.position = QVector3D(qrand()%150+10,15,qrand()%150+65);
+        physics.position = QVector3D(qrand()%150+10,-2,qrand()%150+65);
         physics.rotation2 = QQuaternion(1,0,0,0);
-        physics.elasticity = 0.01;
-        physics.friction = 1.0;
+        physics.elasticity = 0.3;
+        physics.friction = 0.3;
         physics.gravitationalConstant = 9.82;
 
         if(i < nBalls) {        // -------- Stone 1 -----------
@@ -96,17 +96,17 @@ void ExtrapolateAndConquer::initialize(void){
         } else
             if(i < nBalls*2) {  // -------- Stone 2 -----------
                 physics.mass = 50.0;
-                physics.radius = 0.5;
+                physics.radius = 0.45;
                 e->get<Graphics>().object = new Object(resourceManager->getModel("stone2"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone2"));
         } else
             if(i < nBalls*3) {  // -------- Stone 3 -----------
                 physics.mass = 30.0;
-                physics.radius = 0.3;
+                physics.radius = 0.25;
                 e->get<Graphics>().object = new Object(resourceManager->getModel("stone3"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone3"));
         } else
             if(i < nBalls*4) {  // -------- Stone 4 -----------
                 physics.mass = 25.0;
-                physics.radius = 0.25;
+                physics.radius = 0.2;
                 e->get<Graphics>().object = new Object(resourceManager->getModel("stone4"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone4"));
         } else {                // -------- Stone 5 -----------
                 physics.mass = 10.0;
@@ -346,25 +346,42 @@ void ExtrapolateAndConquer::loopBody(){
 
 
     SpherePhysics & physics = e->get<SpherePhysics>();
-    physics.force += QVector3D(0.1,0,0.2);
+    //physics.force += QVector3D(0.1,0,0.2);
 
     // Respawn objects outside of the map
     for(SpherePhysics & sp : entityManager.getComponents<SpherePhysics>()) {
-        if(sp.position.x() <= 0 || sp.position.z() <= 0 || sp.position.x() >= world->sizeX || sp.position.z() >= world->sizeZ) {
+        if(sp.position.x() <= 0 || sp.position.z() <= 0 || sp.position.x() >= world->sizeX || sp.position.z() >= world->sizeZ || sp.position.y() < -8) {
+            /*
+            // Respawn over the ground
             sp.position = QVector3D(qrand()%150+10, qrand()%25+10, qrand()%150+65);
 
             // Reset physics. Comment out to get stones flying in your head :)
             sp.linearMomentum = QVector3D(0,0,0);
             sp.velocity = QVector3D(0,0,0);
             sp.angularMomentum = QVector3D(0,0,0);
-            sp.angularVelocity2 = QQuaternion();
+            sp.angularVelocity2 = QQuaternion(1,0,0,0);
+            */
 
+            // Vulcano
+            int m = sp.mass/2;
+            int x = 72;
+            int y = 22;
+            int z = 161;
+            sp.position = QVector3D(qrand()%3+x, y, qrand()%3+z);
+            sp.velocity = QVector3D(0,0,0);
+            sp.linearMomentum = QVector3D(qrand()%(30*m)-15*m,100*m,qrand()%(30*m)-15*m);
+            sp.angularMomentum = QVector3D(qrand()%(2*m)-1*m,qrand()%(2*m)-1*m,qrand()%(2*m)-1*m);
+            sp.angularVelocity2 = QQuaternion(1,0,0,0);
         }
     }
 
     // Run collision detection
     sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
     sphereTerrainCollisionSystem.batch();
+
+    qDebug() << "position" << physics.position << "| velocity " << physics.velocity << "|  linearMomentum" << physics.linearMomentum << "|  force" << physics.force;
+    qDebug() << "aVelocity" << physics.angularVelocity2 << "| angularMomentum" << physics.angularMomentum << "| torque" << physics.torque;
+    qDebug() << "---------------------------";
 
     // Run physics simulators
     spherePhysicsSystem.batch();
