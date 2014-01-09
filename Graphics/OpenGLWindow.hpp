@@ -23,6 +23,9 @@ public:
     void setRenderer(Renderer *value);
     Renderer* getRenderer();
 
+    bool requestNewWorld;
+    bool isNewWorldRequested();
+
 protected slots:
     void resizeGl();
     void paintGl();

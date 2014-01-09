@@ -29,6 +29,8 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
     connect(this, SIGNAL(widthChanged(int)), this, SLOT(resizeGl()));
     connect(this, SIGNAL(heightChanged(int)), this, SLOT(resizeGl()));
 
+    requestNewWorld = false;
+
     initializeOpenGLFunctions();
 }
 
@@ -191,6 +193,9 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
     case Qt::Key_V:
         renderer->isRenderingShadows = !renderer->isRenderingShadows;
         break;
+    case Qt::Key_N:
+        requestNewWorld = true;
+        break;
 
     default:
         camera->keyPressEvent(e);
@@ -223,4 +228,10 @@ void OpenGLWindow::mouseMoveEvent(QMouseEvent *e)
                                QString::number( e->pos().y() ) );
                                */
     }
+}
+
+bool OpenGLWindow::isNewWorldRequested() {
+    bool returnValue = requestNewWorld;
+    requestNewWorld = false;
+    return returnValue;
 }

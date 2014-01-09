@@ -31,6 +31,8 @@ public:
 
     void initialize(void);
 
+    void generateNewWorld();
+
     int run();
 public slots:
     void loopBody();
