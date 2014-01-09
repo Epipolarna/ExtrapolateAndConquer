@@ -41,6 +41,14 @@ void ExtrapolateAndConquer::initialize(void){
     //camera->setPosition(QVector3D(0,17,0));
     //camera->setLookAtPoint(QVector3D(-1,17,-1));
 
+    // Shadow overview
+    //camera->setPosition(QVector3D(-27.9003, 68.1128, 55.0443));
+    //camera->setLookAtPoint(QVector3D(-27.1777, 67.6089, 55.5175));
+
+    //camera->setPosition(QVector3D(60,9,106));
+    //camera->setLookAtPoint(QVector3D(18.0365, -77.9033, 32.5638));
+
+
     // ------------
 
     // Position 1
@@ -79,6 +87,7 @@ void ExtrapolateAndConquer::initialize(void){
 
 
     int nBalls = 40;
+
     qDebug() << "Initiating" << nBalls << "stones of each type (5 types).";
 
     qsrand(2);

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  9 JAN 2014 11:26
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  9 JAN 2014 15:05
 entering extended mode
 **Technical*Report.tex
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.tex"
@@ -666,6 +666,45 @@ Package: listings 2007/02/22 1.4 (Carsten Heinz)
 )
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.aux"
 
+LaTeX Warning: Label `fig:SMOverViewLvl1' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:SMOverViewLvl1' multiply defined.
+
+
+LaTeX Warning: Label `fig:SMOverViewLvl1' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:SMOverViewLvl1' multiply defined.
+
+
+LaTeX Warning: Label `fig:SMCloseUpLvl1' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:SMCloseUpLvl1' multiply defined.
+
+
+LaTeX Warning: Label `fig:SMCloseUpLvl1' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:SMCloseUpLvl1' multiply defined.
+
+
+LaTeX Warning: Label `fig:skybox0' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:skybox0' multiply defined.
+
+
+LaTeX Warning: Label `fig:skybox1' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:skybox1' multiply defined.
+
+
+LaTeX Warning: Label `fig:SkyboxComparison' multiply defined.
+
+
 LaTeX Warning: Label `citekey' multiply defined.
 
 )
@@ -824,7 +863,7 @@ mExample-eps-converted-to.pdf images/EntityComponentSystemExample.eps>
 (epstopdf)             \includegraphics on input line 9.
 Package epstopdf Info: Output file is already uptodate.
 
-<images/EntityComponentSystemExample-eps-converted-to.pdf, id=151, 667.49374pt 
+<images/EntityComponentSystemExample-eps-converted-to.pdf, id=157, 667.49374pt 
 x 270.00874pt>
 File: images/EntityComponentSystemExample-eps-converted-to.pdf Graphic file (ty
 pe pdf)
@@ -851,14 +890,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--17
 
  []
 
-[3] <images/Simplex.png, id=168, 376.40625pt x 376.40625pt>
+[3] <images/Simplex.png, id=174, 376.40625pt x 376.40625pt>
 File: images/Simplex.png Graphic file (type png)
 
 <use images/Simplex.png>
 Package pdftex.def Info: images/Simplex.png used on input line 27.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
 
-<images/FracBrownMotion.png, id=170, 376.40625pt x 376.40625pt>
+<images/FracBrownMotion.png, id=176, 376.40625pt x 376.40625pt>
 File: images/FracBrownMotion.png Graphic file (type png)
 
 <use images/FracBrownMotion.png>
@@ -877,44 +916,105 @@ Underfull \hbox (badness 10000) in paragraph at lines 42--48
 ) (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/visual_effects.tex [4 <D:/De
 v/Git/ExtrapolateAndConquer/Doc/images/Simplex.png> <D:/Dev/Git/ExtrapolateAndC
 onquer/Doc/images/FracBrownMotion.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 9.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 11.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 9.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 11.
 
-<images/horizonNoFog.png, id=183, 770.88pt x 481.8pt>
+<images/SMOverViewLvl1.png, id=187, 770.88pt x 481.8pt>
+File: images/SMOverViewLvl1.png Graphic file (type png)
+
+<use images/SMOverViewLvl1.png>
+Package pdftex.def Info: images/SMOverViewLvl1.png used on input line 25.
+(pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
+
+<images/SMOverViewLvl2.png, id=188, 770.88pt x 481.8pt>
+File: images/SMOverViewLvl2.png Graphic file (type png)
+
+<use images/SMOverViewLvl2.png>
+Package pdftex.def Info: images/SMOverViewLvl2.png used on input line 31.
+(pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
+
+<images/SMOverViewLvl3.png, id=189, 770.88pt x 481.8pt>
+File: images/SMOverViewLvl3.png Graphic file (type png)
+
+<use images/SMOverViewLvl3.png>
+Package pdftex.def Info: images/SMOverViewLvl3.png used on input line 37.
+(pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
+
+<images/SMCloseUpLvl1.png, id=190, 770.88pt x 481.8pt>
+File: images/SMCloseUpLvl1.png Graphic file (type png)
+
+<use images/SMCloseUpLvl1.png>
+Package pdftex.def Info: images/SMCloseUpLvl1.png used on input line 48.
+(pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
+
+<images/SMCloseUpLvl2.png, id=191, 770.88pt x 481.8pt>
+File: images/SMCloseUpLvl2.png Graphic file (type png)
+
+<use images/SMCloseUpLvl2.png>
+Package pdftex.def Info: images/SMCloseUpLvl2.png used on input line 54.
+(pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
+
+<images/SMCloseUpLvl3.png, id=192, 770.88pt x 481.8pt>
+File: images/SMCloseUpLvl3.png Graphic file (type png)
+
+<use images/SMCloseUpLvl3.png>
+Package pdftex.def Info: images/SMCloseUpLvl3.png used on input line 60.
+(pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
+
+<images/PCFLvl1.png, id=193, 770.88pt x 481.8pt>
+File: images/PCFLvl1.png Graphic file (type png)
+ <use images/PCFLvl1.png>
+Package pdftex.def Info: images/PCFLvl1.png used on input line 71.
+(pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
+
+<images/PCFLvl5.png, id=194, 770.88pt x 481.8pt>
+File: images/PCFLvl5.png Graphic file (type png)
+ <use images/PCFLvl5.png>
+Package pdftex.def Info: images/PCFLvl5.png used on input line 77.
+(pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
+
+[5 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMOverViewLvl1.png> <D:/Dev/Git
+/ExtrapolateAndConquer/Doc/images/SMOverViewLvl2.png> <D:/Dev/Git/ExtrapolateAn
+dConquer/Doc/images/SMOverViewLvl3.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc/i
+mages/SMCloseUpLvl1.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMCloseUp
+Lvl2.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMCloseUpLvl3.png> <D:/D
+ev/Git/ExtrapolateAndConquer/Doc/images/PCFLvl1.png> <D:/Dev/Git/ExtrapolateAnd
+Conquer/Doc/images/PCFLvl5.png>]
+<images/horizonNoFog.png, id=202, 770.88pt x 481.8pt>
 File: images/horizonNoFog.png Graphic file (type png)
 
 <use images/horizonNoFog.png>
-Package pdftex.def Info: images/horizonNoFog.png used on input line 30.
+Package pdftex.def Info: images/horizonNoFog.png used on input line 94.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/horizonFog.png, id=184, 771.48225pt x 482.40225pt>
+<images/horizonFog.png, id=203, 771.48225pt x 482.40225pt>
 File: images/horizonFog.png Graphic file (type png)
 
 <use images/horizonFog.png>
-Package pdftex.def Info: images/horizonFog.png used on input line 36.
+Package pdftex.def Info: images/horizonFog.png used on input line 100.
 (pdftex.def)             Requested size: 218.94247pt x 136.90456pt.
 
-<images/skybox0.png, id=185, 4111.36pt x 3083.52pt>
+<images/skybox0.png, id=204, 4111.36pt x 3083.52pt>
 File: images/skybox0.png Graphic file (type png)
  <use images/skybox0.png>
-Package pdftex.def Info: images/skybox0.png used on input line 47.
+Package pdftex.def Info: images/skybox0.png used on input line 111.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
 
-<images/skybox1.png, id=186, 4111.36pt x 3083.52pt>
+<images/skybox1.png, id=205, 4111.36pt x 3083.52pt>
 File: images/skybox1.png Graphic file (type png)
  <use images/skybox1.png>
-Package pdftex.def Info: images/skybox1.png used on input line 53.
+Package pdftex.def Info: images/skybox1.png used on input line 117.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
-
-[5 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/horizonNoFog.png> <D:/Dev/Git/E
+))
+[6 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/horizonNoFog.png> <D:/Dev/Git/E
 xtrapolateAndConquer/Doc/images/horizonFog.png> <D:/Dev/Git/ExtrapolateAndConqu
 er/Doc/images/skybox0.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/skybox1
-.png>])) [6] (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/ai.tex) [7]
+.png>] (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/ai.tex) [7]
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/conclusions.tex)
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/bibliography.tex
 Underfull \hbox (badness 10000) in paragraph at lines 39--42
@@ -944,10 +1044,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 153.
  ) 
 Here is how much of TeX's memory you used:
- 10909 strings out of 493921
- 159213 string characters out of 3147270
- 255789 words of memory out of 3000000
- 13946 multiletter control sequences out of 15000+200000
+ 10961 strings out of 493921
+ 160461 string characters out of 3147270
+ 257108 words of memory out of 3000000
+ 13987 multiletter control sequences out of 15000+200000
  11885 words of font info for 45 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  42i,18n,45p,740b,479s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -960,9 +1060,9 @@ public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
 fonts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 msy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pf
 b>
-Output written on "Technical Report.pdf" (11 pages, 9817139 bytes).
+Output written on "Technical Report.pdf" (11 pages, 22161909 bytes).
 PDF statistics:
- 249 PDF objects out of 1000 (max. 8388607)
- 45 named destinations out of 1000 (max. 500000)
- 203 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 263 PDF objects out of 1000 (max. 8388607)
+ 48 named destinations out of 1000 (max. 500000)
+ 243 words of extra memory for PDF output out of 10000 (max. 10000000)
 

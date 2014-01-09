@@ -78,8 +78,9 @@ float shadowTest(vec2 texcoods, float kernelSize) {
 	
 	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods).r;
 	if(depthComparison > epsilon){
-		shadow += 0.2;
+		shadow += 1;
 	}
+	/*
 	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,-texOffset)).r;
 	if(depthComparison > epsilon){
 		shadow += 0.2;
@@ -96,6 +97,7 @@ float shadowTest(vec2 texcoods, float kernelSize) {
 	if(depthComparison > epsilon){
 		shadow += 0.2;
 	}
+	*/
 	
 	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
 }
