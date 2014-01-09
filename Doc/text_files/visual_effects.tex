@@ -1,7 +1,7 @@
 Boom hacka lacka
 
 \subsubsection{Shadows}
-Shadows are one those things that can make a scene really come to life. There are many techniques in which shadows can be achieved with different pros and cons. We have chosen to use shadow mapping since it offers real-time shadows for arbitrary shapes in a theoretically straight forward way. 
+Shadows are one those things that can make a scene really come to life. It will help the viewer to understand the structure of the terrain and location of objects. There are many techniques in which shadows can be achieved with different pros and cons. We have chosen to use shadow mapping since it offers real-time shadows for arbitrary shapes in a theoretically straight forward way. 
 
 The quality of these can be increased arbitrarily, but the computational complexity is increased equivalently, which is what limits this method. 
 
@@ -19,6 +19,85 @@ More specifically our implementation utilizes \textit{Light-Space Shadow Mapping
 \end{itemize}
 \end{itemize}
 
+\begin{figure}[H]
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl1.png}
+  \caption{Shadow mapping level 1}
+  \label{fig:SMOverViewLvl1}
+\end{subfigure}%
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl2.png}
+  \caption{Shadow mapping level 2}
+  \label{fig:SMOverViewLvl1}
+\end{subfigure}
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl3.png}
+  \caption{Shadow mapping level 3}
+  \label{fig:SMOverViewLvl1}
+\end{subfigure}
+\caption[Noise comparison]{\textit{Overview of different shadow mapping levels}}
+\label{fig:SMOverViewComparison}
+\end{figure}
+
+\begin{figure}[H]
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl1.png}
+  \caption{Shadow mapping level 1}
+  \label{fig:SMCloseUpLvl1}
+\end{subfigure}%
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl2.png}
+  \caption{Shadow mapping level 2}
+  \label{fig:SMCloseUpLvl1}
+\end{subfigure}
+\begin{subfigure}{.33\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl3.png}
+  \caption{Shadow mapping level 3}
+  \label{fig:SMCloseUpLvl1}
+\end{subfigure}
+\caption[Noise comparison]{\textit{Close-up of different shadow mapping levels}}
+\label{fig:SMCloseUpComparison}
+\end{figure}
+
+\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/PCFLvl1.png}
+  \caption{Original skybox}
+  \label{fig:PCFLvl1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/PCFLvl5.png}
+  \caption{Skybox modified to fade into fog}
+  \label{fig:PCFLvl1}
+\end{subfigure}
+\caption[Noise comparison]{\textit{Comparison of shadow mapping with and without percentage-closer filtering}}
+\label{fig:PCFComparison}
+\end{figure}
+
+\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMAcne.png}
+  \caption{Surface suffering from severe acne}
+  \label{fig:SMAcne}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMAcneFix.png}
+  \caption{Surface healed by addition of small offset}
+  \label{fig:SMAcneFix}
+\end{subfigure}
+\caption[Noise comparison]{\textit{Comparison of shadow mapping with and without acne}}
+\label{fig:AcneComparison}
+\end{figure}
 
 
 \subsubsection{Fog}

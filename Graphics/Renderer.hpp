@@ -38,6 +38,11 @@ public:
     void setDt(float dt) { this->dt = dt; }
     float dt;
 
+    int shadowLevel;
+    bool isRenderingTerrain;
+    bool isRenderingTrees;
+    bool isRenderingBalls;
+    bool isRenderingShadows;
 
     QOpenGLShaderProgram *depthProgram;
     QOpenGLShaderProgram *instanceDepthProgram;

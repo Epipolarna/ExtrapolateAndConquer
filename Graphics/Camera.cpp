@@ -2,15 +2,16 @@
 
 Camera::Camera()
 {
-    position = QVector3D(0,0,0);
-    lookAtPoint = QVector3D(0,0,-1);
-    lookAtDirection = QVector3D(0,0,-1);
+    position = QVector3D(0,1,0);
+    lookAtPoint = QVector3D(0,1,-1);
+    lookAtDirection = QVector3D(0,1,-1);
     up = QVector3D(0,1,0);
 
     translationSpeed = 20;  // m/s
     pitchSpeed = 120;       // degrees/s
     rollSpeed = 90;         // degrees/s
     yawSpeed = 160;         // degrees/s
+    //yawSpeed = 40;         // degrees/s
 
     mouseSensitivity = (float) 10 /10000;
 }
@@ -158,7 +159,7 @@ void Camera::updateLookAt()
     vMatrixInv = vMatrix;
     vMatrixInv.inverted();
 
-    //qDebug() << "Pos: " << position << "Lookat: " << lookAtPoint;
+    qDebug() << "Pos: " << position << "Lookat: " << lookAtPoint;
 }
 
 QMatrix4x4 Camera::skyboxMatrix()

@@ -167,8 +167,31 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         } else {
             application->setOverrideCursor(QCursor(Qt::ArrowCursor));
         }
-
         break;
+
+    case Qt::Key_1:
+        renderer->shadowLevel = 1;
+        break;
+    case Qt::Key_2:
+        renderer->shadowLevel = 2;
+        break;
+    case Qt::Key_3:
+        renderer->shadowLevel = 3;
+        break;
+
+    case Qt::Key_Z:
+        renderer->isRenderingTerrain = !renderer->isRenderingTerrain;
+        break;
+    case Qt::Key_X:
+        renderer->isRenderingTrees = !renderer->isRenderingTrees;
+        break;
+    case Qt::Key_C:
+        renderer->isRenderingBalls = !renderer->isRenderingBalls;
+        break;
+    case Qt::Key_V:
+        renderer->isRenderingShadows = !renderer->isRenderingShadows;
+        break;
+
     default:
         camera->keyPressEvent(e);
         break;

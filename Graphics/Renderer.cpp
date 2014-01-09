@@ -13,6 +13,15 @@ Renderer::Renderer(void){
     initFBO(fbo1);
     initFBO(fbo2);
     initFBO(fbo3);
+
+    shadowLevel = 1;
+
+    isRenderingTerrain = false;
+    isRenderingTrees = false;
+    isRenderingBalls = false;
+    isRenderingShadows = false;
+
+    isRenderingTerrain = isRenderingTrees = isRenderingBalls = isRenderingShadows = true;
 }
 
 void Renderer::drawObject(Object* o){
@@ -114,6 +123,7 @@ void Renderer::initFBO(FBO* fbo)
     glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, shadowMapSize, shadowMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
     GLfloat borderColor[4]={1.0,1.0,1.0,1.0};
+    //GLfloat borderColor[4]={0.0,0.0,0.0,0.0};
     glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR, borderColor);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
@@ -121,6 +131,8 @@ void Renderer::initFBO(FBO* fbo)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, fbo->depthTex, 0);
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Set current buffer to default
     QGLFramebufferObject::bindDefault();
@@ -208,7 +220,32 @@ void Renderer::calculateLightSourceMatrices()
     qDebug() << "FarPlane" << maxZ;
 */
     lightSourcePMatrix.setToIdentity();
-    lightSourcePMatrix.ortho(-120,120,-20,150,50,maxZ);
+    //lightSourcePMatrix.ortho(-30,70,5,70,50,maxZ);
+
+    switch(shadowLevel){
+    case 1:
+        lightSourcePMatrix.ortho(-70,120,0,130,50,maxZ);
+        break;
+    case 2:
+        lightSourcePMatrix.ortho(-30,90,5,110,50,maxZ);
+        break;
+    case 3:
+        lightSourcePMatrix.ortho(0,40,10,50,50,maxZ);
+        break;
+
+    default:
+        lightSourcePMatrix.ortho(-70,120,0,130,50,maxZ);
+        break;
+
+    }
+
+    // Lvl 1
+
+    // Lvl 2
+
+    // Lvl 3
+
+
     //lightSourcePMatrix.ortho(minX,maxX,minY,maxY,minZ,maxZ);
 }
 
@@ -221,45 +258,52 @@ void Renderer::repaint(){
     incr += dt*speed;
     incr = incr > 1 ? incr-1 : incr;
 
-    calculateLightSourceMatrices();
+    // ----------- SHADOW MAPPING -------------------------------
+    if(isRenderingShadows){
+        calculateLightSourceMatrices();
 
-    // Draw the scene from the lightsource to shadowMap FBO
-    useFBO(fbo1);
+        // Draw the scene from the lightsource to shadowMap FBO
+        useFBO(fbo1);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 
     // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
-    if(worldData != NULL){
-        //glDepthMask(GL_FALSE);
-        //glEnable(GL_BLEND);
-        drawInstanceObjects(worldData->tree1, true);
-        drawInstanceObjects(worldData->leaf1, true);
 
-        drawInstanceObjects(worldData->tree2, true);
-        drawInstanceObjects(worldData->leaf2, true);
+        if(isRenderingTrees){
+            if(worldData != NULL){
+                drawInstanceObjects(worldData->tree1, true);
+                drawInstanceObjects(worldData->leaf1, true);
 
-        drawInstanceObjects(worldData->tree3, true);
-        drawInstanceObjects(worldData->leaf3, true);
-        //glDisable(GL_BLEND);
-        //glDepthMask(GL_TRUE);
+                drawInstanceObjects(worldData->tree2, true);
+                drawInstanceObjects(worldData->leaf2, true);
+
+                drawInstanceObjects(worldData->tree3, true);
+                drawInstanceObjects(worldData->leaf3, true);
+            }
+        }
+
+        if(isRenderingTerrain){
+            if(world != NULL){
+                world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+            }
+        }
+
+        if(isRenderingBalls){
+            for(Object * o : renderList){
+                o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+            }
+        }
+
+        if(water != NULL){
+            water->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+        }
+
+        glCullFace(GL_BACK);
     }
 
-    if(world != NULL){
-        world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
-    }
-
-    for(Object * o : renderList){
-        o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
-    }
-
-    if(water != NULL){
-        water->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
-    }
-
-    glCullFace(GL_BACK);
-
+    // ----------- STANDARD RENDER -------------------------------
     // Draw everything again to the default FBO
     useFBO(0); // Default
 
@@ -271,28 +315,29 @@ void Renderer::repaint(){
         skybox->draw(camera->skyboxMatrix(),pMatrix,lightPosition,lightSourceVMatrix);
     }
 
-
-    if(world != NULL){
-        glEnable(GL_DEPTH_TEST);
-        glDisable(GL_CULL_FACE);
-        world->program->bind();
-        world->program->setUniformValue("incr", incr);
-        world->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
-        world->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
-        world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
+    if(isRenderingTerrain){
+        if(world != NULL){
+            glEnable(GL_DEPTH_TEST);
+            glDisable(GL_CULL_FACE);
+            world->program->bind();
+            world->program->setUniformValue("incr", incr);
+            world->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
+            world->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
+            world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
+        }
     }
 
-    // slowly sort according to closeness to camera using single iterations of bubblesort
-    //sortOnDepth(renderList, 1);
-
-    for(Object * o : renderList){
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_CULL_FACE);
-        o->program->bind();
-        o->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
-        o->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
-        o->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
+    if(isRenderingBalls){
+        for(Object * o : renderList){
+            glEnable(GL_DEPTH_TEST);
+            glEnable(GL_CULL_FACE);
+            o->program->bind();
+            o->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
+            o->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
+            o->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
+        }
     }
+
 
     if(water != NULL){
         glEnable(GL_DEPTH_TEST);
@@ -306,24 +351,26 @@ void Renderer::repaint(){
         glDisable(GL_BLEND);
     }
 
-    if(worldData != NULL){
-        glEnable(GL_BLEND);
-        drawInstanceObjects(worldData->tree1, false);
-        drawInstanceObjects(worldData->leaf1, false);
+    if(isRenderingTrees){
+        if(worldData != NULL){
+            glDepthMask(GL_FALSE);
+            glEnable(GL_BLEND);
+            drawInstanceObjects(worldData->tree1, false);
+            drawInstanceObjects(worldData->leaf1, false);
 
-        drawInstanceObjects(worldData->tree2, false);
-        drawInstanceObjects(worldData->leaf2, false);
+            drawInstanceObjects(worldData->tree2, false);
+            drawInstanceObjects(worldData->leaf2, false);
 
-        drawInstanceObjects(worldData->tree3, false);
-        drawInstanceObjects(worldData->leaf3, false);
+            drawInstanceObjects(worldData->tree3, false);
+            drawInstanceObjects(worldData->leaf3, false);
 
-        drawInstanceObjects(worldData->bush1, false);
-        drawInstanceObjects(worldData->bush2, false);
-
-        glDisable(GL_BLEND);
+            drawInstanceObjects(worldData->bush1, false);
+            drawInstanceObjects(worldData->bush2, false);
+            glDisable(GL_BLEND);
+            glDepthMask(GL_TRUE);
+        }
     }
 }
-
 
 void Renderer::sortOnDepth(std::vector<Object *> & objects, int iterations)
 {

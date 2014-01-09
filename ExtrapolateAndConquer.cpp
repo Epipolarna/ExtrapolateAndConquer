@@ -41,6 +41,25 @@ void ExtrapolateAndConquer::initialize(void){
     //camera->setPosition(QVector3D(0,17,0));
     //camera->setLookAtPoint(QVector3D(-1,17,-1));
 
+    // Shadow overview
+    //camera->setPosition(QVector3D(-27.9003, 68.1128, 55.0443));
+    //camera->setLookAtPoint(QVector3D(-27.1777, 67.6089, 55.5175));
+
+    // Shadow close-up
+    //camera->setPosition(QVector3D(60,9,106));
+    //camera->setLookAtPoint(QVector3D(18.0365, -77.9033, 32.5638));
+
+    // Shadow Acne
+    //camera->setPosition(QVector3D(43.2642, 10.5588, 123.885));
+    //camera->setLookAtPoint(QVector3D(-7.38341, -31.7233, 2.52191));
+
+    // Peter Paning
+    camera->setPosition(QVector3D(40.4615, 7.07579, 116.255));
+    camera->setLookAtPoint(QVector3D(39.8829, 6.53198, 116.863));
+
+
+
+
     // ------------
 
     // Position 1
