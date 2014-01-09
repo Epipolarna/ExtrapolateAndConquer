@@ -73,31 +73,55 @@ float shadowTest(vec2 texcoods, float kernelSize) {
 	float shadow = 0;
 	float depthComparison = 0;
 	float epsilon = 0.001;
+	//float epsilon = 0.0003;
 	
 	float texOffset = 0.7/(kernelSize*2048); // Motsvarar spridning på skuggan
+	float shadowStep = 0.1;
 	
+	// 
 	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods).r;
+	if(depthComparison > epsilon){
+		shadow += 4;
+	}
+	
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,-texOffset)).r;
 	if(depthComparison > epsilon){
 		shadow += 1;
 	}
-	/*
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,-texOffset)).r;
-	if(depthComparison > epsilon){
-		shadow += 0.2;
-	}
 	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 0.2;
+		shadow += 1;
 	}
 	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,-texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 0.2;
+		shadow += 1;
 	}
 	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 0.2;
+		shadow += 1;
 	}
-	*/
+	
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,0)).r;
+	if(depthComparison > epsilon){
+		shadow += 2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,0)).r;
+	if(depthComparison > epsilon){
+		shadow += 2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(0,texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 2;
+	}
+	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(0,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += 2;
+	}
+	
+	// Normalize the kernel
+	shadow /= 16;
+	
+	
 	
 	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
 }
