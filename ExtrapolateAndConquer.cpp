@@ -176,7 +176,7 @@ void ExtrapolateAndConquer::initialize(void){
     Object* worldObject;
 
     // Nice worlds: 1, 13, ...
-    uint seed = 21;  // -1 means random seed from current time
+    uint seed = 447;  // -1 means random seed from current time
     int nOctaves = sizeof(octaves)/sizeof(float);
     float vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
     worldModel = world->generateWorld(200,200,vertexDensity,octaves,scales,nOctaves, seed);
@@ -360,6 +360,7 @@ int ExtrapolateAndConquer::run(){
     return returnCode;
 }
 
+
 bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     timer->stop();
@@ -399,7 +400,7 @@ void ExtrapolateAndConquer::loopBody(){
             int m = sp.mass/2;
             int x = (int)world->maxPosition.x();//72;
             int z = (int)world->maxPosition.z();//161;
-            int y = world->getHeight(x,z)+1;//22;
+            int y = (int)world->maxPosition.y();//world->getHeight(x,z)+1;//22;
             sp.position = QVector3D(qrand()%3+x, y, qrand()%3+z);
             sp.velocity = QVector3D(0,0,0);
             sp.linearMomentum = QVector3D(qrand()%(30*m)-15*m,100*m,qrand()%(30*m)-15*m);
@@ -437,7 +438,8 @@ void ExtrapolateAndConquer::loopBody(){
 }
 
 
-void ExtrapolateAndConquer::generateNewWorld(){
+
+void ExtrapolateAndConquer::generateNewWorld(int seed){
     Renderer* renderer = openGLWindow->getRenderer();
 
     // Generate terrain
@@ -466,8 +468,6 @@ void ExtrapolateAndConquer::generateNewWorld(){
     renderer->lightPosition = world->lightPosition;
 
 
-    // Nice worlds: 1, 13, ...
-    uint seed = -1;  // -1 means random seed from current time
     int nOctaves = sizeof(octaves)/sizeof(float);
     float vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
     worldModel = world->generateWorld(200,200,vertexDensity,octaves,scales,nOctaves, seed);
@@ -498,3 +498,4 @@ void ExtrapolateAndConquer::generateNewWorld(){
 
     renderer->worldData = world;
 }
+

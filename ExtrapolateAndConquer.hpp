@@ -31,7 +31,7 @@ public:
 
     void initialize(void);
 
-    void generateNewWorld();
+    void generateNewWorld(int seed = -1);   // -1 : random
 
     int run();
 public slots:
