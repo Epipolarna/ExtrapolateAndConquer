@@ -25,7 +25,7 @@
 class World{
 	public:
         World( ResourceManager* resources);
-        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, uint seed = -1);
+        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int seed = -1);
 
         
         /*!

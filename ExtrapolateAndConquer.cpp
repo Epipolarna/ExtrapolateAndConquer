@@ -255,6 +255,8 @@ void ExtrapolateAndConquer::initialize(void){
     printf("all initialization done! \n");
 }
 
+
+
 void ExtrapolateAndConquer::loadResources(void){
 
     //FBO Square. Used to draw the scene on when it has been drawn to a FBO
@@ -364,6 +366,10 @@ void ExtrapolateAndConquer::loopBody(){
     float dt = fpsMeter->elapsed()/1000.0;
     fpsMeter->restart();
 
+    if(openGLWindow->isNewWorldRequested()) {
+        generateNewWorld();
+    }
+
     spherePhysicsSystem.setTimeInterval(dt);
     openGLWindow->getRenderer()->setDt(dt);
 
@@ -428,4 +434,67 @@ void ExtrapolateAndConquer::loopBody(){
     //fpsMeter->restart();
     //qDebug() << "FPS: " << 1/dt;
     timer->start();
+}
+
+
+void ExtrapolateAndConquer::generateNewWorld(){
+    Renderer* renderer = openGLWindow->getRenderer();
+
+    // Generate terrain
+    // -------------------------
+    float octaves[16];
+    float scales[16];
+
+    // 1.8715 or 2.1042
+    float lacunarity = 1/1.87;
+    float gain = 0.66;
+
+    //for each pixel, get the value
+    float period = 400;
+    float amplitude = 20;
+    for (int i = 0; i < 16; i++)
+    {
+        octaves[i] = period;
+        scales[i] = amplitude;
+
+        period *= lacunarity;
+        amplitude *= gain;
+    }
+
+    Model* worldModel;
+    world = new World(resourceManager);
+    renderer->lightPosition = world->lightPosition;
+
+
+    // Nice worlds: 1, 13, ...
+    uint seed = -1;  // -1 means random seed from current time
+    int nOctaves = sizeof(octaves)/sizeof(float);
+    float vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
+    worldModel = world->generateWorld(200,200,vertexDensity,octaves,scales,nOctaves, seed);
+    hightMapOfChunk = world->heightMap;
+
+    //
+    sphereTerrainCollisionSystem.setHeightMap((hightMapOfChunk*2*world->scaleFactor-world->scaleFactor));
+    sphereTerrainCollisionSystem.setWorld(world);
+
+    // Ground texturing
+    QVector<GLuint> worldTextures = QVector<GLuint>();
+    worldTextures.push_back(resourceManager->getTexture("sand2"));
+    worldTextures.push_back(resourceManager->getTexture("grass2"));
+    worldTextures.push_back(resourceManager->getTexture("rock1"));
+    worldTextures.push_back(renderer->fbo1->depthTex);
+
+    // Genrate World model with textures
+    // ----------------------------------
+    Object* worldObject;
+    worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
+    worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
+    worldObject->setColor(85,196,48,255);
+    //worldObject->setScale(2,0,2);
+    worldObject->setTexScaling(10);
+
+    renderer->world = worldObject;
+    qDebug() << "Generating world: " << fpsMeter->elapsed() << "ms";
+
+    renderer->worldData = world;
 }
