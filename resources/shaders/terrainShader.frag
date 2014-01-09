@@ -72,7 +72,11 @@ float shadowCoeff = 0.5;
 float shadowTest(vec2 texcoods, float kernelSize) {
 	float shadow = 0;
 	float depthComparison = 0;
-	float epsilon = 0.001;
+	
+	float epsilon = 0.001; // Good Epsilon
+	//float epsilon = 0.00; // Acne
+	//float epsilon = 0.1; // Peter Paning
+	
 	//float epsilon = 0.0003;
 	
 	float texOffset = 0.7/(kernelSize*2048); // Motsvarar spridning på skuggan
@@ -298,6 +302,7 @@ void main(void){
 	
 		//outColor = texel0*phongShading();
 		outColor = texel0*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
+		//outColor = vec4(1,1,1,1)*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
 		//outColor = texel0*shadowTest(lightSpaceVertex.xy, kernelSize);
 	/*
 		if(nShadows == 0){

@@ -82,6 +82,23 @@ More specifically our implementation utilizes \textit{Light-Space Shadow Mapping
 \label{fig:PCFComparison}
 \end{figure}
 
+\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMAcne.png}
+  \caption{Surface suffering from severe acne}
+  \label{fig:SMAcne}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMAcneFix.png}
+  \caption{Surface healed by addition of small offset}
+  \label{fig:SMAcneFix}
+\end{subfigure}
+\caption[Noise comparison]{\textit{Comparison of shadow mapping with and without acne}}
+\label{fig:AcneComparison}
+\end{figure}
+
 
 \subsubsection{Fog}
 The transition between different parts of the world can sometimes be very sharp in an unpleasant way. For instance, at the border between the sky and the ocean seen in figure \ref{fig:HorizonNoFog}. 
