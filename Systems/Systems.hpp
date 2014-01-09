@@ -164,11 +164,8 @@ public:
             physics.torque += QVector3D::crossProduct(frictionForce, normal);
 
             // Collision induced friction force
-            physics.force += -friction * physics.mass * physics.gravitationalConstant * physics.velocity.normalized() * 0.9999;
+            //physics.force += -friction * physics.mass * physics.gravitationalConstant * physics.velocity.normalized() * 0.9999;
 
-            //LOG("old distance: " << distance);
-            //LOG("new distance: " << (physics.position - terrainImpactPoint).length());
-            //LOG("------------------------------------");
         }
     }
     void setHeightMap(cv::Mat heightMap) { this->heightMap = heightMap; }

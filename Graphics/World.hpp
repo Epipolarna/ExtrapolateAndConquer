@@ -43,6 +43,8 @@ class World{
         float sizeX;
         float sizeZ;
 
+        QVector3D maxPosition;
+
         QVector3D lightPosition;
 
         GLuint textureRef;
@@ -56,15 +58,22 @@ class World{
         StaticObjectList* tree3;
         StaticObjectList* leaf3;
 
+        StaticObjectList* bush1;
+        StaticObjectList* bush2;
+
     private:
 
         std::vector<QVector2D> getForests(void);
-        void addTree(int type, QVector3D position);
+        void addTree(int type, QVector3D position, QVector3D scale = QVector3D(1,1,1));
         void placeTrees(void);
         void generateTexture(void);
         void uploadCVTexture(void);
 
+        bool isTreePlacementOK(float treeX, float treeY, float treeZ, float sparsityStartHeight = 10000, float maxHeight = 10000);
+
         cv::Mat textureData;
+
+        cv::RNG rGen;
 };
 
 #endif

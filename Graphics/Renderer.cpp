@@ -316,6 +316,10 @@ void Renderer::repaint(){
 
         drawInstanceObjects(worldData->tree3, false);
         drawInstanceObjects(worldData->leaf3, false);
+
+        drawInstanceObjects(worldData->bush1, false);
+        drawInstanceObjects(worldData->bush2, false);
+
         glDisable(GL_BLEND);
     }
 }

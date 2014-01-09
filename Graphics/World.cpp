@@ -17,10 +17,10 @@ World::World( ResourceManager* resources){
 
     QVector<GLuint> treeTex2;
     QVector<GLuint> leafTex2;
-    treeTex2.push_back(resources->getTexture("tree2a"));
-    leafTex2.push_back(resources->getTexture("tree2b"));
-    tree2 = new StaticObjectList(resources->getModel("tree2a"),treeTex2,resources->getShader("instance"));
-    leaf2 = new StaticObjectList(resources->getModel("tree2b"),leafTex2,resources->getShader("instance"));
+    treeTex2.push_back(resources->getTexture("tree4a"));
+    leafTex2.push_back(resources->getTexture("tree4b"));
+    tree2 = new StaticObjectList(resources->getModel("tree4a"),treeTex2,resources->getShader("instance"));
+    leaf2 = new StaticObjectList(resources->getModel("tree4b"),leafTex2,resources->getShader("instance"));
 
 
     QVector<GLuint> treeTex3;
@@ -29,6 +29,15 @@ World::World( ResourceManager* resources){
     leafTex3.push_back(resources->getTexture("tree3b"));
     tree3 = new StaticObjectList(resources->getModel("tree3a"),treeTex3,resources->getShader("instance"));
     leaf3 = new StaticObjectList(resources->getModel("tree3b"),leafTex3,resources->getShader("instance"));
+
+    QVector<GLuint> bush1Tex;
+    QVector<GLuint> bush2Tex;
+    bush1Tex.push_back(resources->getTexture("tree5"));
+    bush2Tex.push_back(resources->getTexture("bush"));
+    bush1 = new StaticObjectList(resources->getModel("tree5"),bush1Tex,resources->getShader("instance"));
+    bush2 = new StaticObjectList(resources->getModel("bush"),bush2Tex,resources->getShader("instance"));
+
+    rGen.state = 3423431231334234234;
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, uint seed){
@@ -63,14 +72,11 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
         seed = now.msec();
     }
     qsrand(seed);
-    float xRandomOffset = 45; //qrand() %256;
-    float zRandomOffset = 107; //qrand() %256;
-    /*
-    float xRandomOffset = 45; //qrand() %256;
-    float zRandomOffset = 107; //qrand() %256;
-    qDebug() << "xRandomOffset" << xRandomOffset;
-    qDebug() << "zRandomOffset" << zRandomOffset;
-    */
+    //float xRandomOffset = 45; //qrand() %256;
+    //float zRandomOffset = 107; //qrand() %256;
+
+    float xRandomOffset = qrand() %256;
+    float zRandomOffset = qrand() %256;
 
     qDebug() << "xRandomOffset" << xRandomOffset;
     qDebug() << "zRandomOffset" << zRandomOffset;
@@ -113,6 +119,49 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     //cv::imshow("HeightMap Unmanipulated", heightMap);
     heightMap = heightMap.mul(gaussKernel);
     //cv::imshow("HeightMap manipulated", heightMap);
+
+    // Vulcano
+    // ----------------
+    float vulcanoSize = 20*vertexDensity;
+    float vulcanoHeight = 1;
+
+    //Find the highest point !?
+    cv::Point maxPos, minPos;
+    double maxY, minY;
+    cv::minMaxLoc(heightMap, &minY, &maxY, &minPos, &maxPos);
+    maxPosition = QVector3D(maxPos.x, maxY, maxPos.y);
+
+    /*
+    // Keep the vulcan within the matrix
+    if(maxPos.x < vulcanoSize) maxPos.x += vulcanoSize+1;
+    if(maxPos.x > heightMap.size().width-vulcanoSize) maxPos.x -= vulcanoSize+1;
+    if(maxPos.y < vulcanoSize) maxPos.y += vulcanoSize+1;
+    if(maxPos.y > heightMap.size().height-vulcanoSize) maxPos.y -= vulcanoSize+1;
+
+    // Create outer shell
+    cv::Mat vulcano = cv::getGaussianKernel(vulcanoSize, 1, CV_32FC1);
+    cv::minMaxLoc(vulcano, &minY, &maxY, &minPos, &maxPos);
+    qDebug() << "max: " << maxY;
+    vulcano /= maxY; // Normalize the height
+    vulcano *= (maxPosition.y()+vulcanoHeight)/maxPosition.y();
+    vulcano = vulcano * vulcano.t();
+    vulcano += 1;   // Make the surrounding area stay the same (lowest scaling now = 1.0)
+    vulcano *= vulcanoHeight;
+
+    // Create the inner hole
+    cv::Mat vulcanoHole = cv::getGaussianKernel(vulcanoSize, 1.0, CV_32FC1);
+    cv::minMaxLoc(vulcanoHole, &minY, &maxY, &minPos, &maxPos);
+    vulcanoHole /= maxY;
+    vulcanoHole = vulcanoHole * vulcanoHole.t();
+    vulcanoHole = 1-vulcanoHole;
+
+    //vulcano -= vulcanoHole;
+
+    cv::Mat heightMapVulcano(heightMap, cv::Rect(maxPosition.x(),maxPosition.z(),vulcanoSize,vulcanoSize));
+    //heightMapVulcano = heightMapVulcano.mul(vulcano);
+    heightMapVulcano -= vulcanoHole;
+    */
+    maxPosition = QVector3D(maxPosition.x(), maxPosition.y()+vulcanoHeight+1, sizeZ-maxPosition.y());
 
     // Push height map to VBO
     for (int x = 0; x <= xRange*vertexDensity; x++){
@@ -316,41 +365,60 @@ std::vector<QVector2D> World::getForests(void){
     return forests;
 }
 
-void World::addTree(int type, QVector3D position){
-    cv::RNG generator;
-    float rotation = (float)generator.uniform(0,600) / 100.0; //roughly a random ammount of radians
+void World::addTree(int type, QVector3D position, QVector3D scale){
 
-    QQuaternion randomRotation = QQuaternion(rotation,0,1,0);
-    randomRotation.normalize();
+    float radians = (float)rGen.uniform(0.0, 360.0); //roughly a random ammount of radians
+    float rotation = std::cos(0.5*radians);
+
+    QQuaternion randomRotation = QQuaternion(rotation,0,1*std::sin(0.5*rotation),0);
 
     switch(type){
         case 0:
-            tree1->appendObject(position,randomRotation);
-            leaf1->appendObject(position,randomRotation);
-        break;
+            tree1->appendObject(position,randomRotation,scale);
+            leaf1->appendObject(position,randomRotation,scale);
+            break;
         case 1:
-            tree2->appendObject(position,randomRotation);
-            leaf2->appendObject(position,randomRotation);
-        break;
+            tree2->appendObject(position,randomRotation,scale);
+            leaf2->appendObject(position,randomRotation,scale);
+            break;
         case 2:
-            tree3->appendObject(position,randomRotation);
-            leaf3->appendObject(position,randomRotation);
+            tree3->appendObject(position,randomRotation,scale);
+            leaf3->appendObject(position,randomRotation,scale);
+            break;
+        case 3:
+            bush1->appendObject(position,randomRotation,scale);
+            break;
+        case 4:
+            bush2->appendObject(position,randomRotation,scale);
+            break;
         default:
-            printf("INVALID TREE TYPE ERROR ! \n");
+        printf("INVALID TREE TYPE ERROR ! (%d) \n", type);
             exit(0);
         break;
     }
+}
+
+bool World::isTreePlacementOK(float treeX, float treeY, float treeZ, float sparsityStartHeight, float maxHeight) {
+    if(treeY < 0.5)
+        return false;
+
+    if(treeY >= sparsityStartHeight && rGen.uniform(0.0,(1.0-sparsityStartHeight/maxHeight)) > (1-treeY/maxHeight))
+        return false;
+
+    return true;
 }
 
 void World::placeTrees(void){
     //make a list of possible forest areas
     std::vector<QVector2D> forests = getForests();
     //make forests in these areas
-    cv::RNG gen;
 
     int maxNumTrees = 50;
     int maxNumTries = 10000;
+    int forestIndex = 0;
 
+    int maxHeight = 12;
+    int treeSparsityHeightStart = 8;
     for(QVector2D& forest : forests){
 
         float x = forest.x();
@@ -361,19 +429,59 @@ void World::placeTrees(void){
 
         int numTrees = 0;
         for(int i = 0; i < maxNumTries && numTrees < maxNumTrees; ++i){
-            float xOffest = gen.gaussian((float)6.0);
-            float zOffset = gen.gaussian((float)6.0);
+            float xOffest = rGen.gaussian((float)6.0);
+            float zOffset = rGen.gaussian((float)6.0);
 
             float treeX = x + xOffest;
             float treeZ = z + zOffset;
             float treeY = getHeight(treeX,treeZ);
 
-            int treeType = gen.uniform((int)0,(int)2);
+            int treeType = forestIndex % 3;//rGen.uniform((int)0,(int)3);
             //just remove the trees placed in lousy positions
-            if(treeY > 0){
+
+            if(isTreePlacementOK(treeX,treeY,treeZ, treeSparsityHeightStart, maxHeight)){
                 addTree(treeType,QVector3D(treeX,treeY,treeZ));
             }
             numTrees = numTrees + 1;
         }
+        forestIndex++;
+    }
+
+    // Bush1
+    int maxNumBush = 50000;
+    int tries = 0;
+    int numBush = 0;
+    while(numBush < maxNumBush && tries < maxNumTries){
+
+        float x = rGen.uniform(0.0,(double)sizeX);
+        float z = rGen.uniform(0.0,(double)sizeZ);
+
+        //tree models need to be alittlebit in the ground
+        float y = getHeight(x,z)+0.2;
+
+        if(isTreePlacementOK(x,y,z, 14, 14)){
+            addTree(4,QVector3D(x,y,z), QVector3D(1,1,1)*rGen.uniform(0.2, 0.4));
+            numBush++;
+        }
+        tries++;
+    }
+
+    // Blad-bush
+    maxNumBush = 1000;
+    tries = 0;
+    numBush = 0;
+    while(numBush < maxNumBush && tries < maxNumTries){
+
+        float x = rGen.uniform(0.0,(double)sizeX);
+        float z = rGen.uniform(0.0,(double)sizeZ);
+
+        //tree models need to be alittlebit in the ground
+        float y = getHeight(x,z);
+
+        if(isTreePlacementOK(x,y,z, 1, 8)){
+            addTree(3,QVector3D(x,y,z), QVector3D(1,1,1)*rGen.uniform(0.2, 0.6));
+            numBush++;
+        }
+        tries++;
     }
 }

@@ -93,7 +93,7 @@ void ExtrapolateAndConquer::initialize(void){
         physics.position = QVector3D(qrand()%150+10,-2,qrand()%150+65);
         physics.rotation2 = QQuaternion(1,0,0,0);
         physics.elasticity = 0.3;
-        physics.friction = 0.3;
+        physics.friction = 1.0;
         physics.gravitationalConstant = 9.82;
 
         if(i < nBalls) {        // -------- Stone 1 -----------
@@ -156,9 +156,11 @@ void ExtrapolateAndConquer::initialize(void){
 
     Object* worldObject;
 
-    uint seed = 1;  // -1 means random seed from current time
+    // Nice worlds: 1, 13, ...
+    uint seed = 21;  // -1 means random seed from current time
     int nOctaves = sizeof(octaves)/sizeof(float);
-    worldModel = world->generateWorld(200,200,0.5f,octaves,scales,nOctaves, seed);
+    float vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
+    worldModel = world->generateWorld(200,200,vertexDensity,octaves,scales,nOctaves, seed);
     hightMapOfChunk = world->heightMap;
 
     // Shadow map Matrices
@@ -370,9 +372,9 @@ void ExtrapolateAndConquer::loopBody(){
 
             // Vulcano
             int m = sp.mass/2;
-            int x = 72;
-            int y = 22;
-            int z = 161;
+            int x = (int)world->maxPosition.x();//72;
+            int z = (int)world->maxPosition.z();//161;
+            int y = world->getHeight(x,z)+1;//22;
             sp.position = QVector3D(qrand()%3+x, y, qrand()%3+z);
             sp.velocity = QVector3D(0,0,0);
             sp.linearMomentum = QVector3D(qrand()%(30*m)-15*m,100*m,qrand()%(30*m)-15*m);
