@@ -5,19 +5,30 @@
 World::World( ResourceManager* resources){
     lightPosition = QVector3D(-100,100,-10);
 
-    QVector<GLuint> treeTextures;
 
-    /* Okej så att ehh, tree*a innehåller ett stycke stam och tree*b innehållerer motsvarande löverk.
-     * Dessa måste placeras på samma position för att det ska makea sense.
-     * Det finns fyra olika sorters träd tree1, tree2, tree3 och tree4.
-     * Det vore nice om dessa kunde slumpas ut fint på världen. Plz do
-     */
+    //do the setup for the trees, probably not really the right place for it tough...
+    QVector<GLuint> treeTex1;
+    QVector<GLuint> leafTex1;
+    treeTex1.push_back(resources->getTexture("tree1a"));
+    leafTex1.push_back(resources->getTexture("tree1b"));
+    tree1 = new StaticObjectList(resources->getModel("tree1a"),treeTex1,resources->getShader("instance"));
+    leaf1 = new StaticObjectList(resources->getModel("tree1b"),leafTex1,resources->getShader("instance"));
 
-    treeTextures.push_back(resources->getTexture("tree5"));
-    trees = new StaticObjectList(resources->getModel("tree5"),treeTextures,resources->getShader("instance"));
 
-    //treeTextures.push_back(resources->getTexture("tree1b"));
-    //trees = new StaticObjectList(resources->getModel("tree1b"),treeTextures,resources->getShader("instance"));
+    QVector<GLuint> treeTex2;
+    QVector<GLuint> leafTex2;
+    treeTex2.push_back(resources->getTexture("tree2a"));
+    leafTex2.push_back(resources->getTexture("tree2b"));
+    tree2 = new StaticObjectList(resources->getModel("tree2a"),treeTex2,resources->getShader("instance"));
+    leaf2 = new StaticObjectList(resources->getModel("tree2b"),leafTex2,resources->getShader("instance"));
+
+
+    QVector<GLuint> treeTex3;
+    QVector<GLuint> leafTex3;
+    treeTex3.push_back(resources->getTexture("tree3a"));
+    leafTex3.push_back(resources->getTexture("tree3b"));
+    tree3 = new StaticObjectList(resources->getModel("tree3a"),treeTex3,resources->getShader("instance"));
+    leaf3 = new StaticObjectList(resources->getModel("tree3b"),leafTex3,resources->getShader("instance"));
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, uint seed){
@@ -283,37 +294,86 @@ QVector3D World::getNormal(float x, float z)
     return normal;
 }
 
+std::vector<QVector2D> World::getForests(void){
+    int max_num_forests = 10;
+    int max_num_iters = 10000; //in case we get unlycky with the worldgen, stop placing trees
+    cv::RNG rng;
 
-StaticObjectList* World::getTrees(void){
-    return trees;
+    std::vector<QVector2D> forests;
+    //observe! two termination conditions
+    for(int i=0; i < max_num_iters && forests.size() < max_num_forests; ++i){
+        float x = rng.uniform((float)0.0,(float)sizeX);
+        float z = rng.uniform((float)0.0,(float)sizeZ);
+        float h = getHeight(x,z);
+        //TODO use normal information too...
+        //QVector3D normal = getNormal(x,z);
+
+        if(h > 0){
+            forests.push_back(QVector2D(x,z));
+        }
+    }
+
+    return forests;
+}
+
+void World::addTree(int type, QVector3D position){
+    cv::RNG generator;
+    float rotation = (float)generator.uniform(0,600) / 100.0; //roughly a random ammount of radians
+
+    QQuaternion randomRotation = QQuaternion(rotation,0,1,0);
+    randomRotation.normalize();
+
+    switch(type){
+        case 0:
+            tree1->appendObject(position,randomRotation);
+            leaf1->appendObject(position,randomRotation);
+        break;
+        case 1:
+            tree2->appendObject(position,randomRotation);
+            leaf2->appendObject(position,randomRotation);
+        break;
+        case 2:
+            tree3->appendObject(position,randomRotation);
+            leaf3->appendObject(position,randomRotation);
+        default:
+            printf("INVALID TREE TYPE ERROR ! \n");
+            exit(0);
+        break;
+    }
 }
 
 void World::placeTrees(void){
-    cv::RNG generator = cv::RNG();
-    int maxNumTrees = 500;
-    int maxNumIters = 100000;
-    int numIters = 0;
-    int numTrees = 0;
+    //make a list of possible forest areas
+    std::vector<QVector2D> forests = getForests();
+    //make forests in these areas
+    cv::RNG gen;
 
-    float offsetX = (float)sizeX / 2;
-    float offsetZ = (float)sizeZ / 2;
-    float sigmaX = offsetX;
-    float sigmaZ = offsetZ;
+    int maxNumTrees = 50;
+    int maxNumTries = 10000;
 
-    while(maxNumTrees > numTrees && maxNumIters > numIters){
-        float x = generator.gaussian(sigmaX) + offsetX;
-        float z = generator.gaussian(sigmaZ) + offsetZ;
-        float y = getHeight(x,z);
-        float rotation = (float)generator.uniform(0,600) / 100.0; //roughly a random ammount of radians
-        //float scale = generator.gaussian(0.1);
-        float scale = 1.0;
-        if(y > 0){
-            QQuaternion rot = QQuaternion(rotation,0,1,0);
-            rot.normalize();
-            trees->appendObject(QVector3D(x,y,z),rot,QVector3D(scale,scale,scale));
+    for(QVector2D& forest : forests){
+
+        float x = forest.x();
+        float z = forest.y();
+
+        //tree models need to be alittlebit in the ground
+        float y = getHeight(forest.x(),forest.y()) - 1.0;
+
+        int numTrees = 0;
+        for(int i = 0; i < maxNumTries && numTrees < maxNumTrees; ++i){
+            float xOffest = gen.gaussian((float)6.0);
+            float zOffset = gen.gaussian((float)6.0);
+
+            float treeX = x + xOffest;
+            float treeZ = z + zOffset;
+            float treeY = getHeight(treeX,treeZ);
+
+            int treeType = gen.uniform((int)0,(int)2);
+            //just remove the trees placed in lousy positions
+            if(treeY > 0){
+                addTree(treeType,QVector3D(treeX,treeY,treeZ));
+            }
             numTrees = numTrees + 1;
         }
-        numIters = numIters + 1;
     }
-    printf("placed %d trees \n",trees->getMatrices().size());
 }

@@ -214,14 +214,12 @@ void Renderer::calculateLightSourceMatrices()
 
 void Renderer::repaint(){
 
-
     // Used to move the waves (etc)
     static float incr = 0.0;
     //incr += 0.0005;
     float speed = 0.07;
     incr += dt*speed;
     incr = incr > 1 ? incr-1 : incr;
-
 
     calculateLightSourceMatrices();
 
@@ -236,7 +234,14 @@ void Renderer::repaint(){
     if(worldData != NULL){
         //glDepthMask(GL_FALSE);
         //glEnable(GL_BLEND);
-        drawInstanceObjects(worldData->trees, true);
+        drawInstanceObjects(worldData->tree1, true);
+        drawInstanceObjects(worldData->leaf1, true);
+
+        drawInstanceObjects(worldData->tree2, true);
+        drawInstanceObjects(worldData->leaf2, true);
+
+        drawInstanceObjects(worldData->tree3, true);
+        drawInstanceObjects(worldData->leaf3, true);
         //glDisable(GL_BLEND);
         //glDepthMask(GL_TRUE);
     }
@@ -301,49 +306,18 @@ void Renderer::repaint(){
         glDisable(GL_BLEND);
     }
 
-    // slowly sort according to closeness to camera using single iterations of bubblesort
-    worldData->trees->sortOnClosest(camera->position);
-
     if(worldData != NULL){
-        glDepthMask(GL_FALSE);
         glEnable(GL_BLEND);
-        drawInstanceObjects(worldData->trees, false);
+        drawInstanceObjects(worldData->tree1, false);
+        drawInstanceObjects(worldData->leaf1, false);
+
+        drawInstanceObjects(worldData->tree2, false);
+        drawInstanceObjects(worldData->leaf2, false);
+
+        drawInstanceObjects(worldData->tree3, false);
+        drawInstanceObjects(worldData->leaf3, false);
         glDisable(GL_BLEND);
-        glDepthMask(GL_TRUE);
     }
-
-    /*
-    unsigned char * image = new unsigned char[3*width*height];
-
-    glReadBuffer(GL_BACK_LEFT);
-    glReadPixels(0,0,width,height,GL_RGB,GL_UNSIGNED_BYTE,image);
-
-    cv::Mat screenDump = cv::Mat(height, width, CV_8UC3);
-    int index = 0;
-    for(int row = 0; row < height; row++)
-        for(int col = 0; col < width; col++) {
-            screenDump.at<cv::Vec3b>(row,col) = cv::Vec3b(image[index+2], image[index+1], image[index]);
-            index += 3;
-        }
-    cv::flip(screenDump, screenDump, 0);
-    cv::imwrite("screenShot.png", screenDump);
-    */
-
-
-    //QImage im1 = FBO1->toImage();
-    //im1.save("im1.png");
-
-    // Render the FBO to the default buffer
-    /*
-    QGLFramebufferObject::bindDefault();    // Set the "normal" screen as render target
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
-    fboSquare->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
-    */
-
-
 }
 
 
