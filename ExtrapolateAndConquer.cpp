@@ -71,10 +71,10 @@ void ExtrapolateAndConquer::initialize(void){
     renderer->instanceDepthProgram = resourceManager->getShader("instanceDepth");
 
 
-    int nBalls = 40;
+    int nBalls = 100;
     qDebug() << "Initiating" << nBalls << "stones of each type (5 types).";
 
-    qsrand(2);
+    qsrand(3);
     // -------- Stones --------------------------
     for(int i = 0; i < nBalls*5; i++){
         // Initialize entity
@@ -118,7 +118,6 @@ void ExtrapolateAndConquer::initialize(void){
         e->get<Graphics>().object->setShaderParameters(0.3, 0.5, 0.2, 100);
 
         renderer->drawObject(e->get<Graphics>().object);
-
 
     }
 

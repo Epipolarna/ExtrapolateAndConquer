@@ -39,8 +39,8 @@ public:
     void processStep(SpherePhysics & physics) override {
 
         // Slowly lower the kinectic energy...
-        physics.angularMomentum *= 0.9999;
-        physics.linearMomentum *= 0.9999;
+        physics.angularMomentum *= 0.999;
+        physics.linearMomentum *= 0.999;
 
         // Update velocities
         physics.angularVelocity = physics.angularMomentum * (1.0/physics.momentOfInertia);
@@ -96,12 +96,6 @@ public:
                     float meanElasticity = (A.elasticity+B.elasticity)/2;
                     QVector3D linearMomentum_dt = radialVelocityDifferance*(meanElasticity + 1)/(1/A.mass + 1/B.mass);
 
-                    // Lower Kinectic energy due to collision
-                    A.angularMomentum *= 0.99;
-                    A.linearMomentum *= 0.99;
-                    B.angularMomentum *= 0.99;
-                    B.linearMomentum *= 0.99;
-
                     A.position += radialVector * (addedRadius - distance);
                     B.position -= radialVector * (addedRadius - distance);
                     A.linearMomentum += linearMomentum_dt;
@@ -120,6 +114,11 @@ public:
                     //A.force += -(A.friction+B.friction)/2 * A.mass * A.gravitationalConstant * A.velocity;
                     //B.force += -(A.friction+B.friction)/2 * B.mass * B.gravitationalConstant * B.velocity;
 
+                    // Lower Kinectic energy due to collision
+                    A.angularMomentum *= 0.99;
+                    A.linearMomentum *= 0.99;
+                    B.angularMomentum *= 0.99;
+                    B.linearMomentum *= 0.99;
                 }
             }
         }
@@ -156,7 +155,7 @@ public:
             physics.linearMomentum += linearMomentum_dt;
 
             // Normal force
-            physics.force += QVector3D(0,normal.y(),0) * physics.mass * physics.gravitationalConstant;
+            physics.force += QVector3D(0,normal.y(),0) * physics.mass * physics.gravitationalConstant * 0.99;
 
             // Collision induced rotation
             float friction = (physics.friction + terrainFriction)/2;
@@ -165,7 +164,7 @@ public:
             physics.torque += QVector3D::crossProduct(frictionForce, normal);
 
             // Collision induced friction force
-            physics.force += -friction * physics.mass * physics.gravitationalConstant * physics.velocity.normalized();
+            physics.force += -friction * physics.mass * physics.gravitationalConstant * physics.velocity.normalized() * 0.9999;
 
             //LOG("old distance: " << distance);
             //LOG("new distance: " << (physics.position - terrainImpactPoint).length());
