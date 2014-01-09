@@ -353,7 +353,6 @@ void Renderer::repaint(){
 
     if(isRenderingTrees){
         if(worldData != NULL){
-            glDepthMask(GL_FALSE);
             glEnable(GL_BLEND);
             drawInstanceObjects(worldData->tree1, false);
             drawInstanceObjects(worldData->leaf1, false);
@@ -367,7 +366,6 @@ void Renderer::repaint(){
             drawInstanceObjects(worldData->bush1, false);
             drawInstanceObjects(worldData->bush2, false);
             glDisable(GL_BLEND);
-            glDepthMask(GL_TRUE);
         }
     }
 }
