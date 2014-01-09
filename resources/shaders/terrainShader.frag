@@ -270,8 +270,9 @@ void main(void){
 		int kernelSize = 2;
 		//shadowTest(lightSpaceVertex.xy, testKernelSize);
 	
-		//outColor = texel0*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
-		outColor = texel0*shadowTest(lightSpaceVertex.xy, kernelSize);
+		//outColor = texel0*phongShading();
+		outColor = texel0*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
+		//outColor = texel0*shadowTest(lightSpaceVertex.xy, kernelSize);
 	/*
 		if(nShadows == 0){
 			outColor = texel0*phongShading();
