@@ -1,11 +1,11 @@
 Boom hacka lacka
 
 \subsubsection{Shadows}
-Shadows are one those things that can make a scene really come to life. It will help the viewer to understand the structure of the terrain and location of objects. There are many techniques in which shadows can be achieved with different pros and cons. We have chosen to use shadow mapping since it offers real-time shadows for arbitrary shapes in a theoretically straight forward way. 
+Shadows are one those things that can make a scene really come to life. It will help the viewer to understand the structure of the terrain and location of objects much better than with only shading. There are many techniques in which shadows can be achieved with different pros and cons. We have chosen to use shadow mapping \cite{ShadowMapping} which by now is a fairly old technique, 1978, but still used in many modern computer games. Shadow mapping offers real-time shadows for arbitrary scenes in a theoretically straight forward way. 
 
-The quality of these can be increased arbitrarily, but the computational complexity is increased equivalently, which is what limits this method. 
+The quality of these shadows can be increased arbitrarily, but the computational complexity is increased equivalently, which is what limits this method. 
 
-More specifically our implementation utilizes \textit{Light-Space Shadow Mapping} which can be summarized in the following steps:
+More specifically our implementation utilizes \textit{Light Space Perspective Shadow Mapping} \cite{LSPShadowMapping} which can be summarized in the following steps:
 
 \begin{itemize}
 \item Place the camera in the light source and adjust the camera frustum to cover the part of the scene that will be visible in the final render.
