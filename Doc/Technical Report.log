@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  30 DEC 2013 17:03
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  9 JAN 2014 11:26
 entering extended mode
 **Technical*Report.tex
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.tex"
@@ -813,18 +813,18 @@ used, duplicate ignored
 l.119 \newpage
                [1] (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/core.tex
 Package epstopdf Info: Source file: <images/EntityComponentSystemExample.eps>
-(epstopdf)                    date: 2013-12-29 16:27:38
+(epstopdf)                    date: 2013-12-30 17:19:11
 (epstopdf)                    size: 300870 bytes
 (epstopdf)             Output file: <images/EntityComponentSystemExample-eps-co
 nverted-to.pdf>
-(epstopdf)                    date: 2013-12-29 16:27:38
+(epstopdf)                    date: 2013-12-30 17:19:11
 (epstopdf)                    size: 63002 bytes
 (epstopdf)             Command: <epstopdf --outfile=images/EntityComponentSyste
 mExample-eps-converted-to.pdf images/EntityComponentSystemExample.eps>
 (epstopdf)             \includegraphics on input line 9.
 Package epstopdf Info: Output file is already uptodate.
 
-<images/EntityComponentSystemExample-eps-converted-to.pdf, id=147, 667.49374pt 
+<images/EntityComponentSystemExample-eps-converted-to.pdf, id=151, 667.49374pt 
 x 270.00874pt>
 File: images/EntityComponentSystemExample-eps-converted-to.pdf Graphic file (ty
 pe pdf)
@@ -851,14 +851,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--17
 
  []
 
-[3] <images/Simplex.png, id=164, 376.40625pt x 376.40625pt>
+[3] <images/Simplex.png, id=168, 376.40625pt x 376.40625pt>
 File: images/Simplex.png Graphic file (type png)
 
 <use images/Simplex.png>
 Package pdftex.def Info: images/Simplex.png used on input line 27.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
 
-<images/FracBrownMotion.png, id=166, 376.40625pt x 376.40625pt>
+<images/FracBrownMotion.png, id=170, 376.40625pt x 376.40625pt>
 File: images/FracBrownMotion.png Graphic file (type png)
 
 <use images/FracBrownMotion.png>
@@ -884,8 +884,37 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 9.
-)) [5]
-(D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/ai.tex) [6]
+
+<images/horizonNoFog.png, id=183, 770.88pt x 481.8pt>
+File: images/horizonNoFog.png Graphic file (type png)
+
+<use images/horizonNoFog.png>
+Package pdftex.def Info: images/horizonNoFog.png used on input line 30.
+(pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
+
+<images/horizonFog.png, id=184, 771.48225pt x 482.40225pt>
+File: images/horizonFog.png Graphic file (type png)
+
+<use images/horizonFog.png>
+Package pdftex.def Info: images/horizonFog.png used on input line 36.
+(pdftex.def)             Requested size: 218.94247pt x 136.90456pt.
+
+<images/skybox0.png, id=185, 4111.36pt x 3083.52pt>
+File: images/skybox0.png Graphic file (type png)
+ <use images/skybox0.png>
+Package pdftex.def Info: images/skybox0.png used on input line 47.
+(pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
+
+<images/skybox1.png, id=186, 4111.36pt x 3083.52pt>
+File: images/skybox1.png Graphic file (type png)
+ <use images/skybox1.png>
+Package pdftex.def Info: images/skybox1.png used on input line 53.
+(pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
+
+[5 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/horizonNoFog.png> <D:/Dev/Git/E
+xtrapolateAndConquer/Doc/images/horizonFog.png> <D:/Dev/Git/ExtrapolateAndConqu
+er/Doc/images/skybox0.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/skybox1
+.png>])) [6] (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/ai.tex) [7]
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/conclusions.tex)
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/bibliography.tex
 Underfull \hbox (badness 10000) in paragraph at lines 39--42
@@ -894,7 +923,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--42
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 153.
- [7pdfTeX warning (ext4): destination with the same identifier (name{cite.citek
+ [8pdfTeX warning (ext4): destination with the same identifier (name{cite.citek
 ey}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
@@ -915,10 +944,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 153.
  ) 
 Here is how much of TeX's memory you used:
- 10877 strings out of 493921
- 158559 string characters out of 3147270
- 254313 words of memory out of 3000000
- 13921 multiletter control sequences out of 15000+200000
+ 10909 strings out of 493921
+ 159213 string characters out of 3147270
+ 255789 words of memory out of 3000000
+ 13946 multiletter control sequences out of 15000+200000
  11885 words of font info for 45 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  42i,18n,45p,740b,479s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -931,9 +960,9 @@ public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
 fonts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 msy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pf
 b>
-Output written on "Technical Report.pdf" (10 pages, 767486 bytes).
+Output written on "Technical Report.pdf" (11 pages, 9817139 bytes).
 PDF statistics:
- 234 PDF objects out of 1000 (max. 8388607)
- 42 named destinations out of 1000 (max. 500000)
- 183 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 249 PDF objects out of 1000 (max. 8388607)
+ 45 named destinations out of 1000 (max. 500000)
+ 203 words of extra memory for PDF output out of 10000 (max. 10000000)
 

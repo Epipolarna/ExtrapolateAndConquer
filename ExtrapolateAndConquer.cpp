@@ -36,6 +36,13 @@ ExtrapolateAndConquer::~ExtrapolateAndConquer(){
 
 void ExtrapolateAndConquer::initialize(void){
 
+    // ALX --------
+    // Fog pos
+    //camera->setPosition(QVector3D(0,17,0));
+    //camera->setLookAtPoint(QVector3D(-1,17,-1));
+
+    // ------------
+
     // Position 1
     //camera->setPosition(QVector3D(93.8781, 51.4692, -16.1341));
     //camera->setLookAtPoint(QVector3D(94.0255, 51.0261, -15.2498));
@@ -378,9 +385,9 @@ void ExtrapolateAndConquer::loopBody(){
     sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
     sphereTerrainCollisionSystem.batch();
 
-    qDebug() << "position" << physics.position << "| velocity " << physics.velocity << "|  linearMomentum" << physics.linearMomentum << "|  force" << physics.force;
-    qDebug() << "aVelocity" << physics.angularVelocity2 << "| angularMomentum" << physics.angularMomentum << "| torque" << physics.torque;
-    qDebug() << "---------------------------";
+    //qDebug() << "position" << physics.position << "| velocity " << physics.velocity << "|  linearMomentum" << physics.linearMomentum << "|  force" << physics.force;
+    //qDebug() << "aVelocity" << physics.angularVelocity2 << "| angularMomentum" << physics.angularMomentum << "| torque" << physics.torque;
+    //qDebug() << "---------------------------";
 
     // Run physics simulators
     spherePhysicsSystem.batch();

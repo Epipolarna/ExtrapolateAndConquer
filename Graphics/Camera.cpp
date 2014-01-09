@@ -157,6 +157,8 @@ void Camera::updateLookAt()
 
     vMatrixInv = vMatrix;
     vMatrixInv.inverted();
+
+    //qDebug() << "Pos: " << position << "Lookat: " << lookAtPoint;
 }
 
 QMatrix4x4 Camera::skyboxMatrix()
