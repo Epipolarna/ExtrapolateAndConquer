@@ -259,13 +259,12 @@ void Renderer::repaint(){
     incr = incr > 1 ? incr-1 : incr;
 
     // ----------- SHADOW MAPPING -------------------------------
+    // Draw the scene from the lightsource to shadowMap FBO
+    useFBO(fbo1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     if(isRenderingShadows){
         calculateLightSourceMatrices();
 
-        // Draw the scene from the lightsource to shadowMap FBO
-        useFBO(fbo1);
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 
