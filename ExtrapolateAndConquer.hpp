@@ -20,7 +20,6 @@
 #include "Systems/Systems.hpp"
 
 
-
 class ExtrapolateAndConquer : QObject
 {
     Q_OBJECT
@@ -34,6 +33,9 @@ public:
     void generateNewWorld(int seed = -1);   // -1 : random
 
     int run();
+
+    void setState(void);
+
 public slots:
     void loopBody();
 
@@ -63,7 +65,10 @@ public:
     Entity<Components> * e;
     cv::Mat hightMapOfChunk;
 
+    bool vulcanActive;
+
     void loadResources(void);
+
 };
 
 #endif // EXTRAPOLATEANDCONQUER_HPP

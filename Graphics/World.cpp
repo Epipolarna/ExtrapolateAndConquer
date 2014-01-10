@@ -40,7 +40,7 @@ World::World( ResourceManager* resources){
     rGen.state = 3423431231334234234;
 }
 
-Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int _seed){
+Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int _seed, bool spawnVulcan){
 
     vertexDensity = _vertexDensity;
     sizeX = xRange;
@@ -124,54 +124,62 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
 
     // Vulcano
     // --------------------------------------
-    float vulcanoSize = 20*vertexDensity;
+    if(spawnVulcan)
+    {
+        float vulcanoSize = 20*vertexDensity;
 
-    float vulcanoHeight = 1.25;
-
-
-    //Find the highest point !?
-    cv::Point maxPos, minPos;
-    double maxY, minY;
-    cv::minMaxLoc(heightMap, &minY, &maxY, &minPos, &maxPos);
-
-    // Keep the vulcan within the matrix
-    if(maxPos.x < vulcanoSize) maxPos.x += vulcanoSize+1;
-    if(maxPos.x > heightMap.size().height-vulcanoSize) maxPos.x -= vulcanoSize+1;
-    if(maxPos.y < vulcanoSize) maxPos.y += vulcanoSize+1;
-    if(maxPos.y > heightMap.size().width-vulcanoSize) maxPos.y -= vulcanoSize+1;
-    maxPosition = QVector3D(maxPos.y/vertexDensity, maxY, maxPos.x/vertexDensity);
-
-    double minValue, maxValue;
-    cv::Point maxValuePos, minValuePos;
-
-    // Create outer shell
-    cv::Mat vulcano = cv::getGaussianKernel(vulcanoSize, 2.0, CV_32FC1);
-    cv::minMaxLoc(vulcano, &minValue, &maxValue, &minValuePos, &maxValuePos);
-    //vulcano /= maxValue; // Normalize the height
-    vulcano *= (maxY+vulcanoHeight) ;//(maxPosition.y()+vulcanoHeight)/maxPosition.y();
-    vulcano = vulcano * vulcano.t();
-    //vulcano += 1;   // Make the surrounding area stay the same (lowest scaling now = 1.0)
-    vulcano *= vulcanoHeight;
-    qDebug() << "maxHeight" << maxValue << "minHeight" << minValue;
-
-    // Create the inner hole
-    cv::Mat vulcanoHole = cv::getGaussianKernel(vulcanoSize, 0.2, CV_32FC1);
-    cv::minMaxLoc(vulcanoHole, &minValue, &maxValue, &minValuePos, &maxValuePos);
-    //vulcanoHole /= maxValue;
-    vulcanoHole = vulcanoHole * vulcanoHole.t();
-    vulcanoHole *= 0.5;
-    //vulcanoHole = 1-vulcanoHole;
-
-    //vulcano -= vulcanoHole;
+        float vulcanoHeight = 1.25;
 
 
-    float diff = int(vulcanoSize/2.0) - vulcanoSize/2.0;
-    cv::Mat heightMapVulcano(heightMap, cv::Rect(maxPos.x-vulcanoSize/2.0,maxPos.y-vulcanoSize/2.0,vulcanoSize,vulcanoSize));
-    heightMapVulcano += vulcano;
-    heightMapVulcano -= vulcanoHole;
-    cv::minMaxLoc(heightMapVulcano, &minValue, &maxValue, &minValuePos, &maxValuePos);
-    maxPosition = QVector3D(maxPosition.x()-0.75, 2*maxValue*scaleFactor - scaleFactor - 2, maxPosition.z()-0.75);
-    qDebug() << "maxPosition" << maxPosition;
+        //Find the highest point !?
+        cv::Point maxPos, minPos;
+        double maxY, minY;
+        cv::minMaxLoc(heightMap, &minY, &maxY, &minPos, &maxPos);
+
+        // Make the vulcan tall enough when the distance over sea is too low
+        if(2*maxY*scaleFactor - scaleFactor < 12) {
+            vulcanoHeight = 1.8;
+        }
+
+        // Keep the vulcan within the matrix
+        if(maxPos.x < vulcanoSize) maxPos.x += vulcanoSize+1;
+        if(maxPos.x > heightMap.size().height-vulcanoSize) maxPos.x -= vulcanoSize+1;
+        if(maxPos.y < vulcanoSize) maxPos.y += vulcanoSize+1;
+        if(maxPos.y > heightMap.size().width-vulcanoSize) maxPos.y -= vulcanoSize+1;
+        maxPosition = QVector3D(maxPos.y/vertexDensity, maxY, maxPos.x/vertexDensity);
+
+        double minValue, maxValue;
+        cv::Point maxValuePos, minValuePos;
+
+        // Create outer shell
+        cv::Mat vulcano = cv::getGaussianKernel(vulcanoSize, 2.0, CV_32FC1);
+        cv::minMaxLoc(vulcano, &minValue, &maxValue, &minValuePos, &maxValuePos);
+        //vulcano /= maxValue; // Normalize the height
+        vulcano *= (maxY+vulcanoHeight) ;//(maxPosition.y()+vulcanoHeight)/maxPosition.y();
+        vulcano = vulcano * vulcano.t();
+        //vulcano += 1;   // Make the surrounding area stay the same (lowest scaling now = 1.0)
+        vulcano *= vulcanoHeight;
+        qDebug() << "maxHeight" << maxValue << "minHeight" << minValue;
+
+        // Create the inner hole
+        cv::Mat vulcanoHole = cv::getGaussianKernel(vulcanoSize, 0.2, CV_32FC1);
+        cv::minMaxLoc(vulcanoHole, &minValue, &maxValue, &minValuePos, &maxValuePos);
+        //vulcanoHole /= maxValue;
+        vulcanoHole = vulcanoHole * vulcanoHole.t();
+        vulcanoHole *= 0.5;
+        //vulcanoHole = 1-vulcanoHole;
+
+        //vulcano -= vulcanoHole;
+
+
+        float diff = int(vulcanoSize/2.0) - vulcanoSize/2.0;
+        cv::Mat heightMapVulcano(heightMap, cv::Rect(maxPos.x-vulcanoSize/2.0,maxPos.y-vulcanoSize/2.0,vulcanoSize,vulcanoSize));
+        heightMapVulcano += vulcano;
+        heightMapVulcano -= vulcanoHole;
+        cv::minMaxLoc(heightMapVulcano, &minValue, &maxValue, &minValuePos, &maxValuePos);
+        maxPosition = QVector3D(maxPosition.x()-0.75, 2*maxValue*scaleFactor - scaleFactor - 2, maxPosition.z()-0.75);
+        qDebug() << "maxPosition" << maxPosition;
+    }
 
     // Push height map to VBO
     for (int x = 0; x <= xRange*vertexDensity; x++){
@@ -423,13 +431,13 @@ void World::placeTrees(void){
     std::vector<QVector2D> forests = getForests();
     //make forests in these areas
 
-    int maxNumTries;
+    int maxNumTries = 15000;
 
     // Bush1
     int maxNumBush = 5000;
     int tries = 0;
-    int numBush = 0;
-    while(numBush < maxNumBush && tries < maxNumTries){
+    int numBush1 = 0;
+    while(numBush1 < maxNumBush && tries < maxNumTries){
 
         float x = rGen.uniform(0.0,(double)sizeX);
         float z = rGen.uniform(0.0,(double)sizeZ);
@@ -439,16 +447,17 @@ void World::placeTrees(void){
 
         if(isTreePlacementOK(x,y,z, 14, 14)){
             addTree(4,QVector3D(x,y,z), QVector3D(1,1,1)*rGen.uniform(0.2, 0.4));
-            numBush++;
+            numBush1++;
         }
         tries++;
     }
 
+
     // Blad-bush
     maxNumBush = 1000;
     tries = 0;
-    numBush = 0;
-    while(numBush < maxNumBush && tries < maxNumTries){
+    int numBush2 = 0;
+    while(numBush2 < maxNumBush && tries < maxNumTries){
 
         float x = rGen.uniform(0.0,(double)sizeX);
         float z = rGen.uniform(0.0,(double)sizeZ);
@@ -458,17 +467,17 @@ void World::placeTrees(void){
 
         if(isTreePlacementOK(x,y,z, 1, 8)){
             addTree(3,QVector3D(x,y,z), QVector3D(1,1,1)*rGen.uniform(0.2, 0.6));
-            numBush++;
+            numBush2++;
         }
         tries++;
     }
 
-    int maxNumTrees = 50;
-    maxNumTries = 10000;
+    int maxNumTrees = 250;
     int forestIndex = 0;
 
     int maxHeight = 12;
     int treeSparsityHeightStart = 8;
+    int numTreesTotal = 0;
     for(QVector2D& forest : forests){
 
         float x = forest.x();
@@ -494,7 +503,9 @@ void World::placeTrees(void){
             }
             numTrees = numTrees + 1;
         }
+        numTreesTotal += numTrees;
         forestIndex++;
     }
+    qDebug() << "Spawned " << numBush1 + numBush2 << "Bushes and" << numTreesTotal << "Trees!";
 
 }

@@ -281,6 +281,9 @@ void Renderer::repaint(){
 
                 drawInstanceObjects(worldData->tree3, true);
                 drawInstanceObjects(worldData->leaf3, true);
+
+                drawInstanceObjects(worldData->bush1, true);
+                drawInstanceObjects(worldData->bush2, true);
             }
         }
 
@@ -363,8 +366,12 @@ void Renderer::repaint(){
             drawInstanceObjects(worldData->tree3, false);
             drawInstanceObjects(worldData->leaf3, false);
 
-            drawInstanceObjects(worldData->bush1, false);
+
+            //do not z fight!
+            glDepthMask (GL_FALSE);
             drawInstanceObjects(worldData->bush2, false);
+            drawInstanceObjects(worldData->bush1, false);
+            glDepthMask(GL_TRUE);
             glDisable(GL_BLEND);
         }
     }

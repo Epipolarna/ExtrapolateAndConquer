@@ -71,7 +71,7 @@ public:
     GLuint fboID, fboColorTex, fboDepth, fboDepthTex;
     
 private:
-    static const int maxInstanceObjects = 50;
+    static const int maxInstanceObjects = 100;
 
     void sortOnDepth(std::vector<Object *> & objects, int iterations = 1);
     bool closerThan(Object * obj1, Object * obj2);

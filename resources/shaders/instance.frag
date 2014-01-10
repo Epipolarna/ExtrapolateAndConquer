@@ -32,6 +32,10 @@ void main(void)
 	vec2 scaledTexCoord = exTexCoord*texScaling;
 	
 	vec4 texel0 = texture(tex0, scaledTexCoord);	// Main Texture
+	if(texel0.a < 0.9){
+		discard;
+	}
+
 	
 	// Phong
 	vec3 cameraPosition = -transpose(mat3(vMatrix)) * vMatrix[3].xyz;
@@ -49,10 +53,6 @@ void main(void)
 	
 	float shading = ambientCoeff + diffuseCoeff*diffuseComponent + specularCoeff*specularComponent;
 	
-	if(texel0.a < 0.2){
-		discard;
-	}
-
 	outColor = vec4(texel0.rgb*shading, texel0.a);
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);

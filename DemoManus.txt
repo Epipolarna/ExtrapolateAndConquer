@@ -1,0 +1,24 @@
+﻿Manus
+1. Vatten
+  1.1 Titta nära
+  1.2 Titta på lite håll (demonstrera glitterandet)
+2. Terräng + textur
+  2.1 En värld (endast terräng, grönfärgad, sämsta skuggan)
+  2.2 Kan få olika världar (generera 4-5 stycken och stanna på den vi vill demoa primärt)
+  2.3 Kan få textur (dålig textur)
+  2.4 Kan få Textur som är lite bättre (naiv implementering)
+  2.5 Kan få en avancerad blending (den vi har)
+  2.6 Ser ni vågorna mot stranden?
+3. Växtlighet i världen
+  3.1 Olika skogar med olika trädsorter
+  3.2 buskar
+4. Fina skuggor (de finare)
+  4.1 Visa en bild från vattnet med träd framför som fäller skuggorna mot en och har solen bakom sig-ish. (grymt läckert)
+5. Vulkan
+  5.1 Slå på så att vulkenen syns (terrängen "transformeras")
+  5.2 Låt oss göra världen lite mindre statisk - sätter igång vulkanen
+6. Solen
+  6.1 Flytta solen över himlen
+7. "Infinite" med världar
+  7.1 Loopa igenom några utvalda
+  7.2 Demonstrera att loopa igenom ett flertal till

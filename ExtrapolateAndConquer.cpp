@@ -36,6 +36,9 @@ ExtrapolateAndConquer::~ExtrapolateAndConquer(){
 
 void ExtrapolateAndConquer::initialize(void){
 
+    // Demo settings
+    vulcanActive = true;
+
     // ALX --------
     // Fog pos
     //camera->setPosition(QVector3D(0,17,0));
@@ -281,17 +284,20 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadModel("tree4a");
     resourceManager->loadModel("tree4b");
 
-    resourceManager->loadTexture("tree1a");
-    resourceManager->loadTexture("tree1b");
-    resourceManager->loadTexture("tree2a");
-    resourceManager->loadTexture("tree2b");
-    resourceManager->loadTexture("tree3a");
-    resourceManager->loadTexture("tree3b");
-    resourceManager->loadTexture("tree4a");
-    resourceManager->loadTexture("tree4b");
+    resourceManager->loadTexture("tree1a", false);
+    resourceManager->loadTexture("tree1b", false);
+    resourceManager->loadTexture("tree2a", false);
+    resourceManager->loadTexture("tree2b", false);
+    resourceManager->loadTexture("tree3a", false);
+    resourceManager->loadTexture("tree3b", false);
+    resourceManager->loadTexture("tree4a", false);
+    resourceManager->loadTexture("tree4b", false);
 
+    // Bushes
     resourceManager->loadModel("tree5");
-    resourceManager->loadTexture("tree5");
+    resourceManager->loadModel("bush",true);
+    resourceManager->loadTexture("tree5", true);
+    resourceManager->loadTexture("bush", false);
 
 
     //Stone data
@@ -347,10 +353,6 @@ void ExtrapolateAndConquer::loadResources(void){
 
     resourceManager->loadShader("instance");
 
-    //tree data
-    resourceManager->loadTexture("bush");
-    resourceManager->loadModel("bush",true);
-
     printf("all resources loaded! \n");
 }
 
@@ -385,29 +387,32 @@ void ExtrapolateAndConquer::loopBody(){
     //physics.force += QVector3D(0.1,0,0.2);
 
     // Respawn objects outside of the map
-    for(SpherePhysics & sp : entityManager.getComponents<SpherePhysics>()) {
-        if(sp.position.x() <= 0 || sp.position.z() <= 0 || sp.position.x() >= world->sizeX || sp.position.z() >= world->sizeZ || sp.position.y() < -8) {
-            /*
-            // Respawn over the ground
-            sp.position = QVector3D(qrand()%150+10, qrand()%25+10, qrand()%150+65);
+    if(vulcanActive)
+    {
+        for(SpherePhysics & sp : entityManager.getComponents<SpherePhysics>()) {
+            if(sp.position.x() <= 0 || sp.position.z() <= 0 || sp.position.x() >= world->sizeX || sp.position.z() >= world->sizeZ || sp.position.y() < -8) {
+                /*
+                // Respawn over the ground
+                sp.position = QVector3D(qrand()%150+10, qrand()%25+10, qrand()%150+65);
 
-            // Reset physics. Comment out to get stones flying in your head :)
-            sp.linearMomentum = QVector3D(0,0,0);
-            sp.velocity = QVector3D(0,0,0);
-            sp.angularMomentum = QVector3D(0,0,0);
-            sp.angularVelocity2 = QQuaternion(1,0,0,0);
-            */
+                // Reset physics. Comment out to get stones flying in your head :)
+                sp.linearMomentum = QVector3D(0,0,0);
+                sp.velocity = QVector3D(0,0,0);
+                sp.angularMomentum = QVector3D(0,0,0);
+                sp.angularVelocity2 = QQuaternion(1,0,0,0);
+                */
 
-            // Vulcano
-            int m = sp.mass/2;
-            int x = (int)world->maxPosition.x();//72;
-            int z = (int)world->maxPosition.z();//161;
-            int y = (int)world->maxPosition.y();//world->getHeight(x,z)+1;//22;
-            sp.position = QVector3D(qrand()%3+x, y, qrand()%3+z);
-            sp.velocity = QVector3D(0,0,0);
-            sp.linearMomentum = QVector3D(qrand()%(30*m)-15*m,100*m,qrand()%(30*m)-15*m);
-            sp.angularMomentum = QVector3D(qrand()%(2*m)-1*m,qrand()%(2*m)-1*m,qrand()%(2*m)-1*m);
-            sp.angularVelocity2 = QQuaternion(1,0,0,0);
+                // Vulcano
+                int m = sp.mass/2;
+                int x = (int)world->maxPosition.x();//72;
+                int z = (int)world->maxPosition.z();//161;
+                int y = (int)world->maxPosition.y();//world->getHeight(x,z)+1;//22;
+                sp.position = QVector3D(qrand()%3+x, y, qrand()%3+z);
+                sp.velocity = QVector3D(0,0,0);
+                sp.linearMomentum = QVector3D(qrand()%(30*m)-15*m,100*m,qrand()%(30*m)-15*m);
+                sp.angularMomentum = QVector3D(qrand()%(2*m)-1*m,qrand()%(2*m)-1*m,qrand()%(2*m)-1*m);
+                sp.angularVelocity2 = QQuaternion(1,0,0,0);
+            }
         }
     }
 
@@ -501,3 +506,43 @@ void ExtrapolateAndConquer::generateNewWorld(int seed){
     renderer->worldData = world;
 }
 
+void ExtrapolateAndConquer::setState(int state){
+    switch(state){
+        case 0:
+            //water and sky
+            break;
+        case 1:
+            //land ugly textures
+            break;
+        case 2:
+            //land fancy textures
+            break;
+        case 3:
+            //some trees
+            break;
+        case 4:
+            //some shadows
+            break;
+        case 5:
+            //better shadows
+            break;
+        case 5:
+            //volcano
+            break;
+        case 6:
+            //more trees / forests
+            break;
+        case 7:
+            //rocks
+            break;
+        case 8:
+            //more worlds
+            break;
+        case 9:
+            //broken world
+            break;
+        default:
+            //just make an new world with all the stuff enabled
+            break;
+    }
+}

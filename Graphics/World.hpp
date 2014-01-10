@@ -25,7 +25,7 @@
 class World{
 	public:
         World( ResourceManager* resources);
-        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int seed = -1);
+        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int seed = -1, bool spawnVulcan = true);
 
         
         /*!
@@ -60,6 +60,11 @@ class World{
 
         StaticObjectList* bush1;
         StaticObjectList* bush2;
+
+        int maxNumTrees;
+        int maxNumBushes;
+        bool hasVulcano;
+        bool gaussForests;
 
     private:
 
