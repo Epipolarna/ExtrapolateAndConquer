@@ -30,11 +30,11 @@ public:
 
     void initialize(void);
 
-    void generateNewWorld(int seed = -1);   // -1 : random
+    void generateNewWorld(int seed = -1, bool hasVulcano = true);   // -1 : random
 
     int run();
 
-    void setState(void);
+    void setState(int state);
 
 public slots:
     void loopBody();
@@ -66,6 +66,7 @@ public:
     cv::Mat hightMapOfChunk;
 
     bool vulcanActive;
+    int state;
 
     void loadResources(void);
 

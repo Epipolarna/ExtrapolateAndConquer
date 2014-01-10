@@ -25,6 +25,7 @@ public:
 
     bool requestNewWorld;
     bool isNewWorldRequested();
+    int currentState;
 
 protected slots:
     void resizeGl();

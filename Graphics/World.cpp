@@ -38,6 +38,12 @@ World::World( ResourceManager* resources){
     bush2 = new StaticObjectList(resources->getModel("bush"),bush2Tex,resources->getShader("instance"));
 
     rGen.state = 3423431231334234234;
+
+    maxNumTrees = 40;
+    maxNumBush1 = 250;
+    maxNumBush2 = 100;
+    gaussForests = false;
+    hasVulcano = false;
 }
 
 Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int _seed, bool spawnVulcan){
@@ -434,10 +440,9 @@ void World::placeTrees(void){
     int maxNumTries = 15000;
 
     // Bush1
-    int maxNumBush = 5000;
     int tries = 0;
     int numBush1 = 0;
-    while(numBush1 < maxNumBush && tries < maxNumTries){
+    while(numBush1 < maxNumBush1 && tries < maxNumTries){
 
         float x = rGen.uniform(0.0,(double)sizeX);
         float z = rGen.uniform(0.0,(double)sizeZ);
@@ -454,10 +459,9 @@ void World::placeTrees(void){
 
 
     // Blad-bush
-    maxNumBush = 1000;
     tries = 0;
     int numBush2 = 0;
-    while(numBush2 < maxNumBush && tries < maxNumTries){
+    while(numBush2 < maxNumBush2 && tries < maxNumTries){
 
         float x = rGen.uniform(0.0,(double)sizeX);
         float z = rGen.uniform(0.0,(double)sizeZ);
@@ -472,7 +476,6 @@ void World::placeTrees(void){
         tries++;
     }
 
-    int maxNumTrees = 250;
     int forestIndex = 0;
 
     int maxHeight = 12;

@@ -62,7 +62,8 @@ class World{
         StaticObjectList* bush2;
 
         int maxNumTrees;
-        int maxNumBushes;
+        int maxNumBush1;
+        int maxNumBush2;
         bool hasVulcano;
         bool gaussForests;
 

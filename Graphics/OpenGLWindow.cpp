@@ -51,6 +51,8 @@ void OpenGLWindow::initialize()
     if(errorCode != 0){
         printf("error after initing gl is: %x \n",errorCode);
     }
+
+    currentState = 0;
 }
 
 void OpenGLWindow::registerEventManager(Camera *_camera)
@@ -196,6 +198,14 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         break;
     case Qt::Key_N:
         requestNewWorld = true;
+        break;
+    case Qt::Key_P: // Move forward in demo
+        currentState++;
+        break;
+    case Qt::Key_O: // Move backwards in demo
+        requestNewWorld = true;
+        currentState--;
+        if(currentState < 0) currentState = 0;
         break;
 
     default:

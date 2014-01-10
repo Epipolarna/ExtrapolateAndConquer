@@ -38,6 +38,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     // Demo settings
     vulcanActive = true;
+    state = -1;
 
     // ALX --------
     // Fog pos
@@ -59,9 +60,6 @@ void ExtrapolateAndConquer::initialize(void){
     // Peter Paning
     camera->setPosition(QVector3D(40.4615, 7.07579, 116.255));
     camera->setLookAtPoint(QVector3D(39.8829, 6.53198, 116.863));
-
-
-
 
     // ------------
 
@@ -374,6 +372,10 @@ void ExtrapolateAndConquer::loopBody(){
     if(openGLWindow->isNewWorldRequested()) {
         generateNewWorld();
     }
+    if(state != openGLWindow->currentState) {
+        state = openGLWindow->currentState;
+        setState(state);
+    }
 
     spherePhysicsSystem.setTimeInterval(dt);
     openGLWindow->getRenderer()->setDt(dt);
@@ -446,7 +448,7 @@ void ExtrapolateAndConquer::loopBody(){
 
 
 
-void ExtrapolateAndConquer::generateNewWorld(int seed){
+void ExtrapolateAndConquer::generateNewWorld(int seed, bool hasVulcano){
     Renderer* renderer = openGLWindow->getRenderer();
 
     // Generate terrain
@@ -477,7 +479,7 @@ void ExtrapolateAndConquer::generateNewWorld(int seed){
 
     int nOctaves = sizeof(octaves)/sizeof(float);
     float vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
-    worldModel = world->generateWorld(200,200,vertexDensity,octaves,scales,nOctaves, seed);
+    worldModel = world->generateWorld(200,200,vertexDensity,octaves,scales,nOctaves, seed, hasVulcano);
     hightMapOfChunk = world->heightMap;
 
     //
@@ -507,6 +509,15 @@ void ExtrapolateAndConquer::generateNewWorld(int seed){
 }
 
 void ExtrapolateAndConquer::setState(int state){
+    Renderer* renderer = openGLWindow->getRenderer();
+    bool hasVulcano = false;
+    renderer->isRenderingTerrain = false;
+    renderer->isRenderingTrees = false;
+    renderer->isRenderingBalls = false;
+    renderer->isRenderingShadows = false;
+    vulcanActive = false;
+    int seed = 1;
+
     switch(state){
         case 0:
             //water and sky
@@ -519,6 +530,7 @@ void ExtrapolateAndConquer::setState(int state){
             break;
         case 3:
             //some trees
+
             break;
         case 4:
             //some shadows
@@ -526,23 +538,32 @@ void ExtrapolateAndConquer::setState(int state){
         case 5:
             //better shadows
             break;
-        case 5:
+        case 6:
             //volcano
             break;
-        case 6:
+        case 7:
             //more trees / forests
             break;
-        case 7:
+        case 8:
             //rocks
             break;
-        case 8:
+        case 9:
             //more worlds
             break;
-        case 9:
+        case 10:
             //broken world
             break;
         default:
             //just make an new world with all the stuff enabled
+            hasVulcano = true;
+            renderer->isRenderingTerrain = true;
+            renderer->isRenderingTrees = true;
+            renderer->isRenderingBalls = true;
+            renderer->isRenderingShadows = true;
+            vulcanActive = true;
+            seed = -1;
             break;
     }
+    generateNewWorld(seed, hasVulcano);
+
 }
