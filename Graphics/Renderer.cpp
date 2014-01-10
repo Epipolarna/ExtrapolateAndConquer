@@ -124,8 +124,8 @@ void Renderer::initFBO(FBO* fbo)
     glGenTextures(1, &fbo->depthTex);
     glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, shadowMapSize, shadowMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
-    GLfloat borderColor[4]={1.0,1.0,1.0,1.0};
-    //GLfloat borderColor[4]={0.0,0.0,0.0,0.0};
+    //GLfloat borderColor[4]={1.0,1.0,1.0,1.0};
+    GLfloat borderColor[4]={0.0,0.0,0.0,0.0};
     glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR, borderColor);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
@@ -226,13 +226,19 @@ void Renderer::calculateLightSourceMatrices()
 
     switch(shadowLevel){
     case 1:
-        lightSourcePMatrix.ortho(-70,120,0,130,50,maxZ);
+        lightSourcePMatrix.ortho(-90,180,-20,220,50,maxZ);
         break;
     case 2:
-        lightSourcePMatrix.ortho(-30,90,5,110,50,maxZ);
+        lightSourcePMatrix.ortho(-30,90,0,110,50,maxZ);
         break;
     case 3:
-        lightSourcePMatrix.ortho(0,40,10,50,50,maxZ);
+        lightSourcePMatrix.ortho(25,90,45,100,50,maxZ);
+        /*
+        lightSourcePMatrix.ortho(-5,5,-5,5,50,maxZ);
+        qDebug() << "Pos   " << QVector4D(camera->position, 1);
+        qDebug() << "LS vMa" << lightSourceVMatrix;
+        qDebug() << "LS pos" << lightSourceVMatrix*QVector4D(camera->position);
+        */
         break;
 
     default:
