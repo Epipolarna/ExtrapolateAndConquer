@@ -157,8 +157,8 @@ void ExtrapolateAndConquer::initialize(void){
     float scales[16];
 
     // 1.8715 or 2.1042
-    float lacunarity = 1/1.87;
-    float gain = 0.66;
+    float lacunarity = 1/2.1;   // Period reduction
+    float gain = 0.52;          // Amplitude reduction
 
     //for each pixel, get the value
     float period = 400;
