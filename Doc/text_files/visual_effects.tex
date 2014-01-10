@@ -1,9 +1,9 @@
 Boom hacka lacka
 
 \subsubsection{Shadows}
-Shadows are one those things that can make a scene really come to life. It will help the viewer to understand the structure of the terrain and location of objects much better than with only shading. There are many techniques in which shadows can be achieved with different pros and cons. We have chosen to use shadow mapping \cite{ShadowMapping} which by now is a fairly old technique, 1978, but still used in many modern computer games. Shadow mapping offers real-time shadows for arbitrary scenes in a theoretically straight forward way. 
+Shadows are one those things that can make a scene really come to life. It will help the viewer to understand the structure of the terrain and location of objects much better than with only shading. There are many techniques in which shadows can be achieved with different pros and cons. We have chosen to use \textit{Shadow Mapping} \cite{ShadowMapping} which by now is a fairly old technique, 1978, but still used in many modern computer games. Shadow mapping offers real-time shadows for arbitrary scenes in a theoretically straight forward way. 
 
-The quality of these shadows can be increased arbitrarily, but the computational complexity is increased equivalently, which is what limits this method. 
+The quality of these shadows can be increased arbitrarily, but the computational complexity grows linearly with the size of the rendered screen \cite{ShadowMapping}. Therefor one has to limit this size and go for a number of improvement techniques to make shadows shine. 
 
 More specifically our implementation utilizes \textit{Light Space Perspective Shadow Mapping} \cite{LSPShadowMapping} which can be summarized in the following steps:
 
@@ -19,6 +19,57 @@ More specifically our implementation utilizes \textit{Light Space Perspective Sh
 \end{itemize}
 \end{itemize}
 
+Once these steps got into place one could naively think that the shadows are done once and for all, but thats not the case. The result out-of-the-box looks something like figure \ref{fig:SMAcne}. The terrain is full of errors and the shadows have a pretty bad resolution. The erroneous self-shadowing on the terrain is called \textit{Shadow Acne} \cite{ImprovedShadowMapping} and is caused by precision errors in the depth test. The value in the depth map and the real depth are too close so the depth test randomly fails. This can be fixed by adding an offset to the depth value which will remove the shadow if the two depth values are too close. The improved result can be seen in figure \ref{fig:SMAcneFix}.
+
+\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMAcne.png}
+  \caption{Surface suffering from severe acne}
+  \label{fig:SMAcne}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMAcneFix.png}
+  \caption{Surface healed by addition of small offset}
+  \label{fig:SMAcneFix}
+\end{subfigure}
+\caption[Shadow mapping, acne comparison]{\textit{Comparison of shadow mapping with and without acne}}
+\label{fig:AcneComparison}
+\end{figure}
+
+Care has to be taken when adding this depth offset. If the offset is to large the shadow may be disconnected from its object and cause so called \textit{Peter Paning} \cite{ImprovedShadowMapping}. A trade-off has to be made between shadow acne and peter paning. Thanks to good resolution in our depth buffers we did not need any big offset to remedy our acne problem and did therefore not suffer from any noticeable peter paning. 
+
+The shadows now look correctly but have a very low resolution when you get close up. The edge is sharp and one can easily distinguish pixels and so pleasant may. Increasing the resolution of the shadow map depth buffer will reduce the pixel size but this will decrease the frame rate. We settled on 2048 x 2048 pixels in our buffer, figure \ref{fig:PCFLvl1}. Now my first thought was low pass filtering, and this is sort of used in the improvement technique called \textit{Percentage Closer Filtering} \cite{ShadowMapAntialiasing87}\cite{ShadowMapAntialiasing03}. By randomly sampling the surroundings of the target shadow map pixel and weighting them, in our case with a Gaussian kernel, one get a smoother shadow edge. The result is definitely an good looking improvement, figure \ref{fig:PCFLvl5}. 
+
+\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/PCFLvl1.png}
+  \caption{Out-of-the-box shadows}
+  \label{fig:PCFLvl1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/PCFLvl5.png}
+  \caption{Percentage closer filtered shadows}
+  \label{fig:PCFLvl5}
+\end{subfigure}
+\caption[Noise comparison]{\textit{Comparison of shadow mapping with and without percentage-closer filtering}}
+\label{fig:PCFComparison}
+\end{figure}
+
+One can keep tweaking these filtering methods forever but they will by themselves never become more than smoothed low-resolution shadows. To reach the next level of shadow mapping, and current industry standards, we need to look for something better. The answer seems to be \textit{Cascade Shadow Mapping} (CSM) \cite{CascadeShadowMapping}. Once I dug into this I started to see CSM everywhere. There are some characteristic transitions in the detail levels that easily can be spotted in booth BattleField 3 (2011), Counter Strike: Global Offensive (2012) and SimCity (2013), figure // TODO. My point is: this is the way to go according to the cutting-edge game industry. 
+
+The concept is simple:
+
+\begin{itemize}
+\item Increase shadow resolution close to the camera
+\item Decrease shadow resolution further away from the camera
+\end{itemize}
+
+The implementation is done by rendering several shadow maps of increasing sizes. One small map just in front of the camera and then bigger and bigger maps further away. The resolution of the maps are the same but by adjusting their sizes the pixel density is high close to the camera and lower further away from the camera. In figure \ref{fig:SMOverViewComparison} some different shadow map sizes can be seen and in figure \ref{fig:SMCloseUpComparison} the corresponding increase in quality on low-level inspection. 
+
 \begin{figure}[H]
 \begin{subfigure}{.33\textwidth}
   \centering
@@ -30,13 +81,13 @@ More specifically our implementation utilizes \textit{Light Space Perspective Sh
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl2.png}
   \caption{Shadow mapping level 2}
-  \label{fig:SMOverViewLvl1}
+  \label{fig:SMOverViewLvl2}
 \end{subfigure}
 \begin{subfigure}{.33\textwidth}
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl3.png}
   \caption{Shadow mapping level 3}
-  \label{fig:SMOverViewLvl1}
+  \label{fig:SMOverViewLvl3}
 \end{subfigure}
 \caption[Noise comparison]{\textit{Overview of different shadow mapping levels}}
 \label{fig:SMOverViewComparison}
@@ -53,50 +104,16 @@ More specifically our implementation utilizes \textit{Light Space Perspective Sh
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl2.png}
   \caption{Shadow mapping level 2}
-  \label{fig:SMCloseUpLvl1}
+  \label{fig:SMCloseUpLvl2}
 \end{subfigure}
 \begin{subfigure}{.33\textwidth}
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl3.png}
   \caption{Shadow mapping level 3}
-  \label{fig:SMCloseUpLvl1}
+  \label{fig:SMCloseUpLvl3}
 \end{subfigure}
 \caption[Noise comparison]{\textit{Close-up of different shadow mapping levels}}
 \label{fig:SMCloseUpComparison}
-\end{figure}
-
-\begin{figure}[H]
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=0.9\linewidth]{images/PCFLvl1.png}
-  \caption{Original skybox}
-  \label{fig:PCFLvl1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=0.9\linewidth]{images/PCFLvl5.png}
-  \caption{Skybox modified to fade into fog}
-  \label{fig:PCFLvl1}
-\end{subfigure}
-\caption[Noise comparison]{\textit{Comparison of shadow mapping with and without percentage-closer filtering}}
-\label{fig:PCFComparison}
-\end{figure}
-
-\begin{figure}[H]
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=0.9\linewidth]{images/SMAcne.png}
-  \caption{Surface suffering from severe acne}
-  \label{fig:SMAcne}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=0.9\linewidth]{images/SMAcneFix.png}
-  \caption{Surface healed by addition of small offset}
-  \label{fig:SMAcneFix}
-\end{subfigure}
-\caption[Noise comparison]{\textit{Comparison of shadow mapping with and without acne}}
-\label{fig:AcneComparison}
 \end{figure}
 
 

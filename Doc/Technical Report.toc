@@ -12,7 +12,7 @@
 \contentsline {subsubsection}{\numberline {3.1.5}Content}{4}{subsubsection.3.1.5}
 \contentsline {subsection}{\numberline {3.2}Visual Effects}{4}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}Shadows}{4}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}Fog}{6}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.2}Fog}{7}{subsubsection.3.2.2}
 \contentsline {subsubsection}{\numberline {3.2.3}Normal Mapping}{7}{subsubsection.3.2.3}
 \contentsline {section}{\numberline {4}Artificial Intelligence}{8}{section.4}
 \contentsline {section}{\numberline {5}Conclusions}{9}{section.5}
