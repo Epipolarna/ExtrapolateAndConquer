@@ -133,8 +133,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     // --------------------------------------
     if(hasVulcano)
     {
-        float vulcanoSize = 20*vertexDensity;
-
+        float vulcanoSize = 10;
         float vulcanoHeight = 1.25;
 
 
@@ -490,7 +489,7 @@ void World::placeTrees(void){
         //tree models need to be alittlebit in the ground
         float y = getHeight(x,z);
 
-        if(isTreePlacementOK(x,y,z, 1, 8)){
+        if(isTreePlacementOK(x,y,z, 1, 8)) {
             addTree(rGen.uniform(0,2), QVector3D(x,y,z), QVector3D(1,1,1)*rGen.uniform(0.2, 1.0));
             numUniformTrees++;
         }

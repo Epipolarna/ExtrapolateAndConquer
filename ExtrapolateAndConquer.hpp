@@ -66,7 +66,9 @@ public:
     cv::Mat hightMapOfChunk;
 
     bool vulcanActive;
+    bool highResolutionTerrain;
     int state;
+    int seed;
 
     void loadResources(void);
 

@@ -31,6 +31,7 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
     connect(this, SIGNAL(heightChanged(int)), this, SLOT(resizeGl()));
 
     requestNewWorld = false;
+    toggleTerrainResolution = false;
 
     initializeOpenGLFunctions();
 }
@@ -159,10 +160,6 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
     case Qt::Key_Escape:
         close();
         break;
-    case Qt::Key_T:
-        specialValue += 0.01;
-        std::cerr << specialValue;
-        break;
     case Qt::Key_R:
         trackMouse = !trackMouse;
         if(trackMouse){
@@ -207,7 +204,9 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         currentState--;
         if(currentState < 0) currentState = 0;
         break;
-
+    case Qt::Key_T: // Toggle between high and low resolution terrain (4 times difference)
+        toggleTerrainResolution = true;
+        break;
     default:
         camera->keyPressEvent(e);
         break;

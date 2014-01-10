@@ -26,6 +26,7 @@ public:
     bool requestNewWorld;
     bool isNewWorldRequested();
     int currentState;
+    bool toggleTerrainResolution;
 
 protected slots:
     void resizeGl();
