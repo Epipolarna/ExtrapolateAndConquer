@@ -38,9 +38,9 @@ Once these steps got into place one could naively think that the shadows are don
 \label{fig:AcneComparison}
 \end{figure}
 
-Care has to be taken when adding this depth offset. If the offset is to large the shadow may be disconnected from its object and cause so called \textit{Peter Paning} \cite{ImprovedShadowMapping}. A trade-off has to be made between shadow acne and peter paning. Thanks to good resolution in our depth buffers we did not need any big offset to remedy our acne problem and did therefore not suffer from any noticeable peter paning. 
+Care has to be taken when adding this depth offset. If the offset is to large the shadow may be disconnected from its object and cause so called \textit{Peter Paning} \cite{ImprovedShadowMapping}. A trade-off has to be made between Shadow Acne and Peter Paning. Thanks to good resolution in our depth buffers we did not need any big offset to remedy our acne problem and did therefore not suffer from any noticeable Peter Paning. 
 
-The shadows now look correctly but have a very low resolution when you get close up. The edge is sharp and one can easily distinguish pixels and so pleasant may. Increasing the resolution of the shadow map depth buffer will reduce the pixel size but this will decrease the frame rate. We settled on 2048 x 2048 pixels in our buffer, figure \ref{fig:PCFLvl1}. Now my first thought was low pass filtering, and this is sort of used in the improvement technique called \textit{Percentage Closer Filtering} \cite{ShadowMapAntialiasing87}\cite{ShadowMapAntialiasing03}. By randomly sampling the surroundings of the target shadow map pixel and weighting them, in our case with a Gaussian kernel, one get a smoother shadow edge. The result is definitely an good looking improvement, figure \ref{fig:PCFLvl5}. 
+The shadows now look correctly but have a very low resolution when you get close up. The edge is sharp and one can easily distinguish pixels in a not so pleasant may. Increasing the resolution of the shadow map depth buffer will reduce the pixel size of the shadows in the final render but this will decrease the frame rate. We settled on 2048 x 2048 pixels in our buffer, figure \ref{fig:PCFLvl1}. Now my first thought was to low pass filter the shadow map, and this is sort of used in the improvement technique called \textit{Percentage Closer Filtering} \cite{ShadowMapAntialiasing87}\cite{ShadowMapAntialiasing03}. By randomly sampling the surroundings of the target shadow map pixel and weighting them, in our case with a Gaussian kernel in accordance with \cite{CascadeShadowMapping}, one get a smoother shadow edge. The result is definitely a good looking improvement, figure \ref{fig:PCFLvl5}. 
 
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
@@ -59,14 +59,16 @@ The shadows now look correctly but have a very low resolution when you get close
 \label{fig:PCFComparison}
 \end{figure}
 
-One can keep tweaking these filtering methods forever but they will by themselves never become more than smoothed low-resolution shadows. To reach the next level of shadow mapping, and current industry standards, we need to look for something better. The answer seems to be \textit{Cascade Shadow Mapping} (CSM) \cite{CascadeShadowMapping}. Once I dug into this I started to see CSM everywhere. There are some characteristic transitions in the detail levels that easily can be spotted in booth BattleField 3 (2011), Counter Strike: Global Offensive (2012) and SimCity (2013), figure // TODO. My point is: this is the way to go according to the cutting-edge game industry. 
+One can keep tweaking these filtering methods forever but they will by themselves never become more than smoothed low-resolution shadows. To reach the next level of shadow mapping, and current industry standards, we need to look for something better. The answer seems to be \textit{Cascade Shadow Mapping} (CSM) \cite{CascadeShadowMapping}. Once I dug into this I started to see CSM everywhere. There are some characteristic transitions in the detail levels that easily can be spotted in booth BattleField 3 (2011), Counter Strike: Global Offensive (2012) and SimCity (2013), figure // TODO. My point is: this is the way to go according to the cutting-edge game industry. I would also like to stress that real-time shadowing is far from a finished topic. 
 
-The concept is simple:
+The concept of CSM is simple:
 
 \begin{itemize}
 \item Increase shadow resolution close to the camera
 \item Decrease shadow resolution further away from the camera
 \end{itemize}
+
+In the optimal case one would adjust the pixel density to always be at least as high as for the target screen density. 
 
 The implementation is done by rendering several shadow maps of increasing sizes. One small map just in front of the camera and then bigger and bigger maps further away. The resolution of the maps are the same but by adjusting their sizes the pixel density is high close to the camera and lower further away from the camera. In figure \ref{fig:SMOverViewComparison} some different shadow map sizes can be seen and in figure \ref{fig:SMCloseUpComparison} the corresponding increase in quality on low-level inspection. 
 

@@ -118,26 +118,26 @@ void ExtrapolateAndConquer::initialize(void){
         if(i < nBalls) {        // -------- Stone 1 -----------
             physics.mass = 100.0;
             physics.radius = 1.0;
-            e->get<Graphics>().object = new Object(resourceManager->getModel("stone1"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone1"));
+            e->get<Graphics>().object = new Object(resourceManager->getModel("stone1"), resourceManager->getShader("phongTex"), resourceManager->getTexture("lava1"));
         } else
             if(i < nBalls*2) {  // -------- Stone 2 -----------
                 physics.mass = 50.0;
                 physics.radius = 0.45;
-                e->get<Graphics>().object = new Object(resourceManager->getModel("stone2"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone2"));
+                e->get<Graphics>().object = new Object(resourceManager->getModel("stone2"), resourceManager->getShader("phongTex"), resourceManager->getTexture("lava1"));
         } else
             if(i < nBalls*3) {  // -------- Stone 3 -----------
                 physics.mass = 30.0;
                 physics.radius = 0.25;
-                e->get<Graphics>().object = new Object(resourceManager->getModel("stone3"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone3"));
+                e->get<Graphics>().object = new Object(resourceManager->getModel("stone3"), resourceManager->getShader("phongTex"), resourceManager->getTexture("lava1"));
         } else
             if(i < nBalls*4) {  // -------- Stone 4 -----------
                 physics.mass = 25.0;
                 physics.radius = 0.2;
-                e->get<Graphics>().object = new Object(resourceManager->getModel("stone4"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone4"));
+                e->get<Graphics>().object = new Object(resourceManager->getModel("stone4"), resourceManager->getShader("phongTex"), resourceManager->getTexture("lava1"));
         } else {                // -------- Stone 5 -----------
                 physics.mass = 10.0;
                 physics.radius = 0.15;
-                e->get<Graphics>().object = new Object(resourceManager->getModel("stone5"), resourceManager->getShader("phongTex"), resourceManager->getTexture("stone5"));
+                e->get<Graphics>().object = new Object(resourceManager->getModel("stone5"), resourceManager->getShader("phongTex"), resourceManager->getTexture("lava1"));
         }
         physics.momentOfInertia = 6.0/12.0 * physics.mass * physics.radius * physics.radius;
         e->get<Graphics>().object->setScale(physics.radius);
@@ -308,6 +308,8 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadTexture("stone4", true);
     resourceManager->loadTexture("stone5", true);
 
+    resourceManager->loadTexture("lava1", true);
+
 
     printf("loading sphere data \n");
     resourceManager->loadShader("phongTex");
@@ -333,7 +335,7 @@ void ExtrapolateAndConquer::loadResources(void){
 
     //water data
     printf("loading water data \n");
-    //resourceManager->loadTexture("water", true);
+    resourceManager->loadTexture("water", true);
     resourceManager->loadTexture("waterNormalMap2", true);
     //resourceManager->loadTexture("waterNormalMap1");
     //resourceManager->loadModel("unitSquare");
