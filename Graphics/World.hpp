@@ -25,8 +25,7 @@
 class World{
 	public:
         World( ResourceManager* resources);
-        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int seed = -1, bool spawnVulcan = true);
-
+        Model* generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int seed = -1);
         
         /*!
          * \brief getHeight at global position x and z.
@@ -68,6 +67,8 @@ class World{
         bool gaussForests;
 
     private:
+
+        ResourceManager* resources;
 
         std::vector<QVector2D> getForests(void);
         void addTree(int type, QVector3D position, QVector3D scale = QVector3D(1,1,1));

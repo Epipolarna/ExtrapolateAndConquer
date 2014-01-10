@@ -81,3 +81,11 @@ bool StaticObjectList::closerThan(QVector3D center, QVector3D pos1, QVector3D po
     float distance2 = (center - pos2).length();
     return distance1 < distance2;
 }
+
+void StaticObjectList::clear() {
+    rotations.clear();
+    positions.clear();
+    mMatrices.clear();
+    scales.clear();
+
+}

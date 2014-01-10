@@ -2,9 +2,19 @@
 #include <iostream>
 #include <QTime>
 
-World::World( ResourceManager* resources){
+World::World( ResourceManager* resources ){
     lightPosition = QVector3D(-100,100,-10);
 
+    this->resources = resources;
+
+    maxNumTrees = 25;
+    maxNumBush1 = 250;
+    maxNumBush2 = 100;
+    gaussForests = false;
+    hasVulcano = false;
+}
+
+Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int _seed){
 
     //do the setup for the trees, probably not really the right place for it tough...
     QVector<GLuint> treeTex1;
@@ -38,15 +48,6 @@ World::World( ResourceManager* resources){
     bush2 = new StaticObjectList(resources->getModel("bush"),bush2Tex,resources->getShader("instance"));
 
     rGen.state = 3423431231334234234;
-
-    maxNumTrees = 40;
-    maxNumBush1 = 250;
-    maxNumBush2 = 100;
-    gaussForests = false;
-    hasVulcano = false;
-}
-
-Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, float octaves[], float yScales[], int nOctaves, int _seed, bool spawnVulcan){
 
     vertexDensity = _vertexDensity;
     sizeX = xRange;
@@ -130,7 +131,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
 
     // Vulcano
     // --------------------------------------
-    if(spawnVulcan)
+    if(hasVulcano)
     {
         float vulcanoSize = 20*vertexDensity;
 
@@ -368,7 +369,7 @@ QVector3D World::getNormal(float x, float z)
 }
 
 std::vector<QVector2D> World::getForests(void){
-    int max_num_forests = 10;
+    int max_num_forests = 5;
     int max_num_iters = 10000; //in case we get unlycky with the worldgen, stop placing trees
     cv::RNG rng;
 
@@ -476,39 +477,67 @@ void World::placeTrees(void){
         tries++;
     }
 
-    int forestIndex = 0;
 
-    int maxHeight = 12;
-    int treeSparsityHeightStart = 8;
     int numTreesTotal = 0;
-    for(QVector2D& forest : forests){
+    // Uniform trees
+    tries = 0;
+    int numUniformTrees = 0;
+    while(numUniformTrees < maxNumTrees*2 && tries < maxNumTries){
 
-        float x = forest.x();
-        float z = forest.y();
+        float x = rGen.uniform(0.0,(double)sizeX);
+        float z = rGen.uniform(0.0,(double)sizeZ);
 
         //tree models need to be alittlebit in the ground
-        float y = getHeight(forest.x(),forest.y()) - 1.0;
+        float y = getHeight(x,z);
 
-        int numTrees = 0;
-        for(int i = 0; i < maxNumTries && numTrees < maxNumTrees; ++i){
-            float xOffest = rGen.gaussian((float)6.0);
-            float zOffset = rGen.gaussian((float)6.0);
-
-            float treeX = x + xOffest;
-            float treeZ = z + zOffset;
-            float treeY = getHeight(treeX,treeZ);
-
-            int treeType = forestIndex % 3;//rGen.uniform((int)0,(int)3);
-            //just remove the trees placed in lousy positions
-
-            if(isTreePlacementOK(treeX,treeY,treeZ, treeSparsityHeightStart, maxHeight)){
-                addTree(treeType,QVector3D(treeX,treeY,treeZ));
-            }
-            numTrees = numTrees + 1;
+        if(isTreePlacementOK(x,y,z, 1, 8)){
+            addTree(rGen.uniform(0,2), QVector3D(x,y,z), QVector3D(1,1,1)*rGen.uniform(0.2, 1.0));
+            numUniformTrees++;
         }
-        numTreesTotal += numTrees;
-        forestIndex++;
+        tries++;
     }
+    numTreesTotal += numUniformTrees;
+
+    // Forests
+    if(gaussForests) {
+        int forestIndex = 0;
+        int maxHeight = 12;
+        int treeSparsityHeightStart = 8;
+        for(QVector2D& forest : forests){
+
+            float x = forest.x();
+            float z = forest.y();
+
+            //tree models need to be alittlebit in the ground
+            float y = getHeight(forest.x(),forest.y()) - 1.0;
+
+            int numTrees = 0;
+            for(int i = 0; i < maxNumTries && numTrees < maxNumTrees; ++i){
+                float xOffest;
+                float zOffset;
+                xOffest = rGen.gaussian((float)6.0);
+                zOffset = rGen.gaussian((float)6.0);
+
+                float treeX = x + xOffest;
+                float treeZ = z + zOffset;
+                float treeY = getHeight(treeX,treeZ);
+
+                int treeType = forestIndex % 3;//rGen.uniform((int)0,(int)3);
+                //just remove the trees placed in lousy positions
+
+                if(isTreePlacementOK(treeX,treeY,treeZ, treeSparsityHeightStart, maxHeight)){
+                    addTree(treeType,QVector3D(treeX,treeY,treeZ));
+                }
+                numTrees = numTrees + 1;
+            }
+            numTreesTotal += numTrees;
+            forestIndex++;
+        }
+    }
+
+
+
+
     qDebug() << "Spawned " << numBush1 + numBush2 << "Bushes and" << numTreesTotal << "Trees!";
 
 }

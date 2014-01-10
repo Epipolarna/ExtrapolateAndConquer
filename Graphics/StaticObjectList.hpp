@@ -24,6 +24,8 @@ public:
 
     void sortOnClosest(QVector3D center, int iterations = 1);
 
+    void clear();
+
 private:
 
 	void updateMatrices(void);

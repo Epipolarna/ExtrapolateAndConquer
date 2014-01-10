@@ -110,7 +110,8 @@ void ExtrapolateAndConquer::initialize(void){
         e->add<Graphics>();
 
         SpherePhysics & physics = e->get<SpherePhysics>();
-        physics.position = QVector3D(qrand()%150+10,-2,qrand()%150+65);
+        //physics.position = QVector3D(qrand()%150+10,-2,qrand()%150+65);
+        physics.position = QVector3D(0,-10,0);
         physics.rotation2 = QQuaternion(1,0,0,0);
         physics.elasticity = 0.3;
         physics.friction = 1.0;
@@ -149,6 +150,7 @@ void ExtrapolateAndConquer::initialize(void){
     }
 
 
+    world = new World(resourceManager);
     // ------------- Generate world ------------------------
     fpsMeter->start();
     float octaves[16];
@@ -171,7 +173,6 @@ void ExtrapolateAndConquer::initialize(void){
     }
 
     Model* worldModel;
-    world = new World(resourceManager);
     renderer->lightPosition = world->lightPosition;
 
     Object* worldObject;
@@ -375,6 +376,7 @@ void ExtrapolateAndConquer::loopBody(){
     if(state != openGLWindow->currentState) {
         state = openGLWindow->currentState;
         setState(state);
+        qDebug() << "new state:" << state;
     }
 
     spherePhysicsSystem.setTimeInterval(dt);
@@ -448,7 +450,7 @@ void ExtrapolateAndConquer::loopBody(){
 
 
 
-void ExtrapolateAndConquer::generateNewWorld(int seed, bool hasVulcano){
+void ExtrapolateAndConquer::generateNewWorld(int seed){
     Renderer* renderer = openGLWindow->getRenderer();
 
     // Generate terrain
@@ -473,13 +475,12 @@ void ExtrapolateAndConquer::generateNewWorld(int seed, bool hasVulcano){
     }
 
     Model* worldModel;
-    world = new World(resourceManager);
     renderer->lightPosition = world->lightPosition;
 
 
     int nOctaves = sizeof(octaves)/sizeof(float);
     float vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
-    worldModel = world->generateWorld(200,200,vertexDensity,octaves,scales,nOctaves, seed, hasVulcano);
+    worldModel = world->generateWorld(200,200,vertexDensity,octaves,scales,nOctaves, seed);
     hightMapOfChunk = world->heightMap;
 
     //
@@ -508,62 +509,119 @@ void ExtrapolateAndConquer::generateNewWorld(int seed, bool hasVulcano){
     renderer->worldData = world;
 }
 
+enum DemoState {
+    WATER = 0,
+    TERRAIN,
+    BUSHES1,
+    BUSHES2,
+    TREES,
+    FORESTS,
+    VULCANO,
+    VULCANO_ACTIVE
+};
+
 void ExtrapolateAndConquer::setState(int state){
     Renderer* renderer = openGLWindow->getRenderer();
-    bool hasVulcano = false;
     renderer->isRenderingTerrain = false;
     renderer->isRenderingTrees = false;
     renderer->isRenderingBalls = false;
     renderer->isRenderingShadows = false;
+    world->hasVulcano = false;
+    world->gaussForests = false;
+    world->maxNumBush1 = 0;
+    world->maxNumBush2 = 0;
+    world->maxNumTrees = 0;
     vulcanActive = false;
-    int seed = 1;
+    int seed = 3;
+
+    int numberOfTrees = 100;
+    int numberOfBushes = 300;
 
     switch(state){
-        case 0:
-            //water and sky
+        case WATER: //1) water and sky
             break;
-        case 1:
+        case TERRAIN:
             //land ugly textures
+            renderer->isRenderingTerrain = true;
+            renderer->isRenderingShadows = true;
             break;
-        case 2:
-            //land fancy textures
-            break;
-        case 3:
-            //some trees
+       //CASE: TEXTURING (1-3?)
+        case BUSHES1:  // 3.1) A few bushes
+            renderer->isRenderingTerrain = true;
+            renderer->isRenderingTrees = true;
+            renderer->isRenderingShadows = true;
 
+            world->maxNumBush1 = 0.25*numberOfBushes;
+            world->maxNumBush2 = 0.25*numberOfBushes/3;
             break;
-        case 4:
-            //some shadows
+        case BUSHES2:  // 3.2) Many bushes
+            renderer->isRenderingTerrain = true;
+            renderer->isRenderingTrees = true;
+            renderer->isRenderingShadows = true;
+
+            world->maxNumBush1 = numberOfBushes;
+            world->maxNumBush2 = numberOfBushes/3;
             break;
-        case 5:
-            //better shadows
+        case TREES:  // 3.2) Trees
+            renderer->isRenderingTerrain = true;
+            renderer->isRenderingTrees = true;
+            renderer->isRenderingShadows = true;
+
+            world->maxNumBush1 = numberOfBushes;
+            world->maxNumBush2 = numberOfBushes/3;
+            world->maxNumTrees = numberOfTrees;
             break;
-        case 6:
-            //volcano
+        case FORESTS:  // 3.2) Gaussian forests
+            renderer->isRenderingTerrain = true;
+            renderer->isRenderingTrees = true;
+            renderer->isRenderingShadows = true;
+            world->gaussForests = true;
+
+            world->maxNumBush1 = numberOfBushes;
+            world->maxNumBush2 = numberOfBushes/3;
+            world->maxNumTrees = numberOfTrees;
             break;
-        case 7:
-            //more trees / forests
+        //CASE: SHADOWS (1-4?)
+        case VULCANO: // Place Vulcano
+            renderer->isRenderingTerrain = true;
+            renderer->isRenderingTrees = true;
+            renderer->isRenderingShadows = true;
+            world->gaussForests = true;
+            world->hasVulcano = true;
+
+            world->maxNumBush1 = numberOfBushes;
+            world->maxNumBush2 = numberOfBushes/3;
+            world->maxNumTrees = numberOfTrees;
             break;
-        case 8:
-            //rocks
+        case VULCANO_ACTIVE: // Activate Vulcano
+            renderer->isRenderingTerrain = true;
+            renderer->isRenderingTrees = true;
+            renderer->isRenderingShadows = true;
+            world->gaussForests = true;
+            world->hasVulcano = true;
+            vulcanActive = true;
+            renderer->isRenderingBalls = true;
+
+            world->maxNumBush1 = numberOfBushes;
+            world->maxNumBush2 = numberOfBushes/3;
+            world->maxNumTrees = numberOfTrees;
             break;
-        case 9:
-            //more worlds
-            break;
-        case 10:
-            //broken world
-            break;
+        //CASE: broken worlds
         default:
             //just make an new world with all the stuff enabled
-            hasVulcano = true;
+            world->hasVulcano = true;
             renderer->isRenderingTerrain = true;
             renderer->isRenderingTrees = true;
             renderer->isRenderingBalls = true;
             renderer->isRenderingShadows = true;
             vulcanActive = true;
             seed = -1;
+
+            world->maxNumBush1 = numberOfBushes;
+            world->maxNumBush2 = numberOfBushes/3;
+            world->maxNumTrees = numberOfTrees;
             break;
     }
-    generateNewWorld(seed, hasVulcano);
+    generateNewWorld(seed);
 
 }
