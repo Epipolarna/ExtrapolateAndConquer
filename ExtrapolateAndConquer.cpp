@@ -178,7 +178,7 @@ void ExtrapolateAndConquer::initialize(void){
     // Nice worlds: 1, 13, ...
     uint seed = 447;  // -1 means random seed from current time
     int nOctaves = sizeof(octaves)/sizeof(float);
-    float vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
+    float vertexDensity = 2.0f; // Determine the size & "sharpiness" of the world. Default: 0.5f
     worldModel = world->generateWorld(200,200,vertexDensity,octaves,scales,nOctaves, seed);
     hightMapOfChunk = world->heightMap;
 

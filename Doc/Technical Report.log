@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  10 JAN 2014 09:17
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  10 JAN 2014 12:08
 entering extended mode
 **Technical*Report.tex
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.tex"
@@ -824,7 +824,7 @@ mExample-eps-converted-to.pdf images/EntityComponentSystemExample.eps>
 (epstopdf)             \includegraphics on input line 9.
 Package epstopdf Info: Output file is already uptodate.
 
-<images/EntityComponentSystemExample-eps-converted-to.pdf, id=159, 667.49374pt 
+<images/EntityComponentSystemExample-eps-converted-to.pdf, id=161, 667.49374pt 
 x 270.00874pt>
 File: images/EntityComponentSystemExample-eps-converted-to.pdf Graphic file (ty
 pe pdf)
@@ -851,14 +851,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--17
 
  []
 
-[3] <images/Simplex.png, id=176, 376.40625pt x 376.40625pt>
+[3] <images/Simplex.png, id=178, 376.40625pt x 376.40625pt>
 File: images/Simplex.png Graphic file (type png)
 
 <use images/Simplex.png>
 Package pdftex.def Info: images/Simplex.png used on input line 27.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
 
-<images/FracBrownMotion.png, id=178, 376.40625pt x 376.40625pt>
+<images/FracBrownMotion.png, id=180, 376.40625pt x 376.40625pt>
 File: images/FracBrownMotion.png Graphic file (type png)
 
 <use images/FracBrownMotion.png>
@@ -885,25 +885,25 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 11.
 
-<images/SMAcne.png, id=196, 770.88pt x 481.8pt>
+<images/SMAcne.png, id=198, 770.88pt x 481.8pt>
 File: images/SMAcne.png Graphic file (type png)
  <use images/SMAcne.png>
 Package pdftex.def Info: images/SMAcne.png used on input line 27.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/SMAcneFix.png, id=197, 770.88pt x 481.8pt>
+<images/SMAcneFix.png, id=199, 770.88pt x 481.8pt>
 File: images/SMAcneFix.png Graphic file (type png)
  <use images/SMAcneFix.png>
 Package pdftex.def Info: images/SMAcneFix.png used on input line 33.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/PCFLvl1.png, id=204, 770.88pt x 481.8pt>
+<images/PCFLvl1.png, id=206, 770.88pt x 481.8pt>
 File: images/PCFLvl1.png Graphic file (type png)
  <use images/PCFLvl1.png>
 Package pdftex.def Info: images/PCFLvl1.png used on input line 48.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/PCFLvl5.png, id=205, 770.88pt x 481.8pt>
+<images/PCFLvl5.png, id=207, 770.88pt x 481.8pt>
 File: images/PCFLvl5.png Graphic file (type png)
  <use images/PCFLvl5.png>
 Package pdftex.def Info: images/PCFLvl5.png used on input line 54.
@@ -913,42 +913,42 @@ Underfull \vbox (badness 3965) has occurred while \output is active []
 
  [5 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMAcne.png> <D:/Dev/Git/Extrap
 olateAndConquer/Doc/images/SMAcneFix.png>]
-<images/SMOverViewLvl1.png, id=219, 770.88pt x 481.8pt>
+<images/SMOverViewLvl1.png, id=221, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl1.png Graphic file (type png)
 
 <use images/SMOverViewLvl1.png>
 Package pdftex.def Info: images/SMOverViewLvl1.png used on input line 78.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMOverViewLvl2.png, id=220, 770.88pt x 481.8pt>
+<images/SMOverViewLvl2.png, id=222, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl2.png Graphic file (type png)
 
 <use images/SMOverViewLvl2.png>
 Package pdftex.def Info: images/SMOverViewLvl2.png used on input line 84.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMOverViewLvl3.png, id=221, 770.88pt x 481.8pt>
+<images/SMOverViewLvl3.png, id=223, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl3.png Graphic file (type png)
 
 <use images/SMOverViewLvl3.png>
 Package pdftex.def Info: images/SMOverViewLvl3.png used on input line 90.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl1.png, id=222, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl1.png, id=224, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl1.png Graphic file (type png)
 
 <use images/SMCloseUpLvl1.png>
 Package pdftex.def Info: images/SMCloseUpLvl1.png used on input line 101.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl2.png, id=223, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl2.png, id=225, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl2.png Graphic file (type png)
 
 <use images/SMCloseUpLvl2.png>
 Package pdftex.def Info: images/SMCloseUpLvl2.png used on input line 107.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl3.png, id=224, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl3.png, id=226, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl3.png Graphic file (type png)
 
 <use images/SMCloseUpLvl3.png>
@@ -961,36 +961,69 @@ iewLvl2.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMOverViewLvl3.png> <
 D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMCloseUpLvl1.png> <D:/Dev/Git/Extr
 apolateAndConquer/Doc/images/SMCloseUpLvl2.png> <D:/Dev/Git/ExtrapolateAndConqu
 er/Doc/images/SMCloseUpLvl3.png>]
-<images/horizonNoFog.png, id=231, 770.88pt x 481.8pt>
+<images/SMExBF3.png, id=233, 1264.725pt x 790.45313pt>
+File: images/SMExBF3.png Graphic file (type png)
+
+<use images/SMExBF3.png>
+Package pdftex.def Info: images/SMExBF3.png used on input line 126.
+(pdftex.def)             Requested size: 218.94247pt x 136.83575pt.
+
+<images/SMExCSGO.png, id=234, 1264.725pt x 790.45313pt>
+File: images/SMExCSGO.png Graphic file (type png)
+
+<use images/SMExCSGO.png>
+Package pdftex.def Info: images/SMExCSGO.png used on input line 132.
+(pdftex.def)             Requested size: 218.94247pt x 136.83575pt.
+
+<images/SMExSimCity.png, id=235, 1686.3pt x 1053.9375pt>
+File: images/SMExSimCity.png Graphic file (type png)
+
+<use images/SMExSimCity.png>
+Package pdftex.def Info: images/SMExSimCity.png used on input line 139.
+(pdftex.def)             Requested size: 218.94247pt x 136.83978pt.
+
+<images/SMExLoL.png, id=236, 1686.3pt x 1053.9375pt>
+File: images/SMExLoL.png Graphic file (type png)
+ <use images/SMExLoL.png>
+Package pdftex.def Info: images/SMExLoL.png used on input line 145.
+(pdftex.def)             Requested size: 218.94247pt x 136.83978pt.
+
+<images/horizonNoFog.png, id=239, 770.88pt x 481.8pt>
 File: images/horizonNoFog.png Graphic file (type png)
 
 <use images/horizonNoFog.png>
-Package pdftex.def Info: images/horizonNoFog.png used on input line 130.
+Package pdftex.def Info: images/horizonNoFog.png used on input line 161.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/horizonFog.png, id=232, 771.48225pt x 482.40225pt>
+<images/horizonFog.png, id=240, 771.48225pt x 482.40225pt>
 File: images/horizonFog.png Graphic file (type png)
 
 <use images/horizonFog.png>
-Package pdftex.def Info: images/horizonFog.png used on input line 136.
+Package pdftex.def Info: images/horizonFog.png used on input line 167.
 (pdftex.def)             Requested size: 218.94247pt x 136.90456pt.
 
-<images/skybox0.png, id=233, 4111.36pt x 3083.52pt>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMExBF3.png> <D:/Dev/Git/Extra
+polateAndConquer/Doc/images/SMExCSGO.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc
+/images/SMExSimCity.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMExLoL.p
+ng>]
+<images/skybox0.png, id=246, 4111.36pt x 3083.52pt>
 File: images/skybox0.png Graphic file (type png)
  <use images/skybox0.png>
-Package pdftex.def Info: images/skybox0.png used on input line 147.
+Package pdftex.def Info: images/skybox0.png used on input line 178.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
 
-<images/skybox1.png, id=234, 4111.36pt x 3083.52pt>
+<images/skybox1.png, id=247, 4111.36pt x 3083.52pt>
 File: images/skybox1.png Graphic file (type png)
  <use images/skybox1.png>
-Package pdftex.def Info: images/skybox1.png used on input line 153.
+Package pdftex.def Info: images/skybox1.png used on input line 184.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
 ))
-[7 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/horizonNoFog.png> <D:/Dev/Git/E
+[8 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/horizonNoFog.png> <D:/Dev/Git/E
 xtrapolateAndConquer/Doc/images/horizonFog.png> <D:/Dev/Git/ExtrapolateAndConqu
 er/Doc/images/skybox0.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/skybox1
-.png>] (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/ai.tex) [8]
+.png>] (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/ai.tex) [9]
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/conclusions.tex)
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/bibliography.tex
 Underfull \hbox (badness 10000) in paragraph at lines 73--76
@@ -999,8 +1032,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 73--76
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 153.
- [9pdfTeX warning (ext4): destination with the same identifier (name{cite.citek
-ey}) has been already used, duplicate ignored
+ [10pdfTeX warning (ext4): destination with the same identifier (name{cite.cite
+key}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
@@ -1020,13 +1053,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 153.
  ) 
 Here is how much of TeX's memory you used:
- 11000 strings out of 493921
- 161251 string characters out of 3147270
- 259438 words of memory out of 3000000
- 14016 multiletter control sequences out of 15000+200000
+ 11031 strings out of 493921
+ 161858 string characters out of 3147270
+ 259982 words of memory out of 3000000
+ 14041 multiletter control sequences out of 15000+200000
  11885 words of font info for 45 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 42i,18n,45p,1020b,479s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,18n,45p,1058b,479s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Program Files/MiKTe
@@ -1036,9 +1069,9 @@ public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
 fonts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 msy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pf
 b>
-Output written on "Technical Report.pdf" (12 pages, 23343131 bytes).
+Output written on "Technical Report.pdf" (13 pages, 35028722 bytes).
 PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 56 named destinations out of 1000 (max. 500000)
- 253 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 310 PDF objects out of 1000 (max. 8388607)
+ 58 named destinations out of 1000 (max. 500000)
+ 273 words of extra memory for PDF output out of 10000 (max. 10000000)
 

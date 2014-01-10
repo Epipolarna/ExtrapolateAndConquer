@@ -40,7 +40,7 @@ Once these steps got into place one could naively think that the shadows are don
 
 Care has to be taken when adding this depth offset. If the offset is to large the shadow may be disconnected from its object and cause so called \textit{Peter Paning} \cite{ImprovedShadowMapping}. A trade-off has to be made between Shadow Acne and Peter Paning. Thanks to good resolution in our depth buffers we did not need any big offset to remedy our acne problem and did therefore not suffer from any noticeable Peter Paning. 
 
-The shadows now look correctly but have a very low resolution when you get close up. The edge is sharp and one can easily distinguish pixels in a not so pleasant may. Increasing the resolution of the shadow map depth buffer will reduce the pixel size of the shadows in the final render but this will decrease the frame rate. We settled on 2048 x 2048 pixels in our buffer, figure \ref{fig:PCFLvl1}. Now my first thought was to low pass filter the shadow map, and this is sort of used in the improvement technique called \textit{Percentage Closer Filtering} \cite{ShadowMapAntialiasing87}\cite{ShadowMapAntialiasing03}. By randomly sampling the surroundings of the target shadow map pixel and weighting them, in our case with a Gaussian kernel in accordance with \cite{CascadeShadowMapping}, one get a smoother shadow edge. The result is definitely a good looking improvement, figure \ref{fig:PCFLvl5}. 
+The shadows now look correctly but have a very low resolution when you get close up. The edge is sharp and one can easily distinguish pixels in a not so pleasant may. Increasing the resolution of the shadow map depth buffer will reduce the pixel size of the shadows in the final render but this will decrease the frame rate. We settled on 2048 x 2048 pixels in our buffer, figure \ref{fig:PCFLvl1}. Now my first thought was to low pass filter the shadow map, and this is sort of used in the improvement technique called \textit{Percentage Closer Filtering} (PCF) \cite{ShadowMapAntialiasing87}\cite{ShadowMapAntialiasing03}. By randomly sampling the surroundings of the target shadow map pixel and weighting them, in our case with a Gaussian kernel in accordance with \cite{CascadeShadowMapping}, one get a smoother shadow edge. The result is definitely a good looking improvement, figure \ref{fig:PCFLvl5}. 
 
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
@@ -59,7 +59,7 @@ The shadows now look correctly but have a very low resolution when you get close
 \label{fig:PCFComparison}
 \end{figure}
 
-One can keep tweaking these filtering methods forever but they will by themselves never become more than smoothed low-resolution shadows. To reach the next level of shadow mapping, and current industry standards, we need to look for something better. The answer seems to be \textit{Cascade Shadow Mapping} (CSM) \cite{CascadeShadowMapping}. Once I dug into this I started to see CSM everywhere. There are some characteristic transitions in the detail levels that easily can be spotted in booth BattleField 3 (2011), Counter Strike: Global Offensive (2012) and SimCity (2013), figure // TODO. My point is: this is the way to go according to the cutting-edge game industry. I would also like to stress that real-time shadowing is far from a finished topic. 
+One can keep tweaking these filtering methods forever but they will by themselves never become more than smoothed low-resolution shadows. To reach the next level of shadow mapping, and current industry standards, we need to look for something better. The answer seems to be \textit{Cascade Shadow Mapping} (CSM) \cite{CascadeShadowMapping}. Once I dug into this I started to see CSM everywhere. There are some characteristic transitions in the detail levels that easily can be spotted in many computer games.
 
 The concept of CSM is simple:
 
@@ -118,6 +118,37 @@ The implementation is done by rendering several shadow maps of increasing sizes.
 \label{fig:SMCloseUpComparison}
 \end{figure}
 
+It would as conclusion be interesting to take a look at some modern examples, more precisely BattleField 3 (2011), Counter Strike: Global Offensive (2012), SimCity (2013) and League of Legends (2014). One can see that all of these are using shadow mapping in one way or another. The first three are using CSM and PCF combined to improve their shadows, but all are still suffering from ugly transitions between their cascade levels. SimCity holds a nice example of \textit{Perspective Aliasing} \cite{ImprovedShadowMapping}. League of Legends uses the simplest out-of-the-box version with no filtering or cascading at all. My point is: this is the way to go according to the cutting-edge game industry. One can also conclude that real-time shadowing is far from a finished topic. In all of the above mentioned games it is easy to find artifacts from optimizations. These are highlighted and amplified in figure \ref{fig:SMExComparison} below.
+
+\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMExBF3.png}
+  \caption{BattleField 3 (2011)}
+  \label{fig:SMExBF3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMExCSGO.png}
+  \caption{Counter Strike: Global Offensive (2012)}
+  \label{fig:SMExCSGO}
+\end{subfigure}
+\\
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMExSimCity.png}
+  \caption{SimCity (2013)}
+  \label{fig:SMExSimCity}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMExLoL.png}
+  \caption{League of Legends (2014)}
+  \label{fig:SMExLoL}
+\end{subfigure}
+\caption[Game industry standard shadow quality comparison]{\textit{Comparison of current game industry standard shadow quality}}
+\label{fig:SMExComparison}
+\end{figure}
 
 \subsubsection{Fog}
 The transition between different parts of the world can sometimes be very sharp in an unpleasant way. For instance, at the border between the sky and the ocean seen in figure \ref{fig:HorizonNoFog}. 
