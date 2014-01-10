@@ -21,6 +21,8 @@ Renderer::Renderer(void){
     isRenderingBalls = false;
     isRenderingShadows = false;
 
+    isPCF = true;
+
     isRenderingTerrain = isRenderingTrees = isRenderingBalls = isRenderingShadows = true;
 }
 
@@ -319,8 +321,10 @@ void Renderer::repaint(){
 
     if(isRenderingTerrain){
         if(world != NULL){
+
             glEnable(GL_DEPTH_TEST);
             glDisable(GL_CULL_FACE);
+
             world->program->bind();
             world->program->setUniformValue("incr", incr);
             world->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);

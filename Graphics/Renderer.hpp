@@ -43,6 +43,7 @@ public:
     bool isRenderingTrees;
     bool isRenderingBalls;
     bool isRenderingShadows;
+    bool isPCF;
 
     QOpenGLShaderProgram *depthProgram;
     QOpenGLShaderProgram *instanceDepthProgram;

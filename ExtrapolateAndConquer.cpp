@@ -211,6 +211,8 @@ void ExtrapolateAndConquer::initialize(void){
     worldTextures.push_back(renderer->fbo1->depthTex);
 
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
+    worldObject->specialProgram1 = resourceManager->getShader("terrainShaderNoPCF");
+    worldObject->specialProgram2 = resourceManager->getShader("terrainShader");
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
     //worldObject->setScale(2,0,2);
@@ -331,14 +333,13 @@ void ExtrapolateAndConquer::loadResources(void){
 
     //ground data
     printf("loading ground data \n");
-    //resourceManager->loadShader("terrainShader");
     resourceManager->loadShader("terrainShader");
+    resourceManager->loadShader("terrainShaderNoPCF");
     resourceManager->loadTexture("grass2", true);
     //resourceManager->loadTexture("sand0", true);
     resourceManager->loadTexture("sand2", true);
     resourceManager->loadTexture("rock1", true);
     //resourceManager->loadTexture("snow1", true);
-
 
     //water data
     printf("loading water data \n");
@@ -385,6 +386,15 @@ void ExtrapolateAndConquer::loopBody(){
         qDebug() << "highResolutionTerrain:" << highResolutionTerrain;
         openGLWindow->toggleTerrainResolution = false;
         generateNewWorld(seed);
+    }
+    if(openGLWindow->getRenderer()->isPCF){
+        openGLWindow->getRenderer()->world->program = openGLWindow->getRenderer()->world->specialProgram1;
+        generateNewWorld(seed);
+        qDebug() << "Prog1";
+    } else {
+        openGLWindow->getRenderer()->world->program = openGLWindow->getRenderer()->world->specialProgram2;
+        generateNewWorld(seed);
+        qDebug() << "Prog2";
     }
 
     spherePhysicsSystem.setTimeInterval(dt);
@@ -520,6 +530,8 @@ void ExtrapolateAndConquer::generateNewWorld(int seed){
     // ----------------------------------
     Object* worldObject;
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
+    worldObject->specialProgram1 = resourceManager->getShader("terrainShaderNoPCF");
+    worldObject->specialProgram2 = resourceManager->getShader("terrainShader");
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
     //worldObject->setScale(2,0,2);

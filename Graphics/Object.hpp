@@ -18,7 +18,7 @@ public:
     void draw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QVector3D lightPosition, QMatrix4x4 lightSourceVMatrix);
     void customDraw(const QMatrix4x4 &vMatrix, const QMatrix4x4 &pMatrix, QOpenGLShaderProgram* program);
 
-    QOpenGLShaderProgram* program, *depthProgram;
+    QOpenGLShaderProgram* program, *specialProgram1, *specialProgram2;
 
     void setColor(float r, float g, float b, float a = 1);
     void setTexScaling(float s);
