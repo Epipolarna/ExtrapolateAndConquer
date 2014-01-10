@@ -98,7 +98,7 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
                 y = -scaleFactor;
             } else {
                 for(int i = 0; i < nOctaves; i++){
-                    y += SimplexNoise1234::noise(x/octaves[i] + xRandomOffset, z/octaves[i] + zRandomOffset) * yScales[i];
+                    y += SimplexNoise1234::noise(x/octaves[i]/vertexDensity + xRandomOffset, z/octaves[i]/vertexDensity + zRandomOffset) * yScales[i];
                 }
             }
 
