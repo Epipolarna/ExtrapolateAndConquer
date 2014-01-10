@@ -38,7 +38,8 @@ void ExtrapolateAndConquer::initialize(void){
 
     // Demo settings
     vulcanActive = true;
-    state = -1;
+    //state = -1;
+    state = 7;
     seed = 3;
     highResolutionTerrain = false;
 
@@ -48,8 +49,8 @@ void ExtrapolateAndConquer::initialize(void){
     //camera->setLookAtPoint(QVector3D(-1,17,-1));
 
     // Shadow overview
-    //camera->setPosition(QVector3D(-27.9003, 68.1128, 55.0443));
-    //camera->setLookAtPoint(QVector3D(-27.1777, 67.6089, 55.5175));
+    camera->setPosition(QVector3D(-27.9003, 68.1128, 55.0443));
+    camera->setLookAtPoint(QVector3D(-27.1777, 67.6089, 55.5175));
 
     // Shadow close-up
     //camera->setPosition(QVector3D(60,9,106));
@@ -389,12 +390,10 @@ void ExtrapolateAndConquer::loopBody(){
     }
     if(openGLWindow->getRenderer()->isPCF){
         openGLWindow->getRenderer()->world->program = openGLWindow->getRenderer()->world->specialProgram1;
-        generateNewWorld(seed);
-        qDebug() << "Prog1";
+        //qDebug() << "Prog1";
     } else {
         openGLWindow->getRenderer()->world->program = openGLWindow->getRenderer()->world->specialProgram2;
-        generateNewWorld(seed);
-        qDebug() << "Prog2";
+        //qDebug() << "Prog2";
     }
 
     spherePhysicsSystem.setTimeInterval(dt);
