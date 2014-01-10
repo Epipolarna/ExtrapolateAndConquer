@@ -485,16 +485,13 @@ void ExtrapolateAndConquer::generateNewWorld(int seed){
         gain = 0.52;          // Amplitude reduction
         vertexDensity = 2.0f; // Determine the size & "sharpiness" of the world. Default: 0.5f
     } else {
-        lacunarity = 1/1.87;
-        gain = 0.66;
+        //lacunarity = 1/1.87;
+        //gain = 0.66;
+        lacunarity = 1/2.1;   // Period reduction
+        gain = 0.52;          // Amplitude reduction
         vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
     }
-    /*
-    // 1.8715 or 2.1042
-    float lacunarity = 1/1.87;
-    float gain = 0.66;
-    float vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
-    */
+
     //for each pixel, get the value
     float period = 400;
     float amplitude = 20;

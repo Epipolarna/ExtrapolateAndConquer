@@ -133,57 +133,73 @@ Model * World::generateWorld(float xRange, float zRange, float _vertexDensity, f
     // --------------------------------------
     if(hasVulcano)
     {
-        float vulcanoSize = 10;
-        float vulcanoHeight = 1.25;
+        float vulcanoSize = 40;
+        float vulcanoHeight = 6.0;
 
+        float relativeSize = vulcanoSize*vertexDensity;
+        double minValue, maxValue;
+        cv::Point maxValuePos, minValuePos;
 
-        //Find the highest point !?
+        //Find the highest point (where the volcano)
         cv::Point maxPos, minPos;
         double maxY, minY;
         cv::minMaxLoc(heightMap, &minY, &maxY, &minPos, &maxPos);
 
-        // Make the vulcan tall enough when the distance over sea is too low
-        if(2*maxY*scaleFactor - scaleFactor < 12) {
-            vulcanoHeight = 1.8;
-        }
 
         // Keep the vulcan within the matrix
-        if(maxPos.x < vulcanoSize) maxPos.x += vulcanoSize+1;
-        if(maxPos.x > heightMap.size().height-vulcanoSize) maxPos.x -= vulcanoSize+1;
-        if(maxPos.y < vulcanoSize) maxPos.y += vulcanoSize+1;
-        if(maxPos.y > heightMap.size().width-vulcanoSize) maxPos.y -= vulcanoSize+1;
+        if(maxPos.x < relativeSize) maxPos.x += relativeSize+1;
+        if(maxPos.x > heightMap.size().height-relativeSize) maxPos.x -= relativeSize+1;
+        if(maxPos.y < relativeSize) maxPos.y += relativeSize+1;
+        if(maxPos.y > heightMap.size().width-relativeSize) maxPos.y -= relativeSize+1;
         maxPosition = QVector3D(maxPos.y/vertexDensity, maxY, maxPos.x/vertexDensity);
 
-        double minValue, maxValue;
-        cv::Point maxValuePos, minValuePos;
+        // ROI of the vulcano in the heightmap
+        cv::Mat heightMapVulcano(heightMap, cv::Rect(maxPos.x-relativeSize/2.0,maxPos.y-relativeSize/2.0,relativeSize,relativeSize));
 
+        // Make the vulcan tall enough when the distance over sea is too low
+        if(maxY < 0.0) {
+            vulcanoHeight = (1.0/abs(std::ceil(maxY)))*vulcanoHeight*2;
+        }
+        if(maxY < 0.2) {
+            vulcanoHeight *= 5.0;
+        } else
+        if(maxY < 0.4) {
+            vulcanoHeight *= 3.0;
+        } else
+        if(maxY < 0.47) {
+            vulcanoHeight *= 2.0;
+        } else
+        if(maxY < 0.6) {
+            vulcanoHeight *= 1.5;
+        }
         // Create outer shell
-        cv::Mat vulcano = cv::getGaussianKernel(vulcanoSize, 2.0, CV_32FC1);
+        cv::Mat vulcano = cv::getGaussianKernel(vulcanoSize, 6.0, CV_32FC1);
         cv::minMaxLoc(vulcano, &minValue, &maxValue, &minValuePos, &maxValuePos);
         //vulcano /= maxValue; // Normalize the height
         vulcano *= (maxY+vulcanoHeight) ;//(maxPosition.y()+vulcanoHeight)/maxPosition.y();
         vulcano = vulcano * vulcano.t();
-        //vulcano += 1;   // Make the surrounding area stay the same (lowest scaling now = 1.0)
-        vulcano *= vulcanoHeight;
-        qDebug() << "maxHeight" << maxValue << "minHeight" << minValue;
 
         // Create the inner hole
-        cv::Mat vulcanoHole = cv::getGaussianKernel(vulcanoSize, 0.2, CV_32FC1);
+        cv::Mat vulcanoHole = cv::getGaussianKernel(vulcanoSize, 1.5, CV_32FC1);
         cv::minMaxLoc(vulcanoHole, &minValue, &maxValue, &minValuePos, &maxValuePos);
-        //vulcanoHole /= maxValue;
+        vulcanoHole -= minValue;
+        vulcanoHole /= maxValue;
         vulcanoHole = vulcanoHole * vulcanoHole.t();
-        vulcanoHole *= 0.5;
+        vulcanoHole *= (maxY-0.35)/2.0;
+        cv::minMaxLoc(vulcanoHole, &minValue, &maxValue, &minValuePos, &maxValuePos);
+       // qDebug() << "minValue" << minValue << "maxValue" << maxValue;
         //vulcanoHole = 1-vulcanoHole;
 
         //vulcano -= vulcanoHole;
 
+        cv::resize(vulcano,vulcano, cv::Size(relativeSize,relativeSize));
+        cv::resize(vulcanoHole,vulcanoHole, cv::Size(relativeSize,relativeSize));
 
-        float diff = int(vulcanoSize/2.0) - vulcanoSize/2.0;
-        cv::Mat heightMapVulcano(heightMap, cv::Rect(maxPos.x-vulcanoSize/2.0,maxPos.y-vulcanoSize/2.0,vulcanoSize,vulcanoSize));
         heightMapVulcano += vulcano;
         heightMapVulcano -= vulcanoHole;
         cv::minMaxLoc(heightMapVulcano, &minValue, &maxValue, &minValuePos, &maxValuePos);
-        maxPosition = QVector3D(maxPosition.x()-0.75, 2*maxValue*scaleFactor - scaleFactor - 2, maxPosition.z()-0.75);
+        //qDebug() << "minValue:" << minValue << "maxValue:" << maxValue;
+        maxPosition = QVector3D(maxPosition.x()-0.75, 2*maxValue*scaleFactor - scaleFactor - 2.5, maxPosition.z()-0.75);
         qDebug() << "maxPosition" << maxPosition;
     }
 
