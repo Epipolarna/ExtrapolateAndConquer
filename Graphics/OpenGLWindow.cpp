@@ -220,11 +220,22 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         toggleTerrainResolution = true;
         break;
     case Qt::Key_K: // Toggle between high and low resolution terrain (4 times difference)
-        terrainDensity -= 0.5;
+        if(terrainDensity <= 0.06)
+            terrainDensity = 0.03125;
+        else
+        if(terrainDensity <= 0.5)
+            terrainDensity -= 0.05;
+        else
+            terrainDensity -= 0.5;
         updateTerrainDensity = true;
         break;
     case Qt::Key_L: // Toggle between high and low resolution terrain (4 times difference)
-        terrainDensity += 0.5;
+        if(terrainDensity <= 0.03125)
+            terrainDensity = 0.05;
+        if(terrainDensity <= 0.5)
+            terrainDensity += 0.05;
+        else
+            terrainDensity += 0.5;
         updateTerrainDensity = true;
         break;
     default:

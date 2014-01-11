@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.21)  11 JAN 2014 19:27
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.21)  11 JAN 2014 22:56
 entering extended mode
 **Technical*Report.tex
 
@@ -1136,14 +1136,14 @@ Package epstopdf Info: Source file: <images/Volcano1.eps>
 (epstopdf)                    size: 154344 bytes
 (epstopdf)             Command: <epstopdf --outfile=images/Volcano1-eps-convert
 ed-to.pdf images/Volcano1.eps>
-(epstopdf)             \includegraphics on input line 73.
+(epstopdf)             \includegraphics on input line 78.
 Package epstopdf Info: Output file is already uptodate.
  <images/Volcano1-eps-converted-to.pdf, id=280, 1363.0925pt x 770.88pt>
 File: images/Volcano1-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images/Volcano1-eps-converted-to.pdf>
 Package pdftex.def Info: images/Volcano1-eps-converted-to.pdf used on input lin
-e 73.
+e 78.
 (pdftex.def)             Requested size: 437.88495pt x 247.63942pt.
 Package epstopdf Info: Source file: <images/Volcano2.eps>
 (epstopdf)                    date: 2014-01-11 17:12:09
@@ -1153,7 +1153,7 @@ Package epstopdf Info: Source file: <images/Volcano2.eps>
 (epstopdf)                    size: 66292 bytes
 (epstopdf)             Command: <epstopdf --outfile=images/Volcano2-eps-convert
 ed-to.pdf images/Volcano2.eps>
-(epstopdf)             \includegraphics on input line 80.
+(epstopdf)             \includegraphics on input line 85.
 Package epstopdf Info: Output file is already uptodate.
 
 <images/Volcano2-eps-converted-to.pdf, id=281, 1280.785pt x 781.92125pt>
@@ -1161,22 +1161,32 @@ File: images/Volcano2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images/Volcano2-eps-converted-to.pdf>
 Package pdftex.def Info: images/Volcano2-eps-converted-to.pdf used on input lin
-e 80.
+e 85.
 (pdftex.def)             Requested size: 437.88495pt x 267.32916pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 66--86
+Underfull \hbox (badness 10000) in paragraph at lines 66--91
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 66--86
+Underfull \hbox (badness 10000) in paragraph at lines 66--91
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--91
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--91
 
  []
 
 )
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/visual_ef
 fects.tex
-Underfull \vbox (badness 3965) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Volcano1-
 eps-converted-to.pdf> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Do
@@ -1193,72 +1203,72 @@ File: images/SMAcneFix.png Graphic file (type png)
 <use images/SMAcneFix.png>
 Package pdftex.def Info: images/SMAcneFix.png used on input line 33.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
- <images/PCFLvl1.png, id=310, 770.88pt x 481.8pt>
-File: images/PCFLvl1.png Graphic file (type png)
-
-<use images/PCFLvl1.png>
-Package pdftex.def Info: images/PCFLvl1.png used on input line 48.
-(pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
- <images/PCFLvl5.png, id=311, 770.88pt x 481.8pt>
-File: images/PCFLvl5.png Graphic file (type png)
-
-<use images/PCFLvl5.png>
-Package pdftex.def Info: images/PCFLvl5.png used on input line 54.
-(pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
  [10 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcne.p
 ng> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcneFix
 .png>]
-<images/SMOverViewLvl1.png, id=327, 770.88pt x 481.8pt>
+<images/PCFLvl1.png, id=319, 770.88pt x 481.8pt>
+File: images/PCFLvl1.png Graphic file (type png)
+ <use images/PCFLvl1.png>
+Package pdftex.def Info: images/PCFLvl1.png used on input line 48.
+(pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
+
+<images/PCFLvl5.png, id=320, 770.88pt x 481.8pt>
+File: images/PCFLvl5.png Graphic file (type png)
+ <use images/PCFLvl5.png>
+Package pdftex.def Info: images/PCFLvl5.png used on input line 54.
+(pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
+
+<images/SMOverViewLvl1.png, id=324, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl1.png Graphic file (type png)
 
 <use images/SMOverViewLvl1.png>
 Package pdftex.def Info: images/SMOverViewLvl1.png used on input line 78.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMOverViewLvl2.png, id=328, 770.88pt x 481.8pt>
+<images/SMOverViewLvl2.png, id=325, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl2.png Graphic file (type png)
 
 <use images/SMOverViewLvl2.png>
 Package pdftex.def Info: images/SMOverViewLvl2.png used on input line 84.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMOverViewLvl3.png, id=329, 770.88pt x 481.8pt>
+<images/SMOverViewLvl3.png, id=326, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl3.png Graphic file (type png)
 
 <use images/SMOverViewLvl3.png>
 Package pdftex.def Info: images/SMOverViewLvl3.png used on input line 90.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl1.png, id=330, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl1.png, id=327, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl1.png Graphic file (type png)
 
 <use images/SMCloseUpLvl1.png>
 Package pdftex.def Info: images/SMCloseUpLvl1.png used on input line 101.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl2.png, id=331, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl2.png, id=328, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl2.png Graphic file (type png)
 
 <use images/SMCloseUpLvl2.png>
 Package pdftex.def Info: images/SMCloseUpLvl2.png used on input line 107.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl3.png, id=332, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl3.png, id=329, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl3.png Graphic file (type png)
 
 <use images/SMCloseUpLvl3.png>
 Package pdftex.def Info: images/SMCloseUpLvl3.png used on input line 113.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [11 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl1.
 png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl5.
 png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMOverVi
 ewLvl1.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/S
 MOverViewLvl2.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/i
-mages/SMOverViewLvl3.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConque
-r/Doc/images/SMCloseUpLvl1.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAnd
-Conquer/Doc/images/SMCloseUpLvl2.png> <C:/Users/TiXiR/Documents/GitHub/Extrapol
-ateAndConquer/Doc/images/SMCloseUpLvl3.png>]
-<images/SMExBF3.png, id=339, 1264.725pt x 790.45313pt>
+mages/SMOverViewLvl3.png>] <images/SMExBF3.png, id=339, 1264.725pt x 790.45313p
+t>
 File: images/SMExBF3.png Graphic file (type png)
 
 <use images/SMExBF3.png>
@@ -1298,14 +1308,14 @@ File: images/horizonFog.png Graphic file (type png)
 <use images/horizonFog.png>
 Package pdftex.def Info: images/horizonFog.png used on input line 167.
 (pdftex.def)             Requested size: 218.94247pt x 136.90456pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [12 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExBF3.
-png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExCSGO
-.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExSim
-City.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SME
-xLoL.png>]
+ [12 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMCloseU
+pLvl1.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SM
+CloseUpLvl2.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/ima
+ges/SMCloseUpLvl3.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/D
+oc/images/SMExBF3.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/D
+oc/images/SMExCSGO.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/
+Doc/images/SMExSimCity.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConq
+uer/Doc/images/SMExLoL.png>]
 <images/skybox0.png, id=352, 4111.36pt x 3083.52pt>
 File: images/skybox0.png Graphic file (type png)
  <use images/skybox0.png>
@@ -1379,7 +1389,7 @@ Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program
  Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on "Technical Report.pdf" (18 pages, 39335256 bytes).
+Output written on "Technical Report.pdf" (18 pages, 39335654 bytes).
 PDF statistics:
  443 PDF objects out of 1000 (max. 8388607)
  97 named destinations out of 1000 (max. 500000)

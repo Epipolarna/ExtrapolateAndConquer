@@ -66,7 +66,7 @@ public:
     Entity<Components> * e;
     cv::Mat hightMapOfChunk;
 
-    std::map<int,SpherePhysics > previousState; //Used by backwards physics to restart fireballs when entering the volcano.
+    std::map<int,SpherePhysics > previousState; //Used by backwards physics to restart fireballs when entering the volcano.e
     bool vulcanActive;
     bool highResolutionTerrain;
     int state;

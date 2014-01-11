@@ -21,7 +21,7 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
 The physics used in this game is divided into three systems, all three processing all \textit{SpherePhysics} components in the Entity System. The physics is limited to 3D sphere physics as well as the interaction between spheres and a terrain mesh.\\
 \\
 \subsubsection{SpherePhysics}
-SpherePhysics is a component dedicated to physics data, its content is seen in the code below.
+SpherePhysics is a component dedicated to physics data, its content is seen in the code below. The physics is capable of running backwards as well as forwards.
 \begin{lstlisting}
  struct SpherePhysics : public Component<> {
     const std::string getName() override { return "SpherePhysics"; }

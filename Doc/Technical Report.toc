@@ -15,7 +15,7 @@
 \contentsline {subsubsection}{\numberline {3.1.4}Ground}{5}{subsubsection.3.1.4}
 \contentsline {subsubsection}{\numberline {3.1.5}Content}{5}{subsubsection.3.1.5}
 \contentsline {subsubsection}{\numberline {3.1.6}Volcano}{8}{subsubsection.3.1.6}
-\contentsline {subsection}{\numberline {3.2}Visual Effects}{9}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.2}Visual Effects}{10}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}Shadows}{10}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}Fog}{12}{subsubsection.3.2.2}
 \contentsline {subsubsection}{\numberline {3.2.3}Normal Mapping}{13}{subsubsection.3.2.3}
