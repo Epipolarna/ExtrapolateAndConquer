@@ -1,6 +1,6 @@
 #include "Object.hpp"
 
-const int Object::textureSlots[] = {GL_TEXTURE0, GL_TEXTURE1, GL_TEXTURE2, GL_TEXTURE3};
+const int Object::textureSlots[] = {GL_TEXTURE0, GL_TEXTURE1, GL_TEXTURE2, GL_TEXTURE3, GL_TEXTURE4, GL_TEXTURE5, GL_TEXTURE6};
 
 
 Object::Object(Model *_model, QOpenGLShaderProgram *_program, GLuint _texture){

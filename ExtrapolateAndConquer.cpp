@@ -210,9 +210,11 @@ void ExtrapolateAndConquer::initialize(void){
     worldTextures.push_back(resourceManager->getTexture("grass2"));
     worldTextures.push_back(resourceManager->getTexture("rock1"));
     worldTextures.push_back(renderer->fbo1->depthTex);
+    worldTextures.push_back(renderer->fbo2->depthTex);
+    worldTextures.push_back(renderer->fbo3->depthTex);
 
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
-    worldObject->specialProgram1 = resourceManager->getShader("terrainShaderNoPCF");
+    worldObject->specialProgram1 = resourceManager->getShader("terrainShader");
     worldObject->specialProgram2 = resourceManager->getShader("terrainShader");
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
@@ -529,12 +531,14 @@ void ExtrapolateAndConquer::generateNewWorld(int seed){
     worldTextures.push_back(resourceManager->getTexture("grass2"));
     worldTextures.push_back(resourceManager->getTexture("rock1"));
     worldTextures.push_back(renderer->fbo1->depthTex);
+    worldTextures.push_back(renderer->fbo2->depthTex);
+    worldTextures.push_back(renderer->fbo3->depthTex);
 
     // Genrate World model with textures
     // ----------------------------------
     Object* worldObject;
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
-    worldObject->specialProgram1 = resourceManager->getShader("terrainShaderNoPCF");
+    worldObject->specialProgram1 = resourceManager->getShader("terrainShader");
     worldObject->specialProgram2 = resourceManager->getShader("terrainShader");
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
