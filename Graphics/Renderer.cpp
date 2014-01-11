@@ -31,10 +31,10 @@ void Renderer::drawObject(Object* o){
     this->renderList.push_back(o);
 }
 
-void Renderer::drawInstanceObjects(StaticObjectList* statics, bool renderToDepthMap){
+void Renderer::drawInstanceObjects(StaticObjectList* statics, int renderToDepthMap){
 
     QOpenGLShaderProgram* program;
-    if(renderToDepthMap){
+    if(renderToDepthMap > 0){
         program = instanceDepthProgram;
     } else {
         program = statics->getProgram();
@@ -71,8 +71,14 @@ void Renderer::drawInstanceObjects(StaticObjectList* statics, bool renderToDepth
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,tex);
 
-    if(renderToDepthMap){
-        program->setUniformValue("pMatrix",lightSourcePMatrix);
+    if(renderToDepthMap == 1){
+        program->setUniformValue("pMatrix",lightSourcePMatrix1);
+        program->setUniformValue("vMatrix",lightSourceVMatrix);
+    } else if(renderToDepthMap == 2){
+        program->setUniformValue("pMatrix",lightSourcePMatrix2);
+        program->setUniformValue("vMatrix",lightSourceVMatrix);
+    } else if(renderToDepthMap == 3){
+        program->setUniformValue("pMatrix",lightSourcePMatrix3);
         program->setUniformValue("vMatrix",lightSourceVMatrix);
     } else {
         program->setUniformValue("pMatrix",pMatrix);
@@ -124,8 +130,8 @@ void Renderer::initFBO(FBO* fbo)
     glGenTextures(1, &fbo->depthTex);
     glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, shadowMapSize, shadowMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
-    GLfloat borderColor[4]={1.0,1.0,1.0,1.0};
-    //GLfloat borderColor[4]={0.0,0.0,0.0,0.0};
+    //GLfloat borderColor[4]={1.0,1.0,1.0,1.0};
+    GLfloat borderColor[4]={0.0,0.0,0.0,0.0};
     glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR, borderColor);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
@@ -222,19 +228,38 @@ void Renderer::calculateLightSourceMatrices()
     qDebug() << "FarPlane" << maxZ;
 */
 
-    lightSourcePMatrix.setToIdentity();
     lightSourceVMatrix.setToIdentity();
-
+    lightSourcePMatrix.setToIdentity();
+    lightSourcePMatrix1.setToIdentity();
+    lightSourcePMatrix2.setToIdentity();
+    lightSourcePMatrix3.setToIdentity();
 
     QVector3D pos = camera->position;
     pos.setY(std::max(worldData->getHeight(pos.x(),pos.z()), 0.0f));
     //pos.setY(0);
 
-
+    lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
 
     int frstumWidth;
     int frstumHeight;
 
+
+    frstumWidth = 150;
+    frstumHeight = 150;
+    lightSourcePMatrix1.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,500);
+
+    frstumWidth = 50;
+    frstumHeight = 50;
+    lightSourcePMatrix2.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,500);
+
+    frstumWidth = 10;
+    frstumHeight = 10;
+    lightSourcePMatrix3.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,500);
+
+    lightSourcePMatrix = lightSourcePMatrix1;
+
+
+/*
     switch(shadowLevel){
     case 1:
         // This will cover the biggest possible island completely
@@ -245,16 +270,10 @@ void Renderer::calculateLightSourceMatrices()
         break;
     case 2:
         // Zooms the demo island
-        //lightSourceVMatrix.lookAt(lightPosition, QVector3D(100,0,100), QVector3D(0,1,0));
         lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
         frstumWidth = 90;
         frstumHeight = 45;
         lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
-
-/*
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        lightSourcePMatrix.ortho(-frstumSize,frstumSize,-frstumSize,frstumSize,maxZ);
-        */
         break;
     case 3:
 
@@ -262,23 +281,6 @@ void Renderer::calculateLightSourceMatrices()
         frstumWidth = 30;
         frstumHeight = 15;
         lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
-
-        /*
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        lightSourcePMatrix.ortho(-15,15,-5,5,50,maxZ);
-        /*
-
-        /*
-        // This will zoom vulcano of demo island
-        lightSourceVMatrix.lookAt(lightPosition, QVector3D(130,-100,130), QVector3D(0,1,0));
-        lightSourcePMatrix.ortho(25,90,45,100,50,maxZ);
-        */
-        /*
-        lightSourcePMatrix.ortho(-5,5,-5,5,50,maxZ);
-        qDebug() << "Pos   " << QVector4D(camera->position, 1);
-        qDebug() << "LS vMa" << lightSourceVMatrix;
-        qDebug() << "LS pos" << lightSourceVMatrix*QVector4D(camera->position);
-        */
         break;
 
     default:
@@ -286,15 +288,7 @@ void Renderer::calculateLightSourceMatrices()
         break;
 
     }
-
-    // Lvl 1
-
-    // Lvl 2
-
-    // Lvl 3
-
-
-    //lightSourcePMatrix.ortho(minX,maxX,minY,maxY,minZ,maxZ);
+    */
 }
 
 void Renderer::repaint(){
@@ -308,50 +302,74 @@ void Renderer::repaint(){
 
     // ----------- SHADOW MAPPING -------------------------------
     // Draw the scene from the lightsource to shadowMap FBO
-    useFBO(fbo1);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    if(isRenderingShadows){
-        calculateLightSourceMatrices();
+    calculateLightSourceMatrices();
+    for(int i = 1; i <= 3; i++){
 
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+        switch(i){
+        case 1:
+            useFBO(fbo1);
+            lightSourcePMatrix = lightSourcePMatrix1;
+            break;
+        case 2:
+            useFBO(fbo2);
+            lightSourcePMatrix = lightSourcePMatrix2;
+            break;
+        case 3:
+            useFBO(fbo3);
+            lightSourcePMatrix = lightSourcePMatrix3;
+            break;
+        default:
+            useFBO(fbo1);
+            lightSourcePMatrix = lightSourcePMatrix1;
+        }
 
-    // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        if(isRenderingShadows){
 
-        if(isRenderingTrees){
-            if(worldData != NULL){
-                drawInstanceObjects(worldData->tree1, true);
-                drawInstanceObjects(worldData->leaf1, true);
 
-                drawInstanceObjects(worldData->tree2, true);
-                drawInstanceObjects(worldData->leaf2, true);
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE);
 
-                drawInstanceObjects(worldData->tree3, true);
-                drawInstanceObjects(worldData->leaf3, true);
+        // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
 
-                drawInstanceObjects(worldData->bush1, true);
-                drawInstanceObjects(worldData->bush2, true);
+            if(isRenderingTrees){
+                if(worldData != NULL){
+                    drawInstanceObjects(worldData->tree1, i);
+                    drawInstanceObjects(worldData->leaf1, i);
+
+                    drawInstanceObjects(worldData->tree2, i);
+                    drawInstanceObjects(worldData->leaf2, i);
+
+                    drawInstanceObjects(worldData->tree3, i);
+                    drawInstanceObjects(worldData->leaf3, i);
+
+                    drawInstanceObjects(worldData->bush1, i);
+                    drawInstanceObjects(worldData->bush2, i);
+                }
             }
-        }
 
-        if(isRenderingTerrain){
-            if(world != NULL){
-                world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+
+            if(isRenderingTerrain){
+                if(world != NULL){
+                    world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+                }
             }
-        }
 
-        if(isRenderingBalls){
-            for(Object * o : renderList){
-                o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+            if(isRenderingBalls){
+                for(Object * o : renderList){
+                    o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+                }
             }
-        }
 
-        if(water != NULL){
-            water->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
-        }
+            if(water != NULL){
+                water->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+            }
 
-        glCullFace(GL_BACK);
+            glCullFace(GL_BACK);
+        }
     }
+
+    lightSourcePMatrix = lightSourcePMatrix1;
 
     // ----------- STANDARD RENDER -------------------------------
     // Draw everything again to the default FBO
@@ -375,6 +393,13 @@ void Renderer::repaint(){
             world->program->setUniformValue("incr", incr);
             world->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
             world->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
+            world->program->setUniformValue("lightSourcePMatrix1", lightSourcePMatrix1);
+            world->program->setUniformValue("lightSourcePMatrix2", lightSourcePMatrix2);
+            world->program->setUniformValue("lightSourcePMatrix3", lightSourcePMatrix3);
+            world->program->setUniformValue("tex4", 4);        // Shadow map
+            world->program->setUniformValue("tex5", 5);        // Shadow map
+            world->program->setUniformValue("cameraPosition", camera->position);
+
             world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         }
     }
