@@ -367,6 +367,8 @@ int ExtrapolateAndConquer::run(){
     return returnCode;
 }
 
+#include <map>
+std::map<int,SpherePhysics > previousState;
 
 bool first = true;
 void ExtrapolateAndConquer::loopBody(){
@@ -400,9 +402,9 @@ void ExtrapolateAndConquer::loopBody(){
         openGLWindow->getRenderer()->world->program = openGLWindow->getRenderer()->world->specialProgram2;
         //qDebug() << "Prog2";
     }
-    if(openGLWindow->backwardsPhysics)
+    if(openGLWindow->backwardsPhysics) {
         dt *= -1;
-
+    }
 
     spherePhysicsSystem.setTimeInterval(dt);
     openGLWindow->getRenderer()->setDt(dt);
@@ -431,16 +433,63 @@ void ExtrapolateAndConquer::loopBody(){
                 sp.angularVelocity2 = QQuaternion(1,0,0,0);
                 */
 
+
                 // Vulcano
-                int m = sp.mass/2;
-                int x = (int)world->maxPosition.x();//72;
-                int z = (int)world->maxPosition.z();//161;
-                int y = (int)world->maxPosition.y();//world->getHeight(x,z)+1;//22;
-                sp.position = QVector3D(qrand()%3+x, y, qrand()%3+z);
-                sp.velocity = QVector3D(0,0,0);
-                sp.linearMomentum = QVector3D(qrand()%(30*m)-15*m,100*m,qrand()%(30*m)-15*m);
-                sp.angularMomentum = QVector3D(qrand()%(2*m)-1*m,qrand()%(2*m)-1*m,qrand()%(2*m)-1*m);
-                sp.angularVelocity2 = QQuaternion(1,0,0,0);
+                if(openGLWindow->backwardsPhysics) {
+                    if(previousState.find(sp.entityOwnerID) != previousState.end())
+                        sp = previousState[sp.entityOwnerID];
+                    else
+                    {
+                        int x = 0;
+                        int y = -10;
+                        int z = 0;
+                        sp.position = QVector3D(qrand()%3+x, y, qrand()%3+z);
+                        sp.velocity = QVector3D(0,0,0);
+                        sp.linearMomentum = QVector3D(0,0,0);
+                        sp.angularMomentum = QVector3D(0,0,0);
+                        sp.angularVelocity2 = QQuaternion(1,0,0,0);
+                    }
+                } else {
+                    previousState[sp.entityOwnerID] = sp;   // Used when backwardsPhysics
+
+                    int m = sp.mass/2;
+                    int x = (int)world->maxPosition.x();//72;
+                    int z = (int)world->maxPosition.z();//161;
+                    int y = (int)world->maxPosition.y();//world->getHeight(x,z)+1;//22;
+                    sp.position = QVector3D(qrand()%3+x, y, qrand()%3+z);
+                    sp.velocity = QVector3D(0,0,0);
+                    sp.linearMomentum = QVector3D(qrand()%(30*m)-15*m,100*m,qrand()%(30*m)-15*m);
+                    sp.angularMomentum = QVector3D(qrand()%(2*m)-1*m,qrand()%(2*m)-1*m,qrand()%(2*m)-1*m);
+                    sp.angularVelocity2 = QQuaternion(1,0,0,0);
+                }
+            } else if(openGLWindow->backwardsPhysics) {
+                bool isInsideVolcano = sp.position.y() < world->maxPosition.y() - 1 &&
+                                       sp.position.x() > world->maxPosition.x() - 2 &&
+                                       sp.position.x() < world->maxPosition.x() + 2 &&
+                                       sp.position.z() > world->maxPosition.z() - 2 &&
+                                       sp.position.z() < world->maxPosition.z() + 2;
+                if(isInsideVolcano) {
+                    qDebug() << "entity" << sp.entityOwnerID << "is in volcano respawn box!";
+
+                    if(previousState.find(sp.entityOwnerID) != previousState.end())
+                        sp = previousState[sp.entityOwnerID];
+                    else
+                    {
+                    /*
+                    int x = (int)world->maxPosition.x()+10;//72;
+                    int z = (int)world->maxPosition.z()+10;//161;
+                    int y = world->getHeight(x,z)+2;
+                    */
+                    int x = 0;
+                    int y = -10;
+                    int z = 0;
+                    sp.position = QVector3D(qrand()%3+x, y, qrand()%3+z);
+                    sp.velocity = QVector3D(0,0,0);
+                    sp.linearMomentum = QVector3D(0,0,0);
+                    sp.angularMomentum = QVector3D(0,0,0);
+                    sp.angularVelocity2 = QQuaternion(1,0,0,0);
+                    }
+                }
             }
         }
     }
