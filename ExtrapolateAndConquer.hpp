@@ -6,6 +6,7 @@
 #include <QElapsedTimer>
 #include <vector>
 #include <QOpenGLContext>
+#include <map>
 
 #include "ResourceManager.hpp"
 
@@ -65,6 +66,7 @@ public:
     Entity<Components> * e;
     cv::Mat hightMapOfChunk;
 
+    std::map<int,SpherePhysics > previousState; //Used by backwards physics to restart fireballs when entering the volcano.
     bool vulcanActive;
     bool highResolutionTerrain;
     int state;

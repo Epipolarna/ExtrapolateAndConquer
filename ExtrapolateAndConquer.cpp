@@ -367,9 +367,6 @@ int ExtrapolateAndConquer::run(){
     return returnCode;
 }
 
-#include <map>
-std::map<int,SpherePhysics > previousState;
-
 bool first = true;
 void ExtrapolateAndConquer::loopBody(){
     timer->stop();
