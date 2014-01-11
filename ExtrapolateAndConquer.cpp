@@ -387,6 +387,11 @@ void ExtrapolateAndConquer::loopBody(){
         qDebug() << "highResolutionTerrain:" << highResolutionTerrain;
         openGLWindow->toggleTerrainResolution = false;
         generateNewWorld(seed);
+    } else
+    if(openGLWindow->updateTerrainDensity) {
+        qDebug() << "Terrain density:" << openGLWindow->terrainDensity;
+        openGLWindow->updateTerrainDensity = false;
+        generateNewWorld(seed);
     }
     if(openGLWindow->getRenderer()->isPCF){
         openGLWindow->getRenderer()->world->program = openGLWindow->getRenderer()->world->specialProgram1;
@@ -395,6 +400,7 @@ void ExtrapolateAndConquer::loopBody(){
         openGLWindow->getRenderer()->world->program = openGLWindow->getRenderer()->world->specialProgram2;
         //qDebug() << "Prog2";
     }
+
 
     spherePhysicsSystem.setTimeInterval(dt);
     openGLWindow->getRenderer()->setDt(dt);
@@ -437,23 +443,25 @@ void ExtrapolateAndConquer::loopBody(){
         }
     }
 
-    // Run collision detection
-    sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
-    sphereTerrainCollisionSystem.batch();
+    if(openGLWindow->activePhysics)
+    {
+        // Run collision detection
+        sphereSphereCollisionSystem.batch();    // Fetches all entities containing "Collision" components
+        sphereTerrainCollisionSystem.batch();
 
-    //qDebug() << "position" << physics.position << "| velocity " << physics.velocity << "|  linearMomentum" << physics.linearMomentum << "|  force" << physics.force;
-    //qDebug() << "aVelocity" << physics.angularVelocity2 << "| angularMomentum" << physics.angularMomentum << "| torque" << physics.torque;
-    //qDebug() << "---------------------------";
+        //qDebug() << "position" << physics.position << "| velocity " << physics.velocity << "|  linearMomentum" << physics.linearMomentum << "|  force" << physics.force;
+        //qDebug() << "aVelocity" << physics.angularVelocity2 << "| angularMomentum" << physics.angularMomentum << "| torque" << physics.torque;
+        //qDebug() << "---------------------------";
 
-    // Run physics simulators
-    spherePhysicsSystem.batch();
+        // Run physics simulators
+        spherePhysicsSystem.batch();
 
-    // Run physics to graphics transfer of position/rotation
-    graphicsUpdateSystem.batch();
+        // Run physics to graphics transfer of position/rotation
+        graphicsUpdateSystem.batch();
 
-    // Run AI
-    aiSystem.batch();
-
+        // Run AI
+        aiSystem.batch();
+    }
 
     //make sure to update the gl widget...
     //graphicsWindow->centralWidget()->update();
@@ -482,13 +490,13 @@ void ExtrapolateAndConquer::generateNewWorld(int seed){
     if(highResolutionTerrain) {
         lacunarity = 1/2.1;   // Period reduction
         gain = 0.52;          // Amplitude reduction
-        vertexDensity = 2.0f; // Determine the size & "sharpiness" of the world. Default: 0.5f
+        vertexDensity = openGLWindow->terrainDensity;
     } else {
         //lacunarity = 1/1.87;
         //gain = 0.66;
         lacunarity = 1/2.1;   // Period reduction
         gain = 0.52;          // Amplitude reduction
-        vertexDensity = 0.5f; // Determine the size & "sharpiness" of the world. Default: 0.5f
+        vertexDensity = 0.5f;
     }
 
     //for each pixel, get the value

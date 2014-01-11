@@ -32,6 +32,9 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 
     requestNewWorld = false;
     toggleTerrainResolution = false;
+    updateTerrainDensity = false;
+    terrainDensity = 2.0f;   // Default "high resolution"
+    activePhysics = true;
 
     initializeOpenGLFunctions();
 }
@@ -195,6 +198,9 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
     case Qt::Key_V:
         renderer->isRenderingShadows = !renderer->isRenderingShadows;
         break;
+    case Qt::Key_B:
+        activePhysics = !activePhysics;
+        break;
     case Qt::Key_N:
         requestNewWorld = true;
         break;
@@ -208,6 +214,14 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         break;
     case Qt::Key_T: // Toggle between high and low resolution terrain (4 times difference)
         toggleTerrainResolution = true;
+        break;
+    case Qt::Key_K: // Toggle between high and low resolution terrain (4 times difference)
+        terrainDensity -= 0.5;
+        updateTerrainDensity = true;
+        break;
+    case Qt::Key_L: // Toggle between high and low resolution terrain (4 times difference)
+        terrainDensity += 0.5;
+        updateTerrainDensity = true;
         break;
     default:
         camera->keyPressEvent(e);

@@ -27,6 +27,10 @@ public:
     bool isNewWorldRequested();
     int currentState;
     bool toggleTerrainResolution;
+    bool updateTerrainDensity;
+    float terrainDensity;
+
+    bool activePhysics;
 
 protected slots:
     void resizeGl();

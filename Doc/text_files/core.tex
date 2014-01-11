@@ -23,7 +23,7 @@ The physics used in this game is divided into three systems, all three processin
 \subsubsection{SpherePhysics}
 SpherePhysics is a component dedicated to physics data, its content is seen in the code below.
 \begin{lstlisting}
-struct SpherePhysics : public Component<> {
+ struct SpherePhysics : public Component<> {
     const std::string getName() override { return "SpherePhysics"; }
 
     float mass;                     // m            (Positive)
@@ -32,25 +32,21 @@ struct SpherePhysics : public Component<> {
     float momentOfInertia;          // For a sphere: 6/12*m*radius^2
     float gravitationalConstant;    // g            (Positive. in Sweden at sea level: 9.82)
 
-    QVector3D position;             // x = Integral( v, dt );
+    QVector3D force;                // F = ... external events ...
+    QVector3D linearMomentum;       // P = Integral( F, dt );
     QVector3D velocity;             // v = P / m;
+    QVector3D position;             // x = Integral( v, dt );
+
+    QVector3D torque;               // T = ... external events ...
+    QVector3D angularMomentum;      // L = Integral( T, dt );
     QVector3D angularVelocity;      // w = L * Inverse(I)
     QQuaternion angularVelocity2;   // w = L * Inverse(I)
-
-    QVector3D rotation;             // r = Integral( w, dt );
-    QQuaternion rotation2;          // r = Integral( w, dt );
-
-
-    QVector3D linearMomentum;       // P = Integral( F, dt );
-    QVector3D force;                // F = ... external events ...
-
-    QVector3D angularMomentum;      // L = Integral( torque, dt );
-    QVector3D torque;               // T = ... external events ...
+    QQuaternion rotation;           // r = Integral( w, dt );
 
     float radius;                   // Radius of the sphere
     QVector3D collisionVector;      // The sum of the vectors from all collisions
 
-};
+ };
 \end{lstlisting}
 
 \subsubsection{SpherePhysicsSystem}

@@ -453,7 +453,7 @@ void World::placeTrees(void){
     std::vector<QVector2D> forests = getForests();
     //make forests in these areas
 
-    int maxNumTries = 15000;
+    int maxNumTries = 20000;
 
     // Bush1
     int tries = 0;
