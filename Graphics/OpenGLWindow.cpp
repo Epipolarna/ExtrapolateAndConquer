@@ -16,8 +16,8 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 
     context->makeCurrent(this);
 
-    resize(1280,800);
-    //resize(1920,1080);
+    //resize(1280,800);
+    resize(1920,1080);
 
     renderer = new Renderer();
     renderer->setSize(width(), height());
@@ -35,6 +35,7 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
     updateTerrainDensity = false;
     terrainDensity = 2.0f;   // Default "high resolution"
     activePhysics = true;
+    backwardsPhysics = false;
 
     initializeOpenGLFunctions();
 }
@@ -200,6 +201,9 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         break;
     case Qt::Key_B:
         activePhysics = !activePhysics;
+        break;
+    case Qt::Key_H:
+        backwardsPhysics = !backwardsPhysics;
         break;
     case Qt::Key_N:
         requestNewWorld = true;

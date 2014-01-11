@@ -400,6 +400,8 @@ void ExtrapolateAndConquer::loopBody(){
         openGLWindow->getRenderer()->world->program = openGLWindow->getRenderer()->world->specialProgram2;
         //qDebug() << "Prog2";
     }
+    if(openGLWindow->backwardsPhysics)
+        dt *= -1;
 
 
     spherePhysicsSystem.setTimeInterval(dt);
