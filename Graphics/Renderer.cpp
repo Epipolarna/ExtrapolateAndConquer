@@ -221,18 +221,32 @@ void Renderer::calculateLightSourceMatrices()
     qDebug() << "NearPlane" << minZ;
     qDebug() << "FarPlane" << maxZ;
 */
+
     lightSourcePMatrix.setToIdentity();
-    //lightSourcePMatrix.ortho(-30,70,5,70,50,maxZ);
+    lightSourceVMatrix.setToIdentity();
+
 
     switch(shadowLevel){
     case 1:
-        lightSourcePMatrix.ortho(-90,180,-20,220,50,maxZ);
+        // This will cover the biggest possible island completely
+        lightSourceVMatrix.lookAt(lightPosition, QVector3D(130,-100,130), QVector3D(0,1,0));
+        lightSourcePMatrix.ortho(-130,180,-20,220,50,maxZ);
         break;
     case 2:
+        // Zooms the demo island
+        lightSourceVMatrix.lookAt(lightPosition, QVector3D(130,-100,130), QVector3D(0,1,0));
         lightSourcePMatrix.ortho(-30,90,0,110,50,maxZ);
         break;
     case 3:
+
+        lightSourceVMatrix.lookAt(lightPosition, camera->position, QVector3D(0,1,0));
+        lightSourcePMatrix.ortho(-5,5,-5,5,50,maxZ);
+
+        /*
+        // This will zoom vulcano of demo island
+        lightSourceVMatrix.lookAt(lightPosition, QVector3D(130,-100,130), QVector3D(0,1,0));
         lightSourcePMatrix.ortho(25,90,45,100,50,maxZ);
+        */
         /*
         lightSourcePMatrix.ortho(-5,5,-5,5,50,maxZ);
         qDebug() << "Pos   " << QVector4D(camera->position, 1);
