@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.21)  10 JAN 2014 22:42
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.21)  10 JAN 2014 23:24
 entering extended mode
 **Technical*Report.tex
 
@@ -1000,7 +1000,7 @@ mExample-eps-converted-to.pdf images/EntityComponentSystemExample.eps>
 (epstopdf)             \includegraphics on input line 9.
 Package epstopdf Info: Output file is already uptodate.
 
-<images/EntityComponentSystemExample-eps-converted-to.pdf, id=186, 667.49374pt 
+<images/EntityComponentSystemExample-eps-converted-to.pdf, id=190, 667.49374pt 
 x 270.00874pt>
 File: images/EntityComponentSystemExample-eps-converted-to.pdf Graphic file (ty
 pe pdf)
@@ -1058,14 +1058,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--17
 
  []
 
-[4] <images/Simplex.png, id=244, 376.40625pt x 376.40625pt>
+[4] <images/Simplex.png, id=248, 376.40625pt x 376.40625pt>
 File: images/Simplex.png Graphic file (type png)
 
 <use images/Simplex.png>
 Package pdftex.def Info: images/Simplex.png used on input line 27.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
 
-<images/FracBrownMotion.png, id=246, 376.40625pt x 376.40625pt>
+<images/FracBrownMotion.png, id=250, 376.40625pt x 376.40625pt>
 File: images/FracBrownMotion.png Graphic file (type png)
 
 <use images/FracBrownMotion.png>
@@ -1081,79 +1081,146 @@ Underfull \hbox (badness 10000) in paragraph at lines 42--48
 
  []
 
-)
-(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/visual_ef
-fects.tex [5 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
-Simplex.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
-FracBrownMotion.png>] <images/SMAcne.png, id=261, 770.88pt x 481.8pt>
-File: images/SMAcne.png Graphic file (type png)
+Package epstopdf Info: Source file: <images/content1.eps>
+(epstopdf)                    date: 2014-01-10 23:01:38
+(epstopdf)                    size: 5270199 bytes
+(epstopdf)             Output file: <images/content1-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-10 23:02:57
+(epstopdf)                    size: 164426 bytes
+(epstopdf)             Command: <epstopdf --outfile=images/content1-eps-convert
+ed-to.pdf images/content1.eps>
+(epstopdf)             \includegraphics on input line 54.
+Package epstopdf Info: Output file is already uptodate.
+<images/content1-eps-converted-to.pdf, id=251, 957.5775pt x 632.3625pt>
+File: images/content1-eps-converted-to.pdf Graphic file (type pdf)
 
-<use images/SMAcne.png>
+<use images/content1-eps-converted-to.pdf>
+Package pdftex.def Info: images/content1-eps-converted-to.pdf used on input lin
+e 54.
+(pdftex.def)             Requested size: 437.88495pt x 289.17274pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Simplex.p
+ng> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/FracBrown
+Motion.png>]
+Package epstopdf Info: Source file: <images/Volcano1.eps>
+(epstopdf)                    date: 2014-01-10 23:07:18
+(epstopdf)                    size: 7916966 bytes
+(epstopdf)             Output file: <images/Volcano1-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-10 23:07:26
+(epstopdf)                    size: 154344 bytes
+(epstopdf)             Command: <epstopdf --outfile=images/Volcano1-eps-convert
+ed-to.pdf images/Volcano1.eps>
+(epstopdf)             \includegraphics on input line 64.
+Package epstopdf Info: Output file is already uptodate.
+ <images/Volcano1-eps-converted-to.pdf, id=260, 1363.0925pt x 770.88pt>
+File: images/Volcano1-eps-converted-to.pdf Graphic file (type pdf)
+
+<use images/Volcano1-eps-converted-to.pdf>
+Package pdftex.def Info: images/Volcano1-eps-converted-to.pdf used on input lin
+e 64.
+(pdftex.def)             Requested size: 437.88495pt x 247.63942pt.
+Package epstopdf Info: Source file: <images/Volcano2.eps>
+(epstopdf)                    date: 2014-01-10 23:24:30
+(epstopdf)                    size: 9170384 bytes
+(epstopdf)             Output file: <images/Volcano2-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-10 23:23:52
+(epstopdf)                    size: 303100 bytes
+(epstopdf)             Command: <epstopdf --outfile=images/Volcano2-eps-convert
+ed-to.pdf images/Volcano2.eps>
+(epstopdf)             \includegraphics on input line 71.
+runsystem(epstopdf --outfile=images/Volcano2-eps-converted-to.pdf images/Volcan
+o2.eps)...executed (allowed).
+
+Package epstopdf Info: Result file: <images/Volcano2-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-01-10 23:24:37
+(epstopdf)                    size: 66292 bytes.
+
+<images/Volcano2-eps-converted-to.pdf, id=261, 1280.785pt x 781.92125pt>
+File: images/Volcano2-eps-converted-to.pdf Graphic file (type pdf)
+
+<use images/Volcano2-eps-converted-to.pdf>
+Package pdftex.def Info: images/Volcano2-eps-converted-to.pdf used on input lin
+e 71.
+(pdftex.def)             Requested size: 437.88495pt x 267.32916pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/content1-
+eps-converted-to.pdf>])
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/visual_ef
+fects.tex [7 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
+Volcano1-eps-converted-to.pdf> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndC
+onquer/Doc/images/Volcano2-eps-converted-to.pdf>]
+<images/SMAcne.png, id=293, 770.88pt x 481.8pt>
+File: images/SMAcne.png Graphic file (type png)
+ <use images/SMAcne.png>
 Package pdftex.def Info: images/SMAcne.png used on input line 27.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
- <images/SMAcneFix.png, id=262, 770.88pt x 481.8pt>
-File: images/SMAcneFix.png Graphic file (type png)
 
-<use images/SMAcneFix.png>
+<images/SMAcneFix.png, id=294, 770.88pt x 481.8pt>
+File: images/SMAcneFix.png Graphic file (type png)
+ <use images/SMAcneFix.png>
 Package pdftex.def Info: images/SMAcneFix.png used on input line 33.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
- <images/PCFLvl1.png, id=269, 770.88pt x 481.8pt>
-File: images/PCFLvl1.png Graphic file (type png)
 
-<use images/PCFLvl1.png>
+<images/PCFLvl1.png, id=301, 770.88pt x 481.8pt>
+File: images/PCFLvl1.png Graphic file (type png)
+ <use images/PCFLvl1.png>
 Package pdftex.def Info: images/PCFLvl1.png used on input line 48.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
- <images/PCFLvl5.png, id=270, 770.88pt x 481.8pt>
-File: images/PCFLvl5.png Graphic file (type png)
 
-<use images/PCFLvl5.png>
+<images/PCFLvl5.png, id=302, 770.88pt x 481.8pt>
+File: images/PCFLvl5.png Graphic file (type png)
+ <use images/PCFLvl5.png>
 Package pdftex.def Info: images/PCFLvl5.png used on input line 54.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
- [6 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcne.pn
-g> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcneFix.
-png>]
-<images/SMOverViewLvl1.png, id=285, 770.88pt x 481.8pt>
+
+[8 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcne.png
+> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcneFix.p
+ng>] <images/SMOverViewLvl1.png, id=316, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl1.png Graphic file (type png)
 
 <use images/SMOverViewLvl1.png>
 Package pdftex.def Info: images/SMOverViewLvl1.png used on input line 78.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMOverViewLvl2.png, id=286, 770.88pt x 481.8pt>
+<images/SMOverViewLvl2.png, id=317, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl2.png Graphic file (type png)
 
 <use images/SMOverViewLvl2.png>
 Package pdftex.def Info: images/SMOverViewLvl2.png used on input line 84.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMOverViewLvl3.png, id=287, 770.88pt x 481.8pt>
+<images/SMOverViewLvl3.png, id=318, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl3.png Graphic file (type png)
 
 <use images/SMOverViewLvl3.png>
 Package pdftex.def Info: images/SMOverViewLvl3.png used on input line 90.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl1.png, id=288, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl1.png, id=319, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl1.png Graphic file (type png)
 
 <use images/SMCloseUpLvl1.png>
 Package pdftex.def Info: images/SMCloseUpLvl1.png used on input line 101.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl2.png, id=289, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl2.png, id=320, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl2.png Graphic file (type png)
 
 <use images/SMCloseUpLvl2.png>
 Package pdftex.def Info: images/SMCloseUpLvl2.png used on input line 107.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl3.png, id=290, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl3.png, id=321, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl3.png Graphic file (type png)
 
 <use images/SMCloseUpLvl3.png>
 Package pdftex.def Info: images/SMCloseUpLvl3.png used on input line 113.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
- [7 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl1.p
+ [9 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl1.p
 ng> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl5.p
 ng> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMOverVie
 wLvl1.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SM
@@ -1162,41 +1229,41 @@ ages/SMOverViewLvl3.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer
 /Doc/images/SMCloseUpLvl1.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndC
 onquer/Doc/images/SMCloseUpLvl2.png> <C:/Users/TiXiR/Documents/GitHub/Extrapola
 teAndConquer/Doc/images/SMCloseUpLvl3.png>]
-<images/SMExBF3.png, id=297, 1264.725pt x 790.45313pt>
+<images/SMExBF3.png, id=328, 1264.725pt x 790.45313pt>
 File: images/SMExBF3.png Graphic file (type png)
 
 <use images/SMExBF3.png>
 Package pdftex.def Info: images/SMExBF3.png used on input line 126.
 (pdftex.def)             Requested size: 218.94247pt x 136.83575pt.
 
-<images/SMExCSGO.png, id=298, 1264.725pt x 790.45313pt>
+<images/SMExCSGO.png, id=329, 1264.725pt x 790.45313pt>
 File: images/SMExCSGO.png Graphic file (type png)
 
 <use images/SMExCSGO.png>
 Package pdftex.def Info: images/SMExCSGO.png used on input line 132.
 (pdftex.def)             Requested size: 218.94247pt x 136.83575pt.
 
-<images/SMExSimCity.png, id=299, 1686.3pt x 1053.9375pt>
+<images/SMExSimCity.png, id=330, 1686.3pt x 1053.9375pt>
 File: images/SMExSimCity.png Graphic file (type png)
 
 <use images/SMExSimCity.png>
 Package pdftex.def Info: images/SMExSimCity.png used on input line 139.
 (pdftex.def)             Requested size: 218.94247pt x 136.83978pt.
 
-<images/SMExLoL.png, id=300, 1686.3pt x 1053.9375pt>
+<images/SMExLoL.png, id=331, 1686.3pt x 1053.9375pt>
 File: images/SMExLoL.png Graphic file (type png)
  <use images/SMExLoL.png>
 Package pdftex.def Info: images/SMExLoL.png used on input line 145.
 (pdftex.def)             Requested size: 218.94247pt x 136.83978pt.
 
-<images/horizonNoFog.png, id=303, 770.88pt x 481.8pt>
+<images/horizonNoFog.png, id=334, 770.88pt x 481.8pt>
 File: images/horizonNoFog.png Graphic file (type png)
 
 <use images/horizonNoFog.png>
 Package pdftex.def Info: images/horizonNoFog.png used on input line 161.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/horizonFog.png, id=304, 771.48225pt x 482.40225pt>
+<images/horizonFog.png, id=335, 771.48225pt x 482.40225pt>
 File: images/horizonFog.png Graphic file (type png)
 
 <use images/horizonFog.png>
@@ -1205,30 +1272,30 @@ Package pdftex.def Info: images/horizonFog.png used on input line 167.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [8 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExBF3.p
-ng> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExCSGO.
-png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExSimC
-ity.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMEx
-LoL.png>]
-<images/skybox0.png, id=310, 4111.36pt x 3083.52pt>
+ [10 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExBF3.
+png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExCSGO
+.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExSim
+City.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SME
+xLoL.png>]
+<images/skybox0.png, id=342, 4111.36pt x 3083.52pt>
 File: images/skybox0.png Graphic file (type png)
  <use images/skybox0.png>
 Package pdftex.def Info: images/skybox0.png used on input line 178.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
 
-<images/skybox1.png, id=311, 4111.36pt x 3083.52pt>
+<images/skybox1.png, id=343, 4111.36pt x 3083.52pt>
 File: images/skybox1.png Graphic file (type png)
  <use images/skybox1.png>
 Package pdftex.def Info: images/skybox1.png used on input line 184.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
 ))
-[9 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/horizonNoF
-og.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/horiz
-onFog.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/sk
-ybox0.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/sk
-ybox1.png>]
+[11 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/horizonNo
+Fog.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/hori
+zonFog.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/s
+kybox0.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/s
+kybox1.png>]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/ai.tex)
-[10]
+[12]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/conclusio
 ns.tex)
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/bibliogra
@@ -1239,7 +1306,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 73--76
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 204.
- [11pdfTeX warning (ext4): destination with the same identifier (name{cite.cite
+ [13pdfTeX warning (ext4): destination with the same identifier (name{cite.cite
 key}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
@@ -1261,10 +1328,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 204.
  ) 
 Here is how much of TeX's memory you used:
- 11630 strings out of 493921
- 174259 string characters out of 3144876
- 373571 words of memory out of 3000000
- 14577 multiletter control sequences out of 15000+200000
+ 11655 strings out of 493921
+ 174926 string characters out of 3144876
+ 374899 words of memory out of 3000000
+ 14595 multiletter control sequences out of 15000+200000
  12725 words of font info for 48 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  42i,18n,67p,1058b,903s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1283,9 +1350,9 @@ Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program
  Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on "Technical Report.pdf" (14 pages, 35078318 bytes).
+Output written on "Technical Report.pdf" (16 pages, 35460490 bytes).
 PDF statistics:
- 401 PDF objects out of 1000 (max. 8388607)
- 93 named destinations out of 1000 (max. 500000)
- 313 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 433 PDF objects out of 1000 (max. 8388607)
+ 97 named destinations out of 1000 (max. 500000)
+ 328 words of extra memory for PDF output out of 10000 (max. 10000000)
 
