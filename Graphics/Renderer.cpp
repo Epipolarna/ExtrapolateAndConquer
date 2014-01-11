@@ -226,21 +226,47 @@ void Renderer::calculateLightSourceMatrices()
     lightSourceVMatrix.setToIdentity();
 
 
+    QVector3D pos = camera->position;
+    pos.setY(std::max(worldData->getHeight(pos.x(),pos.z()), 0.0f));
+    //pos.setY(0);
+
+
+
+    int frstumWidth;
+    int frstumHeight;
+
     switch(shadowLevel){
     case 1:
         // This will cover the biggest possible island completely
-        lightSourceVMatrix.lookAt(lightPosition, QVector3D(130,-100,130), QVector3D(0,1,0));
-        lightSourcePMatrix.ortho(-130,180,-20,220,50,maxZ);
+        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
+        frstumWidth = 150;
+        frstumHeight = 150;
+        lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
         break;
     case 2:
         // Zooms the demo island
-        lightSourceVMatrix.lookAt(lightPosition, QVector3D(130,-100,130), QVector3D(0,1,0));
-        lightSourcePMatrix.ortho(-30,90,0,110,50,maxZ);
+        //lightSourceVMatrix.lookAt(lightPosition, QVector3D(100,0,100), QVector3D(0,1,0));
+        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
+        frstumWidth = 90;
+        frstumHeight = 45;
+        lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
+
+/*
+        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
+        lightSourcePMatrix.ortho(-frstumSize,frstumSize,-frstumSize,frstumSize,maxZ);
+        */
         break;
     case 3:
 
-        lightSourceVMatrix.lookAt(lightPosition, camera->position, QVector3D(0,1,0));
-        lightSourcePMatrix.ortho(-5,5,-5,5,50,maxZ);
+        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
+        frstumWidth = 30;
+        frstumHeight = 15;
+        lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
+
+        /*
+        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
+        lightSourcePMatrix.ortho(-15,15,-5,5,50,maxZ);
+        /*
 
         /*
         // This will zoom vulcano of demo island

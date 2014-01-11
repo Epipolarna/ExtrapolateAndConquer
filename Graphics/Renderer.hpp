@@ -54,6 +54,12 @@ public:
     QMatrix4x4 pMatrixInv;
     QMatrix4x4 lightSourceVMatrix;
     QMatrix4x4 lightSourcePMatrix;
+    QMatrix4x4 lightSourceVMatrix1;
+    QMatrix4x4 lightSourcePMatrix1;
+    QMatrix4x4 lightSourceVMatrix2;
+    QMatrix4x4 lightSourcePMatrix2;
+    QMatrix4x4 lightSourceVMatrix3;
+    QMatrix4x4 lightSourcePMatrix3;
     QMatrix4x4 lightSourceVMatrixInv;
     QMatrix4x4 lightSourcePMatrixInv;
     std::vector<QVector4D> frustumCorners;

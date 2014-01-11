@@ -189,7 +189,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     // Shadow map Matrices
     renderer->lightSourceVMatrix.setToIdentity();
-    renderer->lightSourceVMatrix.lookAt(renderer->lightPosition, QVector3D(130,-100,130), QVector3D(0,1,0));
+    renderer->lightSourceVMatrix.lookAt(renderer->lightPosition, QVector3D(100,0,100), QVector3D(0,1,0));
     renderer->lightSourceVMatrixInv = renderer->lightSourceVMatrix;
     renderer->lightSourceVMatrixInv.inverted();
 
