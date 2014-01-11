@@ -167,67 +167,6 @@ void Renderer::useFBO(FBO* fbo)
 
 void Renderer::calculateLightSourceMatrices()
 {
-    /*
-    qDebug() << "CamPos:" << camera->position;
-    qDebug() << "CamLightSpacePos:" << lightSourceVMatrix*camera->position;
-    */
-    QVector4D lightSpaceVertex;
-    float minX = 1000000;
-    float maxX = 0.2;
-    float minY = 1000000;
-    float maxY = 0.2;
-    float minZ = 1000000;
-    float maxZ = 0.2;
-    float lsX = 0;
-    float lsY = 0;
-    float lsZ = 0;
-    bool okInv = false;
-
-    for(int i = 1; i < frustumCorners.size(); i++){
-        QVector4D worldSpaceVertex = frustumCorners[i];
-
-        lightSpaceVertex = lightSourceVMatrix*camera->vMatrix.inverted(&okInv)*worldSpaceVertex;
-        lsX = lightSpaceVertex.x();
-        lsY = lightSpaceVertex.y();
-        lsZ = -lightSpaceVertex.z();
-
-        // X
-        if(lsX > maxX){
-            maxX = lsX;
-        }
-        if(lsX < minX){
-            minX = lsX;
-        }
-
-        // Y
-        if(lsY > maxY){
-            maxY = lsY;
-        }
-        if(lsY < minY){
-            minY = lsY;
-        }
-
-        // Z
-        if(lsZ > 0){
-            if(lsZ > maxZ){
-                maxZ = lsZ;
-            }
-            if(lsZ < minZ){
-                minZ = lsZ;
-            }
-        } else {
-            minZ = 0.1;
-        }
-    }
-/*
-    qDebug() << "left" << minX;
-    qDebug() << "right" << maxX;
-    qDebug() << "bottom" << minY;
-    qDebug() << "top" << maxY;
-    qDebug() << "NearPlane" << minZ;
-    qDebug() << "FarPlane" << maxZ;
-*/
-
     lightSourceVMatrix.setToIdentity();
     lightSourcePMatrix.setToIdentity();
     lightSourcePMatrix1.setToIdentity();
@@ -257,38 +196,6 @@ void Renderer::calculateLightSourceMatrices()
     lightSourcePMatrix3.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,500);
 
     lightSourcePMatrix = lightSourcePMatrix1;
-
-
-/*
-    switch(shadowLevel){
-    case 1:
-        // This will cover the biggest possible island completely
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        frstumWidth = 150;
-        frstumHeight = 150;
-        lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
-        break;
-    case 2:
-        // Zooms the demo island
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        frstumWidth = 90;
-        frstumHeight = 45;
-        lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
-        break;
-    case 3:
-
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        frstumWidth = 30;
-        frstumHeight = 15;
-        lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
-        break;
-
-    default:
-        lightSourcePMatrix.ortho(-70,120,0,130,50,maxZ);
-        break;
-
-    }
-    */
 }
 
 void Renderer::repaint(){
