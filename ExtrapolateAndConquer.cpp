@@ -306,11 +306,7 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadModel("tree5");
     resourceManager->loadModel("bush",true);
     resourceManager->loadTexture("tree5", false);
-<<<<<<< HEAD
-    resourceManager->loadTexture("bush", false);
-=======
     resourceManager->loadTexture("bush", true);
->>>>>>> Fixed alpha mip-map
 
 
     //Stone data
@@ -477,7 +473,7 @@ void ExtrapolateAndConquer::loopBody(){
                                        sp.position.z() > world->maxPosition.z() - 2 &&
                                        sp.position.z() < world->maxPosition.z() + 2;
                 if(isInsideVolcano) {
-                    qDebug() << "entity" << sp.entityOwnerID << "is in volcano respawn box!";
+                    //qDebug() << "entity" << sp.entityOwnerID << "is in volcano respawn box!";
 
                     if(previousState.find(sp.entityOwnerID) != previousState.end())
                         sp = previousState[sp.entityOwnerID];
