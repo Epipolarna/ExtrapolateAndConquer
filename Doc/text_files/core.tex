@@ -16,6 +16,21 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
 * Easy to use (a natural work flow of what goes where and how to solve problems. minimal overhead to use the system), easy to maintain, easy to extend, extremely efficient, trivial to parallelize calculations, verifies consistency at compile time...
 
 \subsection{Rendering}
+The rendering system is outside the entity system mainly becouse it is the largest part, and it was not known in the start of the project what information it needed exacly, so rather than potentially locking ourselves to an unusable architecture the renderer was placed beside the entity system rather than as a part of it.
+
+The rendering is done in two major passes, the first calculates the shadows and second draws the world using the shadow information calculated in the first pass.
+
+In order to correctly draw the growth some form of transparency was needed as the foilage used partly transparent textured polygons. As the textures where either completely transparent or completely opaque a simple alpha test was sufficent rather than sorting the trees. However the mipmaps calculated by opengl for the foilage where completely broken by the transparency, so these are disabled for the trees.
+
+In order to be able to draw a sufficent number of trees and bushes a simple form of instancing is used. Each type of tree and bush exists in a separate list, that contains the model and texture for that particular object and an array of model matrices to be uploaded to a shader as an array of uniforms.
+
+The rocks on the other hand are drawn individually, using only a reference to a shared model objects, and individual matrices, as well as a specified shading program, thus the rocks could be drawn using individual shaders if it was needed.
+
+The water is always drawn last, as it is the only object in the world that is sempitransparent, this does have the consequence of making the trees invisible from under the water though.
+
+In general this demonstrates the need to for a rendering pipline that does not connect a particular shader to a particular object, but rather connects objects to different shaders, so that the shader program can be selected first, and then all the objects using a particular shader drawn.
+
+Due to a rather lousy bush model with a great deal of z-fighting in itself the depth mask is disabled while drawing bushes, as this is considerably faster than finding and creating new models.
 
 \subsection{Physics}
 The physics used in this game is divided into three systems, all three processing all \textit{SpherePhysics} components in the Entity System. The physics is limited to 3D sphere physics as well as the interaction between spheres and a terrain mesh.\\

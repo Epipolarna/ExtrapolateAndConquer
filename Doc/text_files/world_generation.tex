@@ -62,9 +62,13 @@ FIGURE(comparison of texturing)
 FIGURE(comparison of texturing)
 \\
 
-\subsubsection{Content}
-// TODO - Häger \\
-Trees and rocks 
+\subsubsection{Green stuff}
+In order for the world to be more interesting than just an island in the middle of the sea, it needs some additional objects aswell, thus plants are placed using two slightly different approaches.
+
+First a base layer of smaller bushes are placed uniformly over the landmass, with a randomized orientation and scaling. Then a few points are designated as forest centers, around these trees are placed using a gaussian distribution, again the trees have some scale and rotation randomly selected.
+
+Placing the objects is done by generating a coordinate, and checking it for suitability, for example nothing can be placed in the water, or to far up on a mountain/voulcano.
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{images/content1.eps}
