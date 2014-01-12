@@ -25,7 +25,7 @@ public:
 
     void repaint(void);
     void drawObject(Object* o);
-    void drawInstanceObjects(StaticObjectList* statics, bool renderToDepthMap);
+    void drawInstanceObjects(StaticObjectList* statics, int renderToDepthMap);
 
     void setSize(int width, int height);
 

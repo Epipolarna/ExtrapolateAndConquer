@@ -50,7 +50,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     // Shadow overview
     camera->setPosition(QVector3D(-27.9003, 68.1128, 55.0443));
-    camera->setLookAtPoint(QVector3D(-27.1777, 67.6089, 55.5175));
+    camera->setLookAtPoint(QVector3D(-27.1777, 68.1128, 55.5175));
 
     // Shadow close-up
     //camera->setPosition(QVector3D(60,9,106));
@@ -210,9 +210,11 @@ void ExtrapolateAndConquer::initialize(void){
     worldTextures.push_back(resourceManager->getTexture("grass2"));
     worldTextures.push_back(resourceManager->getTexture("rock1"));
     worldTextures.push_back(renderer->fbo1->depthTex);
+    worldTextures.push_back(renderer->fbo2->depthTex);
+    worldTextures.push_back(renderer->fbo3->depthTex);
 
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
-    worldObject->specialProgram1 = resourceManager->getShader("terrainShaderNoPCF");
+    worldObject->specialProgram1 = resourceManager->getShader("terrainShader");
     worldObject->specialProgram2 = resourceManager->getShader("terrainShader");
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
@@ -228,6 +230,8 @@ void ExtrapolateAndConquer::initialize(void){
     ot.push_back(resourceManager->getTexture("skyboxWaterReflection"));
     ot.push_back(resourceManager->getTexture("waterNormalMap2"));
     ot.push_back(renderer->fbo1->depthTex);
+    ot.push_back(renderer->fbo2->depthTex);
+    ot.push_back(renderer->fbo3->depthTex);
 
     Object* ocean = new Object(resourceManager->getModel("hiResSquare"), resourceManager->getShader("oceanShader"),ot);
 
@@ -577,12 +581,14 @@ void ExtrapolateAndConquer::generateNewWorld(int seed){
     worldTextures.push_back(resourceManager->getTexture("grass2"));
     worldTextures.push_back(resourceManager->getTexture("rock1"));
     worldTextures.push_back(renderer->fbo1->depthTex);
+    worldTextures.push_back(renderer->fbo2->depthTex);
+    worldTextures.push_back(renderer->fbo3->depthTex);
 
     // Genrate World model with textures
     // ----------------------------------
     Object* worldObject;
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
-    worldObject->specialProgram1 = resourceManager->getShader("terrainShaderNoPCF");
+    worldObject->specialProgram1 = resourceManager->getShader("terrainShader");
     worldObject->specialProgram2 = resourceManager->getShader("terrainShader");
     worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);

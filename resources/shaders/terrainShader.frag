@@ -5,11 +5,18 @@ in vec3 exNormal;
 in vec2 exTexCoord;
 in vec4 lightSpaceVertex;
 
+in vec4 lightSpaceVertex1;
+in vec4 lightSpaceVertex2;
+in vec4 lightSpaceVertex3;
+
 uniform vec3 lightPosition;
+uniform vec3 cameraPosition;
 uniform sampler2D tex0;	// sand
 uniform sampler2D tex1;	// grass
 uniform sampler2D tex2; // rock
-uniform sampler2D tex3;	// Shadow
+uniform sampler2D tex3;	// Shadow lvl 1
+uniform sampler2D tex4;	// Shadow lvl 2
+uniform sampler2D tex5;	// Shadow lvl 3
 uniform float texScaling;
 uniform float specialValue;
 	
@@ -67,65 +74,62 @@ float fogBlending()
 }  
 
 int nShadows = 0;
-float shadowCoeff = 0.5;
 
-float shadowTest(vec2 texcoods, float kernelSize) {
+float shadowTest(vec4 vertex, sampler2D tex) {
+	vec2 texcoods = vertex.xy;
 	float shadow = 0;
 	float depthComparison = 0;
 	
-	float epsilon = 0.001; // Good Epsilon
+	float epsilon = 0.005; // Good Epsilon
 	//float epsilon = 0.00; // Acne
 	//float epsilon = 0.1; // Peter Paning
 	
 	//float epsilon = 0.0003;
 	
-	float texOffset = 0.7/(kernelSize*2048); // Motsvarar spridning på skuggan
-	float shadowStep = 0.1;
+	float texOffset = 1.5/2048; // Tanken är att man ska hamna mitt imellan pixlar för att utnyttja den inbyggda interpolatione
+	float shadowStep = 0.125;
 	
 	// 
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods).r;
-	if(depthComparison > epsilon){
-		shadow += 4;
-	}
-	
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,-texOffset)).r;
+	/*
+	depthComparison = vertex.z - texture(tex, texcoods).r;
 	if(depthComparison > epsilon){
 		shadow += 1;
 	}
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,texOffset)).r;
+	*/
+	
+	depthComparison = vertex.z - texture(tex, texcoods + vec2(texOffset,texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 1;
+		shadow += shadowStep;
 	}
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,-texOffset)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + vec2(texOffset,-texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 1;
+		shadow += shadowStep;
 	}
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,texOffset)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + vec2(-texOffset,texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 1;
+		shadow += shadowStep;
+	}
+	depthComparison = vertex.z - texture(tex, texcoods + vec2(-texOffset,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += shadowStep;
 	}
 	
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(texOffset,0)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + 2*vec2(texOffset,texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 2;
+		shadow += shadowStep;
 	}
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(-texOffset,0)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + 2*vec2(texOffset,-texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 2;
+		shadow += shadowStep;
 	}
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(0,texOffset)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + 2*vec2(-texOffset,texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 2;
+		shadow += shadowStep;
 	}
-	depthComparison = lightSpaceVertex.z - texture(tex3, texcoods+vec2(0,-texOffset)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + 2*vec2(-texOffset,-texOffset)).r;
 	if(depthComparison > epsilon){
-		shadow += 2;
+		shadow += shadowStep;
 	}
-	
-	// Normalize the kernel
-	shadow /= 16;
-	
-	
 	
 	return (ambientCoeff + (1 - shadow)*(1-ambientCoeff));
 }
@@ -277,45 +281,29 @@ void main(void){
 			texel0 = texel0*0.8 + addition;
 	}
 	
-	
-	//vec4 texel0 = vec4(0.9,0.9,0.9,1);
-
-	/*
-	float zBuffer = texel3.x;
-    zBuffer = 2.0 * zBuffer - 1.0;
-	float zNear = 0.1; 
-	float zFar = 1000.0;
-    float zNormalized = 2.0 * zNear * zFar / (zFar + zNear - zBuffer * (zFar - zNear));
-	zNormalized = zNormalized/zFar;
-	*/
-	//outColor = phongShading()*texel0;
-	//outColor = vec4(vec3(zNormalized), 1);
-	
 	if(exPosition.y < 0){ 
 		// If under water
 		outColor = texel0*ambientCoeff*ambientCoeff;
 		
 	} else { 
 		// If over water
-		int kernelSize = 2;
-		//shadowTest(lightSpaceVertex.xy, testKernelSize);
-	
-		//outColor = texel0*phongShading();
-		outColor = texel0*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
-		//outColor = vec4(1,1,1,1)*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
-		//outColor = texel0*shadowTest(lightSpaceVertex.xy, kernelSize);
-	/*
-		if(nShadows == 0){
-			outColor = texel0*phongShading();
-			//outColor = vec4(1,0,0,1);
-		} else if(nShadows == pow(testKernelSize, 2.0)){
-			outColor = texel0*ambientCoeff*ambientCoeff;
-			//outColor = vec4(0,1,0,1);
+
+		float distanceToCamera = length(cameraPosition - exPosition);
+		float shadowCoeff = 0.0;
+
+		if(distanceToCamera < 10){
+			shadowCoeff = shadowTest(lightSpaceVertex3, tex5);
+			outColor = vec4(1,0,0,1)*shadowCoeff;
+		} else 
+		if(distanceToCamera < 50){
+			shadowCoeff = shadowTest(lightSpaceVertex2, tex4);
+			outColor = vec4(0,1,0,1)*shadowCoeff;
 		} else {
-			outColor = texel0*phongShading()*shadowTest(lightSpaceVertex.xy, kernelSize);
-			//outColor = vec4(0,0,1,1);
+			shadowCoeff = shadowTest(lightSpaceVertex1, tex3);
+			outColor = vec4(0,0,1,1)*shadowCoeff;
 		}
-		*/
+		
+		outColor = texel0*phongShading()*shadowCoeff;
 	}
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);
@@ -324,8 +312,6 @@ void main(void){
 	//if(exPosition.y < 0)	// Should be enabled when the skybox is colored aswell..
 	//	fogColor = vec4(0.02,0.02,0.1,1.0);
 	outColor = mix(fogColor, outColor, fogBlending());
-	
-	//outColor = vec4(vec3(zNormalized), 1);
 }
 
 

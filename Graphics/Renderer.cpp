@@ -31,10 +31,10 @@ void Renderer::drawObject(Object* o){
     this->renderList.push_back(o);
 }
 
-void Renderer::drawInstanceObjects(StaticObjectList* statics, bool renderToDepthMap){
+void Renderer::drawInstanceObjects(StaticObjectList* statics, int renderToDepthMap){
 
     QOpenGLShaderProgram* program;
-    if(renderToDepthMap){
+    if(renderToDepthMap > 0){
         program = instanceDepthProgram;
     } else {
         program = statics->getProgram();
@@ -71,8 +71,14 @@ void Renderer::drawInstanceObjects(StaticObjectList* statics, bool renderToDepth
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,tex);
 
-    if(renderToDepthMap){
-        program->setUniformValue("pMatrix",lightSourcePMatrix);
+    if(renderToDepthMap == 1){
+        program->setUniformValue("pMatrix",lightSourcePMatrix1);
+        program->setUniformValue("vMatrix",lightSourceVMatrix);
+    } else if(renderToDepthMap == 2){
+        program->setUniformValue("pMatrix",lightSourcePMatrix2);
+        program->setUniformValue("vMatrix",lightSourceVMatrix);
+    } else if(renderToDepthMap == 3){
+        program->setUniformValue("pMatrix",lightSourcePMatrix3);
         program->setUniformValue("vMatrix",lightSourceVMatrix);
     } else {
         program->setUniformValue("pMatrix",pMatrix);
@@ -161,140 +167,35 @@ void Renderer::useFBO(FBO* fbo)
 
 void Renderer::calculateLightSourceMatrices()
 {
-    /*
-    qDebug() << "CamPos:" << camera->position;
-    qDebug() << "CamLightSpacePos:" << lightSourceVMatrix*camera->position;
-    */
-    QVector4D lightSpaceVertex;
-    float minX = 1000000;
-    float maxX = 0.2;
-    float minY = 1000000;
-    float maxY = 0.2;
-    float minZ = 1000000;
-    float maxZ = 0.2;
-    float lsX = 0;
-    float lsY = 0;
-    float lsZ = 0;
-    bool okInv = false;
-
-    for(int i = 1; i < frustumCorners.size(); i++){
-        QVector4D worldSpaceVertex = frustumCorners[i];
-
-        lightSpaceVertex = lightSourceVMatrix*camera->vMatrix.inverted(&okInv)*worldSpaceVertex;
-        lsX = lightSpaceVertex.x();
-        lsY = lightSpaceVertex.y();
-        lsZ = -lightSpaceVertex.z();
-
-        // X
-        if(lsX > maxX){
-            maxX = lsX;
-        }
-        if(lsX < minX){
-            minX = lsX;
-        }
-
-        // Y
-        if(lsY > maxY){
-            maxY = lsY;
-        }
-        if(lsY < minY){
-            minY = lsY;
-        }
-
-        // Z
-        if(lsZ > 0){
-            if(lsZ > maxZ){
-                maxZ = lsZ;
-            }
-            if(lsZ < minZ){
-                minZ = lsZ;
-            }
-        } else {
-            minZ = 0.1;
-        }
-    }
-/*
-    qDebug() << "left" << minX;
-    qDebug() << "right" << maxX;
-    qDebug() << "bottom" << minY;
-    qDebug() << "top" << maxY;
-    qDebug() << "NearPlane" << minZ;
-    qDebug() << "FarPlane" << maxZ;
-*/
-
-    lightSourcePMatrix.setToIdentity();
     lightSourceVMatrix.setToIdentity();
-
+    lightSourcePMatrix.setToIdentity();
+    lightSourcePMatrix1.setToIdentity();
+    lightSourcePMatrix2.setToIdentity();
+    lightSourcePMatrix3.setToIdentity();
 
     QVector3D pos = camera->position;
     pos.setY(std::max(worldData->getHeight(pos.x(),pos.z()), 0.0f));
     //pos.setY(0);
 
-
+    lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
 
     int frstumWidth;
     int frstumHeight;
 
-    switch(shadowLevel){
-    case 1:
-        // This will cover the biggest possible island completely
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        frstumWidth = 150;
-        frstumHeight = 150;
-        lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
-        break;
-    case 2:
-        // Zooms the demo island
-        //lightSourceVMatrix.lookAt(lightPosition, QVector3D(100,0,100), QVector3D(0,1,0));
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        frstumWidth = 90;
-        frstumHeight = 45;
-        lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
 
-/*
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        lightSourcePMatrix.ortho(-frstumSize,frstumSize,-frstumSize,frstumSize,maxZ);
-        */
-        break;
-    case 3:
+    frstumWidth = 150;
+    frstumHeight = 150;
+    lightSourcePMatrix1.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,1000);
 
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        frstumWidth = 30;
-        frstumHeight = 15;
-        lightSourcePMatrix.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,maxZ);
+    frstumWidth = 50;
+    frstumHeight = 50;
+    lightSourcePMatrix2.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,1000);
 
-        /*
-        lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
-        lightSourcePMatrix.ortho(-15,15,-5,5,50,maxZ);
-        /*
+    frstumWidth = 10;
+    frstumHeight = 10;
+    lightSourcePMatrix3.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,1000);
 
-        /*
-        // This will zoom vulcano of demo island
-        lightSourceVMatrix.lookAt(lightPosition, QVector3D(130,-100,130), QVector3D(0,1,0));
-        lightSourcePMatrix.ortho(25,90,45,100,50,maxZ);
-        */
-        /*
-        lightSourcePMatrix.ortho(-5,5,-5,5,50,maxZ);
-        qDebug() << "Pos   " << QVector4D(camera->position, 1);
-        qDebug() << "LS vMa" << lightSourceVMatrix;
-        qDebug() << "LS pos" << lightSourceVMatrix*QVector4D(camera->position);
-        */
-        break;
-
-    default:
-        lightSourcePMatrix.ortho(-70,120,0,130,50,maxZ);
-        break;
-
-    }
-
-    // Lvl 1
-
-    // Lvl 2
-
-    // Lvl 3
-
-
-    //lightSourcePMatrix.ortho(minX,maxX,minY,maxY,minZ,maxZ);
+    lightSourcePMatrix = lightSourcePMatrix1;
 }
 
 void Renderer::repaint(){
@@ -308,50 +209,74 @@ void Renderer::repaint(){
 
     // ----------- SHADOW MAPPING -------------------------------
     // Draw the scene from the lightsource to shadowMap FBO
-    useFBO(fbo1);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    if(isRenderingShadows){
-        calculateLightSourceMatrices();
+    calculateLightSourceMatrices();
+    for(int i = 1; i <= 3; i++){
 
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+        switch(i){
+        case 1:
+            useFBO(fbo1);
+            lightSourcePMatrix = lightSourcePMatrix1;
+            break;
+        case 2:
+            useFBO(fbo2);
+            lightSourcePMatrix = lightSourcePMatrix2;
+            break;
+        case 3:
+            useFBO(fbo3);
+            lightSourcePMatrix = lightSourcePMatrix3;
+            break;
+        default:
+            useFBO(fbo1);
+            lightSourcePMatrix = lightSourcePMatrix1;
+        }
 
-    // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        if(isRenderingShadows){
 
-        if(isRenderingTrees){
-            if(worldData != NULL){
-                drawInstanceObjects(worldData->tree1, true);
-                drawInstanceObjects(worldData->leaf1, true);
 
-                drawInstanceObjects(worldData->tree2, true);
-                drawInstanceObjects(worldData->leaf2, true);
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_CULL_FACE);
 
-                drawInstanceObjects(worldData->tree3, true);
-                drawInstanceObjects(worldData->leaf3, true);
+        // TODO: Draw tree batch stuff to shadowMap to enable tree shadows
 
-                drawInstanceObjects(worldData->bush1, true);
-                drawInstanceObjects(worldData->bush2, true);
+            if(isRenderingTrees){
+                if(worldData != NULL){
+                    drawInstanceObjects(worldData->tree1, i);
+                    drawInstanceObjects(worldData->leaf1, i);
+
+                    drawInstanceObjects(worldData->tree2, i);
+                    drawInstanceObjects(worldData->leaf2, i);
+
+                    drawInstanceObjects(worldData->tree3, i);
+                    drawInstanceObjects(worldData->leaf3, i);
+
+                    drawInstanceObjects(worldData->bush1, i);
+                    drawInstanceObjects(worldData->bush2, i);
+                }
             }
-        }
 
-        if(isRenderingTerrain){
-            if(world != NULL){
-                world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+
+            if(isRenderingTerrain){
+                if(world != NULL){
+                    world->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+                }
             }
-        }
 
-        if(isRenderingBalls){
-            for(Object * o : renderList){
-                o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+            if(isRenderingBalls){
+                for(Object * o : renderList){
+                    o->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+                }
             }
-        }
 
-        if(water != NULL){
-            water->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
-        }
+            if(water != NULL){
+                water->customDraw(lightSourceVMatrix,lightSourcePMatrix,depthProgram);
+            }
 
-        glCullFace(GL_BACK);
+            glCullFace(GL_BACK);
+        }
     }
+
+    lightSourcePMatrix = lightSourcePMatrix1;
 
     // ----------- STANDARD RENDER -------------------------------
     // Draw everything again to the default FBO
@@ -375,6 +300,13 @@ void Renderer::repaint(){
             world->program->setUniformValue("incr", incr);
             world->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
             world->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
+            world->program->setUniformValue("lightSourcePMatrix1", lightSourcePMatrix1);
+            world->program->setUniformValue("lightSourcePMatrix2", lightSourcePMatrix2);
+            world->program->setUniformValue("lightSourcePMatrix3", lightSourcePMatrix3);
+            world->program->setUniformValue("tex4", 4);        // Shadow map
+            world->program->setUniformValue("tex5", 5);        // Shadow map
+            world->program->setUniformValue("cameraPosition", camera->position);
+
             world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         }
     }
@@ -399,6 +331,12 @@ void Renderer::repaint(){
         water->program->setUniformValue("incr", incr);
         water->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
         water->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
+        water->program->setUniformValue("lightSourcePMatrix1", lightSourcePMatrix1);
+        water->program->setUniformValue("lightSourcePMatrix2", lightSourcePMatrix2);
+        water->program->setUniformValue("lightSourcePMatrix3", lightSourcePMatrix3);
+        water->program->setUniformValue("tex4", 4);        // Shadow map
+        water->program->setUniformValue("tex5", 5);        // Shadow map
+        water->program->setUniformValue("cameraPosition", camera->position);
         water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
     }

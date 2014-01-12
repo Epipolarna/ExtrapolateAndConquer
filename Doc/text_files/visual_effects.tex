@@ -192,6 +192,20 @@ This can be remedied be adding some distance-fog to the ocean. If the color of t
 The distance-fog is also good for constraining the rendering size of the current scene. By adjusting the distance at which the fog appears one can adjust how much that is needed to be rendered of the scene. This enables an arbitrarily large world to be present without killing your computer since only the visible part of the world inside the fog-limit needs to be rendered. 
 
 \subsubsection{Normal Mapping}
-Normal mapping is a technique for adding fine details to an object without adding more vertices, which saves a lot of geometry computations. A normal map is generally an image where the RGB-channels represent x,y and z coordinates for a normal vector. This texture is used in the fragment shader when computing the shading for the current fragment. Before calculating the shading the normal vector is rotated to match the object on which it is to be mapped. Notice that the normal vector is not translated since we want it to remain as an normalized direction and nothing more. An example of a normal map can be seen in figure //TODO below.
-
-// FIGURE
+Normal mapping is a technique for adding fine details to an object without adding more vertices, which saves a lot of geometry computations. A normal map is generally an image where the RGB-channels represent x,y and z coordinates for a normal vector. This texture is used in the fragment shader when computing the shading for the current fragment. Before calculating the shading the normal vector is rotated to match the object on which it is to be mapped. Notice that the normal vector is not translated since we want it to remain as an normalized direction and nothing more. A normal map is often used in combination with a texture, to give the texture an illusion of depth. An example of a normal map can be seen in figure \ref{fig:normalMapExample}.
+\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/grass1.png}
+  \caption{Grass texture.}
+  \label{fig:normalMapExampleGrassTexture}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/grass1NormalMap.png}
+  \caption{Grass normal map.}
+  \label{fig:normalMapExampleGrassNormalmap}
+\end{subfigure}
+\caption[Normal Map example]{\textit{Example of a normal map.}}
+\label{fig:normalMapExample}
+\end{figure}
