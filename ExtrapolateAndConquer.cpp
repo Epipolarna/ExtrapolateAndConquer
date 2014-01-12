@@ -216,7 +216,7 @@ void ExtrapolateAndConquer::initialize(void){
     worldObject = new Object(worldModel, resourceManager->getShader("terrainShader"), worldTextures);
     worldObject->specialProgram1 = resourceManager->getShader("terrainShader");
     worldObject->specialProgram2 = resourceManager->getShader("terrainShader");
-    worldObject->setShaderParameters(0.7f, 0.5f, 0.5f, 20);
+    worldObject->setShaderParameters(0.5f, 0.5f, 0.5f, 20);
     worldObject->setColor(85,196,48,255);
     //worldObject->setScale(2,0,2);
     worldObject->setTexScaling(10);
