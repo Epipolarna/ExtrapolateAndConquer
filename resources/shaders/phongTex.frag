@@ -49,7 +49,14 @@ float fogBlending()
 	
     float blendingFactor = pow(e, -pow(depth*density, 2.0));
 	
-    return blendingFactor;
+	float height = 30;
+	float heightCoeff = max(exPosition.y, height);
+	heightCoeff -= height;
+	heightCoeff /= 30;
+	
+	// Remove if high in the air
+	
+    return min(max(blendingFactor + heightCoeff, 0), 1);
 }  
 /*
 float shadowTest(vec2 texcoods) {
