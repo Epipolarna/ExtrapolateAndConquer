@@ -1,9 +1,9 @@
 We built and uses an Entity System as an underlying game engine framework.
-The idea behind an entity system is that objects should be treated as pure aggregations of data containers, with game logic being separated from objects all together. Instead of having deep class hierarchies and chained method calls, logic for managing specific components is batched on all such components in the system. This provides some advantages over other approaches such that the architecture becomes more flexible and extendable. It is clearer how to build functionality and especially where. Another advantage from the batching is the possibility of much higher performance (maximizing caching and minimizing cache misses) as well as simplifying parallelism of logic processing.
+The idea behind an entity system is that objects should be treated as pure aggregations of data containers, with game logic being separated from objects all together. Instead of having deep class hierarchies and chained method calls, logic for managing specific components is batched on all such components in the system. This provides some advantages over other approaches such that the architecture becomes more flexible and expendable. It is clearer how to add functionality and especially where. Another advantage from the batching is the possibility of much higher performance (maximizing caching and minimizing cache misses) as well as simplifying parallel processing.
 
 \subsection{Entity System}
 An Entity System consists of three main parts: Entities, Components and Systems.
-An Entity is simply a label or identifier of an object. A Component is a pure data containers, and each entity has a collection of none to several different components. A System consist of logic for working with primarily one, but sometimes several, components. So, an object is an entity label and a collection of components that belong to it. The object is updated by different systems performing tasks on the components. A example used in this project is seen in figure \ref{fig:EntityComponentSystemExample}.
+An Entity is simply a label or identifier of an object. A Component is a pure data containers, and each entity has a collection of none to several different components. A System consist of logic for working with primarily one, but sometimes several, components. So, an object is an entity label and a collection of components that belong to it. The object is updated by different systems performing tasks on the components. An example used in this project is seen in figure \ref{fig:EntityComponentSystemExample}.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{images/EntityComponentSystemExample.eps}
@@ -15,14 +15,52 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
 * Our system allows for components to require other components. This means that systems which work on multiple components can be proven to always work by fetching the component which require the others. The require check is performed at compile time and code is generated to handle the specific requirement-tree specified. The program writes part of itself to be maximum efficient and robust, by specifications by the developer in the source code.\\
 * Easy to use (a natural work flow of what goes where and how to solve problems. minimal overhead to use the system), easy to maintain, easy to extend, extremely efficient, trivial to parallelize calculations, verifies consistency at compile time...
 
+
+\begin{lstlisting}
+ Entity & entity = entityManager.createEntity();
+ 
+ entity->add<SpherePhysics>();
+ entity->add<Graphics>();
+ 
+ SpherePhysics & physics = entity->get<SpherePhysics>();
+ physics.position = QVector3D(0.0, 0.5, 1.0);
+ physics.friction = 0.5;
+ ...
+ 
+ Graphics & graphics = entity->get<Graphics>();
+ graphics.object = new Object(resourceManager->getModel("stone1"),
+                              resourceManager->getShader("phongTex"),
+                              resourceManager->getTexture("lava1")); 
+\end{lstlisting}
+
+\begin{lstlisting}
+ entity->has<Component>();
+ entity->add<Component>();
+ entity->remove<Component>();
+ entity->get<Component>();
+\end{lstlisting}
+
+\begin{lstlisting}
+  // If additional Components are required, add these aswell (recursively)
+    meta::FOR_EACH< typename Component::REQUIRED_COMPONENTS, // List (items) to iterate over
+                    ADD_COMPONENT,                           // Template to apply
+                                                             // on each item.
+                    std::tuple<Component, Components...>,    // Additional template
+                                                             // parameters to above template.
+                    std::tuple<Entity<Components...>&>       // Argument types to the above
+                                                             // templatet's execute-function.
+                  >::execute(entity);
+
+\end{lstlisting}
+
 \subsection{Rendering}
-The rendering system is outside the entity system mainly becouse it is the largest part, and it was not known in the start of the project what information it needed exacly, so rather than potentially locking ourselves to an unusable architecture the renderer was placed beside the entity system rather than as a part of it.
+The rendering system is outside the entity system mainly because it is the largest part, and it was not known in the start of the project what information it needed exactly, so rather than potentially locking ourselves to an unusable architecture the renderer was placed beside the entity system rather than as a part of it.
 
 The rendering is done in two major passes, the first calculates the shadows and second draws the world using the shadow information calculated in the first pass.
 
-In order to correctly draw the growth some form of transparency was needed as the foilage used partly transparent textured polygons. As the textures where either completely transparent or completely opaque a simple alpha test was sufficent rather than sorting the trees. However the mipmaps calculated by opengl for the foilage where completely broken by the transparency, so these are disabled for the trees.
+In order to correctly draw the growth some form of transparency was needed as the foilage used partly transparent textured polygons. As the textures where either completely transparent or completely opaque a simple alpha test was sufficient rather than sorting the trees. However the mipmaps calculated by opengl for the foilage where completely broken by the transparency, so these are disabled for the trees.
 
-In order to be able to draw a sufficent number of trees and bushes a simple form of instancing is used. Each type of tree and bush exists in a separate list, that contains the model and texture for that particular object and an array of model matrices to be uploaded to a shader as an array of uniforms.
+In order to be able to draw a sufficient number of trees and bushes a simple form of instancing is used. Each type of tree and bush exists in a separate list, that contains the model and texture for that particular object and an array of model matrices to be uploaded to a shader as an array of uniforms.
 
 The rocks on the other hand are drawn individually, using only a reference to a shared model objects, and individual matrices, as well as a specified shading program, thus the rocks could be drawn using individual shaders if it was needed.
 
