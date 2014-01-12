@@ -304,6 +304,7 @@ void main(void){
 		}
 		
 		outColor = texel0*phongShading()*shadowCoeff;
+		//outColor = vec4(1,1,1,1)*phongShading()*shadowCoeff;
 	}
 	
 	vec4 fogColor = vec4(0.8,0.8,0.8,1.0);

@@ -293,13 +293,13 @@ void ExtrapolateAndConquer::loadResources(void){
     resourceManager->loadModel("tree4b");
 
     resourceManager->loadTexture("tree1a", false);
-    resourceManager->loadTexture("tree1b", false);
+    resourceManager->loadTexture("tree1b", true);
     resourceManager->loadTexture("tree2a", false);
-    resourceManager->loadTexture("tree2b", false);
+    resourceManager->loadTexture("tree2b", true);
     resourceManager->loadTexture("tree3a", false);
-    resourceManager->loadTexture("tree3b", false);
+    resourceManager->loadTexture("tree3b", true);
     resourceManager->loadTexture("tree4a", false);
-    resourceManager->loadTexture("tree4b", false);
+    resourceManager->loadTexture("tree4b", true);
 
     // Bushes
     resourceManager->loadModel("tree5");

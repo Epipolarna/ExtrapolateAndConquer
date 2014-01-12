@@ -32,7 +32,7 @@ void main(void)
 	vec2 scaledTexCoord = exTexCoord*texScaling;
 	
 	vec4 texel0 = texture(tex0, scaledTexCoord);	// Main Texture
-	if(texel0.a < 0.9){
+	if(texel0.a < 0.1){
 		discard;
 	}
 
