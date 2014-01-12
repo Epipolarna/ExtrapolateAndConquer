@@ -16,8 +16,8 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 
     context->makeCurrent(this);
 
-    resize(1280,800);
-    //resize(1920,1080);
+    //resize(1280,800);
+    resize(1920,1080);
 
     renderer = new Renderer();
     renderer->setSize(width(), height());

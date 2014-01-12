@@ -3,6 +3,7 @@
 in vec3 exPosition;
 in vec3 exNormal;
 in vec2 exTexCoord;
+in float distanceToCamera;
 
 uniform sampler2D tex0;
 uniform float texScaling;
@@ -32,7 +33,9 @@ void main(void)
 	vec2 scaledTexCoord = exTexCoord*texScaling;
 	
 	vec4 texel0 = texture(tex0, scaledTexCoord);	// Main Texture
-	if(texel0.a < 0.1){
+	
+	//if(texel0.a < 0.45){
+	if(texel0.a < min(max(50/distanceToCamera, 0.2), 0.4)){
 		discard;
 	}
 
