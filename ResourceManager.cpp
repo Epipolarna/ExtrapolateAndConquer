@@ -76,11 +76,16 @@ bool ResourceManager::loadShader(QString shaderName){
 
 bool ResourceManager::loadTexture(QString textureName, bool mipmap){
 
+    return loadTexture(textureName, textureName, mipmap);
+}
+
+bool ResourceManager::loadTexture(QString textureName, QString textureFileName, bool mipmap){
+
     GLuint textureID;
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
-    QImage image(texturePath+textureName+".png");
+    QImage image(texturePath+textureFileName+".png");
     QImage imageGL = QGLWidget::convertToGLFormat(image);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageGL.width(), imageGL.height(),
@@ -98,7 +103,7 @@ bool ResourceManager::loadTexture(QString textureName, bool mipmap){
 
     int errorCode = glGetError();
     if(errorCode != 0){
-    	qDebug() << "error loading texture";
+        qDebug() << "error loading texture";
         return false;
     }
 

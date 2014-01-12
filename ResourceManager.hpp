@@ -33,6 +33,7 @@ public:
 
 
     bool loadTexture(QString textureName,bool mipmap=false);
+    bool loadTexture(QString textureName, QString textureFileName, bool mipmap);
     bool loadTextureAtlas(QString textureAtlasName, int atlasSize, bool mipmap=false);
     bool loadModel(QString modelName, bool unitize=false);
     bool loadShader(QString shaderName);
