@@ -50,7 +50,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     // Shadow overview
     camera->setPosition(QVector3D(-27.9003, 68.1128, 55.0443));
-    camera->setLookAtPoint(QVector3D(-27.1777, 67.6089, 55.5175));
+    camera->setLookAtPoint(QVector3D(-27.1777, 68.1128, 55.5175));
 
     // Shadow close-up
     //camera->setPosition(QVector3D(60,9,106));
@@ -230,6 +230,8 @@ void ExtrapolateAndConquer::initialize(void){
     ot.push_back(resourceManager->getTexture("skyboxWaterReflection"));
     ot.push_back(resourceManager->getTexture("waterNormalMap2"));
     ot.push_back(renderer->fbo1->depthTex);
+    ot.push_back(renderer->fbo2->depthTex);
+    ot.push_back(renderer->fbo3->depthTex);
 
     Object* ocean = new Object(resourceManager->getModel("hiResSquare"), resourceManager->getShader("oceanShader"),ot);
 

@@ -130,8 +130,8 @@ void Renderer::initFBO(FBO* fbo)
     glGenTextures(1, &fbo->depthTex);
     glBindTexture(GL_TEXTURE_2D, fbo->depthTex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, shadowMapSize, shadowMapSize, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 0L);
-    //GLfloat borderColor[4]={1.0,1.0,1.0,1.0};
-    GLfloat borderColor[4]={0.0,0.0,0.0,0.0};
+    GLfloat borderColor[4]={1.0,1.0,1.0,1.0};
+    //GLfloat borderColor[4]={0.0,0.0,0.0,0.0};
     glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR, borderColor);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
@@ -185,15 +185,15 @@ void Renderer::calculateLightSourceMatrices()
 
     frstumWidth = 150;
     frstumHeight = 150;
-    lightSourcePMatrix1.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,500);
+    lightSourcePMatrix1.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,1000);
 
     frstumWidth = 50;
     frstumHeight = 50;
-    lightSourcePMatrix2.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,500);
+    lightSourcePMatrix2.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,1000);
 
     frstumWidth = 10;
     frstumHeight = 10;
-    lightSourcePMatrix3.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,500);
+    lightSourcePMatrix3.ortho(-frstumWidth,frstumWidth,-frstumHeight,frstumHeight,50,1000);
 
     lightSourcePMatrix = lightSourcePMatrix1;
 }
@@ -331,6 +331,12 @@ void Renderer::repaint(){
         water->program->setUniformValue("incr", incr);
         water->program->setUniformValue("lightSourceVMatrix", lightSourceVMatrix);
         water->program->setUniformValue("lightSourcePMatrix", lightSourcePMatrix);
+        water->program->setUniformValue("lightSourcePMatrix1", lightSourcePMatrix1);
+        water->program->setUniformValue("lightSourcePMatrix2", lightSourcePMatrix2);
+        water->program->setUniformValue("lightSourcePMatrix3", lightSourcePMatrix3);
+        water->program->setUniformValue("tex4", 4);        // Shadow map
+        water->program->setUniformValue("tex5", 5);        // Shadow map
+        water->program->setUniformValue("cameraPosition", camera->position);
         water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
     }

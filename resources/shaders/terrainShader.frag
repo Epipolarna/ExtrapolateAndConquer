@@ -80,7 +80,7 @@ float shadowTest(vec4 vertex, sampler2D tex) {
 	float shadow = 0;
 	float depthComparison = 0;
 	
-	float epsilon = 0.001; // Good Epsilon
+	float epsilon = 0.005; // Good Epsilon
 	//float epsilon = 0.00; // Acne
 	//float epsilon = 0.1; // Peter Paning
 	
