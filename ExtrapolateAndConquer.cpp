@@ -264,6 +264,7 @@ void ExtrapolateAndConquer::initialize(void){
 
     renderer->worldData = world;
     printf("all initialization done! \n");
+    setState(state);
 }
 
 
@@ -378,12 +379,14 @@ void ExtrapolateAndConquer::loopBody(){
     fpsMeter->restart();
 
     if(openGLWindow->isNewWorldRequested()) {
+        qDebug() << " -> New World <-";
         generateNewWorld(++seed);
     }
     if(state != openGLWindow->currentState) {
         state = openGLWindow->currentState;
         setState(state);
         qDebug() << "new state:" << state;
+        qDebug() << "-----------------------------";
     }
     if(openGLWindow->toggleTerrainResolution) {
         highResolutionTerrain = !highResolutionTerrain;
@@ -609,7 +612,8 @@ enum DemoState {
     TREES,
     FORESTS,
     VULCANO,
-    VULCANO_ACTIVE
+    VULCANO_ACTIVE,
+    LAST_STATE
 };
 
 void ExtrapolateAndConquer::setState(int state){
@@ -627,6 +631,11 @@ void ExtrapolateAndConquer::setState(int state){
 
     int numberOfTrees = 100;
     int numberOfBushes = 300;
+
+    if(state > LAST_STATE) {
+        openGLWindow->currentState = LAST_STATE;
+        state = LAST_STATE;
+    }
 
     switch(state){
         case WATER: //1) water and sky
@@ -699,6 +708,7 @@ void ExtrapolateAndConquer::setState(int state){
             break;
         //CASE: broken worlds
         default:
+        qDebug() << "!!! Default state (" << state << ")";
             //just make an new world with all the stuff enabled
             world->hasVulcano = true;
             renderer->isRenderingTerrain = true;
@@ -711,6 +721,7 @@ void ExtrapolateAndConquer::setState(int state){
             world->maxNumBush1 = numberOfBushes;
             world->maxNumBush2 = numberOfBushes/3;
             world->maxNumTrees = numberOfTrees;
+
             break;
     }
     generateNewWorld(seed);

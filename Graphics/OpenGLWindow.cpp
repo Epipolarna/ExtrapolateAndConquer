@@ -16,8 +16,8 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
 
     context->makeCurrent(this);
 
-    //resize(1280,800);
-    resize(1920,1080);
+    resize(1280,800);
+    //resize(1920,1080);
 
     renderer = new Renderer();
     renderer->setSize(width(), height());
@@ -212,7 +212,6 @@ void OpenGLWindow::keyPressEvent(QKeyEvent *e)
         currentState++;
         break;
     case Qt::Key_O: // Move backwards in demo
-        requestNewWorld = true;
         currentState--;
         if(currentState < 0) currentState = 0;
         break;
