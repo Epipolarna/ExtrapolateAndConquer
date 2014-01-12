@@ -35,7 +35,7 @@ void main(void)
 	vec4 texel0 = texture(tex0, scaledTexCoord);	// Main Texture
 	
 	//if(texel0.a < 0.45){
-	if(texel0.a < min(max(50/distanceToCamera, 0.2), 0.4)){
+	if(texel0.a < min(max(50/distanceToCamera, 0.2), 0.45)){	// Magic numbers. 
 		discard;
 	}
 
