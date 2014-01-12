@@ -31,6 +31,7 @@ public:
     float terrainDensity;
 
     bool activePhysics;
+    bool backwardsPhysics;
 
 protected slots:
     void resizeGl();
