@@ -97,23 +97,6 @@ float shadowTest(vec4 vertex, sampler2D tex) {
 	}
 	*/
 	
-	depthComparison = vertex.z - texture(tex, texcoods + vec2(texOffset,texOffset)).r;
-	if(depthComparison > epsilon){
-		shadow += shadowStep;
-	}
-	depthComparison = vertex.z - texture(tex, texcoods + vec2(texOffset,-texOffset)).r;
-	if(depthComparison > epsilon){
-		shadow += shadowStep;
-	}
-	depthComparison = vertex.z - texture(tex, texcoods + vec2(-texOffset,texOffset)).r;
-	if(depthComparison > epsilon){
-		shadow += shadowStep;
-	}
-	depthComparison = vertex.z - texture(tex, texcoods + vec2(-texOffset,-texOffset)).r;
-	if(depthComparison > epsilon){
-		shadow += shadowStep;
-	}
-	
 	depthComparison = vertex.z - texture(tex, texcoods + 3*vec2(texOffset,texOffset)).r;
 	if(depthComparison > epsilon){
 		shadow += shadowStep;
@@ -127,6 +110,23 @@ float shadowTest(vec4 vertex, sampler2D tex) {
 		shadow += shadowStep;
 	}
 	depthComparison = vertex.z - texture(tex, texcoods + 3*vec2(-texOffset,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += shadowStep;
+	}
+	
+	depthComparison = vertex.z - texture(tex, texcoods + 5*vec2(texOffset,texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += shadowStep;
+	}
+	depthComparison = vertex.z - texture(tex, texcoods + 5*vec2(texOffset,-texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += shadowStep;
+	}
+	depthComparison = vertex.z - texture(tex, texcoods + 5*vec2(-texOffset,texOffset)).r;
+	if(depthComparison > epsilon){
+		shadow += shadowStep;
+	}
+	depthComparison = vertex.z - texture(tex, texcoods + 5*vec2(-texOffset,-texOffset)).r;
 	if(depthComparison > epsilon){
 		shadow += shadowStep;
 	}
