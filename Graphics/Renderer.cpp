@@ -176,6 +176,7 @@ void Renderer::calculateLightSourceMatrices()
     QVector3D pos = camera->position;
     pos.setY(std::max(worldData->getHeight(pos.x(),pos.z()), 0.0f));
     //pos.setY(0);
+    cameraGroundPosition = pos;
 
     lightSourceVMatrix.lookAt(lightPosition, pos, QVector3D(0,1,0));
 
@@ -305,7 +306,8 @@ void Renderer::repaint(){
             world->program->setUniformValue("lightSourcePMatrix3", lightSourcePMatrix3);
             world->program->setUniformValue("tex4", 4);        // Shadow map
             world->program->setUniformValue("tex5", 5);        // Shadow map
-            world->program->setUniformValue("cameraPosition", camera->position);
+            //world->program->setUniformValue("cameraPosition", camera->position);
+            world->program->setUniformValue("cameraPosition", cameraGroundPosition);
 
             world->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         }
@@ -336,7 +338,8 @@ void Renderer::repaint(){
         water->program->setUniformValue("lightSourcePMatrix3", lightSourcePMatrix3);
         water->program->setUniformValue("tex4", 4);        // Shadow map
         water->program->setUniformValue("tex5", 5);        // Shadow map
-        water->program->setUniformValue("cameraPosition", camera->position);
+        //water->program->setUniformValue("cameraPosition", camera->position);
+        water->program->setUniformValue("cameraPosition", cameraGroundPosition);
         water->draw(camera->vMatrix,pMatrix,lightPosition,lightSourceVMatrix);
         glDisable(GL_BLEND);
     }

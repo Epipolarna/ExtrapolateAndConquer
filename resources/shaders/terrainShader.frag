@@ -86,7 +86,7 @@ float shadowTest(vec4 vertex, sampler2D tex) {
 	
 	//float epsilon = 0.0003;
 	
-	float texOffset = 1.5/2048; // Tanken är att man ska hamna mitt imellan pixlar för att utnyttja den inbyggda interpolatione
+	float texOffset = 0.5/2048; // Tanken är att man ska hamna mitt imellan pixlar för att utnyttja den inbyggda interpolatione
 	float shadowStep = 0.125;
 	
 	// 
@@ -114,19 +114,19 @@ float shadowTest(vec4 vertex, sampler2D tex) {
 		shadow += shadowStep;
 	}
 	
-	depthComparison = vertex.z - texture(tex, texcoods + 2*vec2(texOffset,texOffset)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + 3*vec2(texOffset,texOffset)).r;
 	if(depthComparison > epsilon){
 		shadow += shadowStep;
 	}
-	depthComparison = vertex.z - texture(tex, texcoods + 2*vec2(texOffset,-texOffset)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + 3*vec2(texOffset,-texOffset)).r;
 	if(depthComparison > epsilon){
 		shadow += shadowStep;
 	}
-	depthComparison = vertex.z - texture(tex, texcoods + 2*vec2(-texOffset,texOffset)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + 3*vec2(-texOffset,texOffset)).r;
 	if(depthComparison > epsilon){
 		shadow += shadowStep;
 	}
-	depthComparison = vertex.z - texture(tex, texcoods + 2*vec2(-texOffset,-texOffset)).r;
+	depthComparison = vertex.z - texture(tex, texcoods + 3*vec2(-texOffset,-texOffset)).r;
 	if(depthComparison > epsilon){
 		shadow += shadowStep;
 	}

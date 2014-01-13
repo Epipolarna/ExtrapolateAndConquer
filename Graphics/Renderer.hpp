@@ -65,6 +65,7 @@ public:
     std::vector<QVector4D> frustumCorners;
 
     QVector3D lightPosition;
+    QVector3D cameraGroundPosition;
 
     Object* skybox;
     Camera* camera;
