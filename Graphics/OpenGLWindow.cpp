@@ -19,6 +19,7 @@ OpenGLWindow::OpenGLWindow(QOpenGLContext* context, QScreen* screen)
     //resize(1280,800);
     resize(1920,1080);
 
+
     renderer = new Renderer();
     renderer->setSize(width(), height());
     camera = renderer->camera;

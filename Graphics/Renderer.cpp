@@ -174,6 +174,10 @@ void Renderer::calculateLightSourceMatrices()
     lightSourcePMatrix3.setToIdentity();
 
     QVector3D pos = camera->position;
+    QVector3D lookAtCorrection = camera->lookAtDirection;
+    lookAtCorrection.setY(0);
+    lookAtCorrection.normalize();
+    pos += 5*camera->lookAtDirection;
     pos.setY(std::max(worldData->getHeight(pos.x(),pos.z()), 0.0f));
     //pos.setY(0);
     cameraGroundPosition = pos;
