@@ -31,7 +31,7 @@ Waves on the beaches is made by having several sinus waves aggregate horizontall
   \caption{The waves are seen at the beach.}
   \label{fig:waves}
 \end{figure}%
-The sky is reflected in the water by using an image which is the projection of the sky onto the ocean as a texture for the water. This texture is moving with the camera in the xz-plane. An example is seen in figure \ref{fig:skyReflection}. It could be improved in the future by taking the height of the camera in consideration as well, or to continuously project the sky onto the water according to the camera position. Currently the camera height do not change the reflection, making it unrealistic if moving up and down.
+The sky is reflected in the water by using an image which is the projection of the sky onto the ocean as a texture for the water. This texture is moving with the camera in the xz-plane. An example is seen in figure \ref{fig:skyReflection}. It could be improved in the future by taking the height of the camera in consideration as well, or to continuously project the sky onto the water according to the camera position. Currently the camera height do not change the reflection, making it a bit unrealistic if moving up and down.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{images/reflectingSky.png}
@@ -89,9 +89,38 @@ The ground is textured using a non-linear multi-texturing approach based on both
 FIGURE(comparison of texturing)
 \\
 FIGURE(comparison of texturing)
+\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/textureBlendingComparison1_simple.png}
+  \caption{The sand/beach texture.}
+  \label{fig:textureSand}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/textureBlendingComparison2_simple.png}
+  \caption{The grass/ground texture.}
+  \label{fig:textureGrass}
+\end{subfigure}
 \\
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/textureBlendingComparison1_advanced.png}
+  \caption{The sand/beach texture.}
+  \label{fig:textureSand}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/textureBlendingComparison2_advanced.png}
+  \caption{The grass/ground texture.}
+  \label{fig:textureGrass}
+\end{subfigure}
+\caption[Texture blending]{\textit{Textures used for the ground.}}
+\label{fig:textures}
+\end{figure}
 
-\subsubsection{Green stuff}
+\newpage
+\subsubsection{Vegetation}
 In order for the world to be more interesting than just an island in the middle of the sea, it needs some additional objects aswell, thus plants are placed using two slightly different approaches.
 
 First a base layer of smaller bushes are placed uniformly over the landmass, with a randomized orientation and scaling. Then a few points are designated as forest centers, around these trees are placed using a gaussian distribution, again the trees have some scale and rotation randomly selected.
