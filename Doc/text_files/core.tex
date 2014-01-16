@@ -7,9 +7,20 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{images/EntityComponentSystemExample.eps}
-  \caption{Caption}
+  \caption{Caption...}
   \label{fig:EntityComponentSystemExample}
 \end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/softwareArchitectures.png}
+  \caption{A comparison of different game architectures. 
+  To the left: A deep hierarchy architecture. 
+  In the middle: A Component architecture or an Entity-Component System architecture. 
+  To the right: An Entity System.}
+  \label{fig:SoftwareArchitectures}
+\end{figure}
+
 (TODO: reformulera och skriv nedan mer flytande och omarbetat)\\
 * The idea behind: Systems perform on ALL components of a certain type, which is fetched from the EntityManager.\\
 * Our system allows for components to require other components. This means that systems which work on multiple components can be proven to always work by fetching the component which require the others. The require check is performed at compile time and code is generated to handle the specific requirement-tree specified. The program writes part of itself to be maximum efficient and robust, by specifications by the developer in the source code.\\
@@ -17,6 +28,7 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
 * Another advantage from the batching is the possibility of much higher performance (maximizing caching and minimizing cache misses) as well as simplifying parallel processing.
 
 
+\begin{figure}[H]
 \begin{lstlisting}
  Entity & entity = entityManager.createEntity();
  
@@ -33,6 +45,8 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
                               resourceManager->getShader("phongTex"),
                               resourceManager->getTexture("lava1")); 
 \end{lstlisting}
+  \caption{Caption...}
+\end{figure}
 
 \begin{lstlisting}
  entity.has<Component>();
@@ -55,6 +69,9 @@ Code generation...
                   >::execute(entity);
 
 \end{lstlisting}
+
+Possible improvements:
+...
 
 \newpage
 \subsection{Rendering}
