@@ -24,13 +24,13 @@ Once these steps got into place one could naively think that the shadows are don
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMAcne.png}
+  \includegraphics[width=0.9\linewidth]{images/SMAcne.jpg}
   \caption{Surface suffering from severe acne}
   \label{fig:SMAcne}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMAcneFix.png}
+  \includegraphics[width=0.9\linewidth]{images/SMAcneFix.jpg}
   \caption{Surface healed by addition of small offset}
   \label{fig:SMAcneFix}
 \end{subfigure}
@@ -45,13 +45,13 @@ The shadows now look correctly but have a very low resolution when you get close
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/PCFLvl1.png}
+  \includegraphics[width=0.9\linewidth]{images/PCFLvl1.jpg}
   \caption{Out-of-the-box shadows}
   \label{fig:PCFLvl1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/PCFLvl5.png}
+  \includegraphics[width=0.9\linewidth]{images/PCFLvl5.jpg}
   \caption{Percentage closer filtered shadows}
   \label{fig:PCFLvl5}
 \end{subfigure}
@@ -75,19 +75,19 @@ The implementation is done by rendering several shadow maps of increasing sizes.
 \begin{figure}[H]
 \begin{subfigure}{.33\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl1.png}
+  \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl1.jpg}
   \caption{Shadow mapping level 1}
   \label{fig:SMOverViewLvl1}
 \end{subfigure}%
 \begin{subfigure}{.33\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl2.png}
+  \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl2.jpg}
   \caption{Shadow mapping level 2}
   \label{fig:SMOverViewLvl2}
 \end{subfigure}
 \begin{subfigure}{.33\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl3.png}
+  \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl3.jpg}
   \caption{Shadow mapping level 3}
   \label{fig:SMOverViewLvl3}
 \end{subfigure}
@@ -98,19 +98,19 @@ The implementation is done by rendering several shadow maps of increasing sizes.
 \begin{figure}[H]
 \begin{subfigure}{.33\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl1.png}
+  \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl1.jpg}
   \caption{Shadow mapping level 1}
   \label{fig:SMCloseUpLvl1}
 \end{subfigure}%
 \begin{subfigure}{.33\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl2.png}
+  \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl2.jpg}
   \caption{Shadow mapping level 2}
   \label{fig:SMCloseUpLvl2}
 \end{subfigure}
 \begin{subfigure}{.33\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl3.png}
+  \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl3.jpg}
   \caption{Shadow mapping level 3}
   \label{fig:SMCloseUpLvl3}
 \end{subfigure}
@@ -123,26 +123,26 @@ It would as conclusion be interesting to take a look at some modern examples, mo
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMExBF3.png}
+  \includegraphics[width=0.9\linewidth]{images/SMExBF3.jpg}
   \caption{BattleField 3 (2011)}
   \label{fig:SMExBF3}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMExCSGO.png}
+  \includegraphics[width=0.9\linewidth]{images/SMExCSGO.jpg}
   \caption{Counter Strike: Global Offensive (2012)}
   \label{fig:SMExCSGO}
 \end{subfigure}
 \\
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMExSimCity.png}
+  \includegraphics[width=0.9\linewidth]{images/SMExSimCity.jpg}
   \caption{SimCity (2013)}
   \label{fig:SMExSimCity}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/SMExLoL.png}
+  \includegraphics[width=0.9\linewidth]{images/SMExLoL.jpg}
   \caption{League of Legends (2014)}
   \label{fig:SMExLoL}
 \end{subfigure}
@@ -150,7 +150,8 @@ It would as conclusion be interesting to take a look at some modern examples, mo
 \label{fig:SMExComparison}
 \end{figure}
 
-\subsubsection{Fog}
+\newpage
+\subsubsection{Distance fog}
 The transition between different parts of the world can sometimes be very sharp in an unpleasant way. For instance, at the border between the sky and the ocean seen in figure \ref{fig:HorizonNoFog}. 
 
 This can be remedied be adding some distance-fog to the ocean. If the color of the fog matches the color of the skybox at its horizon the transition will be seamless. Our skybox has been modify to fade into the color of the fog at its horizon, which can be seen in figure \ref{fig:SkyboxComparison} below. Notice that we have chosen to not let the skybox be affected by any fog. By doing so one can always see the sky when looking up, which is rather pleasant. 
@@ -158,13 +159,13 @@ This can be remedied be adding some distance-fog to the ocean. If the color of t
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/horizonNoFog.png}
+  \includegraphics[width=0.9\linewidth]{images/horizonNoFog.jpg}
   \caption{Horizon without fog}
   \label{fig:HorizonNoFog}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/horizonFog.png}
+  \includegraphics[width=0.9\linewidth]{images/horizonFog.jpg}
   \caption{Horizon with fog}
   \label{fig:HorizonFog}
 \end{subfigure}
@@ -175,13 +176,13 @@ This can be remedied be adding some distance-fog to the ocean. If the color of t
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/skybox0.png}
+  \includegraphics[width=0.9\linewidth]{images/skybox0.jpg}
   \caption{Original skybox}
   \label{fig:skybox0}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/skybox1.png}
+  \includegraphics[width=0.9\linewidth]{images/skybox1.jpg}
   \caption{Skybox modified to fade into fog}
   \label{fig:skybox1}
 \end{subfigure}
@@ -191,18 +192,19 @@ This can be remedied be adding some distance-fog to the ocean. If the color of t
 
 The distance-fog is also good for constraining the rendering size of the current scene. By adjusting the distance at which the fog appears one can adjust how much that is needed to be rendered of the scene. This enables an arbitrarily large world to be present without killing your computer since only the visible part of the world inside the fog-limit needs to be rendered. 
 
+\newpage
 \subsubsection{Normal Mapping}
 Normal mapping is a technique for adding fine details to an object without adding more vertices, which saves a lot of geometry computations. A normal map is generally an image where the RGB-channels represent x,y and z coordinates for a normal vector. This texture is used in the fragment shader when computing the shading for the current fragment. Before calculating the shading the normal vector is rotated to match the object on which it is to be mapped. Notice that the normal vector is not translated since we want it to remain as an normalized direction and nothing more. A normal map is often used in combination with a texture, to give the texture an illusion of depth. An example of a normal map can be seen in figure \ref{fig:normalMapExample}.
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/grass1.png}
+  \includegraphics[width=0.9\linewidth]{images/grass1.jpg}
   \caption{Grass texture.}
   \label{fig:normalMapExampleGrassTexture}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=0.9\linewidth]{images/grass1NormalMap.png}
+  \includegraphics[width=0.9\linewidth]{images/grass1NormalMap.jpg}
   \caption{Grass normal map.}
   \label{fig:normalMapExampleGrassNormalmap}
 \end{subfigure}

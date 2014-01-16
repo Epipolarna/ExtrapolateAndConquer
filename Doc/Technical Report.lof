@@ -4,16 +4,18 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces The waves are seen at the beach.\relax }}{6}{figure.caption.7}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces The sky reflected in the ocean.\relax }}{6}{figure.caption.8}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Noise comparison}}{7}{figure.caption.9}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Ground textures}}{7}{figure.caption.10}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Texture blending}}{8}{figure.caption.11}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces A small water hole in the middle of the forest at the late afternoon.\relax }}{9}{figure.caption.12}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces A vulcano.\relax }}{11}{figure.caption.13}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Noise comparison}}{12}{figure.caption.14}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Shadow mapping, acne comparison}}{13}{figure.caption.15}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Noise comparison}}{14}{figure.caption.16}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Noise comparison}}{14}{figure.caption.17}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces A comparison of different vertex and sample density, from 0.5 to 15 OpenGL length units. Waves are shown in some of the images, as the wave generator currently doesn't distinguish between lakes and oceans.\relax }}{8}{figure.caption.10}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Ground textures}}{9}{figure.caption.11}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the deep mountain slope to the right in (b).\relax }}{9}{figure.caption.12}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the much greener upper region to the right in (b).\relax }}{10}{figure.caption.13}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces A small water hole in the middle of the forest at the late afternoon.\relax }}{11}{figure.caption.14}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces A vulcano.\relax }}{12}{figure.caption.15}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Noise comparison}}{13}{figure.caption.16}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Shadow mapping, acne comparison}}{14}{figure.caption.17}
 \contentsline {figure}{\numberline {3.13}{\ignorespaces Noise comparison}}{15}{figure.caption.18}
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Game industry standard shadow quality comparison}}{15}{figure.caption.19}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Noise comparison}}{15}{figure.caption.19}
 \contentsline {figure}{\numberline {3.15}{\ignorespaces Noise comparison}}{16}{figure.caption.20}
-\contentsline {figure}{\numberline {3.16}{\ignorespaces Noise comparison}}{16}{figure.caption.21}
-\contentsline {figure}{\numberline {3.17}{\ignorespaces Normal Map example}}{17}{figure.caption.22}
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Game industry standard shadow quality comparison}}{16}{figure.caption.21}
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Noise comparison}}{17}{figure.caption.22}
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Noise comparison}}{17}{figure.caption.23}
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Normal Map example}}{18}{figure.caption.24}

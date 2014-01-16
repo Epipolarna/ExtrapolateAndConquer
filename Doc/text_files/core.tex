@@ -19,8 +19,8 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
 \begin{lstlisting}
  Entity & entity = entityManager.createEntity();
  
- entity->add<SpherePhysics>();
- entity->add<Graphics>();
+ entity,add<SpherePhysics>();
+ entity.add<Graphics>();
  
  SpherePhysics & physics = entity->get<SpherePhysics>();
  physics.position = QVector3D(0.0, 0.5, 1.0);
@@ -34,12 +34,13 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
 \end{lstlisting}
 
 \begin{lstlisting}
- entity->has<Component>();
- entity->add<Component>();
- entity->remove<Component>();
- entity->get<Component>();
+ entity.has<Component>();
+ entity.add<Component>();
+ entity.remove<Component>();
+ entity.get<Component>();
 \end{lstlisting}
 
+Code generation...
 \begin{lstlisting}
   // If additional Components are required, add these aswell (recursively)
     meta::FOR_EACH< typename Component::REQUIRED_COMPONENTS, // List (items) to iterate over
@@ -71,6 +72,7 @@ In general this demonstrates the need to for a rendering pipline that does not c
 
 Due to a rather lousy bush model with a great deal of z-fighting in itself the depth mask is disabled while drawing bushes, as this is considerably faster than finding and creating new models.
 
+\newpage
 \subsection{Physics}
 The physics used in this game is divided into three systems, all three processing all \textit{SpherePhysics} components in the Entity System. The physics is limited to 3D sphere physics as well as the interaction between spheres and a terrain mesh.
 
