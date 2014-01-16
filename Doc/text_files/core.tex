@@ -1,5 +1,5 @@
 We built and uses an Entity System as an underlying game engine framework.
-The idea behind an entity system is that objects should be treated as pure aggregations of data containers, with game logic being separated from objects all together. Instead of having deep class hierarchies and chained method calls, logic for managing specific components is batched on all such components in the system. This provides some advantages over other approaches such that the architecture becomes more flexible and expendable. It is clearer how to add functionality and especially where. Another advantage from the batching is the possibility of much higher performance (maximizing caching and minimizing cache misses) as well as simplifying parallel processing.
+The idea behind an entity system is that objects should be treated as pure aggregations of data containers, with game logic being separated from objects all together. Instead of having deep class hierarchies and chained method calls, logic for managing specific components is batched on all such components in the system. This provides some advantages over other approaches such that the architecture becomes more flexible and expendable. It is clearer how to add functionality and especially where. Another advantage from the batching is the scalability as it simplify parallel processing.
 
 \subsection{Entity System}
 An Entity System consists of three main parts: Entities, Components and Systems.
@@ -14,6 +14,7 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
 * The idea behind: Systems perform on ALL components of a certain type, which is fetched from the EntityManager.\\
 * Our system allows for components to require other components. This means that systems which work on multiple components can be proven to always work by fetching the component which require the others. The require check is performed at compile time and code is generated to handle the specific requirement-tree specified. The program writes part of itself to be maximum efficient and robust, by specifications by the developer in the source code.\\
 * Easy to use (a natural work flow of what goes where and how to solve problems. minimal overhead to use the system), easy to maintain, easy to extend, extremely efficient, trivial to parallelize calculations, verifies consistency at compile time...
+* Another advantage from the batching is the possibility of much higher performance (maximizing caching and minimizing cache misses) as well as simplifying parallel processing.
 
 
 \begin{lstlisting}
@@ -55,12 +56,13 @@ Code generation...
 
 \end{lstlisting}
 
+\newpage
 \subsection{Rendering}
-The rendering system is outside the entity system mainly because it is the largest part, and it was not known in the start of the project what information it needed exactly, so rather than potentially locking ourselves to an unusable architecture the renderer was placed beside the entity system rather than as a part of it.
+The rendering system is outside the entity system mainly because it is the largest individual part, and it was not known in the start of the project what information it needed exactly. So rather than potentially locking ourselves to an unusable architecture the renderer was placed beside the entity system rather than being integrated into it.
 
-The rendering is done in two major passes, the first calculates the shadows and second draws the world using the shadow information calculated in the first pass.
+The rendering is done in two phases, the first calculates the shadows and second draws the world using the shadow information calculated in the first phase.
 
-In order to correctly draw the growth some form of transparency was needed as the foilage used partly transparent textured polygons. As the textures where either completely transparent or completely opaque a simple alpha test was sufficient rather than sorting the trees. However the mipmaps calculated by opengl for the foilage where completely broken by the transparency, so these are disabled for the trees.
+In order to correctly draw the growth some form of transparency was needed as the foilage used partly transparent textured polygons. As the textures where either completely transparent or completely opaque a simple alpha test was sufficient rather than sorting the trees. However the mipmaps calculated by OpenGL for the foilage where completely broken by the transparency, so these are disabled for the trees.
 
 In order to be able to draw a sufficient number of trees and bushes a simple form of instancing is used. Each type of tree and bush exists in a separate list, that contains the model and texture for that particular object and an array of model matrices to be uploaded to a shader as an array of uniforms.
 
@@ -70,7 +72,7 @@ The water is always drawn last, as it is the only object in the world that is se
 
 In general this demonstrates the need to for a rendering pipline that does not connect a particular shader to a particular object, but rather connects objects to different shaders, so that the shader program can be selected first, and then all the objects using a particular shader drawn.
 
-Due to a rather lousy bush model with a great deal of z-fighting in itself the depth mask is disabled while drawing bushes, as this is considerably faster than finding and creating new models.
+Due to a rather lousy bush model with a great deal of z-fighting with itself, the depth mask is disabled while drawing bushes as this is considerably faster than finding and creating new models.
 
 \newpage
 \subsection{Physics}
