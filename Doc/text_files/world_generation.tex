@@ -63,7 +63,6 @@ Fractional Brownian Motion is calculated by sampling the Simplex function at dif
 \end{figure}
 \newpage
 
-Example of different densities... Arbitrary high density possible...
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -172,16 +171,39 @@ The texture blending allows for the mountain to reach almost down to the ocean w
 \subsubsection{Vegetation}
 In order for the world to be more interesting than just an island in the middle of the sea, it needs some additional objects aswell, thus plants are placed using two slightly different approaches.
 
-First a base layer of smaller bushes are placed uniformly over the landmass, with a randomized orientation and scaling. Then a few points are designated as forest centers, around these trees are placed using a gaussian distribution, again the trees have some scale and rotation randomly selected.
+First a base layer of smaller bushes are placed uniformly over the landmass, with a randomized orientation and scaling. Then a few points are designated as forest centers, around these trees are placed using a Gaussian distribution, again the trees have some scale and rotation randomly selected.
+TODO: Bildexempel på skogar? (ev)
 
-Placing the objects is done by generating a coordinate, and checking it for suitability, for example nothing can be placed in the water, or to far up on a mountain/voulcano.
+Placing the objects is done by generating a coordinate, and checking it for suitability, for example nothing can be placed in the water, or to far up on a mountain/volcano.
 
+TODO Häger: Berätta om de olika växterna (vilka använder vi, hur många olika texturer vi använder. hur de är uppbyggda. Hur texturerna måste vara för att alpha mip-mapping ska fungera). Bild-exempel?
+
+TODO Häger: exempelbild på när vår alpha-mip-mapping inte riktigt räcker till?  (Att vi nästan inte ser några fel (förutom grått på håll, vilket kan misstas för distance-fog).
+
+\newpage
 \begin{figure}[H]
+\begin{subfigure}{0.9\textwidth}
   \centering
   \includegraphics[width=0.9\linewidth]{images/content1.jpg}
   \caption{A small water hole in the middle of the forest at the late afternoon.}
-  \label{fig:water_hole}
-\end{figure}%
+  \label{fig:vegetation0}
+\end{subfigure}%
+\\
+\begin{subfigure}{0.9\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/vegetation1.jpg}
+  \caption{The same water hole seen in (a), but perceived though the vegetation.}
+  \label{fig:vegetation1}
+\end{subfigure}%
+\\
+\begin{subfigure}{0.9\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/vegetation2.jpg}
+  \caption{Trees in the outskirt of a forest, portrayed against the sun.}
+  \label{fig:vegetation2}
+\end{subfigure}
+\label{fig:vegetationViwes}
+\end{figure}
 
 \newpage
 \subsubsection{Volcano}
@@ -192,6 +214,7 @@ The volcano generator changes the terrain on a spot to that of a volcano, such a
   \caption{A vulcano.}
   \label{fig:volcano1}
 \end{figure}%
+\newpage
 The volcano is made from one addition of a 2D-Gaussian to the terrain, and of a subtraction of a smaller 2D-Gaussian which creates the eruption hole. It erupts and spews out lava stones as a particle effect. Currently only one volcano is generated on each island, and it is placed on the highest point on the terrain.
 
 Lava stones are made up of 5 different stone models of different sizes. They have full 3D sphere physics, including collision with each other and the terrain. Lava stones are created in the eruption hole with a randomized linear and angular momentum, forcing them to burst out of the volcano in a spraying fashion. When the lava stones enter water and sink too deep, they are re-spawned in the volcano and sent out though the hole again.
@@ -199,21 +222,31 @@ Lava stones are made up of 5 different stone models of different sizes. They hav
 The physics can be reversed in time, making the stones return to the volcano hole. When they enter the volcano they are placed where they were when they disappeared into the water last, with all the physical properties reset to how they were at that time as well. This makes lava stones come up through the water and moving in a reversed trajectory into the volcano, repeating the feat over and over, and providing a nice visual for the audience.
 
 \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/volcano3.jpg}
+  \caption{A (currently) dormant volcano and its surrounding.}
+  \label{fig:vulcano2}
+\end{figure}%
+
+A typical volcano and its surroundings is seen in figure \ref{fig:volcano2}. In figure \ref{volcanoEruptions} other views of the lava stone particle effect is shown.
+
+\newpage
+\begin{figure}[H]
 \begin{subfigure}{\textwidth}
   \centering
   \includegraphics[width=0.9\linewidth]{images/Volcano1.jpg}
-  \caption{...}
-  \label{fig:vulcano1}
+  \caption{A Volcano eruption seen from inside the volcano)}
+  \label{fig:volcanoEruption1}
 \end{subfigure}%
 
 \begin{subfigure}{\textwidth}
   \centering
   \includegraphics[width=0.9\linewidth]{images/Volcano2.jpg}
-  \caption{...}
-  \label{fig:vulcano2}
+  \caption{Volcano eruption on a small island seen from above.}
+  \label{fig:volcanoEruption2}
 \end{subfigure}
-\caption[Noise comparison]{\textit{Volcano eruption.}}
-\label{fig:vulcano3}
+\caption[Noise comparison]{\textit{Volcano eruption, seen from different angles.}}
+\label{fig:volcanoEruptions}
 \end{figure}
 
 
