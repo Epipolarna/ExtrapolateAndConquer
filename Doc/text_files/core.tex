@@ -66,7 +66,7 @@ In order to be able to draw a sufficient number of trees and bushes a simple for
 
 The rocks on the other hand are drawn individually, using only a reference to a shared model objects, and individual matrices, as well as a specified shading program, thus the rocks could be drawn using individual shaders if it was needed.
 
-The water is always drawn last, as it is the only object in the world that is sempitransparent, this does have the consequence of making the trees invisible from under the water though.
+The water is always drawn last, as it is the only object in the world that is sempitransparent and thus the only object that needs to be sorted to be drawn properly. This does have the side effect of making the trees invisible from under the water tough. For future development a sorted render pass might be a good idea to implement, that would support arbitrary numbers of semitransparent objects, and draw them correctly relative to the trees.
 
 In general this demonstrates the need to for a rendering pipline that does not connect a particular shader to a particular object, but rather connects objects to different shaders, so that the shader program can be selected first, and then all the objects using a particular shader drawn.
 
