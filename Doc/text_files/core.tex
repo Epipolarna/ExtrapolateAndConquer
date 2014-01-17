@@ -10,10 +10,16 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
   \caption{Caption...}
   \label{fig:EntityComponentSystemExample}
 \end{figure}
+...
 
+A few standard game software architectures are shown in figure \ref{fig:SoftwareArchitectures}. The first one is a so called deep hierarchy architecture, in which inheritance is used to create more abstract objects from less abstract objects.\\
+Pro: reuse data, interface and some functionality.\\
+Con: Blob classes (too much data and functionality). Class explosion (too many classes, e.g. one for each object type in the game). ... (sources)
+
+The second architecture is one in which objects are created as aggregations of different components. Either there is one type for each object type (?)... The components all have individual interfaces and logic to update. Typically 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.9\linewidth]{images/softwareArchitectures.png}
+  \includegraphics[width=\linewidth]{images/softwareArchitectures.png}
   \caption{A comparison of different game architectures. 
   To the left: A deep hierarchy architecture. 
   In the middle: A Component architecture or an Entity-Component System architecture. 
@@ -48,14 +54,18 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
   \caption{Caption...}
 \end{figure}
 
+\begin{figure}[H]
 \begin{lstlisting}
  entity.has<Component>();
  entity.add<Component>();
  entity.remove<Component>();
  entity.get<Component>();
 \end{lstlisting}
+  \caption{Caption...}
+\end{figure}
 
 Code generation...
+\begin{figure}[H]
 \begin{lstlisting}
   // If additional Components are required, add these aswell (recursively)
     meta::FOR_EACH< typename Component::REQUIRED_COMPONENTS, // List (items) to iterate over
@@ -69,6 +79,8 @@ Code generation...
                   >::execute(entity);
 
 \end{lstlisting}
+  \caption{Caption...}
+\end{figure}
 
 Possible improvements:
 ...

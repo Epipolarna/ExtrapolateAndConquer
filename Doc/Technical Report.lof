@@ -2,23 +2,25 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Caption...\relax }}{2}{figure.caption.5}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces A comparison of different game architectures. To the left: A deep hierarchy architecture. In the middle: A Component architecture or an Entity-Component System architecture. To the right: An Entity System.\relax }}{2}{figure.caption.6}
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Caption...\relax }}{3}{figure.caption.7}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Noise comparison}}{6}{figure.caption.8}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces The waves are seen at the beach.\relax }}{7}{figure.caption.9}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces The sky reflected in the ocean.\relax }}{7}{figure.caption.10}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Noise comparison}}{8}{figure.caption.11}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces A comparison of different vertex and sample density, from 0.5 to 15 OpenGL length units. Waves are shown in some of the images, as the wave generator currently doesn't distinguish between lakes and oceans.\relax }}{9}{figure.caption.12}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Ground textures}}{10}{figure.caption.13}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the deep mountain slope to the right in (b).\relax }}{10}{figure.caption.14}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the much greener upper region to the right in (b).\relax }}{11}{figure.caption.15}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces A vulcano.\relax }}{14}{figure.caption.17}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces A (currently) dormant volcano and its surrounding.\relax }}{15}{figure.caption.18}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Noise comparison}}{16}{figure.caption.19}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Shadow mapping, acne comparison}}{17}{figure.caption.20}
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Noise comparison}}{18}{figure.caption.21}
-\contentsline {figure}{\numberline {3.15}{\ignorespaces Noise comparison}}{18}{figure.caption.22}
-\contentsline {figure}{\numberline {3.16}{\ignorespaces Noise comparison}}{19}{figure.caption.23}
-\contentsline {figure}{\numberline {3.17}{\ignorespaces Game industry standard shadow quality comparison}}{19}{figure.caption.24}
-\contentsline {figure}{\numberline {3.18}{\ignorespaces Two images of the same scene, showing our in-game shadow result. In (b) the cascade with the highest details do not cover the entire area, lower detail shadows can be seen to the left and to the top-right.\relax }}{20}{figure.caption.25}
-\contentsline {figure}{\numberline {3.19}{\ignorespaces Noise comparison}}{21}{figure.caption.26}
-\contentsline {figure}{\numberline {3.20}{\ignorespaces Noise comparison}}{21}{figure.caption.27}
-\contentsline {figure}{\numberline {3.21}{\ignorespaces Normal Map example}}{22}{figure.caption.28}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Caption...\relax }}{3}{figure.caption.8}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Caption...\relax }}{3}{figure.caption.9}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Noise comparison}}{6}{figure.caption.10}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces The waves are seen at the beach.\relax }}{7}{figure.caption.11}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces The sky reflected in the ocean.\relax }}{7}{figure.caption.12}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Noise comparison}}{8}{figure.caption.13}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces A comparison of different vertex and sample density, from 0.5 to 15 OpenGL length units. Waves are shown in some of the images, as the wave generator currently doesn't distinguish between lakes and oceans.\relax }}{9}{figure.caption.14}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Ground textures}}{10}{figure.caption.15}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the deep mountain slope to the right in (b).\relax }}{10}{figure.caption.16}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the much greener upper region to the right in (b).\relax }}{11}{figure.caption.17}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces A vulcano.\relax }}{14}{figure.caption.19}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces A (currently) dormant volcano and its surrounding.\relax }}{15}{figure.caption.20}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Noise comparison}}{16}{figure.caption.21}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Shadow mapping, acne comparison}}{17}{figure.caption.22}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Noise comparison}}{18}{figure.caption.23}
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Noise comparison}}{18}{figure.caption.24}
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Noise comparison}}{19}{figure.caption.25}
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Game industry standard shadow quality comparison}}{19}{figure.caption.26}
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Two images of the same scene, showing our in-game shadow result. In (b) the cascade with the highest details do not cover the entire area, lower detail shadows can be seen to the left and to the top-right.\relax }}{20}{figure.caption.27}
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Noise comparison}}{21}{figure.caption.28}
+\contentsline {figure}{\numberline {3.20}{\ignorespaces Noise comparison}}{21}{figure.caption.29}
+\contentsline {figure}{\numberline {3.21}{\ignorespaces Normal Map example}}{22}{figure.caption.30}
