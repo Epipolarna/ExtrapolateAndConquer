@@ -7,17 +7,16 @@
 \BOOKMARK [3][-]{subsubsection.2.3.2}{SpherePhysicsSystem}{subsection.2.3}% 7
 \BOOKMARK [3][-]{subsubsection.2.3.3}{SphereSphereCollisionSystem}{subsection.2.3}% 8
 \BOOKMARK [3][-]{subsubsection.2.3.4}{SphereTerrainCollisionSystem}{subsection.2.3}% 9
-\BOOKMARK [1][-]{section.3}{Graphics}{}% 10
-\BOOKMARK [2][-]{subsection.3.1}{Generating a World}{section.3}% 11
-\BOOKMARK [3][-]{subsubsection.3.1.1}{Sky}{subsection.3.1}% 12
-\BOOKMARK [3][-]{subsubsection.3.1.2}{Ocean}{subsection.3.1}% 13
-\BOOKMARK [3][-]{subsubsection.3.1.3}{Terrain}{subsection.3.1}% 14
-\BOOKMARK [3][-]{subsubsection.3.1.4}{Ground}{subsection.3.1}% 15
-\BOOKMARK [3][-]{subsubsection.3.1.5}{Vegetation}{subsection.3.1}% 16
-\BOOKMARK [3][-]{subsubsection.3.1.6}{Volcano}{subsection.3.1}% 17
-\BOOKMARK [2][-]{subsection.3.2}{Visual Effects}{section.3}% 18
-\BOOKMARK [3][-]{subsubsection.3.2.1}{Shadows}{subsection.3.2}% 19
-\BOOKMARK [3][-]{subsubsection.3.2.2}{Distance fog}{subsection.3.2}% 20
-\BOOKMARK [3][-]{subsubsection.3.2.3}{Normal Mapping}{subsection.3.2}% 21
-\BOOKMARK [1][-]{section.4}{Conclusions}{}% 22
-\BOOKMARK [1][-]{section*.29}{References}{}% 23
+\BOOKMARK [1][-]{section.3}{Generating a World}{}% 10
+\BOOKMARK [2][-]{subsection.3.1}{Sky}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.2}{Ocean}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.3}{Terrain}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.4}{Ground}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.5}{Vegetation}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.6}{Volcano}{section.3}% 16
+\BOOKMARK [1][-]{section.4}{Visual Effects}{}% 17
+\BOOKMARK [2][-]{subsection.4.1}{Shadows}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.2}{Distance fog}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.3}{Normal Mapping}{section.4}% 20
+\BOOKMARK [1][-]{section.5}{Conclusions}{}% 21
+\BOOKMARK [1][-]{section*.36}{References}{}% 22

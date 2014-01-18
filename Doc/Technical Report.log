@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.12.13)  16 JAN 2014 17:14
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.12.13)  17 JAN 2014 20:40
 entering extended mode
 **Technical*Report.tex
 
@@ -930,7 +930,7 @@ t")
 ("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.ou
 t")
 \@outlinefile=\write4
- <Cover/cover.pdf, id=95, 597.50829pt x 845.0471pt>
+ <Cover/cover.pdf, id=91, 597.50829pt x 845.0471pt>
 File: Cover/cover.pdf Graphic file (type pdf)
  <use Cover/cover.pdf>
 Package pdftex.def Info: Cover/cover.pdf used on input line 134.
@@ -941,7 +941,7 @@ File: Cover/cover.pdf Graphic file (type pdf)
 Package pdftex.def Info: Cover/cover.pdf used on input line 134.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 
-<Cover/cover.pdf, id=98, page=1, 597.50829pt x 845.0471pt>
+<Cover/cover.pdf, id=94, page=1, 597.50829pt x 845.0471pt>
 File: Cover/cover.pdf Graphic file (type pdf)
 
 <use Cover/cover.pdf, page 1>
@@ -985,7 +985,13 @@ c")
 \tf@toc=\write5
 
 ("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.lo
-f" [3])
+f"
+Overfull \hbox (6.98425pt too wide) in paragraph at lines 9--9
+ \OT1/cmr/m/n/10 re-quired, start-ing with the cur-rent Com-po-nent is added to
+ the en-tity. (b): The \OT1/cmr/m/it/10 ADD[]COMPONENT 
+ []
+
+[3])
 \tf@lof=\write6
 
 ("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.lo
@@ -993,7 +999,7 @@ t")
 \tf@lot=\write7
  [4]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/introduct
-ion.tex <images/frontImage.jpg, id=218, 1233.10687pt x 746.79pt>
+ion.tex <images/frontImage.jpg, id=242, 1233.10687pt x 746.79pt>
 File: images/frontImage.jpg Graphic file (type jpg)
 
 <use images/frontImage.jpg>
@@ -1007,6 +1013,15 @@ l.170 \newpage
                [1 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/im
 ages/frontImage.jpg>]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/core.tex
+<images/softwareArchitectures.png, id=247, 804.00375pt x 323.2075pt>
+File: images/softwareArchitectures.png Graphic file (type png)
+
+<use images/softwareArchitectures.png>
+Package pdftex.def Info: images/softwareArchitectures.png used on input line 9.
+
+(pdftex.def)             Requested size: 486.54214pt x 195.58798pt.
+ [2 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/softwareA
+rchitectures.png (PNG copy)>]
 Package epstopdf Info: Source file: <images/EntityComponentSystemExample.eps>
 (epstopdf)                    date: 2014-01-12 16:14:50
 (epstopdf)                    size: 215411 bytes
@@ -1016,106 +1031,146 @@ nverted-to.pdf>
 (epstopdf)                    size: 56043 bytes
 (epstopdf)             Command: <epstopdf --outfile=images/EntityComponentSyste
 mExample-eps-converted-to.pdf images/EntityComponentSystemExample.eps>
-(epstopdf)             \includegraphics on input line 9.
+(epstopdf)             \includegraphics on input line 21.
 Package epstopdf Info: Output file is already uptodate.
 
-<images/EntityComponentSystemExample-eps-converted-to.pdf, id=223, 667.49374pt 
+<images/EntityComponentSystemExample-eps-converted-to.pdf, id=253, 667.49374pt 
 x 210.7875pt>
 File: images/EntityComponentSystemExample-eps-converted-to.pdf Graphic file (ty
 pe pdf)
  <use images/EntityComponentSystemExample-eps-converted-to.pdf>
 Package pdftex.def Info: images/EntityComponentSystemExample-eps-converted-to.p
-df used on input line 9.
+df used on input line 21.
 (pdftex.def)             Requested size: 437.88495pt x 138.28392pt.
 
-<images/softwareArchitectures.png, id=224, 804.00375pt x 323.2075pt>
-File: images/softwareArchitectures.png Graphic file (type png)
+<images/entityInterfaceExample.png, id=255, 596.2275pt x 60.97781pt>
+File: images/entityInterfaceExample.png Graphic file (type png)
 
-<use images/softwareArchitectures.png>
-Package pdftex.def Info: images/softwareArchitectures.png used on input line 16
+<use images/entityInterfaceExample.png>
+Package pdftex.def Info: images/entityInterfaceExample.png used on input line 2
+8.
+(pdftex.def)             Requested size: 437.88495pt x 44.78418pt.
+
+<images/entityCreationExample.png, id=256, 588.69937pt x 214.55156pt>
+File: images/entityCreationExample.png Graphic file (type png)
+
+<use images/entityCreationExample.png>
+Package pdftex.def Info: images/entityCreationExample.png used on input line 34
 .
-(pdftex.def)             Requested size: 437.88495pt x 176.0287pt.
- [2 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/EntityCom
+(pdftex.def)             Requested size: 437.88495pt x 159.58737pt.
+
+<images/SpherePhysicsPartExample.png, id=258, 596.2275pt x 166.37157pt>
+File: images/SpherePhysicsPartExample.png Graphic file (type png)
+
+<use images/SpherePhysicsPartExample.png>
+Package pdftex.def Info: images/SpherePhysicsPartExample.png used on input line
+ 41.
+(pdftex.def)             Requested size: 437.88495pt x 122.18895pt.
+ [3 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/EntityCom
 ponentSystemExample-eps-converted-to.pdf> <C:/Users/TiXiR/Documents/GitHub/Extr
-apolateAndConquer/Doc/images/softwareArchitectures.png (PNG copy)>]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 35.
+apolateAndConquer/Doc/images/entityInterfaceExample.png> <C:/Users/TiXiR/Docume
+nts/GitHub/ExtrapolateAndConquer/Doc/images/entityCreationExample.png>]
+<images/componentList.png, id=272, 567.62062pt x 33.12375pt>
+File: images/componentList.png Graphic file (type png)
+
+<use images/componentList.png>
+Package pdftex.def Info: images/componentList.png used on input line 49.
+(pdftex.def)             Requested size: 437.88495pt x 25.55386pt.
+
+<images/entityManagerInstanciation.png, id=273, 596.2275pt x 21.07875pt>
+File: images/entityManagerInstanciation.png Graphic file (type png)
+
+<use images/entityManagerInstanciation.png>
+Package pdftex.def Info: images/entityManagerInstanciation.png used on input li
+ne 56.
+(pdftex.def)             Requested size: 437.88495pt x 15.48093pt.
+
+<images/simplePhysicsSystem.png, id=274, 566.86781pt x 124.96687pt>
+File: images/simplePhysicsSystem.png Graphic file (type png)
+
+<use images/simplePhysicsSystem.png>
+Package pdftex.def Info: images/simplePhysicsSystem.png used on input line 66.
+(pdftex.def)             Requested size: 437.88495pt x 96.5356pt.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 77.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 35.
- [3] [4]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 101.
-
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 77.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 95.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 101.
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--131
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 95.
+ [4 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SpherePhy
+sicsPartExample.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc
+/images/componentList.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConqu
+er/Doc/images/entityManagerInstanciation.png> <C:/Users/TiXiR/Documents/GitHub/
+ExtrapolateAndConquer/Doc/images/simplePhysicsSystem.png>] [5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 174--177
 
  []
 
-) [5]
-(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/graphics.
-tex
+) [7] [8]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/world_gen
 eration.tex
 Underfull \hbox (badness 10000) in paragraph at lines 2--5
 
  []
 
-<images/waterWaves.jpg, id=314, 596.98032pt x 596.98032pt>
+<images/waterWaves.jpg, id=353, 596.98032pt x 596.98032pt>
 File: images/waterWaves.jpg Graphic file (type jpg)
 
 <use images/waterWaves.jpg>
 Package pdftex.def Info: images/waterWaves.jpg used on input line 14.
 (pdftex.def)             Requested size: 218.94247pt x 218.939pt.
 
-<images/waterGlimmer.jpg, id=315, 550.30594pt x 550.30594pt>
+<images/waterGlimmer.jpg, id=354, 550.30594pt x 550.30594pt>
 File: images/waterGlimmer.jpg Graphic file (type jpg)
 
 <use images/waterGlimmer.jpg>
 Package pdftex.def Info: images/waterGlimmer.jpg used on input line 20.
 (pdftex.def)             Requested size: 218.94247pt x 218.9429pt.
 
-<images/waves.jpg, id=317, 1106.63437pt x 638.385pt>
+<images/waves.jpg, id=356, 1106.63437pt x 638.385pt>
 File: images/waves.jpg Graphic file (type jpg)
  <use images/waves.jpg>
 Package pdftex.def Info: images/waves.jpg used on input line 30.
 (pdftex.def)             Requested size: 437.88495pt x 252.60251pt.
 
-[6 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/waterWaves
-.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/waterGl
-immer.jpg>] <images/reflectingSky.jpg, id=324, 1039.63406pt x 618.05907pt>
+Underfull \vbox (badness 2343) has occurred while \output is active []
+
+ [9 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/waterWave
+s.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/waterG
+limmer.jpg>] <images/reflectingSky.jpg, id=363, 1039.63406pt x 618.05907pt>
 File: images/reflectingSky.jpg Graphic file (type jpg)
 
 <use images/reflectingSky.jpg>
 Package pdftex.def Info: images/reflectingSky.jpg used on input line 37.
 (pdftex.def)             Requested size: 437.88495pt x 260.31863pt.
- [7 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/waves.jpg
-> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/reflectingS
-ky.jpg>]
-<images/Simplex.jpg, id=331, 376.40625pt x 376.40625pt>
+ [10 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/waves.jp
+g> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/reflecting
+Sky.jpg>]
+<images/Simplex.jpg, id=370, 376.40625pt x 376.40625pt>
 File: images/Simplex.jpg Graphic file (type jpg)
 
 <use images/Simplex.jpg>
 Package pdftex.def Info: images/Simplex.jpg used on input line 51.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
 
-<images/FracBrownMotion.jpg, id=332, 376.40625pt x 376.40625pt>
+<images/FracBrownMotion.jpg, id=371, 376.40625pt x 376.40625pt>
 File: images/FracBrownMotion.jpg Graphic file (type jpg)
 
 <use images/FracBrownMotion.jpg>
 Package pdftex.def Info: images/FracBrownMotion.jpg used on input line 57.
 (pdftex.def)             Requested size: 218.94247pt x 218.94756pt.
- [8 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Simplex.j
-pg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/FracBrown
-Motion.jpg>]
-<images/terrainDensityComparison1_05.jpg, id=338, 849.1725pt x 607.51968pt>
+ [11 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Simplex.
+jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/FracBrow
+nMotion.jpg>]
+<images/terrainDensityComparison1_05.jpg, id=377, 849.1725pt x 607.51968pt>
 File: images/terrainDensityComparison1_05.jpg Graphic file (type jpg)
 
 <use images/terrainDensityComparison1_05.jpg>
@@ -1123,7 +1178,7 @@ Package pdftex.def Info: images/terrainDensityComparison1_05.jpg used on input
 line 69.
 (pdftex.def)             Requested size: 218.94247pt x 156.63504pt.
 
-<images/terrainDensityComparison1_1.jpg, id=339, 849.1725pt x 607.51968pt>
+<images/terrainDensityComparison1_1.jpg, id=378, 849.1725pt x 607.51968pt>
 File: images/terrainDensityComparison1_1.jpg Graphic file (type jpg)
 
 <use images/terrainDensityComparison1_1.jpg>
@@ -1131,7 +1186,7 @@ Package pdftex.def Info: images/terrainDensityComparison1_1.jpg used on input l
 ine 75.
 (pdftex.def)             Requested size: 218.94247pt x 156.63504pt.
 
-<images/terrainDensityComparison1_2.jpg, id=340, 849.1725pt x 607.51968pt>
+<images/terrainDensityComparison1_2.jpg, id=379, 849.1725pt x 607.51968pt>
 File: images/terrainDensityComparison1_2.jpg Graphic file (type jpg)
 
 <use images/terrainDensityComparison1_2.jpg>
@@ -1139,7 +1194,7 @@ Package pdftex.def Info: images/terrainDensityComparison1_2.jpg used on input l
 ine 82.
 (pdftex.def)             Requested size: 218.94247pt x 156.63504pt.
 
-<images/terrainDensityComparison1_5.jpg, id=341, 849.1725pt x 607.51968pt>
+<images/terrainDensityComparison1_5.jpg, id=380, 849.1725pt x 607.51968pt>
 File: images/terrainDensityComparison1_5.jpg Graphic file (type jpg)
 
 <use images/terrainDensityComparison1_5.jpg>
@@ -1147,7 +1202,7 @@ Package pdftex.def Info: images/terrainDensityComparison1_5.jpg used on input l
 ine 88.
 (pdftex.def)             Requested size: 218.94247pt x 156.63504pt.
 
-<images/terrainDensityComparison1_10.jpg, id=342, 849.1725pt x 607.51968pt>
+<images/terrainDensityComparison1_10.jpg, id=381, 849.1725pt x 607.51968pt>
 File: images/terrainDensityComparison1_10.jpg Graphic file (type jpg)
 
 <use images/terrainDensityComparison1_10.jpg>
@@ -1155,36 +1210,36 @@ Package pdftex.def Info: images/terrainDensityComparison1_10.jpg used on input
 line 95.
 (pdftex.def)             Requested size: 218.94247pt x 156.63504pt.
 
-<images/terrainDensityComparison1_15.jpg, id=343, 849.1725pt x 607.51968pt>
+<images/terrainDensityComparison1_15.jpg, id=382, 849.1725pt x 607.51968pt>
 File: images/terrainDensityComparison1_15.jpg Graphic file (type jpg)
 
 <use images/terrainDensityComparison1_15.jpg>
 Package pdftex.def Info: images/terrainDensityComparison1_15.jpg used on input 
 line 101.
 (pdftex.def)             Requested size: 218.94247pt x 156.63504pt.
- [9 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/terrainDe
-nsityComparison1_05.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer
-/Doc/images/terrainDensityComparison1_1.jpg> <C:/Users/TiXiR/Documents/GitHub/E
-xtrapolateAndConquer/Doc/images/terrainDensityComparison1_2.jpg> <C:/Users/TiXi
-R/Documents/GitHub/ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_5
-.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/terrain
-DensityComparison1_10.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConqu
-er/Doc/images/terrainDensityComparison1_15.jpg>] <images/textureSand.jpg, id=35
-0, 385.44pt x 385.44pt>
+ [12 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/terrainD
+ensityComparison1_05.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConque
+r/Doc/images/terrainDensityComparison1_1.jpg> <C:/Users/TiXiR/Documents/GitHub/
+ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_2.jpg> <C:/Users/TiX
+iR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_
+5.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/terrai
+nDensityComparison1_10.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConq
+uer/Doc/images/terrainDensityComparison1_15.jpg>] <images/textureSand.jpg, id=3
+88, 385.44pt x 385.44pt>
 File: images/textureSand.jpg Graphic file (type jpg)
 
 <use images/textureSand.jpg>
 Package pdftex.def Info: images/textureSand.jpg used on input line 116.
 (pdftex.def)             Requested size: 140.12637pt x 140.12276pt.
 
-<images/textureGrass.jpg, id=351, 385.44pt x 385.44pt>
+<images/textureGrass.jpg, id=389, 385.44pt x 385.44pt>
 File: images/textureGrass.jpg Graphic file (type jpg)
 
 <use images/textureGrass.jpg>
 Package pdftex.def Info: images/textureGrass.jpg used on input line 122.
 (pdftex.def)             Requested size: 140.12637pt x 140.12276pt.
 
-<images/textureRock.jpg, id=352, 385.44pt x 385.44pt>
+<images/textureRock.jpg, id=390, 385.44pt x 385.44pt>
 File: images/textureRock.jpg Graphic file (type jpg)
 
 <use images/textureRock.jpg>
@@ -1196,7 +1251,7 @@ Package caption Warning: \label without proper \caption on input line 149.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `fig:textureComparison1' on page 10 undefined on input
+LaTeX Warning: Reference `fig:textureComparison1' on page 13 undefined on input
  line 136.
 
 
@@ -1204,11 +1259,11 @@ Package caption Warning: \label without proper \caption on input line 166.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `fig:textureComparison2' on page 10 undefined on input
+LaTeX Warning: Reference `fig:textureComparison2' on page 13 undefined on input
  line 136.
 
 
-<images/textureBlendingComparison1_simple.jpg, id=355, 861.2175pt x 346.29375pt
+<images/textureBlendingComparison1_simple.jpg, id=393, 861.2175pt x 346.29375pt
 >
 File: images/textureBlendingComparison1_simple.jpg Graphic file (type jpg)
  <use images/textureBlendingComparison1_simple.jpg>
@@ -1216,20 +1271,20 @@ Package pdftex.def Info: images/textureBlendingComparison1_simple.jpg used on i
 nput line 140.
 (pdftex.def)             Requested size: 394.09378pt x 158.46745pt.
 
-<images/textureBlendingComparison1_advanced.jpg, id=356, 861.2175pt x 346.29375
+<images/textureBlendingComparison1_advanced.jpg, id=394, 861.2175pt x 346.29375
 pt>
 File: images/textureBlendingComparison1_advanced.jpg Graphic file (type jpg)
  <use images/textureBlendingComparison1_advanced.jpg>
 Package pdftex.def Info: images/textureBlendingComparison1_advanced.jpg used on
  input line 146.
 (pdftex.def)             Requested size: 394.09378pt x 158.46745pt.
- [10 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/textureS
+ [13 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/textureS
 and.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/text
 ureGrass.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images
 /textureRock.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/im
 ages/textureBlendingComparison1_simple.jpg> <C:/Users/TiXiR/Documents/GitHub/Ex
 trapolateAndConquer/Doc/images/textureBlendingComparison1_advanced.jpg>]
-<images/textureBlendingComparison2_simple.jpg, id=361, 1090.82532pt x 438.13687
+<images/textureBlendingComparison2_simple.jpg, id=399, 1090.82532pt x 438.13687
 pt>
 File: images/textureBlendingComparison2_simple.jpg Graphic file (type jpg)
  <use images/textureBlendingComparison2_simple.jpg>
@@ -1237,48 +1292,48 @@ Package pdftex.def Info: images/textureBlendingComparison2_simple.jpg used on i
 nput line 157.
 (pdftex.def)             Requested size: 394.09378pt x 158.29073pt.
 
-<images/textureBlendingComparison2_advanced.jpg, id=362, 1090.82532pt x 438.136
+<images/textureBlendingComparison2_advanced.jpg, id=400, 1090.82532pt x 438.136
 87pt>
 File: images/textureBlendingComparison2_advanced.jpg Graphic file (type jpg)
  <use images/textureBlendingComparison2_advanced.jpg>
 Package pdftex.def Info: images/textureBlendingComparison2_advanced.jpg used on
  input line 163.
 (pdftex.def)             Requested size: 394.09378pt x 158.29073pt.
- [11 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/textureB
+ [14 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/textureB
 lendingComparison2_simple.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndC
-onquer/Doc/images/textureBlendingComparison2_advanced.jpg>] [12]
-<images/content1.jpg, id=371, 770.88pt x 425.33907pt>
+onquer/Doc/images/textureBlendingComparison2_advanced.jpg>] [15]
+<images/content1.jpg, id=410, 770.88pt x 425.33907pt>
 File: images/content1.jpg Graphic file (type jpg)
 
 <use images/content1.jpg>
 Package pdftex.def Info: images/content1.jpg used on input line 187.
 (pdftex.def)             Requested size: 394.09378pt x 217.43925pt.
 
-<images/vegetation1.jpg, id=372, 770.88pt x 412.54124pt>
+<images/vegetation1.jpg, id=411, 770.88pt x 412.54124pt>
 File: images/vegetation1.jpg Graphic file (type jpg)
 
 <use images/vegetation1.jpg>
 Package pdftex.def Info: images/vegetation1.jpg used on input line 194.
 (pdftex.def)             Requested size: 394.09378pt x 210.89684pt.
 
-<images/vegetation2.jpg, id=373, 770.88pt x 410.2828pt>
+<images/vegetation2.jpg, id=412, 770.88pt x 410.2828pt>
 File: images/vegetation2.jpg Graphic file (type jpg)
 
 <use images/vegetation2.jpg>
 Package pdftex.def Info: images/vegetation2.jpg used on input line 201.
 (pdftex.def)             Requested size: 394.09378pt x 209.7423pt.
- [13 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/content1
+ [16 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/content1
 .jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/vegetat
 ion1.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/veg
 etation2.jpg>]
-<images/volcano.jpg, id=380, 782.925pt x 1397.22pt>
+<images/volcano.jpg, id=419, 782.925pt x 1397.22pt>
 File: images/volcano.jpg Graphic file (type jpg)
  <use images/volcano.jpg>
 Package pdftex.def Info: images/volcano.jpg used on input line 213.
 (pdftex.def)             Requested size: 340.578pt x 607.80713pt.
 
-[14 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/volcano.j
-pg>] <images/volcano3.jpg, id=385, 1084.05pt x 584.93532pt>
+[17 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/volcano.j
+pg>] <images/volcano3.jpg, id=424, 1084.05pt x 584.93532pt>
 File: images/volcano3.jpg Graphic file (type jpg)
 
 <use images/volcano3.jpg>
@@ -1286,94 +1341,94 @@ Package pdftex.def Info: images/volcano3.jpg used on input line 226.
 (pdftex.def)             Requested size: 437.88495pt x 236.27272pt.
 
 
-LaTeX Warning: Reference `fig:volcano2' on page 15 undefined on input line 231.
+LaTeX Warning: Reference `fig:volcano2' on page 18 undefined on input line 231.
 
 
 
-LaTeX Warning: Reference `volcanoEruptions' on page 15 undefined on input line 
+LaTeX Warning: Reference `volcanoEruptions' on page 18 undefined on input line 
 231.
 
-[15 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/volcano3.
-jpg>] <images/Volcano1.jpg, id=391, 1362.59062pt x 770.88pt>
+[18 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/volcano3.
+jpg>] <images/Volcano1.jpg, id=429, 1362.59062pt x 770.88pt>
 File: images/Volcano1.jpg Graphic file (type jpg)
 
 <use images/Volcano1.jpg>
 Package pdftex.def Info: images/Volcano1.jpg used on input line 237.
 (pdftex.def)             Requested size: 437.88495pt x 247.73352pt.
 
-<images/Volcano2.jpg, id=392, 770.88pt x 523.20468pt>
+<images/Volcano2.jpg, id=430, 770.88pt x 523.20468pt>
 File: images/Volcano2.jpg Graphic file (type jpg)
 
 <use images/Volcano2.jpg>
 Package pdftex.def Info: images/Volcano2.jpg used on input line 244.
 (pdftex.def)             Requested size: 437.88495pt x 297.19191pt.
-) [16 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Volcano
+) [19 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Volcano
 1.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Volcan
 o2.jpg>]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/visual_ef
-fects.tex <images/SMAcne.jpg, id=403, 770.88pt x 481.8pt>
+fects.tex <images/SMAcne.jpg, id=441, 770.88pt x 481.8pt>
 File: images/SMAcne.jpg Graphic file (type jpg)
 
 <use images/SMAcne.jpg>
 Package pdftex.def Info: images/SMAcne.jpg used on input line 27.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
- <images/SMAcneFix.jpg, id=404, 770.88pt x 481.8pt>
+ <images/SMAcneFix.jpg, id=442, 770.88pt x 481.8pt>
 File: images/SMAcneFix.jpg Graphic file (type jpg)
 
 <use images/SMAcneFix.jpg>
 Package pdftex.def Info: images/SMAcneFix.jpg used on input line 33.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
- [17 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcne.j
+ [20 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcne.j
 pg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcneFix
 .jpg>]
-<images/PCFLvl1.jpg, id=419, 770.88pt x 481.8pt>
+<images/PCFLvl1.jpg, id=457, 770.88pt x 481.8pt>
 File: images/PCFLvl1.jpg Graphic file (type jpg)
  <use images/PCFLvl1.jpg>
 Package pdftex.def Info: images/PCFLvl1.jpg used on input line 48.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/PCFLvl5.jpg, id=420, 770.88pt x 481.8pt>
+<images/PCFLvl5.jpg, id=458, 770.88pt x 481.8pt>
 File: images/PCFLvl5.jpg Graphic file (type jpg)
  <use images/PCFLvl5.jpg>
 Package pdftex.def Info: images/PCFLvl5.jpg used on input line 54.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/SMOverViewLvl1.jpg, id=424, 770.88pt x 481.8pt>
+<images/SMOverViewLvl1.jpg, id=462, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl1.jpg Graphic file (type jpg)
 
 <use images/SMOverViewLvl1.jpg>
 Package pdftex.def Info: images/SMOverViewLvl1.jpg used on input line 78.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMOverViewLvl2.jpg, id=425, 770.88pt x 481.8pt>
+<images/SMOverViewLvl2.jpg, id=463, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl2.jpg Graphic file (type jpg)
 
 <use images/SMOverViewLvl2.jpg>
 Package pdftex.def Info: images/SMOverViewLvl2.jpg used on input line 84.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMOverViewLvl3.jpg, id=426, 770.88pt x 481.8pt>
+<images/SMOverViewLvl3.jpg, id=464, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl3.jpg Graphic file (type jpg)
 
 <use images/SMOverViewLvl3.jpg>
 Package pdftex.def Info: images/SMOverViewLvl3.jpg used on input line 90.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl1.jpg, id=427, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl1.jpg, id=465, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl1.jpg Graphic file (type jpg)
 
 <use images/SMCloseUpLvl1.jpg>
 Package pdftex.def Info: images/SMCloseUpLvl1.jpg used on input line 101.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl2.jpg, id=428, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl2.jpg, id=466, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl2.jpg Graphic file (type jpg)
 
 <use images/SMCloseUpLvl2.jpg>
 Package pdftex.def Info: images/SMCloseUpLvl2.jpg used on input line 107.
 (pdftex.def)             Requested size: 144.50282pt x 90.30786pt.
 
-<images/SMCloseUpLvl3.jpg, id=429, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl3.jpg, id=467, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl3.jpg Graphic file (type jpg)
 
 <use images/SMCloseUpLvl3.jpg>
@@ -1382,12 +1437,12 @@ Package pdftex.def Info: images/SMCloseUpLvl3.jpg used on input line 113.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [18 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl1.
+ [21 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl1.
 jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl5.
 jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMOverVi
 ewLvl1.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/S
 MOverViewLvl2.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/i
-mages/SMOverViewLvl3.jpg>] <images/SMExBF3.jpg, id=439, 1264.725pt x 790.45313p
+mages/SMOverViewLvl3.jpg>] <images/SMExBF3.jpg, id=478, 1264.725pt x 790.45313p
 t>
 File: images/SMExBF3.jpg Graphic file (type jpg)
 
@@ -1395,27 +1450,27 @@ File: images/SMExBF3.jpg Graphic file (type jpg)
 Package pdftex.def Info: images/SMExBF3.jpg used on input line 126.
 (pdftex.def)             Requested size: 218.94247pt x 136.83575pt.
 
-<images/SMExCSGO.jpg, id=440, 1264.725pt x 790.45313pt>
+<images/SMExCSGO.jpg, id=479, 1264.725pt x 790.45313pt>
 File: images/SMExCSGO.jpg Graphic file (type jpg)
 
 <use images/SMExCSGO.jpg>
 Package pdftex.def Info: images/SMExCSGO.jpg used on input line 132.
 (pdftex.def)             Requested size: 218.94247pt x 136.83575pt.
 
-<images/SMExSimCity.jpg, id=441, 1686.3pt x 1053.9375pt>
+<images/SMExSimCity.jpg, id=480, 1686.3pt x 1053.9375pt>
 File: images/SMExSimCity.jpg Graphic file (type jpg)
 
 <use images/SMExSimCity.jpg>
 Package pdftex.def Info: images/SMExSimCity.jpg used on input line 139.
 (pdftex.def)             Requested size: 218.94247pt x 136.83978pt.
 
-<images/SMExLoL.jpg, id=442, 1686.3pt x 1053.9375pt>
+<images/SMExLoL.jpg, id=481, 1686.3pt x 1053.9375pt>
 File: images/SMExLoL.jpg Graphic file (type jpg)
  <use images/SMExLoL.jpg>
 Package pdftex.def Info: images/SMExLoL.jpg used on input line 145.
 (pdftex.def)             Requested size: 218.94247pt x 136.83978pt.
 
-[19 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMCloseUp
+[22 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMCloseUp
 Lvl1.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMC
 loseUpLvl2.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/imag
 es/SMCloseUpLvl3.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Do
@@ -1423,91 +1478,98 @@ c/images/SMExBF3.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Do
 c/images/SMExCSGO.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/D
 oc/images/SMExSimCity.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConqu
 er/Doc/images/SMExLoL.jpg>]
-<images/shadows1.jpg, id=448, 1332.47812pt x 754.31813pt>
+<images/shadows1.jpg, id=487, 1332.47812pt x 754.31813pt>
 File: images/shadows1.jpg Graphic file (type jpg)
 
 <use images/shadows1.jpg>
 Package pdftex.def Info: images/shadows1.jpg used on input line 157.
 (pdftex.def)             Requested size: 394.09378pt x 223.09741pt.
 
-<images/shadows2.jpg, id=449, 1040.38687pt x 670.00313pt>
+<images/shadows2.jpg, id=488, 1040.38687pt x 670.00313pt>
 File: images/shadows2.jpg Graphic file (type jpg)
 
 <use images/shadows2.jpg>
 Package pdftex.def Info: images/shadows2.jpg used on input line 164.
 (pdftex.def)             Requested size: 394.09378pt x 253.79619pt.
- [20 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/shadows1
+ [23 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/shadows1
 .jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/shadows
 2.jpg>]
-<images/horizonNoFog.jpg, id=456, 770.88pt x 481.8pt>
+<images/horizonNoFog.jpg, id=495, 770.88pt x 481.8pt>
 File: images/horizonNoFog.jpg Graphic file (type jpg)
 
 <use images/horizonNoFog.jpg>
 Package pdftex.def Info: images/horizonNoFog.jpg used on input line 181.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/horizonFog.jpg, id=457, 771.48225pt x 482.40225pt>
+<images/horizonFog.jpg, id=496, 771.48225pt x 482.40225pt>
 File: images/horizonFog.jpg Graphic file (type jpg)
 
 <use images/horizonFog.jpg>
 Package pdftex.def Info: images/horizonFog.jpg used on input line 187.
 (pdftex.def)             Requested size: 218.94247pt x 136.90456pt.
 
-<images/skybox0.jpg, id=458, 4111.36pt x 3083.52pt>
+<images/skybox0.jpg, id=497, 4111.36pt x 3083.52pt>
 File: images/skybox0.jpg Graphic file (type jpg)
  <use images/skybox0.jpg>
 Package pdftex.def Info: images/skybox0.jpg used on input line 198.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
 
-<images/skybox1.jpg, id=459, 4111.36pt x 3083.52pt>
+<images/skybox1.jpg, id=498, 4111.36pt x 3083.52pt>
 File: images/skybox1.jpg Graphic file (type jpg)
  <use images/skybox1.jpg>
 Package pdftex.def Info: images/skybox1.jpg used on input line 204.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
 
-[21 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/horizonNo
+[24 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/horizonNo
 Fog.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/hori
 zonFog.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/s
 kybox0.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/s
-kybox1.jpg>] <images/grass1.jpg, id=466, 782.925pt x 782.925pt>
+kybox1.jpg>] <images/grass1.jpg, id=504, 782.925pt x 782.925pt>
 File: images/grass1.jpg Graphic file (type jpg)
 
 <use images/grass1.jpg>
 Package pdftex.def Info: images/grass1.jpg used on input line 220.
 (pdftex.def)             Requested size: 218.94247pt x 218.94273pt.
 
-<images/grass1NormalMap.jpg, id=467, 587.19376pt x 587.19376pt>
+<images/grass1NormalMap.jpg, id=505, 587.19376pt x 587.19376pt>
 File: images/grass1NormalMap.jpg Graphic file (type jpg)
 
 <use images/grass1NormalMap.jpg>
 Package pdftex.def Info: images/grass1NormalMap.jpg used on input line 226.
 (pdftex.def)             Requested size: 218.94247pt x 218.94273pt.
-)) [22 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/grass1
-.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/grass1N
-ormalMap.jpg>]
+) [25 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/grass1.
+jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/grass1No
+rmalMap.jpg>]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/conclusio
-ns.tex)
-(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/bibliogra
-phy.tex [23pdfTeX warning (ext4): destination with the same identifier (name{ci
-te.citekey}) has been already used, duplicate ignored
+ns.tex <images/worldFromAFarTop.jpg, id=511, 995.21812pt x 676.77844pt>
+File: images/worldFromAFarTop.jpg Graphic file (type jpg)
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.71 
-     ]
-Underfull \hbox (badness 10000) in paragraph at lines 73--76
+<use images/worldFromAFarTop.jpg>
+Package pdftex.def Info: images/worldFromAFarTop.jpg used on input line 6.
+(pdftex.def)             Requested size: 486.54214pt x 330.87048pt.
+)
+(C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/bibliogra
+phy.tex [26 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/w
+orldFromAFarTop.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 90--93
 
  []
 
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 199.
- [24]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 199.
+[27pdfTeX warning (ext4): destination with the same identifier (name{cite.citek
+ey}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.103 \end{thebibliography}
+                           ])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 204.
+ [28]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 204.
 
 ("C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\Technical Report.au
 x")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 199.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 199.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 204.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 204.
 Package rerunfilecheck Info: File `Technical*Report.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
 
@@ -1517,16 +1579,16 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 199.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 204.
  ) 
 Here is how much of TeX's memory you used:
- 11953 strings out of 493921
- 181526 string characters out of 3144875
- 372801 words of memory out of 3000000
- 14816 multiletter control sequences out of 15000+200000
+ 12004 strings out of 493921
+ 182855 string characters out of 3144875
+ 376443 words of memory out of 3000000
+ 14854 multiletter control sequences out of 15000+200000
  12725 words of font info for 48 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 42i,18n,67p,1058b,1026s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,18n,67p,1576b,1156s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\TiXiR\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\
 tcrm1000.pk> <C:\Users\TiXiR\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\
 ec\dpi600\tcrm0800.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
@@ -1542,9 +1604,9 @@ Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program
  Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on "Technical Report.pdf" (28 pages, 35494684 bytes).
+Output written on "Technical Report.pdf" (32 pages, 36281840 bytes).
 PDF statistics:
- 568 PDF objects out of 1000 (max. 8388607)
- 149 named destinations out of 1000 (max. 500000)
- 460 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 623 PDF objects out of 1000 (max. 8388607)
+ 157 named destinations out of 1000 (max. 500000)
+ 487 words of extra memory for PDF output out of 10000 (max. 10000000)
 

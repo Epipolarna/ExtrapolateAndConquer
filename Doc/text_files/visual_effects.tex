@@ -1,6 +1,6 @@
 Boom hacka lacka
 
-\subsubsection{Shadows}
+\subsection{Shadows}
 Shadows are one those things that can make a scene really come to life. It will help the viewer to understand the structure of the terrain and location of objects much better than with only shading. There are many techniques in which shadows can be achieved with different pros and cons. We have chosen to use \textit{Shadow Mapping} \cite{ShadowMapping} which by now is a fairly old technique, 1978, but still used in many modern computer games. Shadow mapping offers real-time shadows for arbitrary scenes in a theoretically straight forward way. 
 
 The quality of these shadows can be increased arbitrarily, but the computational complexity grows linearly with the size of the rendered screen \cite{ShadowMapping}. Therefor one has to limit this size and go for a number of improvement techniques to make shadows shine. 
@@ -170,7 +170,7 @@ Our final in-game results can be seen in figure \ref{fig:InGameShadowResult}.
 \end{figure}
 
 \newpage
-\subsubsection{Distance fog}
+\subsection{Distance fog}
 The transition between different parts of the world can sometimes be very sharp in an unpleasant way. For instance, at the border between the sky and the ocean seen in figure \ref{fig:HorizonNoFog}. 
 
 This can be remedied be adding some distance-fog to the ocean. If the color of the fog matches the color of the skybox at its horizon the transition will be seamless. Our skybox has been modify to fade into the color of the fog at its horizon, which can be seen in figure \ref{fig:SkyboxComparison} below. Notice that we have chosen to not let the skybox be affected by any fog. By doing so one can always see the sky when looking up, which is rather pleasant. 
@@ -212,7 +212,7 @@ This can be remedied be adding some distance-fog to the ocean. If the color of t
 The distance-fog is also good for constraining the rendering size of the current scene. By adjusting the distance at which the fog appears one can adjust how much that is needed to be rendered of the scene. This enables an arbitrarily large world to be present without killing your computer since only the visible part of the world inside the fog-limit needs to be rendered. 
 
 \newpage
-\subsubsection{Normal Mapping}
+\subsection{Normal Mapping}
 Normal mapping is a technique for adding fine details to an object without adding more vertices, which saves a lot of geometry computations. A normal map is generally an image where the RGB-channels represent x,y and z coordinates for a normal vector. This texture is used in the fragment shader when computing the shading for the current fragment. Before calculating the shading the normal vector is rotated to match the object on which it is to be mapped. Notice that the normal vector is not translated since we want it to remain as an normalized direction and nothing more. A normal map is often used in combination with a texture, to give the texture an illusion of depth. An example of a normal map can be seen in figure \ref{fig:normalMapExample}.
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
