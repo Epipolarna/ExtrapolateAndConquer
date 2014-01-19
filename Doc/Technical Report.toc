@@ -19,4 +19,4 @@
 \contentsline {subsection}{\numberline {4.2}Distance fog}{25}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Normal Mapping}{26}{subsection.4.3}
 \contentsline {section}{\numberline {5}Conclusions}{27}{section.5}
-\contentsline {section}{References}{28}{section*.39}
+\contentsline {section}{References}{28}{section*.38}
