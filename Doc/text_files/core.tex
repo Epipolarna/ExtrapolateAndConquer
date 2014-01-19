@@ -7,7 +7,7 @@ An Entity is simply a label or identifier of an object. A Component is a pure da
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/softwareArchitectures.png}
-  \caption{A comparison of different game architectures. 
+  \caption[Game architectures.]{A comparison of different game architectures. 
   To the left: A deep hierarchy architecture. 
   In the middle: A Component architecture or an Entity-Component System architecture. 
   To the right: An Entity System.}
@@ -19,7 +19,7 @@ So, in an Entity System an object is an entity label (or identifier) and a colle
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{images/EntityComponentSystemExample.eps}
-  \caption{A lava stone (or fire ball) used in our demo. The renderSystem is in our current implementation not actually part of the Entity System, but it could easily be integrated. }
+  \caption[An Entity example.]{A lava stone (or fire ball) used in our demo. The renderSystem is in our current implementation not actually part of the Entity System, but it could easily be integrated. }
   \label{fig:EntityComponentSystemExample}
 \end{figure}
 Our Entity System is built using sophisticated meta template programming techniques. It is a compile time construct, enabling consistency verification, code generation and error correction. All components are controlled by the EntityManager class and each component type is stored continuous in memory. We provide an Entity class which work as an interface to the entity label and the components which builds up the entity, this through the Entitymanager. The Entity interface is shown in figure 2.3 and an example of the construction of the fire ball in figure \ref{fig:EntityComponentSystemExample} is shown in figure 2.4. All access to components are reference based to minimize copying and the risk of pointer errors. Our system allows for components to require other components. This means that systems which work on multiple components can be proven to always work by fetching the component which require the others. The components used and their dependencies are specified by the developer in the source code, and the program is optimized at compile time based on these specifications in regard to efficiency and robustness. The program writes part of itself to be maximum efficient in terms of component storage, data access as well as requirement lookup and enforcement. The later also ensures robustness of the systems as code is generated to handle the specific requirement-tree specified. The code generation and compile time logic is done using C++11 meta template programming.
@@ -27,7 +27,7 @@ Our Entity System is built using sophisticated meta template programming techniq
   \centering
   \includegraphics[width=0.9\linewidth]{images/entityInterfaceExample.png}
   \label{fig:EntityInterface}
-  \caption{Entity Interface. Component is a place holder for any component type. \textit{has} return a boolean, \textit{get} return a reference to that component (if the entity consists of such a component), \textit{add} adds the component to the entity and returns a reference to it, \textit{remove} remove the component from the entity.}
+  \caption[Entity interface.]{Entity interface. Component is a place holder for any component type. \textit{has} return a boolean, \textit{get} return a reference to that component (if the entity consists of such a component), \textit{add} adds the component to the entity and returns a reference to it, \textit{remove} remove the component from the entity.}
 \end{figure}
 \begin{figure}[H]
   \centering
@@ -40,7 +40,7 @@ A component is simply a \textit{struct} or a \textit{class} which inheritance th
   \centering
   \includegraphics[width=0.9\linewidth]{images/SpherePhysicsPartExample.png}
   \label{fig:spherePhysicsPart}
-  \caption{A part of the SpherePhysics component. The template argument \textit{$<>$} is empty, meaning that no system based on SpherePhysics require any other component to be present as well.}
+  \caption[A part of the SpherePhysics component.]{A part of the SpherePhysics component. The template argument \textit{$<>$} is empty, meaning that no system based on SpherePhysics require any other component to be present as well.}
 \end{figure}
 Every component must be registered in the EntityManager before it is used. If a component is used anywhere in the Entity System without registration a compile time error will be generated and supplied to the developer. Since C++11 doesn't provide template parameter lists we have to use a define at this one place, until the next standard hopefully is released. The registration is shown in figure \ref{fig:entityInitializationExample}.
 \begin{figure}[H]
@@ -65,7 +65,7 @@ Systems are classes which must inheritance the System class and either overload 
   \centering
   \includegraphics[width=0.9\linewidth]{images/simplePhysicsSystem.png}
   \label{fig:SimplePhysicsSystem}
-  \caption{A dummy system. It iterates primarily over all SimplePhysics components. Illustrated is also the access to the entity from its component.}
+  \caption[A System example]{A dummy system. It iterates primarily over all SimplePhysics components. Illustrated is also the access to the entity from its component.}
 \end{figure}
 To guarantee consistency for systems requiring multiple component types, dependency between components is supported as shown in figure 2.5. Circular dependencies are supported as well. A system which require component A and B can then for example fetch all A, and if A require B then a B will be available to the system for each A. This since any Entity consisting of A will be guaranteed by the program to also consist of B. This is enforced by the Entity System such that when a component is added to an entity then any component required as well will also be added, recursively. Similarly if a component is removed which other components belonging to the entity require. Then all components no longer supported are also removed, recursively. The code to check, add and remove components due to such requirements is generated by the Entity System such that no components are checked unnecessary for any component in any add/remove situation. This makes the system have the minimal overhead possible while still allowing arbitrary dependencies between components. 
 
@@ -109,7 +109,7 @@ The code generation is written using meta meta templates from our meta-library, 
   \caption{}
 \end{subfigure}
   \label{fig:codeCreationExample}
-  \caption{Code generation of adding required components. (a): An except of the \textit{addComponent} method of the EntityManager, a meta meta template function call which assures that all components that are required, starting with the current Component is added to the entity. (b): The \textit{ADD\_COMPONENT} template used in (a). All lines except the first in the if-statement are there for debugging purposes.}
+  \caption[Code generation example.]{Code generation of adding required components. (a): An except of the \textit{addComponent} method of the EntityManager, a meta meta template function call which assures that all components that are required, starting with the current Component is added to the entity. (b): The \textit{ADD\_COMPONENT} template used in (a). All lines except the first in the if-statement are there for debugging purposes.}
 \end{figure}
 The case of removing a component is slightly more advanced since it is a reverse problem of the problem outlined above: when a component is removed, any component requiring it must also be removed. It is solved in a concise fashion and implemented similarly to above, thanks to the powerful meta-library. See the source code for the actual implementation.
 
@@ -166,7 +166,7 @@ SpherePhysics is a component dedicated to physics data, its content is seen in t
 
  };
 \end{lstlisting}
-\caption{The SpherePhysics component. All lava stones are composed by this component to enable physics and collision handling.}
+\caption[The SpherePhysics component.]{The SpherePhysics component. All lava stones are composed by this component to enable physics and collision handling.}
 \label{fig:spherePhysics}
 \end{figure}
 

@@ -18,22 +18,22 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
 \newlabel{sec:introduction}{{1}{1}{Introduction}{section.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces A beautiful world. Contarining 3000 trees and 13000 bushes, and a terrain with a vertex density of 5.5.\relax }}{1}{figure.caption.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces A beautiful world.}}{1}{figure.caption.4}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:beautifulIsland}{{1.1}{1}{A beautiful world. Contarining 3000 trees and 13000 bushes, and a terrain with a vertex density of 5.5.\relax }{figure.caption.4}{}}
+\newlabel{fig:beautifulIsland}{{1.1}{1}{A beautiful world}{figure.caption.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}System Core}{2}{section.2}}
 \newlabel{sec:Core}{{2}{2}{System Core}{section.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Entity System}{2}{subsection.2.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces A comparison of different game architectures. To the left: A deep hierarchy architecture. In the middle: A Component architecture or an Entity-Component System architecture. To the right: An Entity System.\relax }}{2}{figure.caption.5}}
-\newlabel{fig:SoftwareArchitectures}{{2.1}{2}{A comparison of different game architectures. To the left: A deep hierarchy architecture. In the middle: A Component architecture or an Entity-Component System architecture. To the right: An Entity System.\relax }{figure.caption.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces A lava stone (or fire ball) used in our demo. The renderSystem is in our current implementation not actually part of the Entity System, but it could easily be integrated. \relax }}{3}{figure.caption.6}}
-\newlabel{fig:EntityComponentSystemExample}{{2.2}{3}{A lava stone (or fire ball) used in our demo. The renderSystem is in our current implementation not actually part of the Entity System, but it could easily be integrated. \relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Game architectures.}}{2}{figure.caption.5}}
+\newlabel{fig:SoftwareArchitectures}{{2.1}{2}{Game architectures}{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces An Entity example.}}{3}{figure.caption.6}}
+\newlabel{fig:EntityComponentSystemExample}{{2.2}{3}{An Entity example}{figure.caption.6}{}}
 \newlabel{fig:EntityInterface}{{\caption@xref {fig:EntityInterface}{ on input line 29}}{3}{Entity System}{figure.caption.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Entity Interface. Component is a place holder for any component type. \textit  {has} return a boolean, \textit  {get} return a reference to that component (if the entity consists of such a component), \textit  {add} adds the component to the entity and returns a reference to it, \textit  {remove} remove the component from the entity.\relax }}{3}{figure.caption.7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Entity interface.}}{3}{figure.caption.7}}
 \newlabel{fig:EntitySetupExample}{{\caption@xref {fig:EntitySetupExample}{ on input line 35}}{3}{Entity System}{figure.caption.8}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces The creation and initiation of an entity.\relax }}{3}{figure.caption.8}}
 \newlabel{fig:spherePhysicsPart}{{\caption@xref {fig:spherePhysicsPart}{ on input line 42}}{4}{Entity System}{figure.caption.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces A part of the SpherePhysics component. The template argument \textit  {$<>$} is empty, meaning that no system based on SpherePhysics require any other component to be present as well.\relax }}{4}{figure.caption.9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces A part of the SpherePhysics component.}}{4}{figure.caption.9}}
 \newlabel{fig:componentListExample}{{2.6a}{4}{\relax }{figure.caption.10}{}}
 \newlabel{sub@fig:componentListExample}{{a}{4}{\relax }{figure.caption.10}{}}
 \newlabel{fig:entityManagerInstanciation}{{2.6b}{4}{\relax }{figure.caption.10}{}}
@@ -41,18 +41,18 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Ground textures}}{4}{figure.caption.10}}
 \newlabel{fig:entityInitializationExample}{{2.6}{4}{Ground textures}{figure.caption.10}{}}
 \newlabel{fig:SimplePhysicsSystem}{{\caption@xref {fig:SimplePhysicsSystem}{ on input line 67}}{4}{Entity System}{figure.caption.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.7}{\ignorespaces A dummy system. It iterates primarily over all SimplePhysics components. Illustrated is also the access to the entity from its component.\relax }}{4}{figure.caption.11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.7}{\ignorespaces A System example}}{4}{figure.caption.11}}
 \newlabel{fig:ADD_COMPONENT_FOREACH}{{\caption@xref {fig:ADD_COMPONENT_FOREACH}{ on input line 88}}{5}{Entity System}{lstnumber.-1.11}{}}
 \newlabel{sub@fig:ADD_COMPONENT_FOREACH}{{}{5}{Entity System}{lstnumber.-1.11}{}}
 \newlabel{fig:ADD_COMPONENT}{{\caption@xref {fig:ADD_COMPONENT}{ on input line 108}}{5}{Entity System}{lstnumber.-2.13}{}}
 \newlabel{sub@fig:ADD_COMPONENT}{{a}{5}{Entity System}{lstnumber.-2.13}{}}
 \newlabel{fig:codeCreationExample}{{\caption@xref {fig:codeCreationExample}{ on input line 111}}{5}{Entity System}{figure.caption.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.8}{\ignorespaces Code generation of adding required components. (a): An except of the \textit  {addComponent} method of the EntityManager, a meta meta template function call which assures that all components that are required, starting with the current Component is added to the entity. (b): The \textit  {ADD\_COMPONENT} template used in (a). All lines except the first in the if-statement are there for debugging purposes.\relax }}{5}{figure.caption.12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.8}{\ignorespaces Code generation example.}}{5}{figure.caption.12}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Rendering}{6}{subsection.2.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Physics}{7}{subsection.2.3}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}SpherePhysics}{7}{subsubsection.2.3.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.9}{\ignorespaces The SpherePhysics component. All lava stones are composed by this component to enable physics and collision handling.\relax }}{7}{figure.caption.13}}
-\newlabel{fig:spherePhysics}{{2.9}{7}{The SpherePhysics component. All lava stones are composed by this component to enable physics and collision handling.\relax }{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.9}{\ignorespaces The SpherePhysics component.}}{7}{figure.caption.13}}
+\newlabel{fig:spherePhysics}{{2.9}{7}{The SpherePhysics component}{figure.caption.13}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}SpherePhysicsSystem}{7}{subsubsection.2.3.2}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}SphereSphereCollisionSystem}{7}{subsubsection.2.3.3}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.4}SphereTerrainCollisionSystem}{8}{subsubsection.2.3.4}}
@@ -98,8 +98,8 @@
 \newlabel{sub@fig:textureDensity10}{{e}{12}{Density 10.0\relax }{figure.caption.19}{}}
 \newlabel{fig:textureDensity15}{{3.6f}{12}{Density 15.0\relax }{figure.caption.19}{}}
 \newlabel{sub@fig:textureDensity15}{{f}{12}{Density 15.0\relax }{figure.caption.19}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces A comparison of different vertex and sample density, from 0.5 to 15 vertexes per OpenGL length units. Waves are shown in some of the images, as the wave generator currently doesn't distinguish between lakes and oceans.\relax }}{12}{figure.caption.19}}
-\newlabel{fig:textureDensityComparison1}{{3.6}{12}{A comparison of different vertex and sample density, from 0.5 to 15 vertexes per OpenGL length units. Waves are shown in some of the images, as the wave generator currently doesn't distinguish between lakes and oceans.\relax }{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Terrain with different vertex density.}}{12}{figure.caption.19}}
+\newlabel{fig:textureDensityComparison1}{{3.6}{12}{Terrain with different vertex density}{figure.caption.19}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Ground}{13}{subsection.3.4}}
 \newlabel{fig:textureSand}{{3.7a}{13}{The sand/beach texture.\relax }{figure.caption.20}{}}
 \newlabel{sub@fig:textureSand}{{a}{13}{The sand/beach texture.\relax }{figure.caption.20}{}}
@@ -109,10 +109,10 @@
 \newlabel{sub@fig:textureRock}{{c}{13}{The rock/volcano texture.\relax }{figure.caption.20}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Ground textures}}{13}{figure.caption.20}}
 \newlabel{fig:textures}{{3.7}{13}{Ground textures}{figure.caption.20}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the deep mountain slope to the right in (b).\relax }}{14}{figure.caption.21}}
-\newlabel{fig:textureComparison1}{{3.8}{14}{A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the deep mountain slope to the right in (b).\relax }{figure.caption.21}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the much greener upper region to the right in (b).\relax }}{14}{figure.caption.22}}
-\newlabel{fig:textureComparison2}{{3.9}{14}{A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the much greener upper region to the right in (b).\relax }{figure.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Simple and advanced texture blending comparison 1.}}{14}{figure.caption.21}}
+\newlabel{fig:textureComparison1}{{3.8}{14}{Simple and advanced texture blending comparison 1}{figure.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Simple and advanced texture blending comparison 2.}}{14}{figure.caption.22}}
+\newlabel{fig:textureComparison2}{{3.9}{14}{Simple and advanced texture blending comparison 2}{figure.caption.22}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Vegetation}{15}{subsection.3.5}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Forests}}{15}{figure.caption.23}}
 \newlabel{fig:gaussainForest}{{3.10}{15}{Forests}{figure.caption.23}{}}
