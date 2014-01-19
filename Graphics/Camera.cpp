@@ -144,9 +144,9 @@ void Camera::updatePosition()
     position += velocityVector*translationSpeed*elapsedSeconds;
     lookAtPoint += velocityVector*translationSpeed*elapsedSeconds;
 
-    //qDebug() << "------------------";
-    //qDebug() << "position" << position;
-    //qDebug() << "lookAtPoint" << lookAtPoint;
+    qDebug() << "------------------";
+    qDebug() << "position" << position;
+    qDebug() << "lookAtPoint" << lookAtPoint;
 
     updateLookAt();
 }

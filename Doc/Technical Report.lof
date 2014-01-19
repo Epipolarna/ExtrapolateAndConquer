@@ -17,17 +17,17 @@
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Ground textures}}{13}{figure.caption.20}
 \contentsline {figure}{\numberline {3.8}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the deep mountain slope to the right in (b).\relax }}{13}{figure.caption.21}
 \contentsline {figure}{\numberline {3.9}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the much greener upper region to the right in (b).\relax }}{14}{figure.caption.22}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces A volcano.\relax }}{17}{figure.caption.24}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces A (currently) dormant volcano and its surrounding.\relax }}{18}{figure.caption.25}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Noise comparison}}{19}{figure.caption.26}
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Shadow mapping, acne comparison}}{20}{figure.caption.27}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Percentage Closer Filtering}}{21}{figure.caption.28}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Noise comparison}}{21}{figure.caption.29}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Noise comparison}}{22}{figure.caption.30}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Cascade Shadow Mapping}}{22}{figure.caption.31}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Game industry standard shadow quality comparison}}{23}{figure.caption.32}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Two images of the same scene, showing our in-game shadow result. In (b) the cascade with the highest details do not cover the entire area, lower detail shadows can be seen to the left and to the top-right.\relax }}{24}{figure.caption.33}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Noise comparison}}{25}{figure.caption.34}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Noise comparison}}{25}{figure.caption.35}
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Normal Map example}}{26}{figure.caption.36}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces The final world from far above.\relax }}{27}{figure.caption.37}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces A volcano.\relax }}{17}{figure.caption.25}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces A (currently) dormant volcano and its surrounding.\relax }}{18}{figure.caption.26}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Noise comparison}}{19}{figure.caption.27}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Shadow mapping, acne comparison}}{20}{figure.caption.28}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Percentage Closer Filtering}}{21}{figure.caption.29}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Noise comparison}}{21}{figure.caption.30}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Noise comparison}}{22}{figure.caption.31}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Cascade Shadow Mapping}}{22}{figure.caption.32}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Game industry standard shadow quality comparison}}{23}{figure.caption.33}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Two images of the same scene, showing our in-game shadow result. In (b) the cascade with the highest details do not cover the entire area, lower detail shadows can be seen to the left and to the top-right.\relax }}{24}{figure.caption.34}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Noise comparison}}{25}{figure.caption.35}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Noise comparison}}{25}{figure.caption.36}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Normal Map example}}{26}{figure.caption.37}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The final world from far above.\relax }}{27}{figure.caption.38}
