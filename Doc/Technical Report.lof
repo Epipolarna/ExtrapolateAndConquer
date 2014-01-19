@@ -27,7 +27,7 @@
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Shadow Mapping Levels, Close-up}}{22}{figure.caption.31}
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Cascade Shadow Mapping}}{22}{figure.caption.32}
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Game industry standard shadow quality comparison}}{23}{figure.caption.33}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Two images of the same scene, showing our in-game shadow result. In (b) the cascade with the highest details do not cover the entire area, lower detail shadows can be seen to the left and to the top-right.\relax }}{24}{figure.caption.34}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces In-Game shadows.}}{24}{figure.caption.34}
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Fog Comparison}}{25}{figure.caption.35}
 \contentsline {figure}{\numberline {4.9}{\ignorespaces Skybox Fog Comparison}}{25}{figure.caption.36}
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Normal Map example}}{26}{figure.caption.37}
