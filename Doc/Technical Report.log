@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.21)  19 JAN 2014 21:52
+=======
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  19 JAN 2014 21:53
+>>>>>>> Caption update
 entering extended mode
 **Technical*Report.tex
 
@@ -976,8 +980,13 @@ f" [3])
 t")
 \tf@lot=\write7
  [4]
+<<<<<<< HEAD
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/introduct
 ion.tex <images/frontImage.jpg, id=228, 1233.10687pt x 746.79pt>
+=======
+(D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/introduction.tex
+<images/frontImage.jpg, id=247, 1233.10687pt x 746.79pt>
+>>>>>>> Caption update
 File: images/frontImage.jpg Graphic file (type jpg)
 
 <use images/frontImage.jpg>
@@ -988,10 +997,16 @@ Package pdftex.def Info: images/frontImage.jpg used on input line 4.
 <to be read again> 
                    \relax 
 l.170 \newpage
+<<<<<<< HEAD
                [1 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/im
 ages/frontImage.jpg>]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/core.tex
 <images/softwareArchitectures.png, id=233, 804.00375pt x 323.2075pt>
+=======
+               [1 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/frontImage.jpg>]
+(D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/core.tex
+<images/softwareArchitectures.png, id=252, 804.00375pt x 323.2075pt>
+>>>>>>> Caption update
 File: images/softwareArchitectures.png Graphic file (type png)
 
 <use images/softwareArchitectures.png>
@@ -1044,11 +1059,19 @@ File: images/SpherePhysicsPartExample.png Graphic file (type png)
 Package pdftex.def Info: images/SpherePhysicsPartExample.png used on input line
  41.
 (pdftex.def)             Requested size: 437.88495pt x 122.18895pt.
+<<<<<<< HEAD
  [3 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/EntityCom
 ponentSystemExample-eps-converted-to.pdf> <C:/Users/TiXiR/Documents/GitHub/Extr
 apolateAndConquer/Doc/images/entityInterfaceExample.png> <C:/Users/TiXiR/Docume
 nts/GitHub/ExtrapolateAndConquer/Doc/images/entityCreationExample.png>]
 <images/componentList.png, id=259, 567.62062pt x 33.12375pt>
+=======
+ [3 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/EntityComponentSystemExample-e
+ps-converted-to.pdf> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/entityInterfa
+ceExample.png> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/entityCreationExamp
+le.png>]
+<images/componentList.png, id=277, 567.62062pt x 33.12375pt>
+>>>>>>> Caption update
 File: images/componentList.png Graphic file (type png)
 
 <use images/componentList.png>
@@ -1121,18 +1144,30 @@ Package pdftex.def Info: images/waves.jpg used on input line 30.
 
 Underfull \vbox (badness 2343) has occurred while \output is active []
 
+<<<<<<< HEAD
  [9 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/waterWave
 s.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/waterG
 limmer.jpg>] <images/reflectingSky.jpg, id=351, 1039.63406pt x 618.05907pt>
+=======
+ [9 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/waterWaves.jpg> <D:/Dev/Git/Ex
+trapolateAndConquer/Doc/images/waterGlimmer.jpg>]
+<images/reflectingSky.jpg, id=368, 1039.63406pt x 618.05907pt>
+>>>>>>> Caption update
 File: images/reflectingSky.jpg Graphic file (type jpg)
 
 <use images/reflectingSky.jpg>
 Package pdftex.def Info: images/reflectingSky.jpg used on input line 37.
 (pdftex.def)             Requested size: 437.88495pt x 260.31863pt.
+<<<<<<< HEAD
  [10 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/waves.jp
 g> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/reflecting
 Sky.jpg>]
 <images/Simplex.jpg, id=358, 376.40625pt x 376.40625pt>
+=======
+ [10 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/waves.jpg> <D:/Dev/Git/Extrap
+olateAndConquer/Doc/images/reflectingSky.jpg>]
+<images/Simplex.jpg, id=375, 376.40625pt x 376.40625pt>
+>>>>>>> Caption update
 File: images/Simplex.jpg Graphic file (type jpg)
 
 <use images/Simplex.jpg>
@@ -1221,6 +1256,7 @@ line 125.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
  [11 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Simplex.
 jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/FracBrow
 nMotion.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
@@ -1236,6 +1272,20 @@ olateAndConquer/Doc/images/terrainDensityComparison1_10.jpg> <C:/Users/TiXiR/Do
 cuments/GitHub/ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_15.jp
 g>]
 <images/textureSand.jpg, id=380, 385.44pt x 385.44pt>
+=======
+ [11 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/Simplex.jpg> <D:/Dev/Git/Extr
+apolateAndConquer/Doc/images/FracBrownMotion.jpg> <D:/Dev/Git/ExtrapolateAndCon
+quer/Doc/images/heightMapRaw.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/
+heightMapKernel.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/heightMapFina
+l.jpg>]
+[12 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_05.j
+pg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_1.jp
+g> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_2.jpg
+> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_5.jpg>
+ <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_10.jpg>
+ <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/terrainDensityComparison1_15.jpg>
+] <images/textureSand.jpg, id=397, 385.44pt x 385.44pt>
+>>>>>>> Caption update
 File: images/textureSand.jpg Graphic file (type jpg)
 
 <use images/textureSand.jpg>
@@ -1260,11 +1310,18 @@ Overfull \hbox (2.2222pt too wide) in paragraph at lines 138--156
 []$[]$$[]$ $[]$ 
  []
 
+<<<<<<< HEAD
 [13 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/textureSa
 nd.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/textu
 reGrass.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/
 textureRock.jpg>]
 <images/textureBlendingComparison1_simple.jpg, id=389, 861.2175pt x 346.29375pt
+=======
+[13 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/textureSand.jpg> <D:/Dev/Git/E
+xtrapolateAndConquer/Doc/images/textureGrass.jpg> <D:/Dev/Git/ExtrapolateAndCon
+quer/Doc/images/textureRock.jpg>]
+<images/textureBlendingComparison1_simple.jpg, id=406, 861.2175pt x 346.29375pt
+>>>>>>> Caption update
 >
 File: images/textureBlendingComparison1_simple.jpg Graphic file (type jpg)
  <use images/textureBlendingComparison1_simple.jpg>
@@ -1295,6 +1352,7 @@ File: images/textureBlendingComparison2_advanced.jpg Graphic file (type jpg)
 Package pdftex.def Info: images/textureBlendingComparison2_advanced.jpg used on
  input line 187.
 (pdftex.def)             Requested size: 341.54973pt x 137.18484pt.
+<<<<<<< HEAD
  [14 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/textureB
 lendingComparison1_simple.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndC
 onquer/Doc/images/textureBlendingComparison1_advanced.jpg> <C:/Users/TiXiR/Docu
@@ -1302,14 +1360,27 @@ ments/GitHub/ExtrapolateAndConquer/Doc/images/textureBlendingComparison2_simple
 .jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/texture
 BlendingComparison2_advanced.jpg>] <images/forestfromthetop.jpg, id=397, 1084.0
 5pt x 587.19376pt>
+=======
+ [14 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/textureBlendingComparison1_si
+mple.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/textureBlendingCompariso
+n1_advanced.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/textureBlendingCo
+mparison2_simple.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/textureBlend
+ingComparison2_advanced.jpg>] <images/forestfromthetop.jpg, id=414, 1084.05pt x
+ 587.19376pt>
+>>>>>>> Caption update
 File: images/forestfromthetop.jpg Graphic file (type jpg)
 
 <use images/forestfromthetop.jpg>
 Package pdftex.def Info: images/forestfromthetop.jpg used on input line 202.
 (pdftex.def)             Requested size: 437.88495pt x 237.18498pt.
+<<<<<<< HEAD
  [15 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/forestfr
 omthetop.jpg>]
 <images/content1.jpg, id=403, 770.88pt x 425.33907pt>
+=======
+ [15 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/forestfromthetop.jpg>]
+<images/content1.jpg, id=420, 770.88pt x 425.33907pt>
+>>>>>>> Caption update
 File: images/content1.jpg Graphic file (type jpg)
 
 <use images/content1.jpg>
@@ -1329,26 +1400,43 @@ File: images/vegetation2.jpg Graphic file (type jpg)
 <use images/vegetation2.jpg>
 Package pdftex.def Info: images/vegetation2.jpg used on input line 232.
 (pdftex.def)             Requested size: 394.09378pt x 209.7423pt.
+<<<<<<< HEAD
  [16 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/content1
 .jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/vegetat
 ion1.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/veg
 etation2.jpg>]
 <images/volcano.jpg, id=412, 782.925pt x 1397.22pt>
+=======
+ [16 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/content1.jpg> <D:/Dev/Git/Ext
+rapolateAndConquer/Doc/images/vegetation1.jpg> <D:/Dev/Git/ExtrapolateAndConque
+r/Doc/images/vegetation2.jpg>]
+<images/volcano.jpg, id=429, 782.925pt x 1397.22pt>
+>>>>>>> Caption update
 File: images/volcano.jpg Graphic file (type jpg)
  <use images/volcano.jpg>
 Package pdftex.def Info: images/volcano.jpg used on input line 244.
 (pdftex.def)             Requested size: 340.578pt x 607.80713pt.
 
+<<<<<<< HEAD
 [17 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/volcano.j
 pg>] <images/volcano3.jpg, id=417, 1084.05pt x 584.93532pt>
+=======
+[17 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/volcano.jpg>]
+<images/volcano3.jpg, id=434, 1084.05pt x 584.93532pt>
+>>>>>>> Caption update
 File: images/volcano3.jpg Graphic file (type jpg)
 
 <use images/volcano3.jpg>
 Package pdftex.def Info: images/volcano3.jpg used on input line 257.
 (pdftex.def)             Requested size: 437.88495pt x 236.27272pt.
+<<<<<<< HEAD
  [18 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/volcano3
 .jpg>]
 <images/Volcano1.jpg, id=424, 1362.59062pt x 770.88pt>
+=======
+ [18 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/volcano3.jpg>] <images/Volcan
+o1.jpg, id=441, 1362.59062pt x 770.88pt>
+>>>>>>> Caption update
 File: images/Volcano1.jpg Graphic file (type jpg)
 
 <use images/Volcano1.jpg>
@@ -1361,16 +1449,24 @@ File: images/Volcano2.jpg Graphic file (type jpg)
 <use images/Volcano2.jpg>
 Package pdftex.def Info: images/Volcano2.jpg used on input line 275.
 (pdftex.def)             Requested size: 437.88495pt x 297.19191pt.
+<<<<<<< HEAD
 ) [19 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Volcano
 1.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/Volcan
 o2.jpg>]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/visual_ef
 fects.tex <images/SMAcne.jpg, id=436, 770.88pt x 481.8pt>
+=======
+) [19 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/Volcano1.jpg> <D:/Dev/Git/Ex
+trapolateAndConquer/Doc/images/Volcano2.jpg>]
+(D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/visual_effects.tex
+<images/SMAcne.jpg, id=453, 770.88pt x 481.8pt>
+>>>>>>> Caption update
 File: images/SMAcne.jpg Graphic file (type jpg)
 
 <use images/SMAcne.jpg>
 Package pdftex.def Info: images/SMAcne.jpg used on input line 27.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
+<<<<<<< HEAD
  <images/SMAcneFix.jpg, id=437, 770.88pt x 481.8pt>
 File: images/SMAcneFix.jpg Graphic file (type jpg)
 
@@ -1381,6 +1477,18 @@ Package pdftex.def Info: images/SMAcneFix.jpg used on input line 33.
 pg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMAcneFix
 .jpg>]
 <images/PCFLvl1.jpg, id=452, 770.88pt x 481.8pt>
+=======
+
+<images/SMAcneFix.jpg, id=454, 770.88pt x 481.8pt>
+File: images/SMAcneFix.jpg Graphic file (type jpg)
+ <use images/SMAcneFix.jpg>
+Package pdftex.def Info: images/SMAcneFix.jpg used on input line 33.
+(pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
+
+[20 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMAcne.jpg> <D:/Dev/Git/Extrap
+olateAndConquer/Doc/images/SMAcneFix.jpg>]
+<images/PCFLvl1.jpg, id=469, 770.88pt x 481.8pt>
+>>>>>>> Caption update
 File: images/PCFLvl1.jpg Graphic file (type jpg)
  <use images/PCFLvl1.jpg>
 Package pdftex.def Info: images/PCFLvl1.jpg used on input line 48.
@@ -1392,9 +1500,15 @@ File: images/PCFLvl5.jpg Graphic file (type jpg)
 Package pdftex.def Info: images/PCFLvl5.jpg used on input line 54.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
+<<<<<<< HEAD
 [21 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl1.j
 pg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/PCFLvl5.j
 pg>] <images/SMOverViewLvl1.jpg, id=465, 770.88pt x 481.8pt>
+=======
+[21 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/PCFLvl1.jpg> <D:/Dev/Git/Extra
+polateAndConquer/Doc/images/PCFLvl5.jpg>]
+<images/SMOverViewLvl1.jpg, id=482, 770.88pt x 481.8pt>
+>>>>>>> Caption update
 File: images/SMOverViewLvl1.jpg Graphic file (type jpg)
 
 <use images/SMOverViewLvl1.jpg>
@@ -1457,6 +1571,7 @@ File: images/SMRGBCascade2.jpg Graphic file (type jpg)
 <use images/SMRGBCascade2.jpg>
 Package pdftex.def Info: images/SMRGBCascade2.jpg used on input line 132.
 (pdftex.def)             Requested size: 218.94247pt x 124.74959pt.
+<<<<<<< HEAD
  [22 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMOverVi
 ewLvl1.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/S
 MOverViewLvl2.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/i
@@ -1467,6 +1582,16 @@ ateAndConquer/Doc/images/SMCloseUpLvl3.jpg> <C:/Users/TiXiR/Documents/GitHub/Ex
 trapolateAndConquer/Doc/images/SMRGBCascade.jpg> <C:/Users/TiXiR/Documents/GitH
 ub/ExtrapolateAndConquer/Doc/images/SMRGBCascade2.jpg>] <images/SMExBF3.jpg, id
 =481, 1264.725pt x 790.45313pt>
+=======
+ [22 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMOverViewLvl1.jpg> <D:/Dev/G
+it/ExtrapolateAndConquer/Doc/images/SMOverViewLvl2.jpg> <D:/Dev/Git/Extrapolate
+AndConquer/Doc/images/SMOverViewLvl3.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc
+/images/SMCloseUpLvl1.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMClose
+UpLvl2.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMCloseUpLvl3.jpg> <D:
+/Dev/Git/ExtrapolateAndConquer/Doc/images/SMRGBCascade.jpg> <D:/Dev/Git/Extrapo
+lateAndConquer/Doc/images/SMRGBCascade2.jpg>]
+<images/SMExBF3.jpg, id=498, 1264.725pt x 790.45313pt>
+>>>>>>> Caption update
 File: images/SMExBF3.jpg Graphic file (type jpg)
 
 <use images/SMExBF3.jpg>
@@ -1493,11 +1618,18 @@ File: images/SMExLoL.jpg Graphic file (type jpg)
 Package pdftex.def Info: images/SMExLoL.jpg used on input line 165.
 (pdftex.def)             Requested size: 218.94247pt x 136.83978pt.
 
+<<<<<<< HEAD
 [23 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExBF3.j
 pg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExCSGO.
 jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMExSimC
 ity.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SMEx
 LoL.jpg>] <images/shadows1.jpg, id=490, 1332.47812pt x 754.31813pt>
+=======
+[23 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMExBF3.jpg> <D:/Dev/Git/Extra
+polateAndConquer/Doc/images/SMExCSGO.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc
+/images/SMExSimCity.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMExLoL.j
+pg>] <images/shadows1.jpg, id=507, 1332.47812pt x 754.31813pt>
+>>>>>>> Caption update
 File: images/shadows1.jpg Graphic file (type jpg)
 
 <use images/shadows1.jpg>
@@ -1510,10 +1642,16 @@ File: images/shadows2.jpg Graphic file (type jpg)
 <use images/shadows2.jpg>
 Package pdftex.def Info: images/shadows2.jpg used on input line 184.
 (pdftex.def)             Requested size: 394.09378pt x 253.79619pt.
+<<<<<<< HEAD
  [24 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/shadows1
 .jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/shadows
 2.jpg>]
 <images/horizonNoFog.jpg, id=498, 770.88pt x 481.8pt>
+=======
+ [24 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/shadows1.jpg> <D:/Dev/Git/Ext
+rapolateAndConquer/Doc/images/shadows2.jpg>]
+<images/horizonNoFog.jpg, id=515, 770.88pt x 481.8pt>
+>>>>>>> Caption update
 File: images/horizonNoFog.jpg Graphic file (type jpg)
 
 <use images/horizonNoFog.jpg>
@@ -1539,11 +1677,18 @@ File: images/skybox1.jpg Graphic file (type jpg)
 Package pdftex.def Info: images/skybox1.jpg used on input line 224.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
 
+<<<<<<< HEAD
 [25 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/horizonNo
 Fog.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/hori
 zonFog.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/s
 kybox0.jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/s
 kybox1.jpg>] <images/grass1.jpg, id=507, 782.925pt x 782.925pt>
+=======
+[25 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/horizonNoFog.jpg> <D:/Dev/Git/
+ExtrapolateAndConquer/Doc/images/horizonFog.jpg> <D:/Dev/Git/ExtrapolateAndConq
+uer/Doc/images/skybox0.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/skybox
+1.jpg>] <images/grass1.jpg, id=524, 782.925pt x 782.925pt>
+>>>>>>> Caption update
 File: images/grass1.jpg Graphic file (type jpg)
 
 <use images/grass1.jpg>
@@ -1556,11 +1701,18 @@ File: images/grass1NormalMap.jpg Graphic file (type jpg)
 <use images/grass1NormalMap.jpg>
 Package pdftex.def Info: images/grass1NormalMap.jpg used on input line 246.
 (pdftex.def)             Requested size: 218.94247pt x 218.94273pt.
+<<<<<<< HEAD
 ) [26 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/grass1.
 jpg> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/grass1No
 rmalMap.jpg>]
 (C:\Users\TiXiR\Documents\GitHub\ExtrapolateAndConquer\Doc\text_files/conclusio
 ns.tex <images/worldFromAFarTop.jpg, id=514, 995.21812pt x 676.77844pt>
+=======
+) [26 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/grass1.jpg> <D:/Dev/Git/Extr
+apolateAndConquer/Doc/images/grass1NormalMap.jpg>] (D:\Dev\Git\ExtrapolateAndCo
+nquer\Doc\text_files/conclusions.tex
+<images/worldFromAFarTop.jpg, id=531, 995.21812pt x 676.77844pt>
+>>>>>>> Caption update
 File: images/worldFromAFarTop.jpg Graphic file (type jpg)
 
 <use images/worldFromAFarTop.jpg>
@@ -1584,12 +1736,18 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
  ) 
 Here is how much of TeX's memory you used:
  12018 strings out of 493921
+<<<<<<< HEAD
  183533 string characters out of 3144876
  373951 words of memory out of 3000000
+=======
+ 181781 string characters out of 3147270
+ 376954 words of memory out of 3000000
+>>>>>>> Caption update
  14866 multiletter control sequences out of 15000+200000
  12725 words of font info for 48 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  42i,18n,67p,1576b,1153s stack positions out of 5000i,500n,10000p,200000b,50000s
+<<<<<<< HEAD
  <C:\Users\TiXiR\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\
 tcrm1000.pk> <C:\Users\TiXiR\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\
 ec\dpi600\tcrm0800.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
@@ -1606,6 +1764,23 @@ ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program
  Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
 Output written on "Technical Report.pdf" (32 pages, 38081827 bytes).
+=======
+ <C:\Users\Alexander\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi
+600\tcrm1000.pk> <C:\Users\Alexander\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\j
+knappen\ec\dpi600\tcrm0800.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:
+/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pf
+b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on "Technical Report.pdf" (32 pages, 38086817 bytes).
+>>>>>>> Caption update
 PDF statistics:
  614 PDF objects out of 1000 (max. 8388607)
  153 named destinations out of 1000 (max. 500000)
