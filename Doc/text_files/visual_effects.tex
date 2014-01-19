@@ -73,19 +73,19 @@ In the optimal case one would adjust the pixel density to always be at least as 
 The implementation is done by rendering several shadow maps of increasing sizes. One small map just in front of the camera and then bigger and bigger maps further away. The resolution of the maps are the same but by adjusting their sizes the pixel density is high close to the camera and lower further away from the camera. In figure \ref{fig:SMOverViewComparison} some different shadow map sizes can be seen and in figure \ref{fig:SMCloseUpComparison} the corresponding increase in quality on low-level inspection. 
 
 \begin{figure}[H]
-\begin{subfigure}{.33\textwidth}
+\begin{subfigure}{\textwidth/3}
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl1.jpg}
   \caption{Shadow mapping level 1}
   \label{fig:SMOverViewLvl1}
 \end{subfigure}%
-\begin{subfigure}{.33\textwidth}
+\begin{subfigure}{\textwidth/3}
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl2.jpg}
   \caption{Shadow mapping level 2}
   \label{fig:SMOverViewLvl2}
 \end{subfigure}
-\begin{subfigure}{.33\textwidth}
+\begin{subfigure}{\textwidth/3}
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMOverViewLvl3.jpg}
   \caption{Shadow mapping level 3}
@@ -96,19 +96,19 @@ The implementation is done by rendering several shadow maps of increasing sizes.
 \end{figure}
 
 \begin{figure}[H]
-\begin{subfigure}{.33\textwidth}
+\begin{subfigure}{\textwidth/3}
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl1.jpg}
   \caption{Shadow mapping level 1}
   \label{fig:SMCloseUpLvl1}
 \end{subfigure}%
-\begin{subfigure}{.33\textwidth}
+\begin{subfigure}{\textwidth/3}
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl2.jpg}
   \caption{Shadow mapping level 2}
   \label{fig:SMCloseUpLvl2}
 \end{subfigure}
-\begin{subfigure}{.33\textwidth}
+\begin{subfigure}{\textwidth/3}
   \centering
   \includegraphics[width=0.9\linewidth]{images/SMCloseUpLvl3.jpg}
   \caption{Shadow mapping level 3}

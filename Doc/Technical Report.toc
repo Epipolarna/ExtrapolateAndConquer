@@ -19,8 +19,4 @@
 \contentsline {subsection}{\numberline {4.2}Distance fog}{24}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Normal Mapping}{25}{subsection.4.3}
 \contentsline {section}{\numberline {5}Conclusions}{26}{section.5}
-<<<<<<< HEAD
-\contentsline {section}{References}{27}{section*.36}
-=======
-\contentsline {section}{References}{26}{section*.37}
->>>>>>> Height map construction
+\contentsline {section}{References}{27}{section*.37}
