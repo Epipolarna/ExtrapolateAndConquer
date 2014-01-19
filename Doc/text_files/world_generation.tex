@@ -132,7 +132,7 @@ The height map is finally assured to always slope into the ocean. This is done b
 
 \newpage
 \subsection{Ground}
-The ground is textured using a non-linear multi-texturing approach based on both altitude and terrain slope. Currently only three textures are used: one sandy, one grassy and one rocky, which can be seen in figure \ref{fig:textures}.
+The ground is textured using a non-linear multi-texturing approach based on both altitude and terrain slope. Currently only three textures are used: one sandy, one grassy and one rocky, which can be seen in figure \ref{fig:textures}. These textures were generated in Spiral Graphics Genetica Viewer and are procedurally generated tiling textures.
 
 \begin{figure}[H]
 \begin{subfigure}{\textwidth/3}
@@ -158,14 +158,15 @@ The ground is textured using a non-linear multi-texturing approach based on both
 \end{figure}
 
 The texture blending allows for the mountain to reach almost down to the ocean while still letting the fields and the highland being very grassy. The blending between rock and grass make the landscape more alive and less dull. In figure \ref{fig:textureComparison1} and \ref{fig:textureComparison2} a simple blending using linear interpolation between rock and grass is compared to our more advanced method. In our method the interpolation between the different textures vary between being squared, linear and square-root, depending on the slope and altitude.
+\newpage
 \begin{figure}[H]
-\begin{subfigure}{0.9\textwidth}
+\begin{subfigure}{0.78\textwidth}
   \centering
   \includegraphics[width=0.9\linewidth]{images/textureBlendingComparison1_simple.jpg}
   \caption{Simple linear interpolation.}
 \end{subfigure}%
 
-\begin{subfigure}{0.9\textwidth}
+\begin{subfigure}{0.78\textwidth}
   \centering
   \includegraphics[width=0.9\linewidth]{images/textureBlendingComparison1_advanced.jpg}
   \caption{Advanced non-linear texture blending.}
@@ -175,13 +176,13 @@ The texture blending allows for the mountain to reach almost down to the ocean w
 \end{figure}
 
 \begin{figure}[H]
-\begin{subfigure}{0.9\textwidth}
+\begin{subfigure}{0.78\textwidth}
   \centering
   \includegraphics[width=0.9\linewidth]{images/textureBlendingComparison2_simple.jpg}
   \caption{Simple linear interpolation.}
 \end{subfigure}
 
-\begin{subfigure}{0.9\textwidth}
+\begin{subfigure}{0.78\textwidth}
   \centering
   \includegraphics[width=0.9\linewidth]{images/textureBlendingComparison2_advanced.jpg}
   \caption{Advanced non-linear texture blending.}
@@ -194,7 +195,7 @@ The texture blending allows for the mountain to reach almost down to the ocean w
 \subsection{Vegetation}
 In order for the world to be more interesting than just an island in the middle of the sea, it needs some additional objects as well, thus plants are placed using two slightly different approaches.
 
-First a base layer of smaller bushes are placed uniformly over the landmass, with a randomized orientation and scaling. Then a few points are designated as forest centers, around these trees are placed using a Gaussian distribution, again the trees have some scale and rotation randomly selected.
+First a base layer of smaller bushes and trees are placed uniformly over the landmass, with a randomized orientation and scaling. Then a few points are designated as forest centers, around these trees are placed using a Gaussian distribution, again the trees have some scale and rotation randomly selected.
 \begin{figure}[H]
   \centering
   %bilden borde vara här...
@@ -208,7 +209,7 @@ For example no trees can be placed in the water, or to far up on a hill.
 
 All trees consist of two models, one trunk and one with the foilage, they aligned so that if the trunk and foilage is placed at the same coordinate, the foilage will end up in the correct place relative to the trunk.
 
-The bushes are simple billboard models.
+The bushes are simple billboard models. The bushes and the trees, both textures and models, were take from TurboSquid.com.
 
 \newpage
 \begin{figure}[H]
