@@ -234,24 +234,24 @@ The volcano generator changes the terrain on a spot to that of a volcano, such a
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\linewidth]{images/volcano.jpg}
-  \caption{A vulcano.}
+  \caption{A volcano.}
   \label{fig:volcano1}
 \end{figure}%
 \newpage
-The volcano is made from one addition of a 2D-Gaussian to the terrain, and of a subtraction of a smaller 2D-Gaussian which creates the eruption hole. It erupts and spews out lava stones as a particle effect. Currently only one volcano is generated on each island, and it is placed on the highest point on the terrain.
+The volcano is made from one addition of a 2D-Gaussian kernel to the terrain, and of a subtraction of a smaller 2D-Gaussian kernel which creates the eruption hole. It erupts and spews out lava stones as a particle effect. The generator is currently set to generate one volcano and to place it on the highest point on the terrain.
 
-Lava stones are made up of 5 different stone models of different sizes. They have full 3D sphere physics, including collision with each other and the terrain. Lava stones are created in the eruption hole with a randomized linear and angular momentum, forcing them to burst out of the volcano in a spraying fashion. When the lava stones enter water and sink too deep, they are re-spawned in the volcano and sent out though the hole again.
+Lava stones are made up of 5 different stone models of different sizes. They have full 3D sphere physics, including collision with each other and the terrain. Lava stones are created in the eruption hole with a randomized linear and angular momentum, forcing them to burst out of the volcano in a spraying fashion. When the lava stones enter water and sink too deep, they are re-spawned in the volcano and sent out through the hole again.
 
-The physics can be reversed in time, making the stones return to the volcano hole. When they enter the volcano they are placed where they were when they disappeared into the water last, with all the physical properties reset to how they were at that time as well. This makes lava stones come up through the water and moving in a reversed trajectory into the volcano, repeating the feat over and over, and providing a nice visual for the audience.
+The physics can be reversed with respect to time, making the stones return to the volcano hole. When they enter the volcano they are placed where they were when they disappeared into the water last, with all the physical properties reset to how they were at that time as well. This makes lava stones come up through the water and moving in a reversed trajectory into the volcano, repeating the feat over and over, and providing a nice visual for the audience.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{images/volcano3.jpg}
   \caption{A (currently) dormant volcano and its surrounding.}
-  \label{fig:vulcano2}
+  \label{fig:volcano2}
 \end{figure}%
 
-A typical volcano and its surroundings is seen in figure \ref{fig:volcano2}. In figure \ref{volcanoEruptions} other views of the lava stone particle effect is shown.
+A typical volcano and its surroundings is seen in figure \ref{fig:volcano2}. In figure \ref{fig:volcanoEruptions} other views of the lava stone particle effect is shown.
 
 \newpage
 \begin{figure}[H]

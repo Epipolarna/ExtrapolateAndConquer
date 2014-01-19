@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  19 JAN 2014 19:05
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.20)  19 JAN 2014 19:18
 entering extended mode
 **Technical*Report.tex
 ("D:\Dev\Git\ExtrapolateAndConquer\Doc\Technical Report.tex"
@@ -1327,24 +1327,15 @@ File: images/volcano3.jpg Graphic file (type jpg)
 <use images/volcano3.jpg>
 Package pdftex.def Info: images/volcano3.jpg used on input line 249.
 (pdftex.def)             Requested size: 437.88495pt x 236.27272pt.
-
-
-LaTeX Warning: Reference `fig:volcano2' on page 18 undefined on input line 254.
-
-
-
-LaTeX Warning: Reference `volcanoEruptions' on page 18 undefined on input line 
-254.
-
-[18 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/volcano3.jpg>]
-<images/Volcano1.jpg, id=435, 1362.59062pt x 770.88pt>
+ [18 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/volcano3.jpg>] <images/Volcan
+o1.jpg, id=437, 1362.59062pt x 770.88pt>
 File: images/Volcano1.jpg Graphic file (type jpg)
 
 <use images/Volcano1.jpg>
 Package pdftex.def Info: images/Volcano1.jpg used on input line 260.
 (pdftex.def)             Requested size: 437.88495pt x 247.73352pt.
 
-<images/Volcano2.jpg, id=436, 770.88pt x 523.20468pt>
+<images/Volcano2.jpg, id=438, 770.88pt x 523.20468pt>
 File: images/Volcano2.jpg Graphic file (type jpg)
 
 <use images/Volcano2.jpg>
@@ -1353,13 +1344,13 @@ Package pdftex.def Info: images/Volcano2.jpg used on input line 267.
 ) [19 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/Volcano1.jpg> <D:/Dev/Git/Ex
 trapolateAndConquer/Doc/images/Volcano2.jpg>]
 (D:\Dev\Git\ExtrapolateAndConquer\Doc\text_files/visual_effects.tex
-<images/SMAcne.jpg, id=447, 770.88pt x 481.8pt>
+<images/SMAcne.jpg, id=449, 770.88pt x 481.8pt>
 File: images/SMAcne.jpg Graphic file (type jpg)
  <use images/SMAcne.jpg>
 Package pdftex.def Info: images/SMAcne.jpg used on input line 27.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/SMAcneFix.jpg, id=448, 770.88pt x 481.8pt>
+<images/SMAcneFix.jpg, id=450, 770.88pt x 481.8pt>
 File: images/SMAcneFix.jpg Graphic file (type jpg)
  <use images/SMAcneFix.jpg>
 Package pdftex.def Info: images/SMAcneFix.jpg used on input line 33.
@@ -1367,33 +1358,33 @@ Package pdftex.def Info: images/SMAcneFix.jpg used on input line 33.
 
 [20 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMAcne.jpg> <D:/Dev/Git/Extrap
 olateAndConquer/Doc/images/SMAcneFix.jpg>]
-<images/PCFLvl1.jpg, id=463, 770.88pt x 481.8pt>
+<images/PCFLvl1.jpg, id=465, 770.88pt x 481.8pt>
 File: images/PCFLvl1.jpg Graphic file (type jpg)
  <use images/PCFLvl1.jpg>
 Package pdftex.def Info: images/PCFLvl1.jpg used on input line 48.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/PCFLvl5.jpg, id=464, 770.88pt x 481.8pt>
+<images/PCFLvl5.jpg, id=466, 770.88pt x 481.8pt>
 File: images/PCFLvl5.jpg Graphic file (type jpg)
  <use images/PCFLvl5.jpg>
 Package pdftex.def Info: images/PCFLvl5.jpg used on input line 54.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/SMOverViewLvl1.jpg, id=468, 770.88pt x 481.8pt>
+<images/SMOverViewLvl1.jpg, id=470, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl1.jpg Graphic file (type jpg)
 
 <use images/SMOverViewLvl1.jpg>
 Package pdftex.def Info: images/SMOverViewLvl1.jpg used on input line 78.
 (pdftex.def)             Requested size: 145.96164pt x 91.21947pt.
 
-<images/SMOverViewLvl2.jpg, id=469, 770.88pt x 481.8pt>
+<images/SMOverViewLvl2.jpg, id=471, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl2.jpg Graphic file (type jpg)
 
 <use images/SMOverViewLvl2.jpg>
 Package pdftex.def Info: images/SMOverViewLvl2.jpg used on input line 84.
 (pdftex.def)             Requested size: 145.96164pt x 91.21947pt.
 
-<images/SMOverViewLvl3.jpg, id=470, 770.88pt x 481.8pt>
+<images/SMOverViewLvl3.jpg, id=472, 770.88pt x 481.8pt>
 File: images/SMOverViewLvl3.jpg Graphic file (type jpg)
 
 <use images/SMOverViewLvl3.jpg>
@@ -1404,21 +1395,21 @@ Overfull \hbox (2.2222pt too wide) in paragraph at lines 76--94
 []$[]$$[]$ $[]$ 
  []
 
-<images/SMCloseUpLvl1.jpg, id=471, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl1.jpg, id=473, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl1.jpg Graphic file (type jpg)
 
 <use images/SMCloseUpLvl1.jpg>
 Package pdftex.def Info: images/SMCloseUpLvl1.jpg used on input line 101.
 (pdftex.def)             Requested size: 145.96164pt x 91.21947pt.
 
-<images/SMCloseUpLvl2.jpg, id=472, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl2.jpg, id=474, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl2.jpg Graphic file (type jpg)
 
 <use images/SMCloseUpLvl2.jpg>
 Package pdftex.def Info: images/SMCloseUpLvl2.jpg used on input line 107.
 (pdftex.def)             Requested size: 145.96164pt x 91.21947pt.
 
-<images/SMCloseUpLvl3.jpg, id=473, 770.88pt x 481.8pt>
+<images/SMCloseUpLvl3.jpg, id=475, 770.88pt x 481.8pt>
 File: images/SMCloseUpLvl3.jpg Graphic file (type jpg)
 
 <use images/SMCloseUpLvl3.jpg>
@@ -1437,28 +1428,28 @@ apolateAndConquer/Doc/images/PCFLvl5.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc
 /images/SMOverViewLvl1.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMOver
 ViewLvl2.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMOverViewLvl3.jpg>]
 
-<images/SMExBF3.jpg, id=484, 1264.725pt x 790.45313pt>
+<images/SMExBF3.jpg, id=486, 1264.725pt x 790.45313pt>
 File: images/SMExBF3.jpg Graphic file (type jpg)
 
 <use images/SMExBF3.jpg>
 Package pdftex.def Info: images/SMExBF3.jpg used on input line 126.
 (pdftex.def)             Requested size: 218.94247pt x 136.83575pt.
 
-<images/SMExCSGO.jpg, id=485, 1264.725pt x 790.45313pt>
+<images/SMExCSGO.jpg, id=487, 1264.725pt x 790.45313pt>
 File: images/SMExCSGO.jpg Graphic file (type jpg)
 
 <use images/SMExCSGO.jpg>
 Package pdftex.def Info: images/SMExCSGO.jpg used on input line 132.
 (pdftex.def)             Requested size: 218.94247pt x 136.83575pt.
 
-<images/SMExSimCity.jpg, id=486, 1686.3pt x 1053.9375pt>
+<images/SMExSimCity.jpg, id=488, 1686.3pt x 1053.9375pt>
 File: images/SMExSimCity.jpg Graphic file (type jpg)
 
 <use images/SMExSimCity.jpg>
 Package pdftex.def Info: images/SMExSimCity.jpg used on input line 139.
 (pdftex.def)             Requested size: 218.94247pt x 136.83978pt.
 
-<images/SMExLoL.jpg, id=487, 1686.3pt x 1053.9375pt>
+<images/SMExLoL.jpg, id=489, 1686.3pt x 1053.9375pt>
 File: images/SMExLoL.jpg Graphic file (type jpg)
  <use images/SMExLoL.jpg>
 Package pdftex.def Info: images/SMExLoL.jpg used on input line 145.
@@ -1470,14 +1461,14 @@ Conquer/Doc/images/SMCloseUpLvl3.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/ima
 ges/SMExBF3.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/SMExCSGO.jpg> <D:
 /Dev/Git/ExtrapolateAndConquer/Doc/images/SMExSimCity.jpg> <D:/Dev/Git/Extrapol
 ateAndConquer/Doc/images/SMExLoL.jpg>]
-<images/shadows1.jpg, id=493, 1332.47812pt x 754.31813pt>
+<images/shadows1.jpg, id=495, 1332.47812pt x 754.31813pt>
 File: images/shadows1.jpg Graphic file (type jpg)
 
 <use images/shadows1.jpg>
 Package pdftex.def Info: images/shadows1.jpg used on input line 157.
 (pdftex.def)             Requested size: 394.09378pt x 223.09741pt.
 
-<images/shadows2.jpg, id=494, 1040.38687pt x 670.00313pt>
+<images/shadows2.jpg, id=496, 1040.38687pt x 670.00313pt>
 File: images/shadows2.jpg Graphic file (type jpg)
 
 <use images/shadows2.jpg>
@@ -1485,27 +1476,27 @@ Package pdftex.def Info: images/shadows2.jpg used on input line 164.
 (pdftex.def)             Requested size: 394.09378pt x 253.79619pt.
  [23 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/shadows1.jpg> <D:/Dev/Git/Ext
 rapolateAndConquer/Doc/images/shadows2.jpg>]
-<images/horizonNoFog.jpg, id=501, 770.88pt x 481.8pt>
+<images/horizonNoFog.jpg, id=503, 770.88pt x 481.8pt>
 File: images/horizonNoFog.jpg Graphic file (type jpg)
 
 <use images/horizonNoFog.jpg>
 Package pdftex.def Info: images/horizonNoFog.jpg used on input line 181.
 (pdftex.def)             Requested size: 218.94247pt x 136.83656pt.
 
-<images/horizonFog.jpg, id=502, 771.48225pt x 482.40225pt>
+<images/horizonFog.jpg, id=504, 771.48225pt x 482.40225pt>
 File: images/horizonFog.jpg Graphic file (type jpg)
 
 <use images/horizonFog.jpg>
 Package pdftex.def Info: images/horizonFog.jpg used on input line 187.
 (pdftex.def)             Requested size: 218.94247pt x 136.90456pt.
 
-<images/skybox0.jpg, id=503, 4111.36pt x 3083.52pt>
+<images/skybox0.jpg, id=505, 4111.36pt x 3083.52pt>
 File: images/skybox0.jpg Graphic file (type jpg)
  <use images/skybox0.jpg>
 Package pdftex.def Info: images/skybox0.jpg used on input line 198.
 (pdftex.def)             Requested size: 218.94247pt x 164.20682pt.
 
-<images/skybox1.jpg, id=504, 4111.36pt x 3083.52pt>
+<images/skybox1.jpg, id=506, 4111.36pt x 3083.52pt>
 File: images/skybox1.jpg Graphic file (type jpg)
  <use images/skybox1.jpg>
 Package pdftex.def Info: images/skybox1.jpg used on input line 204.
@@ -1514,14 +1505,14 @@ Package pdftex.def Info: images/skybox1.jpg used on input line 204.
 [24 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/horizonNoFog.jpg> <D:/Dev/Git/
 ExtrapolateAndConquer/Doc/images/horizonFog.jpg> <D:/Dev/Git/ExtrapolateAndConq
 uer/Doc/images/skybox0.jpg> <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/skybox
-1.jpg>] <images/grass1.jpg, id=510, 782.925pt x 782.925pt>
+1.jpg>] <images/grass1.jpg, id=512, 782.925pt x 782.925pt>
 File: images/grass1.jpg Graphic file (type jpg)
 
 <use images/grass1.jpg>
 Package pdftex.def Info: images/grass1.jpg used on input line 220.
 (pdftex.def)             Requested size: 218.94247pt x 218.94273pt.
 
-<images/grass1NormalMap.jpg, id=511, 587.19376pt x 587.19376pt>
+<images/grass1NormalMap.jpg, id=513, 587.19376pt x 587.19376pt>
 File: images/grass1NormalMap.jpg Graphic file (type jpg)
 
 <use images/grass1NormalMap.jpg>
@@ -1530,7 +1521,7 @@ Package pdftex.def Info: images/grass1NormalMap.jpg used on input line 226.
 ) [25 <D:/Dev/Git/ExtrapolateAndConquer/Doc/images/grass1.jpg> <D:/Dev/Git/Extr
 apolateAndConquer/Doc/images/grass1NormalMap.jpg>] (D:\Dev\Git\ExtrapolateAndCo
 nquer\Doc\text_files/conclusions.tex
-<images/worldFromAFarTop.jpg, id=517, 995.21812pt x 676.77844pt>
+<images/worldFromAFarTop.jpg, id=519, 995.21812pt x 676.77844pt>
 File: images/worldFromAFarTop.jpg Graphic file (type jpg)
 
 <use images/worldFromAFarTop.jpg>
@@ -1547,17 +1538,13 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 205.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
 Package rerunfilecheck Info: File `Technical*Report.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-
-
-LaTeX Warning: There were undefined references.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
  ) 
 Here is how much of TeX's memory you used:
- 11997 strings out of 493921
- 181246 string characters out of 3147270
+ 11995 strings out of 493921
+ 181214 string characters out of 3147270
  376530 words of memory out of 3000000
- 14851 multiletter control sequences out of 15000+200000
+ 14849 multiletter control sequences out of 15000+200000
  12725 words of font info for 48 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  42i,18n,67p,1576b,1153s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1575,9 +1562,9 @@ onts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
 sfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on "Technical Report.pdf" (31 pages, 36322675 bytes).
+Output written on "Technical Report.pdf" (31 pages, 36322835 bytes).
 PDF statistics:
- 616 PDF objects out of 1000 (max. 8388607)
+ 618 PDF objects out of 1000 (max. 8388607)
  150 named destinations out of 1000 (max. 500000)
  497 words of extra memory for PDF output out of 10000 (max. 10000000)
 

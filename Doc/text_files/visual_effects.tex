@@ -1,15 +1,15 @@
 Boom hacka lacka
 
 \subsection{Shadows}
-Shadows are one those things that can make a scene really come to life. It will help the viewer to understand the structure of the terrain and location of objects much better than with only shading. There are many techniques in which shadows can be achieved with different pros and cons. We have chosen to use \textit{Shadow Mapping} \cite{ShadowMapping} which by now is a fairly old technique, 1978, but still used in many modern computer games. Shadow mapping offers real-time shadows for arbitrary scenes in a theoretically straight forward way. 
+Shadows are one those things that can make a scene really come alive. It will help the viewer to understand the structure of the terrain and location of objects much better than with only shading. There are many techniques in which shadows can be achieved with different pros and cons. We have chosen to use \textit{Shadow Mapping} \cite{ShadowMapping} which by now is a fairly old technique, 1978, but still used in many modern computer games. Shadow mapping offers real-time shadows for arbitrary scenes in a theoretically straight forward way. 
 
-The quality of these shadows can be increased arbitrarily, but the computational complexity grows linearly with the size of the rendered screen \cite{ShadowMapping}. Therefor one has to limit this size and go for a number of improvement techniques to make shadows shine. 
+The quality of these shadows can be increased arbitrarily, but the computational complexity grows linearly with the size of the rendered screen \cite{ShadowMapping}. Therefor one has to limit this size and go for a number of improvement techniques to make shadows shine.
 
-More specifically our implementation utilizes \textit{Light Space Perspective Shadow Mapping} \cite{LSPShadowMapping} which can be summarized in the following steps:
+First of, our implementation utilizes \textit{Light Space Perspective Shadow Mapping} \cite{LSPShadowMapping} which can be summarized in the following steps:
 
 \begin{itemize}
 \item Place the camera in the light source and adjust the camera frustum to cover the part of the scene that will be visible in the final render.
-\item Render the scene with as simple shaders as possible and store the depth buffer. This is the shadow map.
+\item Render the scene with as simple shaders as possible since we only want to store the depth buffer. This is the \textit{shadow map}.
 \item Place the camera in its final-render location.
 \item For each vertex:
 \begin{itemize}
@@ -55,7 +55,7 @@ The shadows now look correctly but have a very low resolution when you get close
   \caption{Percentage closer filtered shadows}
   \label{fig:PCFLvl5}
 \end{subfigure}
-\caption[Noise comparison]{\textit{Comparison of shadow mapping with and without percentage-closer filtering}}
+\caption[Percentage Closer Filtering]{\textit{Comparison of shadow mapping with and without Percentage Closer Filtering}}
 \label{fig:PCFComparison}
 \end{figure}
 
@@ -117,6 +117,8 @@ The implementation is done by rendering several shadow maps of increasing sizes.
 \caption[Noise comparison]{\textit{Close-up of different shadow mapping levels}}
 \label{fig:SMCloseUpComparison}
 \end{figure}
+
+
 
 It would as conclusion be interesting to take a look at some modern examples, more precisely BattleField 3 (2011), Counter Strike: Global Offensive (2012), SimCity (2013) and League of Legends (2014). One can see that all of these are using shadow mapping in one way or another. The first three are using CSM and PCF combined to improve their shadows, but all are still suffering from ugly transitions between their cascade levels. SimCity holds a nice example of \textit{Perspective Aliasing} \cite{ImprovedShadowMapping}. League of Legends uses the simplest out-of-the-box version with no filtering or cascading at all. My point is: this is the way to go according to the cutting-edge game industry. One can also conclude that real-time shadowing is far from a finished topic. In all of the above mentioned games it is easy to find artifacts from optimizations. These are highlighted and amplified in figure \ref{fig:SMExComparison} below.
 
