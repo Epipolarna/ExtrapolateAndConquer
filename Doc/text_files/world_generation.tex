@@ -172,13 +172,18 @@ The texture blending allows for the mountain to reach almost down to the ocean w
 In order for the world to be more interesting than just an island in the middle of the sea, it needs some additional objects aswell, thus plants are placed using two slightly different approaches.
 
 First a base layer of smaller bushes are placed uniformly over the landmass, with a randomized orientation and scaling. Then a few points are designated as forest centers, around these trees are placed using a Gaussian distribution, again the trees have some scale and rotation randomly selected.
-TODO: Bildexempel på skogar? (ev)
+\begin{figure}[H]
+  \centering
+  %bilden borde vara här...
+  \includegraphics[width=0.9\linewidth]{images/forestfromthetop.jpg}
+\end{figure}
 
-Placing the objects is done by generating a coordinate, and checking it for suitability, for example nothing can be placed in the water, or to far up on a mountain/volcano.
+Placing a tree or a bush is done by first generating a coordinate, checking it for suitability and then placing a tree if it is not unsuitable.
+For example no trees can be placed in the water, or to far up on a hill.
 
-TODO Häger: Berätta om de olika växterna (vilka använder vi, hur många olika texturer vi använder. hur de är uppbyggda. Hur texturerna måste vara för att alpha mip-mapping ska fungera). Bild-exempel?
+All trees consist of two models, one trunk and one with the foilage, they aligned so that if the trunk and foilage is placed at the same coordinate, the foilage will end up in the correct place relative to the trunk.
 
-TODO Häger: exempelbild på när vår alpha-mip-mapping inte riktigt räcker till?  (Att vi nästan inte ser några fel (förutom grått på håll, vilket kan misstas för distance-fog).
+The bushes are simple billboard models.
 
 \newpage
 \begin{figure}[H]
