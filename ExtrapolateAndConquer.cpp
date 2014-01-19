@@ -67,8 +67,8 @@ void ExtrapolateAndConquer::initialize(void){
     // ------------
 
     // Alpha-mip-mapping
-    camera->setPosition(QVector3D(45.9402, 5.14723, 113.396));
-    camera->setLookAtPoint(QVector3D(45.008, 5.08067, 113.041));
+    //camera->setPosition(QVector3D(45.9402, 5.14723, 113.396));
+    //camera->setLookAtPoint(QVector3D(45.008, 5.08067, 113.041));
 
     fpsMeter->start();
     openGLWindow->initialize();
