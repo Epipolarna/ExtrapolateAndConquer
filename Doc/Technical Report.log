@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.21)  19 JAN 2014 20:29
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.21)  19 JAN 2014 20:54
 entering extended mode
 **Technical*Report.tex
 
@@ -1075,9 +1075,13 @@ File: images/simplePhysicsSystem.png Graphic file (type png)
 <use images/simplePhysicsSystem.png>
 Package pdftex.def Info: images/simplePhysicsSystem.png used on input line 66.
 (pdftex.def)             Requested size: 437.88495pt x 96.5356pt.
+ [4 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SpherePhy
+sicsPartExample.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc
+/images/componentList.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConqu
+er/Doc/images/entityManagerInstanciation.png> <C:/Users/TiXiR/Documents/GitHub/
+ExtrapolateAndConquer/Doc/images/simplePhysicsSystem.png>]
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 77.
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
@@ -1089,11 +1093,7 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 95.
- [4 <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc/images/SpherePhy
-sicsPartExample.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConquer/Doc
-/images/componentList.png> <C:/Users/TiXiR/Documents/GitHub/ExtrapolateAndConqu
-er/Doc/images/entityManagerInstanciation.png> <C:/Users/TiXiR/Documents/GitHub/
-ExtrapolateAndConquer/Doc/images/simplePhysicsSystem.png>] [5] [6]
+ [5] [6]
 Underfull \hbox (badness 10000) in paragraph at lines 174--177
 
  []
@@ -1618,7 +1618,7 @@ Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program
  Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on "Technical Report.pdf" (32 pages, 38086206 bytes).
+Output written on "Technical Report.pdf" (32 pages, 38086557 bytes).
 PDF statistics:
  630 PDF objects out of 1000 (max. 8388607)
  153 named destinations out of 1000 (max. 500000)
