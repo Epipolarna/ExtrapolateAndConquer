@@ -118,7 +118,24 @@ The implementation is done by rendering several shadow maps of increasing sizes.
 \label{fig:SMCloseUpComparison}
 \end{figure}
 
+The tricky part of CSM is to find a good way to divide the view frustum. This is discussed thoroughly in \cite{CascadeShadowMapping} which is where we found most of our inspiration on this subject. We thing that we do differently is that we let the light-source frustum focus in the extension of the look-at vector at ground level. This way, the shadows always have good quality where you look, instead of where you are. This is of great interest for us since we allow the user to fly high over the terrain. Our implementation still generate good shadows for this scenario. An example of the frustum division can be seen in figure \ref{fig:SMRGBCascade}.
 
+\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMRGBCascade.jpg}
+  \caption{Frustum division near ground.}
+  \label{fig:SMRGBCascade}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/SMRGBCascade2.jpg}
+  \caption{Frustum division from high above.}
+  \label{fig:SMRGBCascade2}
+\end{subfigure}
+\caption[Cascade Shadow Mapping]{\textit{An example of the frustum division for cascade shadow mapping.}}
+\label{fig:CascadeShadowMapping}
+\end{figure}
 
 It would as conclusion be interesting to take a look at some modern examples, more precisely BattleField 3 (2011), Counter Strike: Global Offensive (2012), SimCity (2013) and League of Legends (2014). One can see that all of these are using shadow mapping in one way or another. The first three are using CSM and PCF combined to improve their shadows, but all are still suffering from ugly transitions between their cascade levels. SimCity holds a nice example of \textit{Perspective Aliasing} \cite{ImprovedShadowMapping}. League of Legends uses the simplest out-of-the-box version with no filtering or cascading at all. My point is: this is the way to go according to the cutting-edge game industry. One can also conclude that real-time shadowing is far from a finished topic. In all of the above mentioned games it is easy to find artifacts from optimizations. These are highlighted and amplified in figure \ref{fig:SMExComparison} below.
 
