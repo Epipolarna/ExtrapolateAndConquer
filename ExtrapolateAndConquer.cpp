@@ -49,8 +49,8 @@ void ExtrapolateAndConquer::initialize(void){
     //camera->setLookAtPoint(QVector3D(-1,17,-1));
 
     // Shadow overview
-    camera->setPosition(QVector3D(-27.9003, 68.1128, 55.0443));
-    camera->setLookAtPoint(QVector3D(-27.1777, 68.1128, 55.5175));
+    //camera->setPosition(QVector3D(-27.9003, 68.1128, 55.0443));
+    //camera->setLookAtPoint(QVector3D(-27.1777, 68.1128, 55.5175));
 
     // Shadow close-up
     //camera->setPosition(QVector3D(60,9,106));
@@ -66,15 +66,9 @@ void ExtrapolateAndConquer::initialize(void){
 
     // ------------
 
-    // Position 1
-    //camera->setPosition(QVector3D(93.8781, 51.4692, -16.1341));
-    //camera->setLookAtPoint(QVector3D(94.0255, 51.0261, -15.2498));
-    // Position 2
-    //camera->setPosition(QVector3D(-8.42683, 27.0048, 51.5548));
-    //camera->setLookAtPoint(QVector3D(-7.60664, 26.7616, 52.0726));
-    // Position 3
-    //camera->setPosition(QVector3D(206.814, 13.8763, 56.0137));
-    //camera->setLookAtPoint(QVector3D(205.873, 13.78, 56.3387));
+    // Alpha-mip-mapping
+    camera->setPosition(QVector3D(45.9402, 5.14723, 113.396));
+    camera->setLookAtPoint(QVector3D(45.008, 5.08067, 113.041));
 
     fpsMeter->start();
     openGLWindow->initialize();
