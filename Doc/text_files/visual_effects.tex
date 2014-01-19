@@ -71,7 +71,7 @@ The concept of CSM is simple:
 In the optimal case one would adjust the pixel density to always be at least as high as for the target screen density. 
 
 The implementation is done by rendering several shadow maps of increasing sizes. One small map just in front of the camera and then bigger and bigger maps further away. The resolution of the maps are the same but by adjusting their sizes the pixel density is high close to the camera and lower further away from the camera. In figure \ref{fig:SMOverViewComparison} some different shadow map sizes can be seen and in figure \ref{fig:SMCloseUpComparison} the corresponding increase in quality on low-level inspection. 
-
+\newpage
 \begin{figure}[H]
 \begin{subfigure}{\textwidth/3}
   \centering
@@ -137,6 +137,7 @@ The tricky part of CSM is to find a good way to divide the view frustum. This is
 \label{fig:CascadeShadowMapping}
 \end{figure}
 
+\newpage
 It would as conclusion be interesting to take a look at some modern examples, more precisely BattleField 3 (2011), Counter Strike: Global Offensive (2012), SimCity (2013) and League of Legends (2014). One can see that all of these are using shadow mapping in one way or another. The first three are using CSM and PCF combined to improve their shadows, but all are still suffering from ugly transitions between their cascade levels. SimCity holds a nice example of \textit{Perspective Aliasing} \cite{ImprovedShadowMapping}. League of Legends uses the simplest out-of-the-box version with no filtering or cascading at all. My point is: this is the way to go according to the cutting-edge game industry. One can also conclude that real-time shadowing is far from a finished topic. In all of the above mentioned games it is easy to find artifacts from optimizations. These are highlighted and amplified in figure \ref{fig:SMExComparison} below.
 
 \begin{figure}[H]
