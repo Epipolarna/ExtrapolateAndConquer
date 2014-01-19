@@ -61,7 +61,31 @@ Fractional Brownian Motion is calculated by sampling the Simplex function at dif
 \caption[Noise comparison]{\textit{Comparison of noise functions}}
 \label{fig:R_kitchen_example}
 \end{figure}
-\newpage
+
+The height map is finally assured to always slope into the ocean. This is done by first setting the all edge values to zero, then weighting the entire map with a thresholded Gaussian kernel, see figure \ref{fig:heightMapConstruction} below. 
+
+\begin{figure}[H]
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/heightMapRaw.jpg}
+  \caption{Height map with edge set to zero.}
+  \label{fig:heightMapRaw}
+\end{subfigure}%
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/heightMapKernel.jpg}
+  \caption{Thresholded Gaussian kernel}
+  \label{fig:heightMapKernel}
+\end{subfigure}
+\begin{subfigure}{.32\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/heightMapFinal.jpg}
+  \caption{Final height map.}
+  \label{fig:heightMapFinal}
+\end{subfigure}
+\caption[Height map construction]{\textit{All steps in the creation of the height map.}}
+\label{fig:heightMapConstruction}
+\end{figure}
 
 \begin{figure}[H]
 \begin{subfigure}{.5\textwidth}
