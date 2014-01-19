@@ -15,14 +15,15 @@
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Height map construction}}{11}{figure.caption.18}
 \contentsline {figure}{\numberline {3.6}{\ignorespaces A comparison of different vertex and sample density, from 0.5 to 15 vertexes per OpenGL length units. Waves are shown in some of the images, as the wave generator currently doesn't distinguish between lakes and oceans.\relax }}{12}{figure.caption.19}
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Ground textures}}{13}{figure.caption.20}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the deep mountain slope to the right in (b).\relax }}{13}{figure.caption.21}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the deep mountain slope to the right in (b).\relax }}{14}{figure.caption.21}
 \contentsline {figure}{\numberline {3.9}{\ignorespaces A comparison between a simple interpolation of the textures (a) and our method (b). Notice the varying tone of the grass as well as the much greener upper region to the right in (b).\relax }}{14}{figure.caption.22}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces A volcano.\relax }}{17}{figure.caption.25}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces A (currently) dormant volcano and its surrounding.\relax }}{18}{figure.caption.26}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Noise comparison}}{19}{figure.caption.27}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Forest, viewed from the top the roughly circular shape from the gaussian used to generate it is visible\relax }}{15}{figure.caption.23}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces A volcano.\relax }}{17}{figure.caption.25}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces A (currently) dormant volcano and its surrounding.\relax }}{18}{figure.caption.26}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Noise comparison}}{19}{figure.caption.27}
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Shadow mapping, acne comparison}}{20}{figure.caption.28}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Percentage Closer Filtering}}{21}{figure.caption.29}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Noise comparison}}{21}{figure.caption.30}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Noise comparison}}{22}{figure.caption.30}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Noise comparison}}{22}{figure.caption.31}
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Cascade Shadow Mapping}}{22}{figure.caption.32}
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Game industry standard shadow quality comparison}}{23}{figure.caption.33}
